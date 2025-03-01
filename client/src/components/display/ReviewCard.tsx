@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { Rating, Review, Vote } from '@/types/review';
@@ -22,15 +23,21 @@ import { ratingItem } from '@/lib/display';
 import { DeleteReviewConfirmationDialog } from '../dialogs/DeleteReviewConfirmationDialog';
 import { ReportDialog } from '../dialogs/ReportDialog';
 
-export function ReviewCard({
-  review,
-  preview,
-  onDelete,
-}: {
+interface PreviewReviewCardProps {
   review: Review;
-  preview: boolean;
+  preview: true;
+  onDelete?: never;
+}
+
+interface FullReviewCardProps {
+  review: Review;
+  preview: false;
   onDelete: (deletedId: string) => void;
-}) {
+}
+
+type ReviewCardProps = PreviewReviewCardProps | FullReviewCardProps;
+
+export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
   const [vote, setVote] = useState<Vote>(review.vote || Vote.noVote);
   const [totalVotes, setTotalVotes] = useState<number>(review.votes || 0);
   const { userLoggedIn, currentUser } = useAuth();
@@ -52,10 +59,10 @@ export function ReviewCard({
       return;
     }
     postDownVote(review);
-    if (vote == 'down') {
+    if (vote === 'down') {
       setVote(Vote.noVote);
       setTotalVotes((prev) => prev + 1);
-    } else if (vote == 'up') {
+    } else if (vote === 'up') {
       setVote(Vote.down);
       setTotalVotes((prev) => prev - 2);
     } else {
@@ -78,10 +85,10 @@ export function ReviewCard({
       return;
     }
     postUpVote(review);
-    if (vote == 'up') {
+    if (vote === 'up') {
       setVote(Vote.noVote);
       setTotalVotes((prev) => prev - 1);
-    } else if (vote == 'down') {
+    } else if (vote === 'down') {
       setVote(Vote.up);
       setTotalVotes((prev) => prev + 2);
     } else {
@@ -91,8 +98,6 @@ export function ReviewCard({
   };
 
   const openDialog = (value: React.Dispatch<React.SetStateAction<boolean>>) => {
-    // setShowReportDialog(true)
-
     if (!userLoggedIn) {
       toast({
         title: `Uh oh! You're not logged in!`,
@@ -119,12 +124,12 @@ export function ReviewCard({
     <div className="flex items-center justify-center gap-4">
       {!preview && (
         <div className="flex items-center justify-center flex-col">
-          <div className={`hover:bg-zinc-200 ${vote == 'up' ? 'text-red-600' : ''} rounded-2xl p-1`} onClick={upVote}>
+          <div className={`hover:bg-zinc-200 ${vote === 'up' ? 'text-red-600' : ''} rounded-2xl p-1`} onClick={upVote}>
             <ChevronUp />
           </div>
           {totalVotes}
           <div
-            className={`hover:bg-zinc-200 ${vote == 'down' ? 'text-red-600' : ''} rounded-2xl p-1`}
+            className={`hover:bg-zinc-200 ${vote === 'down' ? 'text-red-600' : ''} rounded-2xl p-1`}
             onClick={downVote}
           >
             <ChevronDown />
@@ -133,27 +138,38 @@ export function ReviewCard({
       )}
       <Card className="p-2 w-full hover:shadow-xl grid md:grid-cols-4 md:grid-rows-[auto auto min-content] gap-2">
         <CardContent className="border rounded-lg p-2 md:row-span-2 md:col-span-1">
-          {ratingItem({
-            type: 'overall',
-            label: 'Overall',
-            value: review?.overall_score || 0,
-          })}
-
-          {ratingItem({
-            type: 'easy',
-            label: 'Easiness',
-            value: review?.easy_score || 0,
-          })}
-          {ratingItem({
-            type: 'interest',
-            label: 'Interest',
-            value: review?.interest_score || 0,
-          })}
-          {ratingItem({
-            type: 'use',
-            label: 'Usefulness',
-            value: review?.useful_score || 0,
-          })}
+          {ratingItem(
+            {
+              type: 'overall',
+              label: 'Overall',
+              value: review?.overall_score || 0,
+            },
+            0
+          )}
+          {ratingItem(
+            {
+              type: 'easy',
+              label: 'Easiness',
+              value: review?.easy_score || 0,
+            },
+            0
+          )}
+          {ratingItem(
+            {
+              type: 'interest',
+              label: 'Interest',
+              value: review?.interest_score || 0,
+            },
+            0
+          )}
+          {ratingItem(
+            {
+              type: 'use',
+              label: 'Usefulness',
+              value: review?.useful_score || 0,
+            },
+            0
+          )}
         </CardContent>
         <CardHeader className="border rounded-lg md:col-span-3 md:row-span-2">
           <CardDescription className="flex gap-2 flex-col justify-between h-full">
@@ -163,7 +179,6 @@ export function ReviewCard({
                 {review?.course_comments}
               </p>
             </div>
-
             {review?.professor_comments && (
               <div className="grid">
                 <Label htmlFor="courseID">Comments on the Professor:</Label>
@@ -172,7 +187,6 @@ export function ReviewCard({
                 </p>
               </div>
             )}
-
             {review?.advice_comments && (
               <div className="grid">
                 <Label htmlFor="courseID">Advice:</Label>
@@ -181,8 +195,7 @@ export function ReviewCard({
                 </p>
               </div>
             )}
-
-            <Separator orientation="horizontal" className="" />
+            <Separator orientation="horizontal" />
             <div className="flex items-center gap-2 flex-wrap">
               <div className="flex items-center gap-2">
                 <p>Grade: </p>
@@ -238,19 +251,14 @@ export function ReviewCard({
                   {review?.professor_name}
                 </p>
               </span>
-
               <Separator orientation="vertical" className="hidden sm:block min-h-full" />
-
               <p id="termTaken" className="leading-7 break-words overflow-auto">
                 {review?.term_taken} {review?.year_taken}
               </p>
-
               <Separator orientation="vertical" className="hidden sm:block min-h-full" />
-
               <p id="dateUploaded" className="leading-7 break-words overflow-auto">
                 {review?.date_uploaded.slice(0, 10)}
               </p>
-
               {!preview && (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -260,10 +268,8 @@ export function ReviewCard({
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-56">
                     <DropdownMenuGroup>
-                      {currentUser && currentUser.uid == review.user_id ? (
-                        <>
-                          <DropdownMenuItem onClick={() => openDialog(setShowDeleteDialog)}>Delete</DropdownMenuItem>
-                        </>
+                      {currentUser && currentUser.uid === review.user_id ? (
+                        <DropdownMenuItem onClick={() => openDialog(setShowDeleteDialog)}>Delete</DropdownMenuItem>
                       ) : (
                         <DropdownMenuItem onClick={() => openDialog(setShowReportDialog)}>Report</DropdownMenuItem>
                       )}
@@ -275,7 +281,7 @@ export function ReviewCard({
           </CardDescription>
         </CardHeader>
       </Card>
-      {showDeleteDialog && (
+      {!preview && showDeleteDialog && (
         <DeleteReviewConfirmationDialog
           open={showDeleteDialog}
           onOpenChange={setShowDeleteDialog}

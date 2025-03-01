@@ -5,6 +5,7 @@ import { Rating } from '@/types/review';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { Separator } from '../ui/separator';
+import { ratingItem } from '@/lib/display';
 
 export function CourseCard({ course }: { course: Course }) {
   const checkColor = (color: number) => {
@@ -17,21 +18,6 @@ export function CourseCard({ course }: { course: Course }) {
     } else {
       return 'bg-green-600';
     }
-  };
-
-  const ratingItem = (rating: Rating) => {
-    return (
-      <div className="flex items-center gap-2 p-1">
-        <div
-          className={`${checkColor(
-            rating.value
-          )} flex items-center justify-center w-8 h-8 rounded-lg leading-7 font-semibold text-white`}
-        >
-          {rating.value}
-        </div>
-        {rating.label}
-      </div>
-    );
   };
 
   return (
@@ -54,27 +40,39 @@ export function CourseCard({ course }: { course: Course }) {
             </CardDescription>
           </CardHeader>
           <CardContent className="border rounded-lg m-2 p-2">
-            {ratingItem({
-              type: 'overall',
-              label: 'Overall',
-              value: course?.overall_score || 0,
-            })}
+            {ratingItem(
+              {
+                type: 'overall',
+                label: 'Overall',
+                value: course?.overall_score || 0,
+              },
+              1
+            )}
 
-            {ratingItem({
-              type: 'easy',
-              label: 'Easiness',
-              value: course?.easy_score || 0,
-            })}
-            {ratingItem({
-              type: 'interest',
-              label: 'Interest',
-              value: course?.interest_score || 0,
-            })}
-            {ratingItem({
-              type: 'use',
-              label: 'Usefulness',
-              value: course?.useful_score || 0,
-            })}
+            {ratingItem(
+              {
+                type: 'easy',
+                label: 'Easiness',
+                value: course?.easy_score || 0,
+              },
+              1
+            )}
+            {ratingItem(
+              {
+                type: 'interest',
+                label: 'Interest',
+                value: course?.interest_score || 0,
+              },
+              1
+            )}
+            {ratingItem(
+              {
+                type: 'use',
+                label: 'Usefulness',
+                value: course?.useful_score || 0,
+              },
+              1
+            )}
           </CardContent>
         </Card>
       </Link>

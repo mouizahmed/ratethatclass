@@ -15,7 +15,8 @@ import { useAlert } from '@/contexts/alertContext';
 import { sortingOptions } from '@/lib/constants';
 import { DialogForm, StepProps } from '@/components/forms/DialogForm';
 import { ReviewMetadataForm } from '@/components/forms/steps/ReviewMetadataForm';
-import { newCourseForm } from '@/components/forms/schema';
+// import { newCourseForm } from '@/components/forms/schema';
+import { getNewCourseFormSchema } from '@/components/forms/schema';
 import { CourseForm } from '@/components/forms/steps/CourseForm';
 import { ReviewCommentsForm } from '@/components/forms/steps/ReviewCommentsForm';
 import { ReviewRatingForm } from '@/components/forms/steps/ReviewRatingForm';
@@ -26,10 +27,12 @@ import { postCourse } from '@/requests/postRequests';
 import { BreadCrumb } from '@/components/display/BreadCrumb';
 import Link from 'next/link';
 import { Spinner } from '@/components/ui/Spinner';
+import { useToast } from '@/hooks/use-toast';
 
 export default function Page() {
   const { universityTag } = useParams();
   const { addAlert } = useAlert();
+  const { toast } = useToast();
 
   const [university, setUniversity] = useState<University>();
   const [courseList, setCourseList] = useState<Course[]>();
@@ -116,11 +119,11 @@ export default function Page() {
     [courseList, searchValue, selectedDepartments, order, orderBy]
   );
 
-  const steps: StepProps<typeof newCourseForm>[] = [
+  const steps: StepProps<ReturnType<typeof getNewCourseFormSchema>>[] = [
     {
       title: 'Add Course',
       description: 'Please provide your personal details',
-      content: () => <CourseForm departmentList={departmentList} />,
+      content: () => <CourseForm departmentList={departmentList} courseList={courseList ?? []} />,
       fields: ['courseStep'],
     },
     {
@@ -247,7 +250,8 @@ export default function Page() {
                     triggerButton={<Button className="w-full">Add Course</Button>}
                     steps={steps}
                     onSubmit={handleSubmit}
-                    schema={newCourseForm}
+                    // Dynamically build the schema using the current courseList.
+                    schema={getNewCourseFormSchema(courseList ?? [])}
                   />
                 </div>
               </div>

@@ -1,9 +1,7 @@
 'use client';
-import { useFormContext, Controller } from 'react-hook-form';
-import { Label } from '../../ui/label';
+import { useFormContext } from 'react-hook-form';
 import { Input } from '../../ui/input';
 import { FormField, FormItem, FormLabel, FormMessage } from '../../ui/form';
-import { RatingIndicator } from '../../common/RatingIndicator';
 import {
   deliveryOptions,
   evaluationOptions,
@@ -31,7 +29,7 @@ export function ReviewMetadataForm({ professorOptions }: { professorOptions?: Re
             <FormLabel>Professor Name</FormLabel>
             {form.getValues().courseStep ? (
               <Input id="name" {...form.register('reviewMetadataStep.professorName')} />
-            ) : newProfessor ? (
+            ) : form.watch('reviewMetadataStep.newProfessor') ? (
               <Input id="name" {...form.register('reviewMetadataStep.professorName')} />
             ) : (
               <Dropdown
@@ -43,22 +41,29 @@ export function ReviewMetadataForm({ professorOptions }: { professorOptions?: Re
                 returnType="value"
               />
             )}
-
             <FormMessage />
           </FormItem>
         )}
       />
 
       {!form.getValues().courseStep && (
-        <a
-          href="#"
-          onClick={() => {
-            setNewProfessor((prev) => !prev);
-          }}
-          className="mt-[-10px] inline-block text-sm underline-offset-4 hover:underline"
-        >
-          {newProfessor ? `Return to List` : `Add Professor`}
-        </a>
+        <FormField
+          control={form.control}
+          name="reviewMetadataStep.newProfessor"
+          render={({ field: { value, onChange } }) => (
+            <a
+              href=""
+              onClick={(e) => {
+                e.preventDefault();
+                onChange(!value);
+                form.setValue('reviewMetadataStep.professorName', '');
+              }}
+              className="mt-[-10px] inline-block text-sm underline-offset-4 hover:underline"
+            >
+              {value ? `Return to List` : `Add Professor`}
+            </a>
+          )}
+        />
       )}
 
       <div className="grid grid-cols-2 gap-2">

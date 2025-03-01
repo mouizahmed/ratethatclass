@@ -12,7 +12,7 @@ export const checkColor = (color: number) => {
   }
 };
 
-export const ratingItem = (rating: Rating) => {
+export const ratingItem = (rating: Rating, decimals: number) => {
   return (
     <div className="flex items-center gap-2 p-1">
       <div
@@ -20,7 +20,7 @@ export const ratingItem = (rating: Rating) => {
           rating.value
         )} flex items-center justify-center w-8 h-8 rounded-lg leading-7 font-semibold text-white`}
       >
-        {rating.value}
+        {Number(rating.value).toFixed(decimals)}
       </div>
       {rating.label}
     </div>

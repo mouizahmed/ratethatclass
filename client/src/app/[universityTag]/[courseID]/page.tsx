@@ -379,27 +379,39 @@ export default function Page() {
 
               <Card className="p-2 w-full max-w-3xl hover:shadow-xl flex flex-col gap-2">
                 <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4 rounded-lg p-2">
-                  {ratingItem({
-                    type: 'overall',
-                    label: 'Overall',
-                    value: overallScore || 0,
-                  })}
+                  {ratingItem(
+                    {
+                      type: 'overall',
+                      label: 'Overall',
+                      value: overallScore || 0,
+                    },
+                    1
+                  )}
 
-                  {ratingItem({
-                    type: 'easy',
-                    label: 'Easiness',
-                    value: easyScore || 0,
-                  })}
-                  {ratingItem({
-                    type: 'interest',
-                    label: 'Interest',
-                    value: interestScore || 0,
-                  })}
-                  {ratingItem({
-                    type: 'use',
-                    label: 'Usefulness',
-                    value: usefulScore || 0,
-                  })}
+                  {ratingItem(
+                    {
+                      type: 'easy',
+                      label: 'Easiness',
+                      value: easyScore || 0,
+                    },
+                    1
+                  )}
+                  {ratingItem(
+                    {
+                      type: 'interest',
+                      label: 'Interest',
+                      value: interestScore || 0,
+                    },
+                    1
+                  )}
+                  {ratingItem(
+                    {
+                      type: 'use',
+                      label: 'Usefulness',
+                      value: usefulScore || 0,
+                    },
+                    1
+                  )}
                 </CardContent>
                 <Separator />
                 <CardDescription className="flex items-center justify-center">{totalReviews} Reviews</CardDescription>

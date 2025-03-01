@@ -46,10 +46,10 @@ SELECT * FROM departments WHERE department_id = $1
 export const getCourses = `
 SELECT 
     courses.*,
-    ROUND(COALESCE(AVG(reviews.overall_score), 0), 0) AS overall_score,
-    ROUND(COALESCE(AVG(reviews.easy_score), 0), 0) AS easy_score,
-    ROUND(COALESCE(AVG(reviews.interest_score), 0), 0) AS interest_score,
-    ROUND(COALESCE(AVG(reviews.useful_score), 0), 0) AS useful_score,
+    ROUND(COALESCE(AVG(reviews.overall_score), 0), 1) AS overall_score,
+    ROUND(COALESCE(AVG(reviews.easy_score), 0), 1) AS easy_score,
+    ROUND(COALESCE(AVG(reviews.interest_score), 0), 1) AS interest_score,
+    ROUND(COALESCE(AVG(reviews.useful_score), 0), 1) AS useful_score,
     COUNT(reviews.review_id) as review_num
 FROM 
     courses
@@ -62,10 +62,10 @@ GROUP BY
 export const getCoursesByUniversityID = `
 SELECT
     courses.*,
-    ROUND(COALESCE(AVG(reviews.overall_score), 0), 0) AS overall_score,
-    ROUND(COALESCE(AVG(reviews.easy_score), 0), 0) AS easy_score,
-    ROUND(COALESCE(AVG(reviews.interest_score), 0), 0) AS interest_score,
-    ROUND(COALESCE(AVG(reviews.useful_score), 0), 0) AS useful_score,
+    ROUND(COALESCE(AVG(reviews.overall_score), 0), 1) AS overall_score,
+    ROUND(COALESCE(AVG(reviews.easy_score), 0), 1) AS easy_score,
+    ROUND(COALESCE(AVG(reviews.interest_score), 1), 1) AS interest_score,
+    ROUND(COALESCE(AVG(reviews.useful_score), 0), 1) AS useful_score,
     COUNT(reviews.review_id) as review_num,
     university_name,
     department_name
@@ -171,13 +171,6 @@ FROM
     professors
 WHERE 
     course_id = $1;
-`;
-
-export const linkProfessorToDepartment = `
-INSERT INTO
-    professors_departments (professor_id, department_id)
-VALUES
-    ($1, $2)
 `;
 
 export const getReviews = `

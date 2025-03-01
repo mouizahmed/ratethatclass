@@ -55,10 +55,17 @@ export function DialogForm<T extends ZodObject<any>>({
       if (currentStep < steps.length - 1) {
         setCurrentStep(currentStep + 1);
       } else {
-        methods.handleSubmit(onSubmit)();
-        setOpen(false);
-        setCurrentStep(0);
-        methods.reset();
+        try {
+          await methods.handleSubmit(onSubmit)();
+          setOpen(false);
+          setCurrentStep(0);
+          methods.reset();
+        } catch (error) {
+          toast({
+            title: `Uh oh! There was an error submitting your request.`,
+            description: (error as Error).message,
+          });
+        }
       }
     }
   };
