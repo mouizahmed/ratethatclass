@@ -6,6 +6,7 @@ import { AuthProvider } from '@/contexts/authContext';
 import { AlertProvider } from '@/contexts/alertContext';
 import { Toaster } from '@/components/ui/toaster';
 import Footer from '@/components/display/Footer';
+import AdSense from '@/components/adsense/AdSense';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,6 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <AdSense pId={process.env.NEXT_PUBLIC_ADSENSE_CODE ?? ''} />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning={true}>
         <AuthProvider>
           <AlertProvider>

@@ -56,6 +56,13 @@ export const workloadOptions: Record<string, string> = {
   'Very Heavy': 'Very Heavy',
 };
 
+export const courseSortingOptions: Record<string, string> = {
+  review_num: 'Review Count',
+  overall_score: 'Overall',
+  easy_score: 'Easiness',
+  useful_score: 'Usefulness',
+};
+
 export const sortingOptions: Record<string, string> = {
   votes: 'Votes',
   overall_score: 'Overall',

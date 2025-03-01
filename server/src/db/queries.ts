@@ -39,10 +39,6 @@ export const getDepartmentByID = `
 SELECT * FROM departments WHERE department_id = $1
 `;
 
-// export const addDepartment = `
-// INSERT INTO departments (department_name, university_id) VALUES ($1, $2)
-// `;
-
 export const getCourses = `
 SELECT 
     courses.*,
@@ -64,7 +60,7 @@ SELECT
     courses.*,
     ROUND(COALESCE(AVG(reviews.overall_score), 0), 1) AS overall_score,
     ROUND(COALESCE(AVG(reviews.easy_score), 0), 1) AS easy_score,
-    ROUND(COALESCE(AVG(reviews.interest_score), 1), 1) AS interest_score,
+    ROUND(COALESCE(AVG(reviews.interest_score), 0), 1) AS interest_score,
     ROUND(COALESCE(AVG(reviews.useful_score), 0), 1) AS useful_score,
     COUNT(reviews.review_id) as review_num,
     university_name,
@@ -146,13 +142,6 @@ WHERE
 GROUP BY
     courses.course_id, departments.department_id, universities.university_id
 `;
-
-// export const addCourse = `
-// INSERT INTO
-//     courses (department_id, couse_tag, course_name)
-// VALUES
-//     ($1, $2, $3)
-// `;
 
 export const getProfessors = `
 SELECT * FROM professors
@@ -246,13 +235,6 @@ UPDATE reviews
     SET votes = votes + $1
 WHERE review_id = $2
 `;
-
-// export const addReview = `
-// INSERT INTO
-//     reviews (course_id, professor_id, user_id, grade, delivery_method, workload, textbook_use, evaluation_methods, overall_score, easy_score, interest_score, useful_score, term_taken, year_taken, course_comments, professor_comments, advice_comments)
-// VALUES
-//     ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
-// `;
 
 export const getUserReviews = `
 SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, professors.professor_name, departments.department_id, departments.department_name, universities.university_id, universities.university_name, user_votes.vote FROM reviews

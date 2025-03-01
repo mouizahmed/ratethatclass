@@ -12,7 +12,7 @@ import { ArrowUpWideNarrow, ArrowDownWideNarrow } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getComparator } from '@/lib/utils';
 import { useAlert } from '@/contexts/alertContext';
-import { sortingOptions } from '@/lib/constants';
+import { courseSortingOptions } from '@/lib/constants';
 import { DialogForm, StepProps } from '@/components/forms/DialogForm';
 import { ReviewMetadataForm } from '@/components/forms/steps/ReviewMetadataForm';
 import { getNewCourseFormSchema } from '@/components/forms/schema';
@@ -39,7 +39,7 @@ export default function Page() {
   const [searchValue, setSearchValue] = useState<string>('');
   const [selectedSearchValue, setSelectedSearchValue] = useState<string>('');
   const [order, setOrder] = useState<'asc' | 'desc'>('desc');
-  const [orderBy, setOrderBy] = useState<string>(Object.keys(sortingOptions)[0] || '');
+  const [orderBy, setOrderBy] = useState<keyof typeof courseSortingOptions>(Object.keys(courseSortingOptions)[0] || '');
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -261,11 +261,11 @@ export default function Page() {
                 </div>
                 <div className="flex items-center justify-center gap-5">
                   <Dropdown
-                    data={sortingOptions}
+                    data={courseSortingOptions}
                     value={orderBy}
                     setValue={setOrderBy}
                     placeholder="Sort By"
-                    initialValue={Object.keys(sortingOptions)[0] || ''}
+                    initialValue={Object.keys(courseSortingOptions)[0] || ''}
                     returnType="key"
                   />
                   <Button variant="outline" className="h-10 w-10" onClick={updateSort}>
