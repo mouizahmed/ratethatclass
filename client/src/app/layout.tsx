@@ -31,7 +31,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <AdSense pId={process.env.NEXT_PUBLIC_ADSENSE_CODE ?? ''} />
+        <AdSense pId={'ca-pub-1038054889464988'} />
+        <meta name="google-adsense-account" content="ca-pub-1038054889464988"></meta>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning={true}>
         <AuthProvider>
