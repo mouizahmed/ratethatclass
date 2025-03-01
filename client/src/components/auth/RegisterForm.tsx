@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { doRegistrationWithEmailPassword } from '@/firebase/auth';
 import { Spinner } from '../ui/Spinner';
+import Link from 'next/link';
 
 export function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
@@ -104,9 +105,9 @@ export function RegisterForm() {
                 </div>
                 <div className="mt-4 text-center text-sm">
                   Already have an account?{' '}
-                  <a href="/login" className="underline underline-offset-4">
+                  <Link href="/login" className="underline underline-offset-4">
                     Log In
-                  </a>
+                  </Link>
                 </div>
               </form>
             </CardContent>

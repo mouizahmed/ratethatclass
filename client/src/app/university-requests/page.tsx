@@ -9,8 +9,7 @@ import { getRequestedUniversities } from '@/requests/getRequests';
 import { postUniversityRequest } from '@/requests/postRequests';
 import { voteUniversity } from '@/requests/putRequests';
 import { RequestedUniversity } from '@/types/university';
-import React from 'react';
-import react, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 export default function Home() {
   const [universityName, setUniversityName] = useState<string>('');
@@ -22,7 +21,7 @@ export default function Home() {
   const { addAlert } = useAlert();
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
+    const { value } = e.target;
     setUniversityName(value);
   };
 
@@ -78,22 +77,24 @@ export default function Home() {
       }
     };
     fetchData();
-  }, [refresh]);
+  }, [refresh, addAlert]);
 
-  function filterSearch(university: RequestedUniversity) {
-    let searchCheck = true;
-    let departmentCheck = true;
+  const filterSearch = useCallback(
+    (university: RequestedUniversity) => {
+      let searchCheck = true;
 
-    if (universityName.length !== 0) {
-      searchCheck = university.university_name.toLowerCase().includes(universityName.toLowerCase());
-    }
+      if (universityName.length !== 0) {
+        searchCheck = university.university_name.toLowerCase().includes(universityName.toLowerCase());
+      }
 
-    return searchCheck;
-  }
+      return searchCheck;
+    },
+    [universityName]
+  );
 
   const sortedRows = React.useMemo(
     () => [...(requestedUniversityList || [])].filter(filterSearch),
-    [requestedUniversityList, universityName]
+    [requestedUniversityList, filterSearch]
   );
 
   return (

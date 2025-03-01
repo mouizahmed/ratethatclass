@@ -16,7 +16,6 @@ export default function Home() {
   const [chunkedUniversityList, setChunkedUniversityList] = useState<University[][]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [selectedValue, setSelectedValue] = useState<string>('');
-  const [maxPages, setMaxPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const { addAlert } = useAlert();
 
@@ -24,7 +23,7 @@ export default function Home() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const universities = await getUniversities(setUniversityList, setMaxPages);
+        const universities = await getUniversities(setUniversityList);
         const chunkedList = chunk(universities);
         setChunkedUniversityList(chunkedList);
         setLoading(false);
@@ -36,7 +35,7 @@ export default function Home() {
     };
 
     fetchData();
-  }, []);
+  }, [addAlert]);
 
   const chunk = (list: University[]) => {
     const chunks = [];
@@ -68,14 +67,10 @@ export default function Home() {
         />
         <div className="flex justify-center">
           <p className="leading-7 text-sm">
-            Don't see your school?{' '}
-            <a
-              href="/university-requests"
-              // onClick={() => setForgotPassword((prev) => !prev)}
-              className="ml-auto inline-block text-sm underline-offset-4 underline"
-            >
+            Don&apos;t see your school?{' '}
+            <Link href="/university-requests" className="ml-auto inline-block text-sm underline-offset-4 underline">
               Click Here
-            </a>
+            </Link>
           </p>
         </div>
       </div>

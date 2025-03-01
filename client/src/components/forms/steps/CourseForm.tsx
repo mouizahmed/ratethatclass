@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { Input } from '../../ui/input';
 import { FormField, FormItem, FormLabel, FormMessage } from '../../ui/form';
-import React, { useState } from 'react';
+import React from 'react';
 import { Dropdown } from '../../common/Dropdown';
 import { Course } from '@/types/university';
 
@@ -25,7 +25,7 @@ export function CourseForm({
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Name</FormLabel>
-              <Input id="name" {...form.register('courseStep.courseName')} />
+              <Input id="name" {...form.register(field.name)} />
               <FormMessage />
             </FormItem>
           )}
@@ -40,7 +40,7 @@ export function CourseForm({
               <FormLabel>Course Tag</FormLabel>
               <Input
                 id="courseTag"
-                {...form.register('courseStep.courseTag', {
+                {...form.register(field.name, {
                   validate: (value) =>
                     !courseList.find((course) => course.course_tag === value) || 'This course tag already exists',
                 })}
@@ -54,17 +54,17 @@ export function CourseForm({
         <FormField
           control={form.control}
           name="courseStep.departmentName"
-          render={({ field: { value, onChange } }) => (
+          render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Department Name</FormLabel>
               {form.watch('courseStep.newDepartment') ? (
-                <Input id="name" {...form.register('courseStep.departmentName')} />
+                <Input id="name" {...form.register(field.name)} />
               ) : (
                 <Dropdown
                   data={departmentList}
                   placeholder={'Select Department'}
-                  value={form.watch('courseStep.departmentName')}
-                  setValue={(val) => form.setValue('courseStep.departmentName', val)}
+                  value={form.watch(field.name)}
+                  setValue={(val) => form.setValue(field.name, val)}
                   initialValue={''}
                   returnType="value"
                 />
@@ -76,17 +76,17 @@ export function CourseForm({
         <FormField
           control={form.control}
           name="courseStep.newDepartment"
-          render={({ field: { value, onChange } }) => (
+          render={({ field }) => (
             <a
               href=""
               onClick={(e) => {
                 e.preventDefault();
-                onChange(!value);
+                field.onChange(!field.value);
                 form.setValue('courseStep.departmentName', '');
               }}
               className="mt-[-10px] inline-block text-sm underline-offset-4 hover:underline"
             >
-              {value ? `Return to List` : `Add Department`}
+              {field.value ? `Return to List` : `Add Department`}
             </a>
           )}
         />

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
-import { Rating, Review, Vote } from '@/types/review';
+import { Review, Vote } from '@/types/review';
 import { Label } from '@/components/ui/label';
 import { BadgeCheck, ChevronDown, ChevronUp, EllipsisVertical } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';

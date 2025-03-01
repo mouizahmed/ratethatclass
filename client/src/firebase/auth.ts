@@ -1,14 +1,8 @@
 import { auth } from './firebase';
 import {
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
   sendEmailVerification,
-  updatePassword,
-  updateProfile,
-  signInWithPopup,
-  GoogleAuthProvider,
-  signInAnonymously,
   signInWithCustomToken,
   User,
 } from 'firebase/auth';
@@ -32,9 +26,8 @@ export const doRegistrationWithEmailPassword = async (displayName: string, email
     await sendEmailVerification(user);
 
     await user.reload();
-  } catch (error: any) {
+  } catch (error) {
     console.log('Error during registration:', error);
-
     throw error;
   }
 };

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { SQLDate } from '@/types';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -24,7 +25,7 @@ export function descendingComparator(a: { [x: string]: number }, b: { [x: string
   return 0;
 }
 
-export function getComparator(order: 'asc' | 'desc', orderBy: any) {
+export function getComparator(order: 'asc' | 'desc', orderBy: string) {
   return order === 'desc'
     ? (a: any, b: any) => descendingComparator(a, b, orderBy)
     : (a: any, b: any) => -descendingComparator(a, b, orderBy);

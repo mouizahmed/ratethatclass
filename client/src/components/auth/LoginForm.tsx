@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'; // Usage: App router
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { doForgotPassword, doSignInWithEmailPassword } from '@/firebase/auth';
+import Link from 'next/link';
 
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
   const router = useRouter();
@@ -80,8 +81,11 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                       {forgotPassword ? (
                         <>
                           <a
-                            href="#"
-                            onClick={() => setForgotPassword((prev) => !prev)}
+                            href=""
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setForgotPassword((prev) => !prev);
+                            }}
                             className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                           >
                             Back to Login
@@ -103,13 +107,13 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                       <div className="grid gap-2">
                         <div className="flex items-center">
                           <Label htmlFor="password">Password</Label>
-                          <a
+                          <Link
                             href="#"
                             onClick={() => setForgotPassword((prev) => !prev)}
                             className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                           >
                             Forgot your password?
-                          </a>
+                          </Link>
                         </div>
                         <Input
                           id="password"
@@ -128,9 +132,9 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                 </div>
                 <div className="mt-4 text-center text-sm">
                   Don&apos;t have an account?{' '}
-                  <a href="/register" className="underline underline-offset-4">
+                  <Link href="/register" className="underline underline-offset-4">
                     Sign up
-                  </a>
+                  </Link>
                 </div>
               </form>
             </CardContent>

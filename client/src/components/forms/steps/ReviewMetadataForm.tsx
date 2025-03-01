@@ -13,11 +13,9 @@ import {
 } from '@/lib/constants';
 import { Dropdown } from '../../common/Dropdown';
 import { MultipleSelector } from '../../ui/multipleselector';
-import { useState } from 'react';
 
 export function ReviewMetadataForm({ professorOptions }: { professorOptions?: Record<string, string> }) {
   const form = useFormContext();
-  const [newProfessor, setNewProfessor] = useState<boolean>(professorOptions ? false : true);
 
   return (
     <div className="grid gap-4 py-4">

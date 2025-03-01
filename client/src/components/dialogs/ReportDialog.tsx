@@ -8,12 +8,9 @@ import {
   DialogHeader,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/contexts/authContext';
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '../ui/toast';
 import Link from 'next/link';
-import { Review } from '@/types/review';
-import { deleteReview } from '@/requests/deleteRequests';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
@@ -28,7 +25,6 @@ interface ReportDialogProps {
 
 export function ReportDialog({ id, type, open, onOpenChange }: ReportDialogProps) {
   const { toast } = useToast();
-  const { userLoggedIn, currentUser } = useAuth();
   const [reason, setReason] = useState<string>('');
 
   const handleReport = async () => {
@@ -59,7 +55,7 @@ export function ReportDialog({ id, type, open, onOpenChange }: ReportDialogProps
   };
 
   const handleChange = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
+    const { value } = e.target;
     setReason(value);
   };
 

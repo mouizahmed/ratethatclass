@@ -1,25 +1,11 @@
 'use client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Course } from '@/types/university';
-import { Rating } from '@/types/review';
-import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { Separator } from '../ui/separator';
 import { ratingItem } from '@/lib/display';
 
 export function CourseCard({ course }: { course: Course }) {
-  const checkColor = (color: number) => {
-    if (color == 0) {
-      return 'bg-gray-600';
-    } else if (color <= 2) {
-      return 'bg-red-600';
-    } else if (color > 2 && color < 4) {
-      return 'bg-yellow-600';
-    } else {
-      return 'bg-green-600';
-    }
-  };
-
   return (
     <div className="w-full">
       <Link href={`/${course.university_name.replace(' ', '_').toLowerCase()}/${course.course_tag.replace(' ', '_')}`}>

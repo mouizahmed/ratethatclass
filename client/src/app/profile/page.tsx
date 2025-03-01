@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '@/contexts/authContext';
 import { redirect } from 'next/navigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -22,37 +22,43 @@ export default function Page() {
   const [loading, setLoading] = useState<boolean>(false);
   const [emailSent, setEmailSent] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (!userLoggedIn) {
-      redirect('/login');
-    }
-
-    getPosts('all');
-  }, []);
-
   const clearPosts = () => {
     setUserReviews([]);
     setUpvotes([]);
     setDownvotes([]);
   };
 
-  const getPosts = async (type: 'all' | 'upvoted' | 'downvoted') => {
-    try {
-      setLoading(true);
-      if (type == 'all') {
-        await getUserPosts(setUserReviews);
-      } else if (type == 'upvoted') {
-        await getUserUpvotes(setUpvotes);
-      } else if (type == 'downvoted') {
-        await getUserDownvotes(setDownvotes);
+  const getPosts = useCallback(
+    async (type: 'all' | 'upvoted' | 'downvoted') => {
+      try {
+        setLoading(true);
+        if (type === 'all') {
+          await getUserPosts(setUserReviews);
+        } else if (type === 'upvoted') {
+          await getUserUpvotes(setUpvotes);
+        } else if (type === 'downvoted') {
+          await getUserDownvotes(setDownvotes);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        addAlert('destructive', (error as Error).message, 3000);
       }
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-      addAlert('destructive', (error as Error).message, 3000);
+    },
+    [addAlert]
+  );
+
+  useEffect(() => {
+    if (!userLoggedIn) {
+      redirect('/login');
     }
-  };
+
+    const fetchData = async () => {
+      getPosts('all');
+    };
+    fetchData();
+  }, [userLoggedIn, getPosts]);
 
   return (
     <div className="flex flex-col items-center gap-10 p-8 sm:p-20">

@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { getUniversity, getCoursesByUniversityID, getDepartmentsByUniversityID } from '@/requests/getRequests';
 import { Course, University } from '@/types/university';
@@ -15,24 +15,21 @@ import { useAlert } from '@/contexts/alertContext';
 import { sortingOptions } from '@/lib/constants';
 import { DialogForm, StepProps } from '@/components/forms/DialogForm';
 import { ReviewMetadataForm } from '@/components/forms/steps/ReviewMetadataForm';
-// import { newCourseForm } from '@/components/forms/schema';
 import { getNewCourseFormSchema } from '@/components/forms/schema';
 import { CourseForm } from '@/components/forms/steps/CourseForm';
 import { ReviewCommentsForm } from '@/components/forms/steps/ReviewCommentsForm';
 import { ReviewRatingForm } from '@/components/forms/steps/ReviewRatingForm';
 import ReviewConfirmationForm from '@/components/forms/steps/ReviewConfirmationForm';
 import { getCurrentSQLDate } from '@/lib/utils';
-import { Review, Vote } from '@/types/review';
+import { Delivery, Grade, Review, Term, Textbook, Vote, Workload } from '@/types/review';
 import { postCourse } from '@/requests/postRequests';
 import { BreadCrumb } from '@/components/display/BreadCrumb';
 import Link from 'next/link';
 import { Spinner } from '@/components/ui/Spinner';
-import { useToast } from '@/hooks/use-toast';
 
 export default function Page() {
   const { universityTag } = useParams();
   const { addAlert } = useAlert();
-  const { toast } = useToast();
 
   const [university, setUniversity] = useState<University>();
   const [courseList, setCourseList] = useState<Course[]>();
@@ -48,12 +45,40 @@ export default function Page() {
   useEffect(() => {
     if (!universityTag) return;
 
+    const loadUniversity = async () => {
+      const universityInfo: University = await getUniversity(universityTag as string);
+      setUniversity(universityInfo);
+
+      return universityInfo;
+    };
+
+    const loadCourses = async (university: University) => {
+      const courses: Course[] = await getCoursesByUniversityID(university.university_id);
+      setCourseList(courses);
+
+      return courses;
+    };
+
+    const loadDepartments = async (university: University) => {
+      const departments: Record<string, string> = await getDepartmentsByUniversityID(university.university_id).then(
+        (response) =>
+          response.reduce((acc, obj) => {
+            acc[obj.department_id] = obj.department_name;
+            return acc;
+          }, {} as Record<string, string>)
+      );
+
+      setDepartmentList(departments);
+
+      return departments;
+    };
+
     const fetchData = async () => {
       try {
         setLoading(true);
         const universityInfo: University = await loadUniversity();
-        const courses = await loadCourses(universityInfo);
-        const departments: Record<string, string> = await loadDepartments(universityInfo);
+        await loadCourses(universityInfo);
+        await loadDepartments(universityInfo);
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -63,60 +88,35 @@ export default function Page() {
     };
 
     fetchData();
-  }, [universityTag]);
-
-  const loadUniversity = async () => {
-    const universityInfo: University = await getUniversity(universityTag as string);
-    setUniversity(universityInfo);
-
-    return universityInfo;
-  };
-
-  const loadCourses = async (university: University) => {
-    const courses: Course[] = await getCoursesByUniversityID(university.university_id);
-    setCourseList(courses);
-
-    return courses;
-  };
-
-  const loadDepartments = async (university: University) => {
-    const departments: Record<string, string> = await getDepartmentsByUniversityID(university.university_id).then(
-      (response) =>
-        response.reduce((acc, obj) => {
-          acc[obj.department_id] = obj.department_name;
-          return acc;
-        }, {} as Record<string, string>)
-    );
-
-    setDepartmentList(departments);
-
-    return departments;
-  };
+  }, [universityTag, addAlert]);
 
   function updateSort() {
     setOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
   }
 
-  function filterSearch(course: Course) {
-    let searchCheck = true;
-    let departmentCheck = true;
+  const filterSearch = useCallback(
+    (course: Course) => {
+      let searchCheck = true;
+      let departmentCheck = true;
 
-    if (searchValue.length !== 0) {
-      searchCheck =
-        course.course_name.toLowerCase().includes(searchValue.toLowerCase()) ||
-        course.course_tag.toLowerCase().includes(searchValue.toLowerCase());
-    }
+      if (searchValue.length !== 0) {
+        searchCheck =
+          course.course_name.toLowerCase().includes(searchValue.toLowerCase()) ||
+          course.course_tag.toLowerCase().includes(searchValue.toLowerCase());
+      }
 
-    if (Object.keys(selectedDepartments).length !== 0) {
-      departmentCheck = Object.prototype.hasOwnProperty.call(selectedDepartments, course.department_id ?? '');
-    }
+      if (Object.keys(selectedDepartments).length !== 0) {
+        departmentCheck = Object.prototype.hasOwnProperty.call(selectedDepartments, course.department_id ?? '');
+      }
 
-    return searchCheck && departmentCheck;
-  }
+      return searchCheck && departmentCheck;
+    },
+    [searchValue, selectedDepartments]
+  );
 
   const sortedRows = React.useMemo(
     () => [...(courseList || [])].sort(getComparator(order, orderBy)).filter(filterSearch),
-    [courseList, searchValue, selectedDepartments, order, orderBy]
+    [courseList, order, orderBy, filterSearch]
   );
 
   const steps: StepProps<ReturnType<typeof getNewCourseFormSchema>>[] = [
@@ -162,7 +162,34 @@ export default function Page() {
     },
   ];
 
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data: {
+    courseStep: {
+      courseTag: string;
+      courseName: string;
+      departmentName: string;
+    };
+    reviewMetadataStep: {
+      professorName: string;
+      grade: Grade | null;
+      deliveryMethod: Delivery;
+      workload: Workload;
+      textbookUse: Textbook;
+      evaluationMethods: Record<string, boolean>;
+      yearTaken: string;
+      termTaken: Term;
+    };
+    reviewRatingsStep: {
+      overallScore: number;
+      easyScore: number;
+      interestScore: number;
+      usefulScore: number;
+    };
+    reviewCommentsStep: {
+      courseComments: string;
+      professorComments: string;
+      adviceComments: string;
+    };
+  }) => {
     const courseData: Course = {
       university_id: university?.university_id ?? '',
       university_name: university?.university_name ?? '',

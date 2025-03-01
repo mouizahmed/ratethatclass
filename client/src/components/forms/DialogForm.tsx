@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogTrigger,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogFooter, DialogTrigger, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { useForm, FormProvider, FieldName } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import DialogFormStep from './DialogFormStep';
 import { z, ZodObject } from 'zod';
@@ -17,13 +10,15 @@ import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { ToastAction } from '../ui/toast';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface StepProps<T extends ZodObject<any>> {
   title: string;
   description: string;
-  content: React.ComponentType<{ stepData: any }>;
+  content: React.ComponentType<{ stepData: Partial<z.infer<T>> }>;
   fields?: (keyof z.infer<T>)[];
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface SteppedFormDialogProps<T extends ZodObject<any>> {
   triggerButton: React.ReactNode;
   steps: StepProps<T>[]; // Fixed type
@@ -31,6 +26,7 @@ export interface SteppedFormDialogProps<T extends ZodObject<any>> {
   schema: T;
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function DialogForm<T extends ZodObject<any>>({
   triggerButton,
   steps,

@@ -1,27 +1,7 @@
 'use client';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-  SheetClose,
-} from '@/components/ui/sheet';
-import { LogOutIcon } from 'lucide-react';
-import { useAuth } from '@/contexts/authContext';
-import { doSignOut } from '@/firebase//auth';
-import { JSX, SVGProps } from 'react';
 
 export default function Footer() {
-  const { currentUser, userLoggedIn } = useAuth();
-
-  const signOut = async () => {
-    await doSignOut();
-    window.location.reload();
-  };
   return (
     <footer className="h-[100px] flex flex-col items-center">
       <div className="w-full max-w-3xl flex justify-between p-10">

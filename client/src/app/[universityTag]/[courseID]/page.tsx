@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import {
   getUniversity,
@@ -8,7 +8,7 @@ import {
   getProfessorsByCourseID,
 } from '@/requests/getRequests';
 import { Course, University, Professor } from '@/types/university';
-import { Review, Vote } from '@/types/review';
+import { Delivery, Evaluation, Grade, Review, Term, Textbook, Vote, Workload } from '@/types/review';
 import { UniversityHeader } from '@/components/display/UniversityHeader';
 import { MultipleSelector } from '@/components/ui/multipleselector';
 import { Dropdown } from '@/components/common/Dropdown';
@@ -19,7 +19,7 @@ import { ReviewCard } from '@/components/display/ReviewCard';
 import { useAlert } from '@/contexts/alertContext';
 import { Separator } from '@/components/ui/separator';
 import { DialogForm, StepProps } from '@/components/forms/DialogForm';
-import { newReviewForm, reviewMetadataSchema } from '@/components/forms/schema';
+import { newReviewForm } from '@/components/forms/schema';
 import { ReviewRatingForm } from '@/components/forms/steps/ReviewRatingForm';
 import { ReviewMetadataForm } from '@/components/forms/steps/ReviewMetadataForm';
 import { ReviewCommentsForm } from '@/components/forms/steps/ReviewCommentsForm';
@@ -70,13 +70,65 @@ export default function Page() {
   useEffect(() => {
     if (!universityTag && !courseID) return;
 
+    const loadUniversity = async (universityTag: string) => {
+      const universityInfo: University = await getUniversity(universityTag as string);
+      setUniversity(universityInfo);
+
+      return universityInfo;
+    };
+
+    const loadCourse = async (university: University) => {
+      const courseInfo: Course = await getCourseByCourseTag(
+        university.university_id,
+        (courseID as string).replace('_', ' ')
+      );
+      setCourse(courseInfo);
+
+      setTotalReviews(courseInfo.review_num ?? 0);
+      setOverallScore(courseInfo.overall_score ?? 0);
+      setEasyScore(courseInfo.easy_score ?? 0);
+      setInterestScore(courseInfo.interest_score ?? 0);
+      setUsefulScore(courseInfo.useful_score ?? 0);
+
+      return courseInfo;
+    };
+
+    const loadProfessors = async (course: Course) => {
+      if (!course.course_id) throw new Error('No course ID');
+
+      const getProfessorList: Professor[] = await getProfessorsByCourseID(course.course_id ?? '');
+      const professorRecord = getProfessorList.reduce((acc, professor) => {
+        acc[professor.professor_id] = professor.professor_name;
+        return acc;
+      }, {} as Record<string, string>);
+      setProfessorList(professorRecord);
+
+      return professorRecord;
+    };
+
+    const loadReviews = async (course: Course) => {
+      let getReviewList: Review[] = [];
+
+      if (!course.course_id) throw new Error('No course ID');
+
+      if (userLoggedIn) {
+        getReviewList = await getReviewsByCourseID(course.course_id ?? '');
+        setReviewList(getReviewList);
+      } else {
+        getReviewList = await getReviewsByCourseID(course.course_id ?? '');
+        setReviewList(getReviewList);
+      }
+
+      return getReviewList;
+    };
+
     const fetchData = async () => {
       try {
         setLoading(true);
         const universityInfo: University = await loadUniversity(universityTag as string);
         const courseInfo: Course = await loadCourse(universityInfo);
-        const professors: Record<string, string> = await loadProfessors(courseInfo);
-        const reviews: Review[] = await loadReviews(courseInfo);
+        await loadProfessors(courseInfo);
+        await loadReviews(courseInfo);
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -84,91 +136,41 @@ export default function Page() {
       }
     };
     fetchData();
-  }, []);
+  }, [courseID, universityTag, addAlert, userLoggedIn]);
 
-  const loadUniversity = async (universityTag: string) => {
-    const universityInfo: University = await getUniversity(universityTag as string);
-    setUniversity(universityInfo);
+  const filterSearch = useCallback(
+    (review: Review) => {
+      let professorCheck = true;
+      let termCheck = true;
+      let deliveryCheck = true;
 
-    return universityInfo;
-  };
+      if (Object.keys(selectedProfessors).length !== 0) {
+        professorCheck = review.professor_id ? Boolean(selectedProfessors[review.professor_id]) : false;
+      }
 
-  const loadCourse = async (university: University) => {
-    const courseInfo: Course = await getCourseByCourseTag(
-      university.university_id,
-      (courseID as string).replace('_', ' ')
-    );
-    setCourse(courseInfo);
+      if (term !== '') {
+        termCheck = review.term_taken === term;
+      }
 
-    setTotalReviews(courseInfo.review_num ?? 0);
-    setOverallScore(courseInfo.overall_score ?? 0);
-    setEasyScore(courseInfo.easy_score ?? 0);
-    setInterestScore(courseInfo.interest_score ?? 0);
-    setUsefulScore(courseInfo.useful_score ?? 0);
+      if (deliveryMethod !== '') {
+        deliveryCheck = review.delivery_method === deliveryMethod;
+      }
 
-    return courseInfo;
-  };
-
-  const loadProfessors = async (course: Course) => {
-    if (!course.course_id) throw new Error('No course ID');
-
-    const getProfessorList: Professor[] = await getProfessorsByCourseID(course.course_id ?? '');
-    const professorRecord = getProfessorList.reduce((acc, professor) => {
-      acc[professor.professor_id] = professor.professor_name;
-      return acc;
-    }, {} as Record<string, string>);
-    setProfessorList(professorRecord);
-
-    return professorRecord;
-  };
-
-  const loadReviews = async (course: Course) => {
-    let getReviewList: Review[] = [];
-
-    if (!course.course_id) throw new Error('No course ID');
-
-    if (userLoggedIn) {
-      getReviewList = await getReviewsByCourseID(course.course_id ?? '');
-      setReviewList(getReviewList);
-    } else {
-      getReviewList = await getReviewsByCourseID(course.course_id ?? '');
-      setReviewList(getReviewList);
-    }
-
-    return getReviewList;
-  };
-
-  function filterSearch(review: Review) {
-    let professorCheck = true;
-    let termCheck = true;
-    let deliveryCheck = true;
-
-    if (Object.keys(selectedProfessors).length !== 0) {
-      professorCheck = review.professor_id ? Boolean(selectedProfessors[review.professor_id]) : false;
-    }
-
-    if (term !== '') {
-      termCheck = review.term_taken === term;
-    }
-
-    if (deliveryMethod !== '') {
-      deliveryCheck = review.delivery_method === deliveryMethod;
-    }
-
-    return professorCheck && termCheck && deliveryCheck;
-  }
+      return professorCheck && termCheck && deliveryCheck;
+    },
+    [deliveryMethod, selectedProfessors, term]
+  );
 
   const sortedRows = React.useMemo(
     () => [...(reviewList || [])].sort(getComparator(order, orderBy)).filter(filterSearch),
-    [reviewList, selectedProfessors, order, orderBy, term, deliveryMethod]
+    [reviewList, order, orderBy, filterSearch]
   );
 
-  const calculateAverage = (attribute: keyof Review) => {
-    const totalScore = sortedRows.reduce((acc, review) => acc + (review[attribute] as number), 0);
-    return sortedRows.length ? totalScore / sortedRows.length : 0;
-  };
-
   useEffect(() => {
+    const calculateAverage = (attribute: keyof Review) => {
+      const totalScore = sortedRows.reduce((acc, review) => acc + (review[attribute] as number), 0);
+      return sortedRows.length ? totalScore / sortedRows.length : 0;
+    };
     setTotalReviews(sortedRows.length);
     setOverallScore(calculateAverage('overall_score'));
     setEasyScore(calculateAverage('easy_score'));
@@ -228,12 +230,25 @@ export default function Page() {
     },
   ];
 
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data: {
+    reviewMetadataStep: {
+      professorName: string;
+      grade: Grade;
+      deliveryMethod: Delivery;
+      workload: Workload;
+      textbookUse: Textbook;
+      evaluationMethods: Evaluation;
+      yearTaken: string;
+      termTaken: Term;
+    };
+    reviewRatingsStep: { overallScore: number; easyScore: number; interestScore: number; usefulScore: number };
+    reviewCommentsStep: { courseComments: string; professorComments: string; adviceComments: string };
+  }) => {
     const reviewData: Review = {
       course_id: course?.course_id,
       professor_name: data.reviewMetadataStep.professorName,
       user_id: currentUser?.uid,
-      grade: data.reviewMetadataStep.grade,
+      grade: data.reviewMetadataStep.grade as Grade,
       delivery_method: data.reviewMetadataStep.deliveryMethod,
       workload: data.reviewMetadataStep.workload,
       textbook_use: data.reviewMetadataStep.textbookUse,
