@@ -5,19 +5,19 @@ import { useAuth } from '@/contexts/authContext';
 import { redirect } from 'next/navigation';
 
 export default function Page() {
-    const { userLoggedIn } = useAuth();
+  const { userLoggedIn } = useAuth();
 
-    useEffect(() => {
-        if (userLoggedIn) {
-            redirect('/');
-        }
-    }, []);
+  useEffect(() => {
+    if (userLoggedIn) {
+      redirect('/');
+    }
+  }, []);
 
-    return (
-        <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-            <div className="w-full max-w-sm">
-                <LoginForm />
-            </div>
-        </div>
-    );
+  return (
+    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+      <div className="w-full max-w-sm">
+        <LoginForm />
+      </div>
+    </div>
+  );
 }

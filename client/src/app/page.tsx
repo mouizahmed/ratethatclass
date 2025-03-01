@@ -8,7 +8,6 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import Autoplay from 'embla-carousel-autoplay';
 import Link from 'next/link';
-import axios from 'axios';
 import { Spinner } from '@/components/ui/Spinner';
 import { useAlert } from '@/contexts/alertContext';
 
