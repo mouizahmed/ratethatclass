@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <AdSense pId={'ca-pub-1038054889464988'} />
+        <AdSense pId={'1038054889464988'} />
         <meta name="google-adsense-account" content="ca-pub-1038054889464988"></meta>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning={true}>
