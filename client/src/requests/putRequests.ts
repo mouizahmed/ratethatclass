@@ -10,6 +10,7 @@ export async function voteUniversity(universityID: string) {
       }
     );
   } catch (error) {
+    console.log(error);
     throw new Error('Could not post vote for university.');
   }
 }

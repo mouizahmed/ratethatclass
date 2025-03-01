@@ -1,9 +1,7 @@
-import React from 'react';
 import axios from 'axios';
 import { getCurrentUser } from '../firebase/auth';
 import { Course } from '@/types/university';
 import { Review } from '@/types/review';
-import { User } from 'firebase/auth';
 
 async function getIdToken() {
   const currentUser = await getCurrentUser();
@@ -40,6 +38,7 @@ export async function postReview(review: Review) {
       }
     );
   } catch (error) {
+    console.log(error);
     throw new Error('Could not post review.');
   }
 }
@@ -74,7 +73,7 @@ export async function postUpVote(review: Review) {
       { headers: { id_token: idToken } }
     );
   } catch (error) {
-    console.log('Error posting upvote:', error);
+    console.log(error);
     throw new Error('Could not post upvote.');
   }
 }
@@ -106,6 +105,7 @@ export async function postUniversityRequest(universityName: string) {
       }
     );
   } catch (error) {
+    console.log(error);
     throw new Error('Could not request university.');
   }
 }
@@ -125,6 +125,7 @@ export async function postReport(entityID: string, reason: string, type: string)
       { headers: { id_token: idToken } }
     );
   } catch (error) {
+    console.log(error);
     throw new Error('Could not send report.');
   }
 }

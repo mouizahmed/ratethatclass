@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export async function deleteReview(reviewID: string) {
   try {
-    let currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUser();
     let idToken = '';
     if (currentUser) idToken = await currentUser.getIdToken(true);
 

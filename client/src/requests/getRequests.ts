@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { getCurrentUser } from '../firebase/auth';
-import { Course, Department, Faculty, Professor, RequestedUniversity, University } from '@/types/university';
+import { Course, Department, Professor, RequestedUniversity, University } from '@/types/university';
 import { Review } from '@/types/review';
 
 const API_TIMEOUT = 3000;
@@ -16,6 +16,7 @@ export async function getUniversities(
     setMaxPages(Math.ceil(response.data.length / 6));
     return response.data;
   } catch (error) {
+    console.log(error);
     throw new Error('Could not retrieve universities');
   }
 }
@@ -28,6 +29,7 @@ export async function getRequestedUniversities() {
 
     return response.data as RequestedUniversity[];
   } catch (error) {
+    console.log(error);
     throw new Error('Could not retrieve requested universities.');
   }
 }
@@ -40,6 +42,7 @@ export async function getUniversity(universityName: string) {
     if (response.data.university_id == undefined) throw new Error();
     return response.data as University;
   } catch (error) {
+    console.log(error);
     throw new Error('Error retrieving university data.');
   }
 }
@@ -51,6 +54,7 @@ export async function getDepartmentsByUniversityID(universityID: string): Promis
     });
     return response.data as Department[];
   } catch (error) {
+    console.log(error);
     return [] as Department[];
   }
 }
@@ -63,6 +67,7 @@ export async function getCoursesByUniversityID(universityID: string) {
 
     return response.data as Course[];
   } catch (error) {
+    console.log(error);
     throw new Error(`Error retrieving course list.`);
   }
 }
@@ -89,13 +94,14 @@ export async function getCourseByCourseTag(universityID: string, courseTag: stri
 
     return response.data as Course;
   } catch (error) {
+    console.log(error);
     throw new Error(`Course ${courseTag} does not exist.`);
   }
 }
 
 export async function getReviewsByCourseID(courseID: string) {
   try {
-    let currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUser();
     let idToken = '';
     if (currentUser) idToken = await currentUser.getIdToken(true);
 
@@ -108,13 +114,14 @@ export async function getReviewsByCourseID(courseID: string) {
 
     return response.data as Review[];
   } catch (error) {
+    console.log(error);
     throw new Error('Could not retrive Reviews.');
   }
 }
 
 export async function getUserPosts(setListOfReviews: React.Dispatch<React.SetStateAction<Review[]>>) {
   try {
-    let currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUser();
     let idToken = '';
     if (currentUser) idToken = await currentUser.getIdToken(true);
 
@@ -126,13 +133,14 @@ export async function getUserPosts(setListOfReviews: React.Dispatch<React.SetSta
     });
     setListOfReviews(response.data);
   } catch (error) {
+    console.log(error);
     throw new Error("Could not retrieve user's posts.");
   }
 }
 
 export async function getUserUpvotes(setListOfReviews: React.Dispatch<React.SetStateAction<Review[]>>) {
   try {
-    let currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUser();
     let idToken = '';
     if (currentUser) idToken = await currentUser.getIdToken(true);
 
@@ -144,13 +152,14 @@ export async function getUserUpvotes(setListOfReviews: React.Dispatch<React.SetS
     });
     setListOfReviews(response.data);
   } catch (error) {
+    console.log(error);
     throw new Error("Could not retrieve user's upvotes.");
   }
 }
 
 export async function getUserDownvotes(setListOfReviews: React.Dispatch<React.SetStateAction<Review[]>>) {
   try {
-    let currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUser();
     let idToken = '';
     if (currentUser) idToken = await currentUser.getIdToken(true);
 
@@ -162,6 +171,7 @@ export async function getUserDownvotes(setListOfReviews: React.Dispatch<React.Se
     });
     setListOfReviews(response.data);
   } catch (error) {
+    console.log(error);
     throw new Error("Could not retrieve user's downvotes.");
   }
 }

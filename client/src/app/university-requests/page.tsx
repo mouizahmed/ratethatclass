@@ -133,7 +133,10 @@ export default function Home() {
                 <div className="flex justify-center">{university.university_name}</div>
                 <div className="flex justify-center items-center gap-4">{university.total_votes}</div>
                 <div className="flex justify-center items-center gap-4">
-                  <Button disabled={university.user_token} onClick={async () => await handleVote(university)}>
+                  <Button
+                    disabled={university.user_token ? true : false}
+                    onClick={async () => await handleVote(university)}
+                  >
                     Vote
                   </Button>
                 </div>

@@ -3,7 +3,6 @@ import { Command as CommandPrimitive } from 'cmdk';
 import { Check } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from './command';
-import { Input } from './input';
 import { SearchInput } from './searchInput';
 import { Popover, PopoverAnchor, PopoverContent } from './popover';
 import { Skeleton } from './skeleton';
