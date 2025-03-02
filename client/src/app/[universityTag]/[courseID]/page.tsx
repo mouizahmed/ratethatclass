@@ -52,7 +52,7 @@ export default function Page() {
   const [selectedProfessors, setSelectedProfessors] = useState<Record<string, string>>({});
   const [professorList, setProfessorList] = useState<Record<string, string>>({});
   const [order, setOrder] = useState<'asc' | 'desc'>('desc');
-  const [orderBy, setOrderBy] = useState<string>('votes');
+  const [orderBy, setOrderBy] = useState<keyof typeof sortingOptions>(Object.keys(sortingOptions)[0] || '');
   const [term, setTerm] = useState<string>('');
   const [deliveryMethod, setDeliveryMethod] = useState<string>('');
   const [totalReviews, setTotalReviews] = useState<number>(0);

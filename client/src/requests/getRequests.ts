@@ -74,10 +74,12 @@ export async function getProfessorsByCourseID(courseID: string) {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/professor/courseID/${courseID}`, {
       timeout: API_TIMEOUT,
     });
+
     return response.data as Professor[];
   } catch (error) {
     console.log(error);
-    throw new Error(`Could not retrieve professors`);
+    return [] as Professor[];
+    // throw new Error(`Could not retrieve professors`);
   }
 }
 

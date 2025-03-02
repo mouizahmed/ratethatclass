@@ -64,6 +64,7 @@ export const courseSortingOptions: Record<string, string> = {
 };
 
 export const sortingOptions: Record<string, string> = {
+  date_uploaded: 'Date Uploaded',
   votes: 'Votes',
   overall_score: 'Overall',
   easy_score: 'Easiness',
