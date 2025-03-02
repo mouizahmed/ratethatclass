@@ -87,7 +87,7 @@ export async function postDownVote(review: Review) {
       { headers: { id_token: idToken } }
     );
   } catch (error) {
-    console.log('Error posting downvote:', error);
+    console.log(error);
     throw new Error('Could not post downvote.');
   }
 }

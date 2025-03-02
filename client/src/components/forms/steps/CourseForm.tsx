@@ -14,8 +14,6 @@ export function CourseForm({
 }) {
   const form = useFormContext();
 
-  console.log(courseList);
-
   return (
     <div className="grid gap-4 py-4">
       <div>

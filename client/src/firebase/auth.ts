@@ -27,7 +27,7 @@ export const doRegistrationWithEmailPassword = async (displayName: string, email
 
     await user.reload();
   } catch (error) {
-    console.log('Error during registration:', error);
+    console.log(error);
     throw error;
   }
 };
