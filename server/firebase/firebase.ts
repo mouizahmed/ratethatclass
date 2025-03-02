@@ -2,7 +2,7 @@ import admin, { ServiceAccount } from 'firebase-admin';
 import { getAuth } from 'firebase-admin/auth';
 
 const serviceAccount = {
-  type: process.env.USER_ID,
+  type: process.env.TYPE,
   project_id: process.env.PROJECT_ID,
   private_key_id: process.env.PRIVATE_KEY_ID,
   private_key: process.env.PRIVATE_KEY,
