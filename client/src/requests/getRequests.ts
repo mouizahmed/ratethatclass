@@ -49,6 +49,8 @@ export async function getDepartmentsByUniversityID(universityID: string): Promis
     const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/department/universityID/${universityID}`, {
       timeout: 3000,
     });
+    console.log(response.data);
+
     return response.data as Department[];
   } catch (error) {
     console.log(error);

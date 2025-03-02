@@ -23,7 +23,7 @@ router.get('/universityID/:universityID', async (req: Request, res: Response) =>
 
     const result = await pool.query(getDepartmentByUniversityID, [universityID]);
     if (result.rows.length == 0) {
-      res.json({});
+      res.json([]);
     } else {
       res.json(result.rows as Department[]);
     }

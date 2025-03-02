@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { getUniversity, getCoursesByUniversityID, getDepartmentsByUniversityID } from '@/requests/getRequests';
-import { Course, University } from '@/types/university';
+import { Course, Department, University } from '@/types/university';
 import { UniversityHeader } from '@/components/display/UniversityHeader';
 import { CourseCard } from '@/components/display/CourseCard';
 import Search from '@/components/common/Search';
@@ -67,8 +67,6 @@ export default function Page() {
             return acc;
           }, {} as Record<string, string>)
       );
-
-      setDepartmentList(departments);
 
       return departments;
     };
