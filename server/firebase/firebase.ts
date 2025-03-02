@@ -6,7 +6,7 @@ console.log('Environment Variables:', {
   TYPE: process.env.TYPE,
   PROJECT_ID: process.env.PROJECT_ID,
   PRIVATE_KEY_ID: process.env.PRIVATE_KEY_ID,
-  PRIVATE_KEY: process.env.PRIVATE_KEY ? 'Exists' : 'Not Set',
+  PRIVATE_KEY: process.env.PRIVATE_KEY,
   CLIENT_EMAIL: process.env.CLIENT_EMAIL,
   CLIENT_ID: process.env.CLIENT_ID,
   AUTH_URI: process.env.AUTH_URI,
