@@ -3,6 +3,7 @@ const { Pool } = pg;
 
 const pool = new Pool({
   host: process.env.DB_HOST,
+  port: Number(String(process.env.DB_PORT)),
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   max: 20,
