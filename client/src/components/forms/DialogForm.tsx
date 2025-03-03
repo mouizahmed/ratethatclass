@@ -57,6 +57,7 @@ export function DialogForm<T extends ZodObject<any>>({
           setCurrentStep(0);
           methods.reset();
         } catch (error) {
+          console.log(error);
           toast({
             title: `Uh oh! There was an error submitting your request.`,
             description: (error as Error).message,

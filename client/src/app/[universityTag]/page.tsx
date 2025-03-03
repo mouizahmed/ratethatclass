@@ -26,10 +26,12 @@ import { postCourse } from '@/requests/postRequests';
 import { BreadCrumb } from '@/components/display/BreadCrumb';
 import Link from 'next/link';
 import { Spinner } from '@/components/ui/Spinner';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
   const { universityTag } = useParams();
   const { addAlert } = useAlert();
+  const router = useRouter();
 
   const [university, setUniversity] = useState<University>();
   const [courseList, setCourseList] = useState<Course[]>();
@@ -219,7 +221,9 @@ export default function Page() {
     };
 
     await postCourse(courseData, reviewData);
-    await window.location.reload();
+
+    const courseLink = data.courseStep.courseTag.replaceAll(' ', '_');
+    router.push(`/${universityTag}/${courseLink}`);
   };
 
   return (
