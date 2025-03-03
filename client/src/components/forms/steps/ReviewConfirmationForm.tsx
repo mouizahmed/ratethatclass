@@ -29,7 +29,7 @@ export default function ReviewConfirmationForm() {
     vote: Vote.up,
   };
   return (
-    <div className="">
+    <div className="max-h-[80vh] overflow-y-auto">
       <div className="grid gap-4 py-4">
         <ReviewCard review={review} preview={true} />
       </div>
