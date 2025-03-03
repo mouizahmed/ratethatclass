@@ -98,7 +98,7 @@ export default function Home() {
                   <CarouselItem key={pageIndex}>
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                       {chunk.map((item, index) => (
-                        <Link key={index} href={`/${item.university_name.replace(' ', '_').toLowerCase()}`}>
+                        <Link key={index} href={`/${item.university_name.replaceAll(' ', '_').toLowerCase()}`}>
                           <Card className="w-50 h-50 pb-5 hover:bg-zinc-100 cursor-pointer hover:shadow-xl hover:border-zinc-300">
                             <CardContent className="flex items-center justify-center p-4">
                               <Image

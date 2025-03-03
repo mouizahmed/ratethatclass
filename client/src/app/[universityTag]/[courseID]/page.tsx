@@ -80,7 +80,7 @@ export default function Page() {
     const loadCourse = async (university: University) => {
       const courseInfo: Course = await getCourseByCourseTag(
         university.university_id,
-        (courseID as string).replace('_', ' ')
+        (courseID as string).replaceAll('_', ' ')
       );
       setCourse(courseInfo);
 
@@ -185,7 +185,7 @@ export default function Page() {
     },
     {
       label: university?.university_name || '',
-      link: `/${(university?.university_name || '').replace(' ', '_').toLowerCase()}`,
+      link: `/${(university?.university_name || '').replaceAll(' ', '_').toLowerCase()}`,
     },
     {
       label: course?.course_tag || '',
@@ -453,7 +453,7 @@ export default function Page() {
                 If you think there is a missing course, you can add one here.
               </h3> */}
               </div>
-              <Link href={`/${university.university_name.replace(' ', '_')}`}>
+              <Link href={`/${university.university_name.replaceAll(' ', '_')}`}>
                 <Button>Return to {university.university_name}</Button>
               </Link>
             </div>

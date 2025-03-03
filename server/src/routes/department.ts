@@ -56,7 +56,7 @@ router.post('/add', async (req: Request, res: Response) => {
   try {
     if (!departmentName || !universityID)
       throw new Error('Please enter a department name the university ID it belongs to.');
-    await pool.query(addDepartment, [departmentName, universityID]);
+    await pool.query(addDepartment, [departmentName.trim(), universityID]);
     res.json({
       message: `Department '${departmentName}' successfully added.`,
     });

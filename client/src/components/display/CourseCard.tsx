@@ -8,7 +8,9 @@ import { ratingItem } from '@/lib/display';
 export function CourseCard({ course }: { course: Course }) {
   return (
     <div className="w-full">
-      <Link href={`/${course.university_name.replace(' ', '_').toLowerCase()}/${course.course_tag.replace(' ', '_')}`}>
+      <Link
+        href={`/${course.university_name.replaceAll(' ', '_').toLowerCase()}/${course.course_tag.replaceAll(' ', '_')}`}
+      >
         <Card className="w-full hover:bg-zinc-100 cursor-pointer hover:shadow-xl hover:border-zinc-300">
           <CardHeader>
             <CardTitle>

@@ -94,7 +94,10 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
     const department = await client.query(getDepartmentID, [courseData.department_name, courseData.university_id]);
 
     if (!department.rows.length) {
-      const newDepartment = await client.query(addDepartment, [courseData.department_name, courseData.university_id]);
+      const newDepartment = await client.query(addDepartment, [
+        courseData.department_name.trim(),
+        courseData.university_id,
+      ]);
       departmentID = newDepartment.rows[0].department_id;
     } else {
       departmentID = department.rows[0].department_id;
