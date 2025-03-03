@@ -14,6 +14,7 @@ import { useAlert } from '@/contexts/alertContext';
 
 export function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
+  const [axiosError, setAxiosError] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [universityList, setUniversityList] = useState<Record<string, string>>({});
@@ -39,6 +40,7 @@ export function RegisterForm() {
 
         setUniversityList(universities);
       } catch (error) {
+        setAxiosError(true);
         addAlert('destructive', (error as Error).message, 3000);
       }
     };
@@ -93,7 +95,13 @@ export function RegisterForm() {
   return (
     <div className={'flex flex-col gap-6'}>
       <Card>
-        {!success ? (
+        {axiosError ? (
+          <div className="p-4">
+            <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
+              Registration is not available at this moment.
+            </h3>
+          </div>
+        ) : !success ? (
           <>
             <CardHeader>
               <CardTitle className="text-2xl">Register</CardTitle>
