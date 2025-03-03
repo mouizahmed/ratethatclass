@@ -249,7 +249,7 @@ export default function Page() {
                   emptyMessage="No courses found."
                 />
               </div>
-              <div className="w-full max-w-3xl grid grid-cols-2 gap-4">
+              <div className="w-full max-w-3xl flex flex-col gap-4 md:grid md:grid-cols-2">
                 <div>
                   <MultipleSelector
                     data={departmentList}
