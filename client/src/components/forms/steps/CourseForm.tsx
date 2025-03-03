@@ -22,7 +22,7 @@ export function CourseForm({
           name="courseStep.courseName"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Name*</FormLabel>
               <Input id="name" {...form.register(field.name)} />
               <FormMessage />
             </FormItem>
@@ -35,7 +35,7 @@ export function CourseForm({
           name="courseStep.courseTag"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Course Tag</FormLabel>
+              <FormLabel>Course Code*</FormLabel>
               <Input
                 id="courseTag"
                 {...form.register(field.name, {
@@ -54,7 +54,7 @@ export function CourseForm({
           name="courseStep.departmentName"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Department Name</FormLabel>
+              <FormLabel>Department Name*</FormLabel>
               {form.watch('courseStep.newDepartment') ? (
                 <Input id="name" {...form.register(field.name)} />
               ) : (

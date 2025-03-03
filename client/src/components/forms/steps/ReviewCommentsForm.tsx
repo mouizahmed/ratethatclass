@@ -14,7 +14,7 @@ export function ReviewCommentsForm() {
           name="reviewCommentsStep.courseComments"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Course Comments</FormLabel>
+              <FormLabel>Course Comments*</FormLabel>
               <Textarea id={field.name} {...form.register(field.name)} />
               <FormMessage />
             </FormItem>

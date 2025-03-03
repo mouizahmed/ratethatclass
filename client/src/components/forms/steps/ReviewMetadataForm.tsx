@@ -24,7 +24,7 @@ export function ReviewMetadataForm({ professorOptions }: { professorOptions?: Re
         name="reviewMetadataStep.professorName"
         render={({ field: { value, onChange } }) => (
           <FormItem className="flex flex-col">
-            <FormLabel>Professor Name</FormLabel>
+            <FormLabel>Professor Name*</FormLabel>
             {form.getValues().courseStep ? (
               <Input id="name" {...form.register('reviewMetadataStep.professorName')} />
             ) : form.watch('reviewMetadataStep.newProfessor') ? (
@@ -70,7 +70,7 @@ export function ReviewMetadataForm({ professorOptions }: { professorOptions?: Re
           name="reviewMetadataStep.termTaken"
           render={({ field: { onChange, value } }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Term</FormLabel>
+              <FormLabel>Term*</FormLabel>
               <Dropdown
                 data={termOptions}
                 placeholder={'Select Term'}
@@ -89,7 +89,7 @@ export function ReviewMetadataForm({ professorOptions }: { professorOptions?: Re
           name="reviewMetadataStep.yearTaken"
           render={({ field: { value, onChange } }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Year</FormLabel>
+              <FormLabel>Year*</FormLabel>
               <Dropdown
                 data={yearOptions}
                 placeholder={'Select Year'}
@@ -110,7 +110,7 @@ export function ReviewMetadataForm({ professorOptions }: { professorOptions?: Re
         name="reviewMetadataStep.deliveryMethod"
         render={({ field: { value, onChange } }) => (
           <FormItem className="flex flex-col">
-            <FormLabel>Delivery Method</FormLabel>
+            <FormLabel>Delivery Method*</FormLabel>
             <Dropdown
               data={deliveryOptions}
               placeholder={'Select Delivery Method'}
@@ -131,7 +131,7 @@ export function ReviewMetadataForm({ professorOptions }: { professorOptions?: Re
           name="reviewMetadataStep.grade"
           render={({ field: { value, onChange } }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Grade</FormLabel>
+              <FormLabel>Grade*</FormLabel>
               <Dropdown
                 data={gradeOptions}
                 placeholder={'Select a Grade'}
@@ -150,7 +150,7 @@ export function ReviewMetadataForm({ professorOptions }: { professorOptions?: Re
           name="reviewMetadataStep.textbookUse"
           render={({ field: { value, onChange } }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Textbook Use</FormLabel>
+              <FormLabel>Textbook Use*</FormLabel>
               <Dropdown
                 data={textbookOptions}
                 placeholder={'Select an Option'}
@@ -171,7 +171,7 @@ export function ReviewMetadataForm({ professorOptions }: { professorOptions?: Re
         name="reviewMetadataStep.evaluationMethods"
         render={({ field: { value, onChange } }) => (
           <FormItem className="flex flex-col">
-            <FormLabel>Evaluation Methods</FormLabel>
+            <FormLabel>Evaluation Methods*</FormLabel>
             <MultipleSelector
               data={evaluationOptions}
               placeholder="Select Evaluation Methods"
@@ -190,7 +190,7 @@ export function ReviewMetadataForm({ professorOptions }: { professorOptions?: Re
         name="reviewMetadataStep.workload"
         render={({ field: { value, onChange } }) => (
           <FormItem className="flex flex-col">
-            <FormLabel>Workload</FormLabel>
+            <FormLabel>Workload*</FormLabel>
             <Dropdown
               data={workloadOptions}
               placeholder={'Select workload'}
