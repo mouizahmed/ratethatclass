@@ -10,10 +10,11 @@ import {
   SheetTrigger,
   SheetClose,
 } from '@/components/ui/sheet';
-import { LogOutIcon } from 'lucide-react';
+import { BadgeCheck, LogOutIcon } from 'lucide-react';
 import { useAuth } from '@/contexts/authContext';
 import { doSignOut } from '@/firebase//auth';
 import { JSX, SVGProps } from 'react';
+import { BadgeX } from 'lucide-react';
 
 export default function Navbar() {
   const { currentUser, userLoggedIn } = useAuth();
@@ -39,24 +40,66 @@ export default function Navbar() {
           </SheetHeader>
           <div className="flex flex-col justify-between py-6 h-full ">
             <div>
-              <Link href="#" className="flex w-full items-center py-2 text-lg font-semibold" prefetch={false}>
-                Home
-              </Link>
+              <SheetClose asChild>
+                <Link href="/" className="flex w-full items-center py-2 text-lg font-semibold" prefetch={false}>
+                  Home
+                </Link>
+              </SheetClose>
+              <SheetClose asChild>
+                <Link href="/about" className="flex w-full items-center py-2 text-lg font-semibold" prefetch={false}>
+                  About
+                </Link>
+              </SheetClose>
+              <SheetClose asChild>
+                <Link
+                  href="/guidelines"
+                  className="flex w-full items-center py-2 text-lg font-semibold"
+                  prefetch={false}
+                >
+                  Site Guidelines
+                </Link>
+              </SheetClose>
+              <SheetClose asChild>
+                <Link href="/privacy" className="flex w-full items-center py-2 text-lg font-semibold" prefetch={false}>
+                  Privacy Policy
+                </Link>
+              </SheetClose>
             </div>
-            <div className="flex items-center justify-center w-full mr-auto ml-auto  gap-6 py-6">
-              {userLoggedIn ? (
+            <div className="flex flex-col items-center justify-center w-full mr-auto ml-auto  gap-4 py-6">
+              {userLoggedIn && currentUser ? (
                 <>
-                  <SheetClose asChild>
-                    <Link href="/profile">
-                      <Button variant={'outline'}>{currentUser?.email || null}</Button>
-                    </Link>
-                  </SheetClose>
-
-                  <Button onClick={signOut}>
+                  <div className="w-full">
+                    {currentUser.emailVerified ? (
+                      <Button variant={'outline'} className="w-full">
+                        <BadgeCheck className="text-blue-500" />
+                      </Button>
+                    ) : (
+                      <SheetClose asChild>
+                        <Link href="/profile">
+                          <Button variant={'outline'} className="w-full">
+                            Not Verified
+                            <BadgeX className="text-red-500" />
+                          </Button>
+                        </Link>
+                      </SheetClose>
+                    )}
+                  </div>
+                  <div className="w-full">
                     <SheetClose asChild>
-                      <LogOutIcon />
+                      <Link href="/profile">
+                        <Button variant={'outline'} className="w-full whitespace-normal break-all">
+                          {currentUser?.email || null}
+                        </Button>
+                      </Link>
                     </SheetClose>
-                  </Button>
+                  </div>
+                  <div className="w-full">
+                    <SheetClose asChild>
+                      <Button onClick={signOut} className="w-full">
+                        <LogOutIcon />
+                      </Button>
+                    </SheetClose>
+                  </div>
                 </>
               ) : (
                 <>
@@ -89,10 +132,23 @@ export default function Navbar() {
       </Link>
 
       {/* Navigation for Desktop */}
-      {userLoggedIn ? (
+      {userLoggedIn && currentUser ? (
         <nav className="ml-auto hidden lg:flex gap-6">
+          {currentUser.emailVerified ? (
+            <Button variant={'outline'}>
+              <BadgeCheck className="text-blue-500" />
+            </Button>
+          ) : (
+            <Link href="/profile">
+              <Button variant={'outline'}>
+                Not Verified
+                <BadgeX className="text-red-500" />
+              </Button>
+            </Link>
+          )}
+
           <Link href="/profile">
-            <Button variant={'outline'}>{currentUser?.email ?? 'ERROR'}</Button>
+            <Button variant={'outline'}>{currentUser.email ?? 'ERROR'}</Button>
           </Link>
           <Button onClick={signOut}>Log Out</Button>
         </nav>
