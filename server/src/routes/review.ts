@@ -152,10 +152,16 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
     await client.query('BEGIN');
 
     let professorID = '';
-    const professor = await client.query(getProfessorID, [reviewData.professor_name, reviewData.course_id]);
+    const professor = await client.query(getProfessorID, [
+      reviewData.professor_name.trim(),
+      reviewData.course_id.trim(),
+    ]);
 
     if (!professor.rows.length) {
-      const newProfessor = await client.query(addProfessor, [reviewData.professor_name, reviewData.course_id]);
+      const newProfessor = await client.query(addProfessor, [
+        reviewData.professor_name.trim(),
+        reviewData.course_id.trim(),
+      ]);
       professorID = newProfessor.rows[0].professor_id;
     } else {
       professorID = professor.rows[0].professor_id;
@@ -176,9 +182,9 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
       reviewData.useful_score,
       reviewData.term_taken,
       reviewData.year_taken,
-      reviewData.course_comments,
-      reviewData.professor_comments,
-      reviewData.advice_comments,
+      reviewData.course_comments.trim(),
+      reviewData.professor_comments.trim(),
+      reviewData.advice_comments.trim(),
     ]);
 
     await client.query(addUpvote, [user.uid, review.rows[0].review_id]);

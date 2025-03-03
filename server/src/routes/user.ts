@@ -14,12 +14,12 @@ router.post('/register', async (req: AuthenticatedRequest, res: Response) => {
 
   try {
     const newUser = await auth.createUser({
-      email: email,
+      email: email.trim(),
       emailVerified: false,
       password: password,
-      displayName: display_name,
+      displayName: display_name.trim(),
     });
-    await pool.query(addUser, [newUser.uid, display_name, email]);
+    await pool.query(addUser, [newUser.uid, display_name.trim(), email.trim()]);
     const token = await auth.createCustomToken(newUser.uid);
     res.json({ token: token });
   } catch (error) {

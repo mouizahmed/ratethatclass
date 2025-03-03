@@ -96,16 +96,20 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
     if (!department.rows.length) {
       const newDepartment = await client.query(addDepartment, [
         courseData.department_name.trim(),
-        courseData.university_id,
+        courseData.university_id.trim(),
       ]);
       departmentID = newDepartment.rows[0].department_id;
     } else {
       departmentID = department.rows[0].department_id;
     }
 
-    const course = await client.query(addCourse, [departmentID, courseData.course_tag, courseData.course_name]);
+    const course = await client.query(addCourse, [
+      departmentID,
+      courseData.course_tag.trim(),
+      courseData.course_name.trim(),
+    ]);
 
-    const newProfessor = await client.query(addProfessor, [reviewData.professor_name, course.rows[0].course_id]);
+    const newProfessor = await client.query(addProfessor, [reviewData.professor_name.trim(), course.rows[0].course_id]);
 
     const review = await client.query(addReview, [
       course.rows[0].course_id,
@@ -122,9 +126,9 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
       reviewData.useful_score,
       reviewData.term_taken,
       reviewData.year_taken,
-      reviewData.course_comments,
-      reviewData.professor_comments,
-      reviewData.advice_comments,
+      reviewData.course_comments.trim(),
+      reviewData.professor_comments.trim(),
+      reviewData.advice_comments.trim(),
     ]);
 
     await client.query(addUpvote, [user.uid, review.rows[0].review_id]);

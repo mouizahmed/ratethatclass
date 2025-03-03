@@ -13,7 +13,7 @@ router.post('/create', validateToken, async (req: AuthenticatedRequest, res: Res
     user.uid,
     reportDetails.entity_type,
     reportDetails.entity_id,
-    reportDetails.report_reason,
+    reportDetails.report_reason.trim(),
   ]);
 
   res.json({ message: `Report ID ${report.rows[0].report_id} created.` });

@@ -138,7 +138,7 @@ router.post('/request-university', async (req: Request, res: Response) => {
     client = await pool.connect();
     await client.query('BEGIN');
     const { universityName }: { universityName: string } = req.body;
-    const universityRequest = await client.query(requestUniversity, [universityName]);
+    const universityRequest = await client.query(requestUniversity, [universityName.trim()]);
 
     if (req.cookies.token) {
       await client.query(upvoteRequestedUniversity, [universityRequest.rows[0].university_id, req.cookies.token]);
