@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -7,11 +7,17 @@ import { Label } from '@/components/ui/label';
 import { doRegistrationWithEmailPassword } from '@/firebase/auth';
 import { Spinner } from '../ui/Spinner';
 import Link from 'next/link';
+import { Dropdown } from '../common/Dropdown';
+import { University } from '@/types/university';
+import { getUniversities } from '@/requests/getRequests';
+import { useAlert } from '@/contexts/alertContext';
 
 export function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [universityList, setUniversityList] = useState<Record<string, string>>({});
+  const [selectedUniversity, setSelectedUniversity] = useState<string>('');
   const [formData, setFormData] = useState({
     displayName: '',
     email: '',
@@ -19,11 +25,42 @@ export function RegisterForm() {
     confirmPassword: '',
   });
 
+  const { addAlert } = useAlert();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const universities: Record<string, string> = await getUniversities().then((response: University[]) =>
+          response.reduce((acc: Record<string, string>, obj: University) => {
+            acc[obj.domain] = obj.university_name;
+            return acc;
+          }, {} as Record<string, string>)
+        );
+
+        setUniversityList(universities);
+      } catch (error) {
+        addAlert('destructive', (error as Error).message, 3000);
+      }
+    };
+    fetchData();
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     if (formData.password != formData.confirmPassword) {
       setError('Passwords do not match');
+      return;
+    }
+    console.log(selectedUniversity);
+
+    if (!selectedUniversity) {
+      setError('Please select a university');
+      return;
+    }
+
+    if (!formData.email.toLowerCase().split('@')[1].includes(selectedUniversity)) {
+      setError('Email domain does not match selected university');
       return;
     }
 
@@ -66,6 +103,17 @@ export function RegisterForm() {
               <form onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-6">
                   {error && <div className="text-red-500 text-sm">{error}</div>}
+                  <div className="grid gap-2">
+                    <Label htmlFor="university">School</Label>
+                    <Dropdown
+                      data={universityList}
+                      value={selectedUniversity}
+                      setValue={setSelectedUniversity}
+                      placeholder="Select your University"
+                      initialValue=""
+                      returnType={'key'}
+                    />
+                  </div>
                   <div className="grid gap-2">
                     <Label htmlFor="email">Display Name</Label>
                     <Input id="displayName" required value={formData.displayName} onChange={handleChange} />

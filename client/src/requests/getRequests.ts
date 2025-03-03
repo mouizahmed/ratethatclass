@@ -6,10 +6,10 @@ import { Review } from '@/types/review';
 
 const API_TIMEOUT = 3000;
 
-export async function getUniversities(setListOfUniversities: React.Dispatch<React.SetStateAction<University[]>>) {
+export async function getUniversities() {
   try {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/university`, { timeout: API_TIMEOUT });
-    setListOfUniversities(response.data);
+
     // setMaxPages(Math.ceil(response.data.length / 6));
     return response.data;
   } catch (error) {

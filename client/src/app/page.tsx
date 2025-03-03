@@ -23,7 +23,8 @@ export default function Home() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const universities = await getUniversities(setUniversityList);
+        const universities = await getUniversities();
+        setUniversityList(universities);
         const chunkedList = chunk(universities);
         setChunkedUniversityList(chunkedList);
         setLoading(false);

@@ -103,17 +103,19 @@ export default function Navbar() {
                 </>
               ) : (
                 <>
-                  <Button>
-                    <SheetClose asChild>
-                      <Link href="/login">Login</Link>
-                    </SheetClose>
-                  </Button>
+                  <div className="w-full grid grid-cols-2 gap-4">
+                    <Button>
+                      <SheetClose asChild>
+                        <Link href="/login">Login</Link>
+                      </SheetClose>
+                    </Button>
 
-                  <Button>
-                    <SheetClose asChild>
-                      <Link href="/register">Register</Link>
-                    </SheetClose>
-                  </Button>
+                    <Button>
+                      <SheetClose asChild>
+                        <Link href="/register">Register</Link>
+                      </SheetClose>
+                    </Button>
+                  </div>
                 </>
               )}
             </div>
