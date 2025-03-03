@@ -222,7 +222,7 @@ export default function Page() {
 
     await postCourse(courseData, reviewData);
 
-    const courseLink = data.courseStep.courseTag.replaceAll(' ', '_');
+    const courseLink = data.courseStep.courseTag.trim().replaceAll(' ', '_');
     router.push(`/${universityTag}/${courseLink}`);
   };
 
