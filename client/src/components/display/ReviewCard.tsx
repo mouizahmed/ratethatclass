@@ -122,7 +122,7 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
 
   return (
     <div className="flex items-center justify-center gap-4">
-      {!preview && (
+      {/* {!preview && (
         <div className="flex items-center justify-center flex-col">
           <div className={`hover:bg-zinc-200 ${vote === 'up' ? 'text-red-600' : ''} rounded-2xl p-1`} onClick={upVote}>
             <ChevronUp />
@@ -135,7 +135,7 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
             <ChevronDown />
           </div>
         </div>
-      )}
+      )} */}
       <Card className="p-2 w-full hover:shadow-xl grid md:grid-cols-4 md:grid-rows-[auto auto min-content] gap-2">
         <CardContent className="border rounded-lg p-2 md:row-span-2 md:col-span-1">
           {ratingItem(
@@ -221,19 +221,18 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
                   {review?.textbook_use}
                 </Label>
               </div>
-              <div className="flex items-center gap-2">
-                <p>Evaluation Methods: </p>
-                <Label id="courseID" className="leading-7 break-words overflow-auto">
-                  <div className="flex gap-1">
-                    {Object.values(review.evaluation_methods).map((item, index) => (
-                      <div key={index}>
-                        {item}
-                        {index < review.evaluation_methods.length - 1 && ', '}
-                      </div>
-                    ))}
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <p>Evaluation Methods: </p>
+              <Label id="courseID" className="leading-7 flex flex-wrap gap-1">
+                {Object.values(review.evaluation_methods).map((item, index) => (
+                  <div key={index}>
+                    {item}
+                    {index < review.evaluation_methods.length - 1 && ', '}
                   </div>
-                </Label>
-              </div>
+                ))}
+              </Label>
             </div>
             <div className="flex">
               <div className="flex items-center gap-2 border p-2 rounded-lg z-5 shadow-sm">
@@ -259,28 +258,48 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
               <p id="dateUploaded" className="leading-7 break-words overflow-auto">
                 {review?.date_uploaded.slice(0, 10)}
               </p>
-              {!preview && (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline">
-                      <EllipsisVertical />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56">
-                    <DropdownMenuGroup>
-                      {currentUser && currentUser.uid === review.user_id ? (
-                        <DropdownMenuItem onClick={() => openDialog(setShowDeleteDialog)}>Delete</DropdownMenuItem>
-                      ) : (
-                        <DropdownMenuItem onClick={() => openDialog(setShowReportDialog)}>Report</DropdownMenuItem>
-                      )}
-                    </DropdownMenuGroup>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              )}
             </div>
           </CardDescription>
         </CardHeader>
+
+        {!preview && (
+          <div className="flex items-center justify-between">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="h-full rounded-lg">
+                  <EllipsisVertical />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuGroup>
+                  {currentUser && currentUser.uid === review.user_id ? (
+                    <DropdownMenuItem onClick={() => openDialog(setShowDeleteDialog)}>Delete</DropdownMenuItem>
+                  ) : (
+                    <DropdownMenuItem onClick={() => openDialog(setShowReportDialog)}>Report</DropdownMenuItem>
+                  )}
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <div className="flex items-center border rounded-lg p-2 gap-2">
+              <div
+                className={`hover:bg-zinc-200 ${vote === 'up' ? 'text-red-600' : ''} rounded-2xl p-1`}
+                onClick={upVote}
+              >
+                <ChevronUp />
+              </div>
+              {totalVotes}
+              <div
+                className={`hover:bg-zinc-200 ${vote === 'down' ? 'text-red-600' : ''} rounded-2xl p-1`}
+                onClick={downVote}
+              >
+                <ChevronDown />
+              </div>
+            </div>
+          </div>
+        )}
       </Card>
+
       {!preview && showDeleteDialog && (
         <DeleteReviewConfirmationDialog
           open={showDeleteDialog}

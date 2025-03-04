@@ -315,12 +315,14 @@ export default function Page() {
               <div className="w-full max-w-3xl">
                 <BreadCrumb links={prevLinks} />
               </div>
-              <div className="w-full max-w-3xl flex h-7 flex items-center gap-2">
-                <div className="text-lg font-semibold">
-                  {course?.course_tag}: {course?.course_name}
+              <div className="w-full max-w-3xl flex flex items-center justify-between gap-2">
+                <div>
+                  <div className="text-lg font-semibold">
+                    {course?.course_tag}: {course?.course_name}
+                  </div>
+
+                  <p className="text-md text-muted-foreground">{course?.department_name}</p>
                 </div>
-                <Separator orientation="vertical" className="min-h-full" />
-                <p className="text-md text-muted-foreground">{course?.department_name}</p>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="w-5 rounded-xl">
@@ -334,56 +336,59 @@ export default function Page() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-              <div className="w-full max-w-3xl grid grid-cols-2 gap-4">
-                <div className="">
-                  <MultipleSelector
-                    data={professorList}
-                    value={selectedProfessors}
-                    setValue={setSelectedProfessors}
-                    placeholder="Professors"
-                    itemType="professors"
-                  />
-                </div>
+              <div className="w-full max-w-3xl flex flex-col gap-4 sm:grid sm:grid-cols-2">
+                <MultipleSelector
+                  data={professorList}
+                  value={selectedProfessors}
+                  setValue={setSelectedProfessors}
+                  placeholder="Professors"
+                  itemType="professors"
+                />
+                <Dropdown
+                  data={sortingOptions}
+                  value={orderBy}
+                  setValue={setOrderBy}
+                  placeholder="Sort By"
+                  initialValue={Object.keys(sortingOptions)[0] || ''}
+                  returnType={'key'}
+                />
+                <Dropdown
+                  data={termOptions}
+                  value={term}
+                  setValue={setTerm}
+                  placeholder="Term"
+                  initialValue=""
+                  returnType={'key'}
+                />
+                <Dropdown
+                  data={deliveryOptions}
+                  value={deliveryMethod}
+                  setValue={setDeliveryMethod}
+                  placeholder="Delivery"
+                  initialValue=""
+                  returnType={'key'}
+                />
                 <div className="flex items-center justify-center gap-4">
-                  <Dropdown
-                    data={sortingOptions}
-                    value={orderBy}
-                    setValue={setOrderBy}
-                    placeholder="Sort By"
-                    initialValue={Object.keys(sortingOptions)[0] || ''}
-                    returnType={'key'}
-                  />
-                  <Button variant="outline" className="h-10 w-10" onClick={updateSort}>
-                    {order === 'desc' ? <ArrowDownWideNarrow /> : <ArrowUpWideNarrow />}
+                  <Button
+                    variant="outline"
+                    className="w-full col-span-0.5"
+                    onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => clearFilters(e)}
+                  >
+                    Clear
+                  </Button>
+                  <Button variant="outline" className="w-full" onClick={updateSort}>
+                    {order === 'desc' ? (
+                      <>
+                        <ArrowDownWideNarrow /> Descending
+                      </>
+                    ) : (
+                      <>
+                        <ArrowUpWideNarrow />
+                        Ascending
+                      </>
+                    )}
                   </Button>
                 </div>
-                <div className="">
-                  <Dropdown
-                    data={termOptions}
-                    value={term}
-                    setValue={setTerm}
-                    placeholder="Term"
-                    initialValue=""
-                    returnType={'key'}
-                  />
-                </div>
-                <div className="flex items-center justify-center gap-4">
-                  <Dropdown
-                    data={deliveryOptions}
-                    value={deliveryMethod}
-                    setValue={setDeliveryMethod}
-                    placeholder="Delivery"
-                    initialValue=""
-                    returnType={'key'}
-                  />
-                </div>
-                <Button
-                  variant="outline"
-                  className="h-10 w-15 col-span-0.5"
-                  onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => clearFilters(e)}
-                >
-                  Clear
-                </Button>
                 <DialogForm
                   triggerButton={<Button className="w-full h-full">Add Review</Button>}
                   steps={steps}
