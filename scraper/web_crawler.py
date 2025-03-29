@@ -23,14 +23,22 @@ class McMasterScraper:
 
     def __init__(self):
         options = Options()
-        # options.add_argument("--headless=new")
+        options.add_argument("--headless=new")
+        # Add performance-improving options
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-images")  # Disable image loading
+        options.page_load_strategy = 'eager'  # Don't wait for all resources to load
+        
         self.driver = webdriver.Chrome(options=options)
+        # Reduce wait time since we're using better selectors
         self.wait = WebDriverWait(self.driver, 5)
         self.driver.get(self.BASE_URL)
-        self.department_courses={}
+        self.department_courses = {}
 
     def getDepartmentOptions(self):
-
         checkbox = self.driver.find_element(By.ID, "exact_match")
         checkbox.click()
 
@@ -39,31 +47,61 @@ class McMasterScraper:
                 for option in select_department.options[1:]]
 
     def scrapeCourses(self, courseElements):
-        
+        department_courses = []
         for course in courseElements:
-            # print(course.text)
-            courseTag = course.text.split(' - ')[0]
-            courseName = course.text.split(' - ')[1]
-            print(courseTag)
+            try:
+                course_parts = course.text.split(' - ')
+                if len(course_parts) >= 2:
+                    courseTag = course_parts[0].strip()
+                    courseName = course_parts[1].strip()
+                    department_courses.append({
+                        "courseTag": courseTag,
+                        "courseName": courseName
+                    })
+            except Exception as e:
+                logging.error(f"Error scraping course: {e}")
+        return department_courses
 
     def scrapeDepartment(self):
-        while True:
+        max_retries = 2  # Reduced retries
+        retry_count = 0
+        
+        while retry_count < max_retries:
             try:
+                # Use a faster selector
+                courseElements = self.wait.until(
+                    EC.presence_of_all_elements_located(
+                        (By.CSS_SELECTOR, 'a[onclick*="showCourse"]')
+                    )
+                )
                 
-                courseElements = self.wait.until(EC.visibility_of_all_elements_located((By.XPATH, '//a[contains(@onclick, "showCourse")]')))
-                self.scrapeCourses(courseElements)
+                if not courseElements:
+                    break
+                
+                courses = self.scrapeCourses(courseElements)
+                
+                if courses:
+                    current_dept = self.driver.find_element(By.ID, "courseprefix").get_attribute("value")
+                    if current_dept in self.department_courses:
+                        self.department_courses[current_dept].extend(courses)
+                    else:
+                        self.department_courses[current_dept] = courses
 
-                # Handle pagination
                 next_page = self.findNextPage()
                 if not next_page:
                     break
-                next_page.click()
-
+                    
+                # Use JavaScript click instead of Selenium click
+                self.driver.execute_script("arguments[0].click();", next_page)
+                
             except TimeoutException:
-                print("No courses")
+                retry_count += 1
+                if retry_count >= max_retries:
+                    break
+                self.driver.refresh()
+            except Exception as e:
+                logging.error(f"Error in scrapeDepartment: {e}")
                 break
-        
-
 
     def findNextPage(self):
         try:
@@ -82,19 +120,25 @@ class McMasterScraper:
     
     def scrapeAllDepartments(self):
         departments = self.getDepartmentOptions()
-
-        for value, name in departments:
-                print(name)
-                select_element = Select(self.driver.find_element(By.ID, "courseprefix"))
-                select_element.select_by_value(value)
-                submit_button = self.driver.find_element(By.ID, "search-with-filters")
-                submit_button.click()
         
-                self.scrapeDepartment()
-    
-                    
+        for value, name in departments:
+            try:
+                logging.info(f"Scraping department: {name}")
                 
-              
+                # Combine operations using JavaScript
+                script = f"""
+                    document.getElementById('courseprefix').value = '{value}';
+                    document.getElementById('search-with-filters').click();
+                """
+                self.driver.execute_script(script)
+                
+                self.scrapeDepartment()
+                
+            except Exception as e:
+                logging.error(f"Error scraping department {name}: {e}")
+                continue
+        
+        return self.department_courses
 
 class UWOScraper:
     BASE_URL = "https://www.westerncalendar.uwo.ca/Courses.cfm"
@@ -353,24 +397,21 @@ class UofTScrapper():
 
 
 def main():
-    # scraper = UofTScrapper()
-    # departments = scraper.scrapeAllDepartments()
-    # print(departments['Chemistry'])
-
-    # scrapper = WaterlooScrapper()
-    # departments = scrapper.scrapeAllDepartments()
-    # print(departments['AE'])
-
-    # scrapper = TMUScraper()
-    # departments = scrapper.scrapeAllDepartments()
-    # print(departments)
-
-    # scrapper = UWOScraper()
-    # departments = scrapper.scrapeAllDepartments()
-    # print(departments.get("Law"))
+    scrapers = [
+        # UofTScrapper(),
+        # WaterlooScrapper(),
+        # TMUScraper(),
+        # UWOScraper(),
+        McMasterScraper()
+    ]
     
-    scrapper = McMasterScraper()
-    departments = scrapper.scrapeAllDepartments()
+    for scraper in scrapers:
+        print(f"\nRunning {scraper.__class__.__name__}...")
+        try:
+            departments = scraper.scrapeAllDepartments()
+            print(f"Successfully scraped {len(departments)} departments")
+        except Exception as e:
+            print(f"Error running {scraper.__class__.__name__}: {str(e)}")
 
 if __name__ == "__main__":
     main()
