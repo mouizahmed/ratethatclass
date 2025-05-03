@@ -12,7 +12,7 @@ This web application only allows validated post-secondary students to register w
 
 Database: PostgreSQL
 
-Front-End: NextJS
+Front-End: NextJS (ReactJS)
 
 CSS/Styling: Tailwind + shadcn/ui
 
@@ -37,18 +37,47 @@ Images: [Cloudinary](https://cloudinary.com/)
 ## Prerequisites
 
 - Running Docker Daemon
-- PostgreSQL Database
+- Firebase Project
 
 ## Installing
 
-- If you don't have docker, you can find the installation instructions [here]()
-- Install the project by cloning this repository: ` git clone git@github.com:mouizahmed/ratethatclass.git`
+1. If you don't have docker, you can find the installation instructions [here](https://docs.docker.com/get-started/get-docker/)
 
-# Bugs & Fixes
+2. Install the project by cloning this repository: `git clone git@github.com:mouizahmed/ratethatclass.git`
 
-- First request to the backend and database were extremely slow (only present during initial load of website).
-  - This has been fixed by switching from Render to Vercel to host the back-end. (Render.com shuts down the server after inactivity, making the first request take significantly longer) :heavy_check_mark:
-- Currently shut down MySQL database hosting on Google Cloud Platform due to accruing charges. Will find another hosting platform with minimal costs.
-  - This has been fixed by switching to PlanetScale's NoSQL Database (Serverless). :heavy_check_mark:
-- Database loading is extremely slow (using PlanetScale NoSQL Database) :x:
-  - PlanetScale Database may idle (go to sleep) if inactive for a while. :x:
+3. Set up Firebase:
+
+   - Go to [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or use an existing one
+   - Enable Authentication in your Firebase project
+   - Go to Project Settings > General
+   - Scroll down to "Your apps" section
+   - Create a new web app if you haven't already
+   - Copy the Firebase configuration values
+
+4. Create a `.env` file in the root directory with the following variables:
+
+   ```
+   # Database Configuration
+   DB_USER=postgres
+   DB_PASSWORD=postgres
+   DB_HOST=postgres
+   DB_PORT=5432
+   DB_NAME=ratethatclass
+
+   # Firebase Configuration
+   FIREBASE_API_KEY=your_api_key
+   FIREBASE_AUTH_DOMAIN=your_auth_domain
+   FIREBASE_PROJECT_ID=your_project_id
+   FIREBASE_STORAGE_BUCKET=your_storage_bucket
+   FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+   FIREBASE_APP_ID=your_app_id
+
+   # Node Environment
+   NODE_ENV=development
+   ```
+
+5. Start the application:
+   ```bash
+   docker-compose up -d
+   ```
