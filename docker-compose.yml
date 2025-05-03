@@ -1,6 +1,19 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=ratethatclass
+    volumes:
+      # mount a host folder full of .sql/.sh into the init dir
+      - ./init-db:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+
   server:
     build:
       context: ./server
@@ -8,8 +21,21 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
+      - TYPE=service_account
+      - UNIVERSE_DOMAIN=googleapis.com
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DB_NAME=ratethatclass
+      - DB_PORT=5432
+      - TOKEN_URI=https://oauth2.googleapis.com/token
+      - AUTH_URI=https://accounts.google.com/o/oauth2/auth
+      - AUTH_PROVIDER_X509_CERT_URL=https://www.googleapis.com/oauth2/v1/certs
     restart: unless-stopped
+    depends_on:
+      - postgres
+
   client:
     build:
       context: ./client
@@ -17,7 +43,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
+      - NEXT_PUBLIC_URL=http://localhost:3001
     restart: unless-stopped
     depends_on:
       - server
+
+volumes:
+  postgres_data:

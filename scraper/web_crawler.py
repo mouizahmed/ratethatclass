@@ -5,80 +5,182 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.chrome.options import Options  # Updated import
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 import logging
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple, Optional, Any
 import re
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import traceback
 
-# Set up logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+# Import centralized logger
+from logger import setup_logger
 
-class McMasterScraper:
-    BASE_URL = "https://academiccalendars.romcmaster.ca/content.php?catoid=53&navoid=10775"
+# Get configured logger
+logger = setup_logger(__name__)
 
-    def __init__(self):
+class BaseScraper(ABC):
+    def __init__(self, headless: bool = True, timeout: int = 10):
+        self.timeout = timeout
+        self.headless = headless
+        self.driver = None
+        self.wait = None
+        self.department_courses: Dict[str, List[Dict[str, str]]] = {}
+        self.university_name = "Default University"
+        
+    def setup_driver(self):
         options = Options()
-        options.add_argument("--headless=new")
-        # Add performance-improving options
+        if self.headless:
+            options.add_argument("--headless=new")
+        
         options.add_argument("--disable-gpu")
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-extensions")
-        options.add_argument("--disable-images")  # Disable image loading
-        options.page_load_strategy = 'eager'  # Don't wait for all resources to load
+        options.add_argument("--disable-images")
+        options.page_load_strategy = 'eager'
         
         self.driver = webdriver.Chrome(options=options)
-        # Reduce wait time since we're using better selectors
-        self.wait = WebDriverWait(self.driver, 5)
-        self.driver.get(self.BASE_URL)
-        self.department_courses = {}
+        self.wait = WebDriverWait(self.driver, self.timeout)
+        
+    def cleanup(self):
+        if self.driver:
+            try:
+                self.driver.quit()
+            except Exception as e:
+                logger.error(f"Error during driver cleanup: {e}")
+            finally:
+                self.driver = None
+                self.wait = None
+    
+    def add_course(self, department: str, course_tag: str, course_name: str):
+        if department not in self.department_courses:
+            self.department_courses[department] = []
+            
+        self.department_courses[department].append({
+            "courseTag": course_tag.strip(),
+            "courseName": course_name.strip()
+        })
+    
+    @abstractmethod
+    def run(self) -> Dict[str, List[Dict[str, str]]]:
+        pass
+    
+    def __enter__(self):
+        self.setup_driver()
+        return self
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.cleanup()
 
-    def getDepartmentOptions(self):
-        checkbox = self.driver.find_element(By.ID, "exact_match")
-        checkbox.click()
 
-        select_department = Select(self.driver.find_element(By.ID, "courseprefix"))
-        return [(option.get_attribute('value'), option.text)
-                for option in select_department.options[1:]]
 
-    def scrapeCourses(self, courseElements):
+# class CarletonUScraper(BaseScraper):
+#     BASE_URL = "https://calendar.carleton.ca/undergrad/courses/"
+    
+#     def __init__(self, headless: bool = True):
+#         super().__init__(headless=headless, timeout=5)
+
+
+#     def scrapeAllDepartments(self) -> Dict[str, List[Dict[str, str]]]:
+#         try:
+#             self.driver.get(self.BASE_URL)
+#             departments = self.getDepartmentOptions()
+            
+#             total = len(departments)
+#             for i, (value, name) in enumerate(departments, 1):
+#                 try:
+#                     logger.info(f"Scraping department: {name} ({i}/{total})")
+                    
+#                     script = f"""
+#                         document.getElementById('courseprefix').value = '{value}';
+#                         document.getElementById('search-with-filters').click();
+#                     """
+#                     self.driver.execute_script(script)
+                    
+#                     self.scrapeDepartment()
+                    
+#                 except Exception as e:
+#                     logger.error(f"Error scraping department {name}: {e}")
+#                     continue
+            
+#             return self.department_courses
+#         except Exception as e:
+#             logger.error(f"Error in scrapeAllDepartments: {e}")
+#             return {}
+
+# class OttawaUScraper(BaseScraper):
+#     def __init__(self, headless: bool = True):
+#         super().__init__(headless=headless, timeout=5)
+
+# class GuelphUScraper(BaseScraper):
+#     def __init__(self, headless: bool = True):
+#         super().__init__(headless=headless, timeout=5)
+
+# class OntarioTechUScraper(BaseScraper):
+#     def __init__(self, headless: bool = True):
+#         super().__init__(headless=headless, timeout=5)
+
+# class QueensUScraper(BaseScraper):
+#     def __init__(self, headless: bool = True):
+#         super().__init__(headless=headless, timeout=5)
+
+# class YorkUScraper(BaseScraper):
+#     def __init__(self, headless: bool = True):
+#         super().__init__(headless=headless, timeout=5)
+
+class McMasterScraper(BaseScraper):
+    BASE_URL = "https://academiccalendars.romcmaster.ca/content.php?catoid=53&navoid=10775"
+
+    def __init__(self, headless: bool = True):
+        super().__init__(headless=headless, timeout=5)
+        self.university_name = "McMaster University"
+        
+    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
+        try:
+            checkbox = self.driver.find_element(By.ID, "exact_match")
+            checkbox.click()
+
+            select_department = Select(self.driver.find_element(By.ID, "courseprefix"))
+            return [(option.get_attribute('value'), option.text)
+                    for option in select_department.options[1:]]
+        except Exception as e:
+            logger.error(f"Error getting department options: {e}")
+            return []
+
+    def scrapeCourses(self, course_elements: List) -> List[Dict[str, str]]:
         department_courses = []
-        for course in courseElements:
+        for course in course_elements:
             try:
                 course_parts = course.text.split(' - ')
                 if len(course_parts) >= 2:
-                    courseTag = course_parts[0].strip()
-                    courseName = course_parts[1].strip()
+                    course_tag = course_parts[0].strip()
+                    course_name = course_parts[1].strip()
                     department_courses.append({
-                        "courseTag": courseTag,
-                        "courseName": courseName
+                        "courseTag": course_tag,
+                        "courseName": course_name
                     })
             except Exception as e:
-                logging.error(f"Error scraping course: {e}")
+                logger.error(f"Error scraping course: {e}")
         return department_courses
 
-    def scrapeDepartment(self):
-        max_retries = 2  # Reduced retries
+    def scrapeDepartment(self, max_retries: int = 2) -> None:
         retry_count = 0
         
         while retry_count < max_retries:
             try:
-                # Use a faster selector
-                courseElements = self.wait.until(
+                course_elements = self.wait.until(
                     EC.presence_of_all_elements_located(
                         (By.CSS_SELECTOR, 'a[onclick*="showCourse"]')
                     )
                 )
                 
-                if not courseElements:
+                if not course_elements:
                     break
                 
-                courses = self.scrapeCourses(courseElements)
+                courses = self.scrapeCourses(course_elements)
                 
                 if courses:
                     current_dept = self.driver.find_element(By.ID, "courseprefix").get_attribute("value")
@@ -90,22 +192,25 @@ class McMasterScraper:
                 next_page = self.findNextPage()
                 if not next_page:
                     break
-                    
-                # Use JavaScript click instead of Selenium click
+
                 self.driver.execute_script("arguments[0].click();", next_page)
+                time.sleep(0.5)
                 
             except TimeoutException:
                 retry_count += 1
                 if retry_count >= max_retries:
+                    logger.warning(f"Max retries reached when scraping department")
                     break
                 self.driver.refresh()
             except Exception as e:
-                logging.error(f"Error in scrapeDepartment: {e}")
+                logger.error(f"Error in scrapeDepartment: {e}")
                 break
 
-    def findNextPage(self):
+    def findNextPage(self) -> Optional[Any]:
         try:
-            current_page_element = self.driver.find_element(By.XPATH, '//td[contains(., "Page:")]//span[@aria-current="page"]//strong')
+            current_page_element = self.driver.find_element(
+                By.XPATH, '//td[contains(., "Page:")]//span[@aria-current="page"]//strong'
+            )
             
             next_page = int(current_page_element.text) + 1
             
@@ -113,305 +218,274 @@ class McMasterScraper:
                 By.XPATH, f'//td[contains(., "Page:")]//a[text()="{next_page}"]'
             )
            
-            if next_page_link: return next_page_link
-            else: return None
-        except:
+            return next_page_link if next_page_link else None
+        except (NoSuchElementException, TimeoutException):
+            return None
+        except Exception as e:
+            logger.error(f"Error finding next page: {e}")
             return None
     
-    def scrapeAllDepartments(self):
-        departments = self.getDepartmentOptions()
-        
-        for value, name in departments:
-            try:
-                logging.info(f"Scraping department: {name}")
-                
-                # Combine operations using JavaScript
-                script = f"""
-                    document.getElementById('courseprefix').value = '{value}';
-                    document.getElementById('search-with-filters').click();
-                """
-                self.driver.execute_script(script)
-                
-                self.scrapeDepartment()
-                
-            except Exception as e:
-                logging.error(f"Error scraping department {name}: {e}")
-                continue
-        
-        return self.department_courses
-
-class UWOScraper:
-    BASE_URL = "https://www.westerncalendar.uwo.ca/Courses.cfm"
-
-    def __init__(self):
-        fetchURL = requests.get(self.BASE_URL).text
-        self.driver = webdriver.Chrome()
-        self.wait = WebDriverWait(self.driver, 10)
-        self.driver.get(self.BASE_URL)
-        self.department_courses={}
-
-    def getDepartmentLinks(self, departments):
-        departmentLinks = {}
-        
-        for department in departments:
-            departmentName = department.text
-            departmentLink = department.find_element(By.TAG_NAME, "a").get_attribute("href")
-            departmentLinks[departmentName] = departmentLink
-
-        return departmentLinks
-    
-    def scrapeCourses(self, departmentName):
-        courses = self.driver.find_elements(By.CSS_SELECTOR, "h4.courseTitleNoBlueLink")
-
-        for course in courses:
-            courseHeading = course.text
-            pattern = rf"({departmentName}\s+\d{{4}}(?:[A-Z](?:\/[A-Z])*)?)\s+(.+)"
-            match = re.search(pattern, courseHeading)
-            if match:
-                courseTag = match.group(1)
-                courseName = match.group(2)
-                print(courseTag + " - " + courseName)
-                
-                if departmentName in self.department_courses:
-                    self.department_courses[departmentName].append({
-                        "courseTag": courseTag.strip(),
-                        "courseName": courseName.strip()
-                    })
-                else:
-                    self.department_courses[departmentName] = [{
-                        "courseTag": courseTag,
-                        "courseName": courseName
-                    }]
-            else:
-                print("ERROR")
-
-            
-
-    
-    def scrapeAllDepartments(self):
-        departments = self.driver.find_elements(By.CSS_SELECTOR, "td.sorting_1")
-
-        # get links
-        departmentLinks = self.getDepartmentLinks(departments)
-        
-        for name, link in departmentLinks.items():
-            self.driver.get(link)
-
-            # get courses
-            self.scrapeCourses(name)
-            
-   
-        return self.department_courses
-
-
-
-
-
-class TMUScraper():
-    BASE_URL = "https://www.torontomu.ca/calendar/2024-2025/courses/"
-
-    def __init__(self):   
-        self.driver = webdriver.Chrome()
-        self.wait = WebDriverWait(self.driver, 10)
-        self.driver.get(self.BASE_URL)
-        self.department_courses = {}
-
-    def getDepartmentLinks(self, departments):
-        departmentLinks = {}
-        
-        for department in departments:
-            departmentName = department.text
-            departmentLink = department.find_element(By.TAG_NAME, "a").get_attribute("href")
-            departmentLinks[departmentName] = departmentLink
-
-        return departmentLinks
-            
-    def scrapeCourses(self, departmentName):
-        courses = self.driver.find_elements(By.CSS_SELECTOR, "a.courseCode")
-        for course in courses:
-            courseTag = (course.text).split(' - ')[0]
-            courseName = (course.text).split(' - ')[1]
-
-            if departmentName in self.department_courses:
-                self.department_courses[departmentName].append({
-                    "courseTag": courseTag,
-                    "courseName": courseName
-                })
-            else:
-                self.department_courses[departmentName] = [{
-                    "courseTag": courseTag,
-                    "courseName": courseName
-                }]
-    
-    def scrapeAllDepartments(self):
-        departments = self.driver.find_elements(By.CSS_SELECTOR, "td.sorting_1")
-
-        # get links
-        departmentLinks = self.getDepartmentLinks(departments)
-
-        for name, link in departmentLinks.items():
-            self.driver.get(link)
-            print(name)
-    
-            # get courses
-            self.scrapeCourses(name)
-   
-        return self.department_courses
-
-class WaterlooScrapper():
-    BASE_URL = "https://classes.uwaterloo.ca/uwpcshtm.html"
-
-    def __init__(self):
-        source = requests.get(self.BASE_URL).text
-        soup = BeautifulSoup(source, 'html.parser')
-        self.soup = soup
-
-    def scrapeAllDepartments(self):
-        department_courses = {}
-
-        tables = self.soup.find_all('table')
-        if (len(tables) < 1): return department_courses
-        courseTable = tables[1]
-        courseRows = courseTable.contents
-        if (len(courseRows) < 1): return department_courses
-        # print(len(courseRows[2]))
-        # print(courseRows[3].find_all('td'))
-
-
-        for course in courseRows[1:]:
-            text = course.get_text(strip=True)
-            if not text: continue
-
-            courseCells = course.contents
-            if (len(courseCells) < 2): continue
-            department = courseCells[0].get_text(strip=True)
-            code = courseCells[1].get_text(strip=True)
-            title = courseCells[2].get_text(strip=True)
-            courseTag = department + " " + code
-
-            if department in department_courses:
-                department_courses[department].append({
-                    "courseTag": courseTag,
-                    "courseName": title
-                })
-            else:
-                department_courses[department] = [{
-                    "courseTag": courseTag,
-                    "courseName": title
-                }]
-
-        return department_courses
-
-class UofTScrapper():
-    BASE_URL = "https://artsci.calendar.utoronto.ca/search-courses"
-    DEPARTMENT_SELECT_ID = "edit-field-section-value"
-    SUBMIT_BUTTON_ID = "edit-submit-course-search"
-    
-    def __init__(self):
-        self.driver = webdriver.Chrome()
-        self.wait = WebDriverWait(self.driver, 10)
-    
-    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
-        try:
-            select_element = Select(self.driver.find_element(By.ID, self.DEPARTMENT_SELECT_ID))
-            return [(option.get_attribute('value'), option.text) 
-                   for option in select_element.options[1:]]
-        except NoSuchElementException as e:
-            logging.error(f"Failed to find department select element: {e}")
-            return []
-        
-    def scrapeDepartment(self, department_value: str) -> List[Dict[str, str]]:
-        courses = []
-        try:
-            # Select department and submit
-            select_element = Select(self.driver.find_element(By.ID, self.DEPARTMENT_SELECT_ID))
-            select_element.select_by_value(department_value)
-            submit_button = self.driver.find_element(By.ID, self.SUBMIT_BUTTON_ID)
-            submit_button.click()
-
-            while True:
-                
-                # Process current page
-                soup = BeautifulSoup(self.driver.page_source, 'html.parser')
-
-
-                # if courses empty
-                emptyMessage = soup.find_all('div', class_="view-empty")
-                if (len(emptyMessage) > 1): break
-                
-                # Wait for course elements to load
-                self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "h3[role='tab']")))
-                
-                course_rows = soup.find_all('h3', role="tab")
-                
-                courses.extend(self.fetchCourses(course_rows))
-
-                # Handle pagination
-                next_page = self.findNextPage(soup)
-                if not next_page:
-                    break
-                    
-                self.driver.get(next_page)
-
-        except TimeoutException:
-            logging.error(f"Timeout while scraping department {department_value}")
-        except Exception as e:
-            logging.error(f"Error scraping department {department_value}: {e}")
-            
-        return courses
-    
-    def scrapeAllDepartments(self) -> Dict[str, List[Dict[str, str]]]:
-        department_courses = {}
-        
+    def run(self) -> Dict[str, List[Dict[str, str]]]:
         try:
             self.driver.get(self.BASE_URL)
             departments = self.getDepartmentOptions()
             
-            for value, name in departments:
-                logging.info(f"Scraping department: {name}")
-                department_courses[value] = self.scrapeDepartment(value)
-                
-        finally:
-            self.driver.quit()
+            total = len(departments)
+            for i, (value, name) in enumerate(departments, 1):
+                try:
+                    logger.info(f"Scraping department: {name} ({i}/{total})")
+                    
+                    script = f"""
+                        document.getElementById('courseprefix').value = '{value}';
+                        document.getElementById('search-with-filters').click();
+                    """
+                    self.driver.execute_script(script)
+                    
+                    self.scrapeDepartment()
+                    
+                except Exception as e:
+                    logger.error(f"Error scraping department {name}: {e}")
+                    continue
             
-        return department_courses
-    
-    def fetchCourses(self, course_rows) -> List[Dict[str, str]]:
-        courses = []
-        for course in course_rows:
-            course_div = course.find('div')
-            if course_div:
-                course_title = course_div.text.strip().split(' - ')
-                if len(course_title) == 2:
-                    courses.append({
-                        "courseTag": course_title[0],
-                        "courseName": course_title[1]
-                    })
-        return courses
-    
-    def findNextPage(self, soup) -> Optional[str]:
-        nav = soup.find('a', title="Go to next page")
-        if nav and 'href' in nav.attrs:
-            return f"{self.BASE_URL}{nav['href']}"
-        return None
+            return self.department_courses
+        except Exception as e:
+            logger.error(f"Error in run: {e}")
+            return {}
 
+class UWOScraper(BaseScraper):
+    BASE_URL = "https://www.westerncalendar.uwo.ca/Courses.cfm"
+    
+    def __init__(self, headless: bool = True):
+        super().__init__(headless=headless)
+        self.university_name = "University of Western Ontario"
+
+    def getDepartmentLinks(self, departments) -> Dict[str, str]:
+        departmentLinks = {}
+        
+        for department in departments:
+            try:
+                departmentName = department.text
+                departmentLink = department.find_element(By.TAG_NAME, "a").get_attribute("href")
+                departmentLinks[departmentName] = departmentLink
+            except Exception as e:
+                logger.error(f"Error getting department link: {e}")
+                
+        return departmentLinks
+    
+    def scrapeCourses(self, departmentName: str) -> None:
+        try:
+            courses = self.driver.find_elements(By.CSS_SELECTOR, "h4.courseTitleNoBlueLink")
+
+            for course in courses:
+                courseHeading = course.text
+                pattern = rf"({departmentName}\s+\d{{4}}(?:[A-Z](?:\/[A-Z])*)?)\s+(.+)"
+                match = re.search(pattern, courseHeading)
+                if match:
+                    courseTag = match.group(1)
+                    courseName = match.group(2)
+                    self.add_course(departmentName, courseTag, courseName)
+                else:
+                    logger.error(f"Failed to parse course: {courseHeading}")
+        except Exception as e:
+            logger.error(f"Error scraping courses for {departmentName}: {e}")
+    
+    def run(self) -> Dict[str, List[Dict[str, str]]]:
+        try:
+            self.driver.get(self.BASE_URL)
+            departments = self.driver.find_elements(By.CSS_SELECTOR, "td.sorting_1")
+
+            # get links
+            departmentLinks = self.getDepartmentLinks(departments)
+            
+            total = len(departmentLinks)
+            for i, (name, link) in enumerate(departmentLinks.items(), 1):
+                try:
+                    logger.info(f"Scraping department: {name} ({i}/{total})")
+                    self.driver.get(link)
+                    self.scrapeCourses(name)
+                except Exception as e:
+                    logger.error(f"Error processing department {name}: {e}")
+                    continue
+            
+            return self.department_courses
+        except Exception as e:
+            logger.error(f"Error in run: {e}")
+            return {}
+
+class TMUScraper(BaseScraper):
+    BASE_URL = "https://www.torontomu.ca/calendar/2024-2025/courses/"
+
+    def __init__(self, headless: bool = True):
+        super().__init__(headless=headless)
+        self.university_name = "Toronto Metropolitan University"
+        
+    def getDepartmentLinks(self, departments) -> Dict[str, str]:
+        departmentLinks = {}
+        
+        for department in departments:
+            try:
+                departmentName = department.text
+                departmentLink = department.find_element(By.TAG_NAME, "a").get_attribute("href")
+                departmentLinks[departmentName] = departmentLink
+            except Exception as e:
+                logger.error(f"Error getting department link: {e}")
+                
+        return departmentLinks
+            
+    def scrapeCourses(self, departmentName: str) -> None:
+        try:
+            courses = self.driver.find_elements(By.CSS_SELECTOR, "a.courseCode")
+            for course in courses:
+                course_text = course.text
+                if ' - ' in course_text:
+                    course_parts = course_text.split(' - ', 1)
+                    courseTag = course_parts[0]
+                    courseName = course_parts[1]
+                    self.add_course(departmentName, courseTag, courseName)
+        except Exception as e:
+            logger.error(f"Error scraping courses for {departmentName}: {e}")
+    
+    def run(self) -> Dict[str, List[Dict[str, str]]]:
+        try:
+            self.driver.get(self.BASE_URL)
+            departments = self.driver.find_elements(By.CSS_SELECTOR, "td.sorting_1")
+
+            # get links
+            departmentLinks = self.getDepartmentLinks(departments)
+
+            total = len(departmentLinks)
+            for i, (name, link) in enumerate(departmentLinks.items(), 1):
+                try:
+                    logger.info(f"Scraping department: {name} ({i}/{total})")
+                    self.driver.get(link)
+                    self.scrapeCourses(name)
+                except Exception as e:
+                    logger.error(f"Error processing department {name}: {e}")
+                    continue
+                
+            return self.department_courses
+        except Exception as e:
+            logger.error(f"Error in run: {e}")
+            return {}
+
+class WaterlooScraper(BaseScraper):
+    BASE_URL = "https://classes.uwaterloo.ca/uwpcshtm.html"
+
+    def __init__(self, headless: bool = True):
+        super().__init__(headless=headless)
+        self.soup = None
+        self.university_name = "University of Waterloo"
+        
+    def setup_driver(self):
+        """Override to use requests instead of Selenium for this scraper."""
+        pass
+        
+    def cleanup(self):
+        """Override to skip Selenium cleanup."""
+        pass
+
+    def run(self) -> Dict[str, List[Dict[str, str]]]:
+        try:
+            source = requests.get(self.BASE_URL).text
+            self.soup = BeautifulSoup(source, 'html.parser')
+            
+            department_courses = {}
+            
+            tables = self.soup.find_all('table')
+            if len(tables) < 2:
+                logger.error("Course table not found")
+                return department_courses
+                
+            course_table = tables[1]
+            course_rows = course_table.find_all('tr')
+            
+            if len(course_rows) < 2:
+                logger.error("No course rows found")
+                return department_courses
+            
+            total = len(course_rows)
+            for i, course in enumerate(course_rows[1:], 1):
+                try:
+                    if i % 100 == 0:
+                        logger.info(f"Processing course {i}/{total}")
+                        
+                    cells = course.find_all('td')
+                    if len(cells) < 3:
+                        continue
+                        
+                    department = cells[0].get_text(strip=True)
+                    code = cells[1].get_text(strip=True)
+                    title = cells[2].get_text(strip=True)
+                    
+                    if not department or not code or not title:
+                        continue
+                        
+                    courseTag = f"{department} {code}"
+                    
+                    if department in department_courses:
+                        department_courses[department].append({
+                            "courseTag": courseTag,
+                            "courseName": title
+                        })
+                    else:
+                        department_courses[department] = [{
+                            "courseTag": courseTag,
+                            "courseName": title
+                        }]
+                except Exception as e:
+                    logger.error(f"Error processing course row: {e}")
+                    continue
+                    
+            return department_courses
+        except Exception as e:
+            logger.error(f"Error in run: {e}")
+            return {}
+
+
+def run_scraper(scraper_class):
+    scraper_name = scraper_class.__name__
+    logger.info(f"Starting {scraper_name}")
+    
+    try:
+        with scraper_class(headless=True) as scraper:
+            departments = scraper.run()
+            university_name = scraper.university_name
+            logger.info(f"Successfully scraped {len(departments)} departments with {scraper_name}")
+            return university_name, departments
+    except Exception as e:
+        logger.error(f"Error running {scraper_name}: {e}")
+        logger.error(traceback.format_exc())
+        return None, {}
 
 def main():
     scrapers = [
-        # UofTScrapper(),
-        # WaterlooScrapper(),
-        # TMUScraper(),
-        # UWOScraper(),
-        McMasterScraper()
+        McMasterScraper,
     ]
     
+    results = {}
+    
+    # You can use ThreadPoolExecutor to run scrapers in parallel if needed
+    # with ThreadPoolExecutor(max_workers=len(scrapers)) as executor:
+    #     futures = {executor.submit(run_scraper, scraper): scraper.__name__ for scraper in scrapers}
+    #     for future in as_completed(futures):
+    #         scraper_name = futures[future]
+    #         try:
+    #             result = future.result()
+    #             results[scraper_name] = result
+    #         except Exception as e:
+    #             logger.error(f"Error with {scraper_name}: {e}")
+    
+    # For now, run them sequentially
     for scraper in scrapers:
-        print(f"\nRunning {scraper.__class__.__name__}...")
-        try:
-            departments = scraper.scrapeAllDepartments()
-            print(f"Successfully scraped {len(departments)} departments")
-        except Exception as e:
-            print(f"Error running {scraper.__class__.__name__}: {str(e)}")
+        university_name, result = run_scraper(scraper)
+        if university_name:
+            results[university_name] = result
+    
+    print(list(results.keys()))
+    # print(list(results["Toronto Metropolitan University"].keys()))
+
+    logger.info(f"Completed scraping with {len(results)} scrapers")
+    return results
 
 if __name__ == "__main__":
     main()
