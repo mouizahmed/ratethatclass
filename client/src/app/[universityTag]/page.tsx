@@ -5,10 +5,10 @@ import { getUniversity, getCoursesByUniversityID, getDepartmentsByUniversityID }
 import { Course, University } from '@/types/university';
 import { UniversityHeader } from '@/components/display/UniversityHeader';
 import { CourseCard } from '@/components/display/CourseCard';
-import Search from '@/components/common/Search';
+import { Input } from '@/components/ui/input';
 import { MultipleSelector } from '@/components/ui/multipleselector';
 import { Dropdown } from '@/components/common/Dropdown';
-import { ArrowUpWideNarrow, ArrowDownWideNarrow } from 'lucide-react';
+import { ArrowUpWideNarrow, ArrowDownWideNarrow, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getComparator } from '@/lib/utils';
 import { useAlert } from '@/contexts/alertContext';
@@ -28,6 +28,11 @@ import Link from 'next/link';
 import { Spinner } from '@/components/ui/Spinner';
 import { useRouter } from 'next/navigation';
 
+// Move sorting logic outside component
+const sortCourses = (courses: Course[], order: 'asc' | 'desc', orderBy: keyof typeof courseSortingOptions) => {
+  return [...courses].sort(getComparator(order, orderBy));
+};
+
 export default function Page() {
   const { universityTag } = useParams();
   const { addAlert } = useAlert();
@@ -41,21 +46,24 @@ export default function Page() {
   const [selectedSearchValue, setSelectedSearchValue] = useState<string>('');
   const [order, setOrder] = useState<'asc' | 'desc'>('desc');
   const [orderBy, setOrderBy] = useState<keyof typeof courseSortingOptions>(Object.keys(courseSortingOptions)[0] || '');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isInitialLoading, setIsInitialLoading] = useState<boolean>(true);
+  const [isSearchLoading, setIsSearchLoading] = useState<boolean>(false);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const loadMoreRef = useRef<HTMLDivElement>(null);
+  const searchTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   useEffect(() => {
     if (!universityTag) return;
 
     const fetchInitialData = async () => {
       try {
-        setIsLoading(true);
+        setIsInitialLoading(true);
         const universityInfo = await getUniversity(universityTag as string);
         setUniversity(universityInfo);
 
-        const { data } = await getCoursesByUniversityID(universityInfo.university_id, 1, 20);
+        const { data } = await getCoursesByUniversityID(universityInfo.university_id, 1, 20, '');
         setCourseList(data);
 
         const departments = await getDepartmentsByUniversityID(universityInfo.university_id);
@@ -68,19 +76,62 @@ export default function Page() {
         console.error(error);
         addAlert('destructive', (error as Error).message, 3000);
       } finally {
-        setIsLoading(false);
+        setIsInitialLoading(false);
       }
     };
 
     fetchInitialData();
   }, [universityTag, addAlert]);
 
+  useEffect(() => {
+    if (!university.university_id) return;
+
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    searchTimeoutRef.current = setTimeout(async () => {
+      try {
+        setIsSearchLoading(true);
+        setCurrentPage(1);
+        const departmentIDsArray = Object.keys(selectedDepartments);
+        const { data, meta } = await getCoursesByUniversityID(
+          university.university_id,
+          1,
+          20,
+          searchValue,
+          departmentIDsArray.length > 0 ? departmentIDsArray : undefined
+        );
+        setCourseList(data);
+        setHasMore(meta.total_pages > 1);
+      } catch (error) {
+        console.error(error);
+        addAlert('destructive', 'Failed to search courses', 3000);
+      } finally {
+        setIsSearchLoading(false);
+      }
+    }, 300);
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [searchValue, university.university_id, selectedDepartments, addAlert]);
+
   const loadMoreCourses = useCallback(async () => {
-    if (!university.university_id || isLoading || !hasMore) return;
+    if (!university.university_id || isLoadingMore || !hasMore) return;
 
     try {
-      setIsLoading(true);
-      const { data, meta } = await getCoursesByUniversityID(university.university_id, currentPage + 1, 20);
+      setIsLoadingMore(true);
+      const departmentIDsArray = Object.keys(selectedDepartments);
+      const { data, meta } = await getCoursesByUniversityID(
+        university.university_id,
+        currentPage + 1,
+        20,
+        searchValue,
+        departmentIDsArray.length > 0 ? departmentIDsArray : undefined
+      );
       setCourseList((prev) => [...prev, ...data]);
       setCurrentPage((prev) => prev + 1);
 
@@ -89,15 +140,15 @@ export default function Page() {
       console.error(error);
       addAlert('destructive', 'Failed to load more courses', 3000);
     } finally {
-      setIsLoading(false);
+      setIsLoadingMore(false);
     }
-  }, [university.university_id, currentPage, isLoading, hasMore, addAlert]);
+  }, [university.university_id, currentPage, isLoadingMore, hasMore, addAlert, searchValue, selectedDepartments]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        if (entry.isIntersecting && hasMore && !isLoading) {
+        if (entry.isIntersecting && hasMore && !isLoadingMore && !isSearchLoading) {
           loadMoreCourses();
         }
       },
@@ -110,36 +161,13 @@ export default function Page() {
     return () => {
       if (target) observer.unobserve(target);
     };
-  }, [loadMoreCourses, hasMore, isLoading]);
+  }, [loadMoreCourses, hasMore, isLoadingMore, isSearchLoading]);
 
   function updateSort() {
     setOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
   }
 
-  const filterSearch = useCallback(
-    (course: Course) => {
-      let searchCheck = true;
-      let departmentCheck = true;
-
-      if (searchValue.length !== 0) {
-        searchCheck =
-          course.course_name.toLowerCase().includes(searchValue.toLowerCase()) ||
-          course.course_tag.toLowerCase().includes(searchValue.toLowerCase());
-      }
-
-      if (Object.keys(selectedDepartments).length !== 0) {
-        departmentCheck = Object.prototype.hasOwnProperty.call(selectedDepartments, course.department_id ?? '');
-      }
-
-      return searchCheck && departmentCheck;
-    },
-    [searchValue, selectedDepartments]
-  );
-
-  const sortedRows = React.useMemo(
-    () => [...(courseList || [])].sort(getComparator(order, orderBy)).filter(filterSearch),
-    [courseList, order, orderBy, filterSearch]
-  );
+  const sortedRows = React.useMemo(() => sortCourses(courseList, order, orderBy), [courseList, order, orderBy]);
 
   const steps: StepProps<ReturnType<typeof getNewCourseFormSchema>>[] = [
     {
@@ -248,7 +276,7 @@ export default function Page() {
 
   return (
     <div className="">
-      {isLoading && courseList.length === 0 ? (
+      {isInitialLoading ? (
         <div className="flex min-h-screen items-center justify-center">
           <Spinner size="medium" />
         </div>
@@ -258,64 +286,80 @@ export default function Page() {
           <div className="w-full max-w-3xl">
             <BreadCrumb links={prevLinks} />
           </div>
-          {courseList && (
-            <React.Fragment>
-              <div className="w-full max-w-3xl">
-                <Search
-                  data={courseList}
-                  valueKey="course_tag"
-                  labelKey="course_name"
-                  searchValue={searchValue}
-                  setSearchValue={setSearchValue}
-                  selectedValue={selectedSearchValue}
-                  setSelectedValue={setSelectedSearchValue}
-                  placeholder="Search courses..."
-                  emptyMessage="No courses found."
-                />
+          {/* Show search and filters regardless of course list */}
+          <div className="w-full max-w-3xl">
+            <div className="relative">
+              <Input
+                type="text"
+                placeholder="Search courses..."
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                className="w-full pr-10"
+              />
+              {searchValue && (
+                <button
+                  onClick={() => setSearchValue('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-700"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+          </div>
+          <div className="w-full max-w-3xl flex flex-col gap-4 md:grid md:grid-cols-2">
+            <div>
+              <MultipleSelector
+                data={departmentList}
+                value={selectedDepartments}
+                setValue={setSelectedDepartments}
+                placeholder="Departments..."
+                itemType="departments"
+              />
+            </div>
+            <div className="flex items-center justify-center gap-5">
+              <Dropdown
+                data={courseSortingOptions}
+                value={orderBy}
+                setValue={setOrderBy}
+                placeholder="Sort By"
+                initialValue={Object.keys(courseSortingOptions)[0] || ''}
+                returnType="key"
+              />
+              <Button variant="outline" className="h-10 w-10" onClick={updateSort}>
+                {order === 'desc' ? <ArrowDownWideNarrow /> : <ArrowUpWideNarrow />}
+              </Button>
+            </div>
+            <div className="col-span-2 flex">
+              <DialogForm
+                triggerButton={<Button className="w-full">Add Course</Button>}
+                steps={steps}
+                onSubmit={handleSubmit}
+                schema={getNewCourseFormSchema(courseList ?? [])}
+              />
+            </div>
+          </div>
+
+          {/* Course list with search loading indicator */}
+          <div className="grid md:grid-cols-2 gap-10 w-full max-w-3xl">
+            {isSearchLoading ? (
+              <div className="col-span-2 flex justify-center py-10">
+                <Spinner size="medium" />
               </div>
-              <div className="w-full max-w-3xl flex flex-col gap-4 md:grid md:grid-cols-2">
-                <div>
-                  <MultipleSelector
-                    data={departmentList}
-                    value={selectedDepartments}
-                    setValue={setSelectedDepartments}
-                    placeholder="Departments..."
-                    itemType="departments"
-                  />
-                </div>
-                <div className="flex items-center justify-center gap-5">
-                  <Dropdown
-                    data={courseSortingOptions}
-                    value={orderBy}
-                    setValue={setOrderBy}
-                    placeholder="Sort By"
-                    initialValue={Object.keys(courseSortingOptions)[0] || ''}
-                    returnType="key"
-                  />
-                  <Button variant="outline" className="h-10 w-10" onClick={updateSort}>
-                    {order === 'desc' ? <ArrowDownWideNarrow /> : <ArrowUpWideNarrow />}
-                  </Button>
-                </div>
-                <div className="col-span-2 flex">
-                  <DialogForm
-                    triggerButton={<Button className="w-full">Add Course</Button>}
-                    steps={steps}
-                    onSubmit={handleSubmit}
-                    // Dynamically build the schema using the current courseList.
-                    schema={getNewCourseFormSchema(courseList ?? [])}
-                  />
-                </div>
-              </div>
-              <div className="grid md:grid-cols-2 gap-10 w-full max-w-3xl">
+            ) : sortedRows.length > 0 ? (
+              <>
                 {sortedRows.map((course) => (
                   <CourseCard key={course.course_id} course={course} />
                 ))}
                 <div ref={loadMoreRef} className="col-span-2 flex justify-center py-4">
-                  {isLoading && <Spinner size="small" />}
+                  {isLoadingMore && <Spinner size="small" />}
                 </div>
+              </>
+            ) : (
+              <div className="col-span-2 flex justify-center py-10">
+                <p className="text-lg text-gray-500">No courses match your search criteria.</p>
               </div>
-            </React.Fragment>
-          )}
+            )}
+          </div>
         </div>
       ) : (
         <div className="flex flex-col gap-4 justify-center h-screen items-center">

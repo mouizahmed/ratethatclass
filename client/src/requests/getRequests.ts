@@ -57,14 +57,29 @@ export async function getDepartmentsByUniversityID(universityID: string): Promis
   }
 }
 
-export async function getCoursesByUniversityID(universityID: string, page: number, limit: number) {
+export async function getCoursesByUniversityID(
+  universityID: string,
+  page: number,
+  limit: number,
+  search?: string,
+  departmentIDs?: string[]
+) {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_URL}/course/universityID/${universityID}?page=${page}&limit=${limit}`,
-      {
-        timeout: API_TIMEOUT,
-      }
-    );
+    let url = `${process.env.NEXT_PUBLIC_URL}/course/universityID/${universityID}?page=${page}&limit=${limit}`;
+
+    if (search) {
+      url += `&search=${encodeURIComponent(search)}`;
+    }
+
+    if (departmentIDs && departmentIDs.length > 0) {
+      departmentIDs.forEach((id) => {
+        url += `&department_id=${encodeURIComponent(id)}`;
+      });
+    }
+
+    const response = await axios.get(url, {
+      timeout: API_TIMEOUT,
+    });
 
     return response.data;
   } catch (error) {

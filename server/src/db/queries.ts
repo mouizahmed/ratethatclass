@@ -60,6 +60,10 @@ SELECT COUNT(*) FROM courses
 JOIN departments ON departments.department_id = courses.department_id
 JOIN universities ON universities.university_id = departments.university_id
 WHERE universities.university_id = $1
+AND ($2::text IS NULL OR 
+    courses.course_name ILIKE '%' || $2 || '%' OR 
+    courses.course_tag ILIKE '%' || $2 || '%')
+AND ($3::text[] IS NULL OR departments.department_id = ANY($3::uuid[]))
 `;
 
 export const getCoursesByUniversityID = `
@@ -82,6 +86,10 @@ JOIN
     universities ON universities.university_id = departments.university_id
 WHERE
     universities.university_id = $1
+    AND ($4::text IS NULL OR 
+        courses.course_name ILIKE '%' || $4 || '%' OR 
+        courses.course_tag ILIKE '%' || $4 || '%')
+    AND ($5::text[] IS NULL OR departments.department_id = ANY($5::uuid[]))
 GROUP BY
     courses.course_id, universities.university_id, departments.department_id
 ORDER BY

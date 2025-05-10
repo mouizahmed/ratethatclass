@@ -36,12 +36,29 @@ router.get('/universityID/:universityID', async (req: Request, res: Response) =>
   const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
   const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
   const offset = (page - 1) * limit;
+  const search = (req.query.search as string) || null;
 
-  console.log(page, limit);
+  // Handle department_id as either a single value or an array of values
+  let departmentIDs = null;
+  if (req.query.department_id) {
+    if (Array.isArray(req.query.department_id)) {
+      departmentIDs = req.query.department_id as string[];
+    } else {
+      departmentIDs = [req.query.department_id as string];
+    }
+  }
+
+  console.log(page, limit, search, departmentIDs);
 
   try {
-    const coursesResult = await pool.query(getCoursesByUniversityID, [universityID, limit, offset]);
-    const totalCount = await pool.query(getCoursesByUniversityIDCount, [universityID]);
+    const coursesResult = await pool.query(getCoursesByUniversityID, [
+      universityID,
+      limit,
+      offset,
+      search,
+      departmentIDs,
+    ]);
+    const totalCount = await pool.query(getCoursesByUniversityIDCount, [universityID, search, departmentIDs]);
 
     const totalItems = parseInt(totalCount.rows[0].count, 0);
     const totalPages = Math.ceil(totalItems / limit);
