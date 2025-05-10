@@ -57,13 +57,16 @@ export async function getDepartmentsByUniversityID(universityID: string): Promis
   }
 }
 
-export async function getCoursesByUniversityID(universityID: string) {
+export async function getCoursesByUniversityID(universityID: string, page: number, limit: number) {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/course/universityID/${universityID}`, {
-      timeout: API_TIMEOUT,
-    });
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_URL}/course/universityID/${universityID}?page=${page}&limit=${limit}`,
+      {
+        timeout: API_TIMEOUT,
+      }
+    );
 
-    return response.data as Course[];
+    return response.data;
   } catch (error) {
     console.log(error);
     throw new Error(`Error retrieving course list.`);

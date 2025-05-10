@@ -55,6 +55,13 @@ GROUP BY
     courses.course_id
 `;
 
+export const getCoursesByUniversityIDCount = `
+SELECT COUNT(*) FROM courses
+JOIN departments ON departments.department_id = courses.department_id
+JOIN universities ON universities.university_id = departments.university_id
+WHERE universities.university_id = $1
+`;
+
 export const getCoursesByUniversityID = `
 SELECT
     courses.*,
@@ -77,6 +84,10 @@ WHERE
     universities.university_id = $1
 GROUP BY
     courses.course_id, universities.university_id, departments.department_id
+ORDER BY
+    courses.course_tag ASC,
+    courses.course_name ASC
+LIMIT $2 OFFSET $3
 `;
 
 export const getCoursesByDepartmentID = `

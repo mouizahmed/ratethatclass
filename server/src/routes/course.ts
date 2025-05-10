@@ -12,6 +12,7 @@ import {
   addProfessor,
   addReview,
   addUpvote,
+  getCoursesByUniversityIDCount,
 } from '../db/queries';
 import { AuthenticatedRequest, Course, Review } from 'types';
 import { PoolClient } from 'pg';
@@ -32,10 +33,30 @@ router.get('/', async (req: Request, res: Response) => {
 
 router.get('/universityID/:universityID', async (req: Request, res: Response) => {
   const { universityID } = req.params;
+  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+  const offset = (page - 1) * limit;
+
+  console.log(page, limit);
 
   try {
-    const result = await pool.query(getCoursesByUniversityID, [universityID]);
-    res.json(result.rows as Course[]);
+    const coursesResult = await pool.query(getCoursesByUniversityID, [universityID, limit, offset]);
+    const totalCount = await pool.query(getCoursesByUniversityIDCount, [universityID]);
+
+    const totalItems = parseInt(totalCount.rows[0].count, 0);
+    const totalPages = Math.ceil(totalItems / limit);
+
+    res.json({
+      success: true,
+      message: 'Courses fetched successfully',
+      data: coursesResult.rows as Course[],
+      meta: {
+        current_page: page,
+        page_size: limit,
+        total_items: totalItems,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
     console.log(error);
     res.status(500).send(error.message);

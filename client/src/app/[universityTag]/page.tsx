@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { getUniversity, getCoursesByUniversityID, getDepartmentsByUniversityID } from '@/requests/getRequests';
 import { Course, University } from '@/types/university';
@@ -33,64 +33,84 @@ export default function Page() {
   const { addAlert } = useAlert();
   const router = useRouter();
 
-  const [university, setUniversity] = useState<University>();
-  const [courseList, setCourseList] = useState<Course[]>();
-
+  const [university, setUniversity] = useState<University>({} as University);
+  const [courseList, setCourseList] = useState<Course[]>([]);
   const [departmentList, setDepartmentList] = useState<Record<string, string>>({});
   const [selectedDepartments, setSelectedDepartments] = useState<Record<string, string>>({});
   const [searchValue, setSearchValue] = useState<string>('');
   const [selectedSearchValue, setSelectedSearchValue] = useState<string>('');
   const [order, setOrder] = useState<'asc' | 'desc'>('desc');
   const [orderBy, setOrderBy] = useState<keyof typeof courseSortingOptions>(Object.keys(courseSortingOptions)[0] || '');
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!universityTag) return;
 
-    const loadUniversity = async () => {
-      const universityInfo: University = await getUniversity(universityTag as string);
-      setUniversity(universityInfo);
-
-      return universityInfo;
-    };
-
-    const loadCourses = async (university: University) => {
-      const courses: Course[] = await getCoursesByUniversityID(university.university_id);
-      setCourseList(courses);
-
-      return courses;
-    };
-
-    const loadDepartments = async (university: University) => {
-      const departments: Record<string, string> = await getDepartmentsByUniversityID(university.university_id).then(
-        (response) =>
-          response.reduce((acc, obj) => {
-            acc[obj.department_id] = obj.department_name;
-            return acc;
-          }, {} as Record<string, string>)
-      );
-
-      setDepartmentList(departments);
-
-      return departments;
-    };
-
-    const fetchData = async () => {
+    const fetchInitialData = async () => {
       try {
-        setLoading(true);
-        const universityInfo: University = await loadUniversity();
-        await loadCourses(universityInfo);
-        await loadDepartments(universityInfo);
-        setLoading(false);
+        setIsLoading(true);
+        const universityInfo = await getUniversity(universityTag as string);
+        setUniversity(universityInfo);
+
+        const { data } = await getCoursesByUniversityID(universityInfo.university_id, 1, 20);
+        setCourseList(data);
+
+        const departments = await getDepartmentsByUniversityID(universityInfo.university_id);
+        const departmentMap = departments.reduce((acc, obj) => {
+          acc[obj.department_id] = obj.department_name;
+          return acc;
+        }, {} as Record<string, string>);
+        setDepartmentList(departmentMap);
       } catch (error) {
-        setLoading(false);
-        console.log(error);
+        console.error(error);
         addAlert('destructive', (error as Error).message, 3000);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchData();
+    fetchInitialData();
   }, [universityTag, addAlert]);
+
+  const loadMoreCourses = useCallback(async () => {
+    if (!university.university_id || isLoading || !hasMore) return;
+
+    try {
+      setIsLoading(true);
+      const { data, meta } = await getCoursesByUniversityID(university.university_id, currentPage + 1, 20);
+      setCourseList((prev) => [...prev, ...data]);
+      setCurrentPage((prev) => prev + 1);
+
+      setHasMore(currentPage + 1 < meta.total_pages);
+    } catch (error) {
+      console.error(error);
+      addAlert('destructive', 'Failed to load more courses', 3000);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [university.university_id, currentPage, isLoading, hasMore, addAlert]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting && hasMore && !isLoading) {
+          loadMoreCourses();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const target = loadMoreRef.current;
+    if (target) observer.observe(target);
+
+    return () => {
+      if (target) observer.unobserve(target);
+    };
+  }, [loadMoreCourses, hasMore, isLoading]);
 
   function updateSort() {
     setOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
@@ -228,7 +248,7 @@ export default function Page() {
 
   return (
     <div className="">
-      {loading ? (
+      {isLoading && courseList.length === 0 ? (
         <div className="flex min-h-screen items-center justify-center">
           <Spinner size="medium" />
         </div>
@@ -290,6 +310,9 @@ export default function Page() {
                 {sortedRows.map((course) => (
                   <CourseCard key={course.course_id} course={course} />
                 ))}
+                <div ref={loadMoreRef} className="col-span-2 flex justify-center py-4">
+                  {isLoading && <Spinner size="small" />}
+                </div>
               </div>
             </React.Fragment>
           )}
