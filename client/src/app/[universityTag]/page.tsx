@@ -28,7 +28,6 @@ import Link from 'next/link';
 import { Spinner } from '@/components/ui/Spinner';
 import { useRouter } from 'next/navigation';
 
-// Move sorting logic outside component
 const sortCourses = (courses: Course[], order: 'asc' | 'desc', orderBy: keyof typeof courseSortingOptions) => {
   return [...courses].sort(getComparator(order, orderBy));
 };
@@ -43,7 +42,6 @@ export default function Page() {
   const [departmentList, setDepartmentList] = useState<Record<string, string>>({});
   const [selectedDepartments, setSelectedDepartments] = useState<Record<string, string>>({});
   const [searchValue, setSearchValue] = useState<string>('');
-  const [selectedSearchValue, setSelectedSearchValue] = useState<string>('');
   const [order, setOrder] = useState<'asc' | 'desc'>('desc');
   const [orderBy, setOrderBy] = useState<keyof typeof courseSortingOptions>(Object.keys(courseSortingOptions)[0] || '');
   const [isInitialLoading, setIsInitialLoading] = useState<boolean>(true);
@@ -53,6 +51,7 @@ export default function Page() {
   const [hasMore, setHasMore] = useState<boolean>(true);
   const loadMoreRef = useRef<HTMLDivElement>(null);
   const searchTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
+  const initialLoadCompleteRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (!universityTag) return;
@@ -72,6 +71,7 @@ export default function Page() {
           return acc;
         }, {} as Record<string, string>);
         setDepartmentList(departmentMap);
+        initialLoadCompleteRef.current = true;
       } catch (error) {
         console.error(error);
         addAlert('destructive', (error as Error).message, 3000);
@@ -84,7 +84,7 @@ export default function Page() {
   }, [universityTag, addAlert]);
 
   useEffect(() => {
-    if (!university.university_id) return;
+    if (!university.university_id || !initialLoadCompleteRef.current) return;
 
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
@@ -286,7 +286,7 @@ export default function Page() {
           <div className="w-full max-w-3xl">
             <BreadCrumb links={prevLinks} />
           </div>
-          {/* Show search and filters regardless of course list */}
+
           <div className="w-full max-w-3xl">
             <div className="relative">
               <Input
@@ -339,7 +339,6 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Course list with search loading indicator */}
           <div className="grid md:grid-cols-2 gap-10 w-full max-w-3xl">
             {isSearchLoading ? (
               <div className="col-span-2 flex justify-center py-10">
