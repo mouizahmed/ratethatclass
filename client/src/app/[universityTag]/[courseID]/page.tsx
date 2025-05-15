@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import {
   getUniversity,
@@ -10,11 +10,9 @@ import {
 import { Course, University, Professor } from '@/types/university';
 import { Delivery, Evaluation, Grade, Review, Term, Textbook, Vote, Workload } from '@/types/review';
 import { UniversityHeader } from '@/components/display/UniversityHeader';
-import { MultipleSelector } from '@/components/ui/multipleselector';
 import { Dropdown } from '@/components/common/Dropdown';
 import { ArrowUpWideNarrow, ArrowDownWideNarrow, EllipsisVertical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { getComparator } from '@/lib/utils';
 import { ReviewCard } from '@/components/display/ReviewCard';
 import { useAlert } from '@/contexts/alertContext';
 import { Separator } from '@/components/ui/separator';
@@ -49,7 +47,7 @@ export default function Page() {
   const [university, setUniversity] = useState<University>();
   const [course, setCourse] = useState<Course>();
   const [reviewList, setReviewList] = useState<Review[]>([]);
-  const [selectedProfessors, setSelectedProfessors] = useState<Record<string, string>>({});
+  const [selectedProfessor, setSelectedProfessor] = useState<string>('');
   const [professorList, setProfessorList] = useState<Record<string, string>>({});
   const [order, setOrder] = useState<'asc' | 'desc'>('desc');
   const [orderBy, setOrderBy] = useState<keyof typeof sortingOptions>(Object.keys(sortingOptions)[0] || '');
@@ -60,8 +58,15 @@ export default function Page() {
   const [easyScore, setEasyScore] = useState<number>(0);
   const [interestScore, setInterestScore] = useState<number>(0);
   const [usefulScore, setUsefulScore] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isInitialLoading, setIsInitialLoading] = useState<boolean>(true);
+  const [isSearchLoading, setIsSearchLoading] = useState<boolean>(false);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
   const [showReportDialog, setShowReportDialog] = useState<boolean>(false);
+
+  const initialLoadCompleteRef = useRef<boolean>(false);
+  const courseIdRef = useRef<string>('');
 
   const { addAlert } = useAlert();
   const { userLoggedIn, currentUser } = useAuth();
@@ -83,6 +88,7 @@ export default function Page() {
         (courseID as string).replaceAll('_', ' ')
       );
       setCourse(courseInfo);
+      courseIdRef.current = courseInfo.course_id || '';
 
       setTotalReviews(courseInfo.review_num ?? 0);
       setOverallScore(courseInfo.overall_score ?? 0);
@@ -106,77 +112,163 @@ export default function Page() {
       return professorRecord;
     };
 
-    const loadReviews = async (course: Course) => {
-      let getReviewList: Review[] = [];
+    const fetchInitialReviews = async (courseId: string) => {
+      if (!courseId) throw new Error('No course ID');
 
-      if (!course.course_id) throw new Error('No course ID');
+      const response = await getReviewsByCourseID(
+        courseId,
+        1,
+        10,
+        selectedProfessor || undefined,
+        term || undefined,
+        deliveryMethod || undefined,
+        orderBy,
+        order
+      );
 
-      if (userLoggedIn) {
-        getReviewList = await getReviewsByCourseID(course.course_id ?? '');
-        setReviewList(getReviewList);
+      if (response && typeof response === 'object' && 'data' in response && 'meta' in response) {
+        const data = response.data;
+        const meta = response.meta;
+        setReviewList(data);
+        setHasMore(meta.total_pages > 1);
+        setCurrentPage(1);
+        return data;
       } else {
-        getReviewList = await getReviewsByCourseID(course.course_id ?? '');
-        setReviewList(getReviewList);
+        // Handle old API format for backward compatibility
+        setReviewList(response as Review[]);
+        setHasMore(false);
+        setCurrentPage(1);
+        return response as Review[];
       }
-
-      return getReviewList;
     };
 
     const fetchData = async () => {
       try {
-        setLoading(true);
+        setIsInitialLoading(true);
         const universityInfo: University = await loadUniversity(universityTag as string);
         const courseInfo: Course = await loadCourse(universityInfo);
         await loadProfessors(courseInfo);
-        await loadReviews(courseInfo);
-        setLoading(false);
+        await fetchInitialReviews(courseInfo.course_id || '');
+
+        initialLoadCompleteRef.current = true;
+        setIsInitialLoading(false);
       } catch (error) {
-        setLoading(false);
+        setIsInitialLoading(false);
         addAlert('destructive', (error as Error).message, 3000);
       }
     };
     fetchData();
   }, [courseID, universityTag, addAlert, userLoggedIn]);
 
-  const filterSearch = useCallback(
-    (review: Review) => {
-      let professorCheck = true;
-      let termCheck = true;
-      let deliveryCheck = true;
-
-      if (Object.keys(selectedProfessors).length !== 0) {
-        professorCheck = review.professor_id ? Boolean(selectedProfessors[review.professor_id]) : false;
-      }
-
-      if (term !== '') {
-        termCheck = review.term_taken === term;
-      }
-
-      if (deliveryMethod !== '') {
-        deliveryCheck = review.delivery_method === deliveryMethod;
-      }
-
-      return professorCheck && termCheck && deliveryCheck;
-    },
-    [deliveryMethod, selectedProfessors, term]
-  );
-
-  const sortedRows = React.useMemo(
-    () => [...(reviewList || [])].sort(getComparator(order, orderBy)).filter(filterSearch),
-    [reviewList, order, orderBy, filterSearch]
-  );
-
   useEffect(() => {
-    const calculateAverage = (attribute: keyof Review) => {
-      const totalScore = sortedRows.reduce((acc, review) => acc + (review[attribute] as number), 0);
-      return sortedRows.length ? totalScore / sortedRows.length : 0;
+    if (!initialLoadCompleteRef.current || !courseIdRef.current) return;
+
+    const fetchReviews = async () => {
+      try {
+        setIsSearchLoading(true);
+        setCurrentPage(1);
+
+        const response = await getReviewsByCourseID(
+          courseIdRef.current,
+          1,
+          10,
+          selectedProfessor || undefined,
+          term || undefined,
+          deliveryMethod || undefined,
+          orderBy,
+          order
+        );
+
+        if (response && typeof response === 'object' && 'data' in response && 'meta' in response) {
+          const data = response.data;
+          const meta = response.meta;
+          setReviewList(data);
+          setHasMore(meta.total_pages > 1);
+
+          if (data.length > 0) {
+            const calculateAverage = (attribute: keyof Review) => {
+              const totalScore = data.reduce((acc: number, review: Review) => acc + (review[attribute] as number), 0);
+              return data.length ? totalScore / data.length : 0;
+            };
+
+            setTotalReviews(meta.total_items);
+            setOverallScore(calculateAverage('overall_score'));
+            setEasyScore(calculateAverage('easy_score'));
+            setInterestScore(calculateAverage('interest_score'));
+            setUsefulScore(calculateAverage('useful_score'));
+          } else {
+            setTotalReviews(0);
+            setOverallScore(0);
+            setEasyScore(0);
+            setInterestScore(0);
+            setUsefulScore(0);
+          }
+        } else {
+          const reviews = response as Review[];
+          setReviewList(reviews);
+          setHasMore(false);
+          setTotalReviews(reviews.length);
+
+          if (reviews.length > 0) {
+            const calculateAverage = (attribute: keyof Review) => {
+              const totalScore = reviews.reduce(
+                (acc: number, review: Review) => acc + (review[attribute] as number),
+                0
+              );
+              return reviews.length ? totalScore / reviews.length : 0;
+            };
+
+            setOverallScore(calculateAverage('overall_score'));
+            setEasyScore(calculateAverage('easy_score'));
+            setInterestScore(calculateAverage('interest_score'));
+            setUsefulScore(calculateAverage('useful_score'));
+          } else {
+            setOverallScore(0);
+            setEasyScore(0);
+            setInterestScore(0);
+            setUsefulScore(0);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        addAlert('destructive', 'Failed to search reviews', 3000);
+      } finally {
+        setIsSearchLoading(false);
+      }
     };
-    setTotalReviews(sortedRows.length);
-    setOverallScore(calculateAverage('overall_score'));
-    setEasyScore(calculateAverage('easy_score'));
-    setInterestScore(calculateAverage('interest_score'));
-    setUsefulScore(calculateAverage('useful_score'));
-  }, [sortedRows]);
+
+    fetchReviews();
+  }, [selectedProfessor, term, deliveryMethod, orderBy, order, addAlert]);
+
+  const loadMoreReviews = useCallback(async () => {
+    if (!courseIdRef.current || isLoadingMore || !hasMore) return;
+
+    try {
+      setIsLoadingMore(true);
+
+      const response = await getReviewsByCourseID(
+        courseIdRef.current,
+        currentPage + 1,
+        10,
+        selectedProfessor || undefined,
+        term || undefined,
+        deliveryMethod || undefined,
+        orderBy,
+        order
+      );
+
+      const data = response.data;
+      const meta = response.meta;
+      setReviewList((prev) => [...prev, ...data]);
+      setCurrentPage((prev) => prev + 1);
+      setHasMore(currentPage + 1 < meta.total_pages);
+    } catch (error) {
+      console.error(error);
+      addAlert('destructive', 'Failed to load more reviews', 3000);
+    } finally {
+      setIsLoadingMore(false);
+    }
+  }, [currentPage, isLoadingMore, hasMore, addAlert, selectedProfessor, term, deliveryMethod, orderBy, order]);
 
   const prevLinks = [
     {
@@ -201,7 +293,7 @@ export default function Page() {
     e.stopPropagation();
     setTerm('');
     setDeliveryMethod('');
-    setSelectedProfessors({});
+    setSelectedProfessor('');
   }
 
   const steps: StepProps<typeof newReviewForm>[] = [
@@ -295,7 +387,7 @@ export default function Page() {
 
   return (
     <div>
-      {loading ? (
+      {isInitialLoading ? (
         <div className="flex justify-center items-center min-h-screen">
           <Spinner size="medium" />
         </div>
@@ -337,12 +429,13 @@ export default function Page() {
                 </DropdownMenu>
               </div>
               <div className="w-full max-w-3xl flex flex-col gap-4 sm:grid sm:grid-cols-2">
-                <MultipleSelector
+                <Dropdown
                   data={professorList}
-                  value={selectedProfessors}
-                  setValue={setSelectedProfessors}
-                  placeholder="Professors"
-                  itemType="professors"
+                  value={selectedProfessor}
+                  setValue={setSelectedProfessor}
+                  placeholder="Professor"
+                  initialValue=""
+                  returnType={'key'}
                 />
                 <Dropdown
                   data={sortingOptions}
@@ -438,14 +531,40 @@ export default function Page() {
               </Card>
 
               <div className="grid md:grid-cols-1 gap-4 w-full max-w-3xl">
-                {sortedRows.map((review) => (
-                  <ReviewCard
-                    key={review.review_id}
-                    review={review}
-                    preview={false}
-                    onDelete={(deletedId) => setReviewList((prev) => prev.filter((r) => r.review_id !== deletedId))}
-                  />
-                ))}
+                {isSearchLoading ? (
+                  <div className="flex justify-center py-10">
+                    <Spinner size="medium" />
+                  </div>
+                ) : reviewList.length > 0 ? (
+                  <>
+                    {reviewList.map((review) => (
+                      <ReviewCard
+                        key={review.review_id}
+                        review={review}
+                        preview={false}
+                        onDelete={(deletedId) => setReviewList((prev) => prev.filter((r) => r.review_id !== deletedId))}
+                      />
+                    ))}
+                    <div className="flex justify-center py-4">
+                      {hasMore && (
+                        <Button onClick={loadMoreReviews} disabled={isLoadingMore} className="w-40">
+                          {isLoadingMore ? (
+                            <div className="flex items-center gap-2">
+                              <Spinner size="small" />
+                              <span>Loading...</span>
+                            </div>
+                          ) : (
+                            'Load More'
+                          )}
+                        </Button>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex justify-center py-10">
+                    <p className="text-lg text-gray-500">No reviews match your search criteria.</p>
+                  </div>
+                )}
               </div>
             </React.Fragment>
           ) : (
@@ -454,9 +573,6 @@ export default function Page() {
                 <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
                   There are no courses in {university.university_name} that match your search criteria.
                 </h3>
-                {/* <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                If you think there is a missing course, you can add one here.
-              </h3> */}
               </div>
               <Link href={`/${university.university_name.replaceAll(' ', '_')}`}>
                 <Button>Return to {university.university_name}</Button>

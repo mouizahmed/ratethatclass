@@ -10,7 +10,6 @@ export async function getUniversities() {
   try {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/university`, { timeout: API_TIMEOUT });
 
-    // setMaxPages(Math.ceil(response.data.length / 6));
     return response.data;
   } catch (error) {
     console.log(error);
@@ -62,7 +61,9 @@ export async function getCoursesByUniversityID(
   page: number,
   limit: number,
   search?: string,
-  departmentIDs?: string[]
+  departmentID?: string,
+  sortBy?: string,
+  sortOrder?: 'asc' | 'desc'
 ) {
   try {
     let url = `${process.env.NEXT_PUBLIC_URL}/course/universityID/${universityID}?page=${page}&limit=${limit}`;
@@ -71,10 +72,16 @@ export async function getCoursesByUniversityID(
       url += `&search=${encodeURIComponent(search)}`;
     }
 
-    if (departmentIDs && departmentIDs.length > 0) {
-      departmentIDs.forEach((id) => {
-        url += `&department_id=${encodeURIComponent(id)}`;
-      });
+    if (departmentID) {
+      url += `&department_id=${encodeURIComponent(departmentID)}`;
+    }
+
+    if (sortBy) {
+      url += `&sort_by=${encodeURIComponent(sortBy)}`;
+    }
+
+    if (sortOrder) {
+      url += `&sort_order=${encodeURIComponent(sortOrder)}`;
     }
 
     const response = await axios.get(url, {
@@ -117,77 +124,190 @@ export async function getCourseByCourseTag(universityID: string, courseTag: stri
   }
 }
 
-export async function getReviewsByCourseID(courseID: string) {
+export async function getReviewsByCourseID(
+  courseID: string,
+  page?: number,
+  limit?: number,
+  professorID?: string,
+  term?: string,
+  deliveryMethod?: string,
+  sortBy?: string,
+  sortOrder?: 'asc' | 'desc'
+) {
   try {
     const currentUser = await getCurrentUser();
     let idToken = '';
     if (currentUser) idToken = await currentUser.getIdToken(true);
 
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/review/courseID/${courseID}`, {
+    let url = `${process.env.NEXT_PUBLIC_URL}/review/courseID/${courseID}`;
+
+    if (page !== undefined) {
+      url += `?page=${page}&limit=${limit || 10}`;
+
+      if (professorID) {
+        url += `&professor_id=${encodeURIComponent(professorID)}`;
+      }
+
+      if (term) {
+        url += `&term=${encodeURIComponent(term)}`;
+      }
+
+      if (deliveryMethod) {
+        url += `&delivery_method=${encodeURIComponent(deliveryMethod)}`;
+      }
+
+      if (sortBy) {
+        url += `&sort_by=${encodeURIComponent(sortBy)}`;
+      }
+
+      if (sortOrder) {
+        url += `&sort_order=${encodeURIComponent(sortOrder)}`;
+      }
+    }
+
+    const response = await axios.get(url, {
       headers: {
         id_token: idToken,
       },
       timeout: API_TIMEOUT,
     });
 
-    return response.data as Review[];
+    return response.data;
   } catch (error) {
     console.log(error);
-    throw new Error('Could not retrive Reviews.');
+    throw new Error('Could not retrieve Reviews.');
   }
 }
 
-export async function getUserPosts(setListOfReviews: React.Dispatch<React.SetStateAction<Review[]>>) {
+export async function getUserPosts(
+  setListOfReviews: React.Dispatch<React.SetStateAction<Review[]>>,
+  page?: number,
+  limit?: number,
+  sortBy?: string,
+  sortOrder?: 'asc' | 'desc'
+) {
   try {
     const currentUser = await getCurrentUser();
     let idToken = '';
     if (currentUser) idToken = await currentUser.getIdToken(true);
 
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/reviews`, {
+    let url = `${process.env.NEXT_PUBLIC_URL}/user/reviews`;
+
+    if (page !== undefined) {
+      url += `?page=${page}&limit=${limit || 10}`;
+
+      if (sortBy) {
+        url += `&sort_by=${encodeURIComponent(sortBy)}`;
+      }
+
+      if (sortOrder) {
+        url += `&sort_order=${encodeURIComponent(sortOrder)}`;
+      }
+    }
+
+    const response = await axios.get(url, {
       headers: {
         id_token: idToken,
       },
       timeout: API_TIMEOUT,
     });
-    setListOfReviews(response.data);
+
+    if (page !== undefined) {
+      return response.data;
+    } else {
+      setListOfReviews(response.data);
+      return response.data;
+    }
   } catch (error) {
     console.log(error);
     throw new Error("Could not retrieve user's posts.");
   }
 }
 
-export async function getUserUpvotes(setListOfReviews: React.Dispatch<React.SetStateAction<Review[]>>) {
+export async function getUserUpvotes(
+  setListOfReviews: React.Dispatch<React.SetStateAction<Review[]>>,
+  page?: number,
+  limit?: number,
+  sortBy?: string,
+  sortOrder?: 'asc' | 'desc'
+) {
   try {
     const currentUser = await getCurrentUser();
     let idToken = '';
     if (currentUser) idToken = await currentUser.getIdToken(true);
 
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/upvotes`, {
+    let url = `${process.env.NEXT_PUBLIC_URL}/user/upvotes`;
+
+    if (page !== undefined) {
+      url += `?page=${page}&limit=${limit || 10}`;
+
+      if (sortBy) {
+        url += `&sort_by=${encodeURIComponent(sortBy)}`;
+      }
+
+      if (sortOrder) {
+        url += `&sort_order=${encodeURIComponent(sortOrder)}`;
+      }
+    }
+
+    const response = await axios.get(url, {
       headers: {
         id_token: idToken,
       },
       timeout: API_TIMEOUT,
     });
-    setListOfReviews(response.data);
+
+    if (page !== undefined) {
+      return response.data;
+    } else {
+      setListOfReviews(response.data);
+      return response.data;
+    }
   } catch (error) {
     console.log(error);
     throw new Error("Could not retrieve user's upvotes.");
   }
 }
 
-export async function getUserDownvotes(setListOfReviews: React.Dispatch<React.SetStateAction<Review[]>>) {
+export async function getUserDownvotes(
+  setListOfReviews: React.Dispatch<React.SetStateAction<Review[]>>,
+  page?: number,
+  limit?: number,
+  sortBy?: string,
+  sortOrder?: 'asc' | 'desc'
+) {
   try {
     const currentUser = await getCurrentUser();
     let idToken = '';
     if (currentUser) idToken = await currentUser.getIdToken(true);
 
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/downvotes`, {
+    let url = `${process.env.NEXT_PUBLIC_URL}/user/downvotes`;
+
+    if (page !== undefined) {
+      url += `?page=${page}&limit=${limit || 10}`;
+
+      if (sortBy) {
+        url += `&sort_by=${encodeURIComponent(sortBy)}`;
+      }
+
+      if (sortOrder) {
+        url += `&sort_order=${encodeURIComponent(sortOrder)}`;
+      }
+    }
+
+    const response = await axios.get(url, {
       headers: {
         id_token: idToken,
       },
       timeout: API_TIMEOUT,
     });
-    setListOfReviews(response.data);
+
+    if (page !== undefined) {
+      return response.data;
+    } else {
+      setListOfReviews(response.data);
+      return response.data;
+    }
   } catch (error) {
     console.log(error);
     throw new Error("Could not retrieve user's downvotes.");

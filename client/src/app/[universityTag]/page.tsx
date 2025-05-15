@@ -6,11 +6,9 @@ import { Course, University } from '@/types/university';
 import { UniversityHeader } from '@/components/display/UniversityHeader';
 import { CourseCard } from '@/components/display/CourseCard';
 import { Input } from '@/components/ui/input';
-import { MultipleSelector } from '@/components/ui/multipleselector';
 import { Dropdown } from '@/components/common/Dropdown';
 import { ArrowUpWideNarrow, ArrowDownWideNarrow, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { getComparator } from '@/lib/utils';
 import { useAlert } from '@/contexts/alertContext';
 import { courseSortingOptions } from '@/lib/constants';
 import { DialogForm, StepProps } from '@/components/forms/DialogForm';
@@ -27,10 +25,7 @@ import { BreadCrumb } from '@/components/display/BreadCrumb';
 import Link from 'next/link';
 import { Spinner } from '@/components/ui/Spinner';
 import { useRouter } from 'next/navigation';
-
-const sortCourses = (courses: Course[], order: 'asc' | 'desc', orderBy: keyof typeof courseSortingOptions) => {
-  return [...courses].sort(getComparator(order, orderBy));
-};
+import { useDebounce } from '@/hooks/useDebounce';
 
 export default function Page() {
   const { universityTag } = useParams();
@@ -40,7 +35,7 @@ export default function Page() {
   const [university, setUniversity] = useState<University>({} as University);
   const [courseList, setCourseList] = useState<Course[]>([]);
   const [departmentList, setDepartmentList] = useState<Record<string, string>>({});
-  const [selectedDepartments, setSelectedDepartments] = useState<Record<string, string>>({});
+  const [selectedDepartment, setSelectedDepartment] = useState<string>('');
   const [searchValue, setSearchValue] = useState<string>('');
   const [order, setOrder] = useState<'asc' | 'desc'>('desc');
   const [orderBy, setOrderBy] = useState<keyof typeof courseSortingOptions>(Object.keys(courseSortingOptions)[0] || '');
@@ -49,21 +44,23 @@ export default function Page() {
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const loadMoreRef = useRef<HTMLDivElement>(null);
-  const searchTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const initialLoadCompleteRef = useRef<boolean>(false);
+  const universityIdRef = useRef<string>('');
+
+  const debouncedSearchValue = useDebounce(searchValue, 300);
+  const debouncedDepartment = useDebounce(selectedDepartment, 300);
+  const debouncedOrder = useDebounce(order, 300);
+  const debouncedOrderBy = useDebounce(orderBy, 300);
 
   useEffect(() => {
     if (!universityTag) return;
 
-    const fetchInitialData = async () => {
+    const fetchUniversityAndDepartments = async () => {
       try {
         setIsInitialLoading(true);
         const universityInfo = await getUniversity(universityTag as string);
         setUniversity(universityInfo);
-
-        const { data } = await getCoursesByUniversityID(universityInfo.university_id, 1, 20, '');
-        setCourseList(data);
+        universityIdRef.current = universityInfo.university_id;
 
         const departments = await getDepartmentsByUniversityID(universityInfo.university_id);
         const departmentMap = departments.reduce((acc, obj) => {
@@ -71,6 +68,19 @@ export default function Page() {
           return acc;
         }, {} as Record<string, string>);
         setDepartmentList(departmentMap);
+
+        const { data, meta } = await getCoursesByUniversityID(
+          universityInfo.university_id,
+          1,
+          20,
+          '',
+          undefined,
+          orderBy,
+          order
+        );
+        setCourseList(data);
+        setHasMore(meta.total_pages > 1);
+
         initialLoadCompleteRef.current = true;
       } catch (error) {
         console.error(error);
@@ -80,27 +90,25 @@ export default function Page() {
       }
     };
 
-    fetchInitialData();
+    fetchUniversityAndDepartments();
   }, [universityTag, addAlert]);
 
   useEffect(() => {
-    if (!university.university_id || !initialLoadCompleteRef.current) return;
+    if (!initialLoadCompleteRef.current || !universityIdRef.current) return;
 
-    if (searchTimeoutRef.current) {
-      clearTimeout(searchTimeoutRef.current);
-    }
-
-    searchTimeoutRef.current = setTimeout(async () => {
+    const fetchCourses = async () => {
       try {
         setIsSearchLoading(true);
         setCurrentPage(1);
-        const departmentIDsArray = Object.keys(selectedDepartments);
+
         const { data, meta } = await getCoursesByUniversityID(
-          university.university_id,
+          universityIdRef.current,
           1,
           20,
-          searchValue,
-          departmentIDsArray.length > 0 ? departmentIDsArray : undefined
+          debouncedSearchValue,
+          debouncedDepartment || undefined,
+          debouncedOrderBy,
+          debouncedOrder
         );
         setCourseList(data);
         setHasMore(meta.total_pages > 1);
@@ -110,27 +118,25 @@ export default function Page() {
       } finally {
         setIsSearchLoading(false);
       }
-    }, 300);
-
-    return () => {
-      if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current);
-      }
     };
-  }, [searchValue, university.university_id, selectedDepartments, addAlert]);
+
+    fetchCourses();
+  }, [debouncedSearchValue, debouncedDepartment, debouncedOrderBy, debouncedOrder, addAlert]);
 
   const loadMoreCourses = useCallback(async () => {
-    if (!university.university_id || isLoadingMore || !hasMore) return;
+    if (!universityIdRef.current || isLoadingMore || !hasMore) return;
 
     try {
       setIsLoadingMore(true);
-      const departmentIDsArray = Object.keys(selectedDepartments);
+
       const { data, meta } = await getCoursesByUniversityID(
-        university.university_id,
+        universityIdRef.current,
         currentPage + 1,
         20,
-        searchValue,
-        departmentIDsArray.length > 0 ? departmentIDsArray : undefined
+        debouncedSearchValue,
+        debouncedDepartment || undefined,
+        debouncedOrderBy,
+        debouncedOrder
       );
       setCourseList((prev) => [...prev, ...data]);
       setCurrentPage((prev) => prev + 1);
@@ -142,32 +148,20 @@ export default function Page() {
     } finally {
       setIsLoadingMore(false);
     }
-  }, [university.university_id, currentPage, isLoadingMore, hasMore, addAlert, searchValue, selectedDepartments]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting && hasMore && !isLoadingMore && !isSearchLoading) {
-          loadMoreCourses();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const target = loadMoreRef.current;
-    if (target) observer.observe(target);
-
-    return () => {
-      if (target) observer.unobserve(target);
-    };
-  }, [loadMoreCourses, hasMore, isLoadingMore, isSearchLoading]);
+  }, [
+    currentPage,
+    isLoadingMore,
+    hasMore,
+    addAlert,
+    debouncedSearchValue,
+    debouncedDepartment,
+    debouncedOrderBy,
+    debouncedOrder,
+  ]);
 
   function updateSort() {
     setOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
   }
-
-  const sortedRows = React.useMemo(() => sortCourses(courseList, order, orderBy), [courseList, order, orderBy]);
 
   const steps: StepProps<ReturnType<typeof getNewCourseFormSchema>>[] = [
     {
@@ -307,14 +301,30 @@ export default function Page() {
             </div>
           </div>
           <div className="w-full max-w-3xl flex flex-col gap-4 md:grid md:grid-cols-2">
-            <div>
-              <MultipleSelector
-                data={departmentList}
-                value={selectedDepartments}
-                setValue={setSelectedDepartments}
-                placeholder="Departments..."
-                itemType="departments"
-              />
+            <div className="flex items-center gap-2">
+              <div className="flex-1">
+                <Dropdown
+                  data={departmentList}
+                  value={selectedDepartment}
+                  setValue={setSelectedDepartment}
+                  placeholder={
+                    selectedDepartment ? `Department: ${departmentList[selectedDepartment] || ''}` : 'Select Department'
+                  }
+                  initialValue=""
+                  returnType="key"
+                />
+              </div>
+              {selectedDepartment && (
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setSelectedDepartment('')}
+                  className="h-10 w-10 flex-shrink-0"
+                  title="Clear department filter"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              )}
             </div>
             <div className="flex items-center justify-center gap-5">
               <Dropdown
@@ -339,22 +349,33 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-10 w-full max-w-3xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-3xl">
             {isSearchLoading ? (
-              <div className="col-span-2 flex justify-center py-10">
+              <div className="col-span-1 md:col-span-2 flex justify-center py-10">
                 <Spinner size="medium" />
               </div>
-            ) : sortedRows.length > 0 ? (
+            ) : courseList.length > 0 ? (
               <>
-                {sortedRows.map((course) => (
+                {courseList.map((course) => (
                   <CourseCard key={course.course_id} course={course} />
                 ))}
-                <div ref={loadMoreRef} className="col-span-2 flex justify-center py-4">
-                  {isLoadingMore && <Spinner size="small" />}
+                <div className="col-span-1 md:col-span-2 flex justify-center py-4">
+                  {hasMore && (
+                    <Button onClick={loadMoreCourses} disabled={isLoadingMore} className="w-40">
+                      {isLoadingMore ? (
+                        <div className="flex items-center gap-2">
+                          <Spinner size="small" />
+                          <span>Loading...</span>
+                        </div>
+                      ) : (
+                        'Load More'
+                      )}
+                    </Button>
+                  )}
                 </div>
               </>
             ) : (
-              <div className="col-span-2 flex justify-center py-10">
+              <div className="col-span-1 md:col-span-2 flex justify-center py-10">
                 <p className="text-lg text-gray-500">No courses match your search criteria.</p>
               </div>
             )}

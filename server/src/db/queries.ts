@@ -63,7 +63,7 @@ WHERE universities.university_id = $1
 AND ($2::text IS NULL OR 
     courses.course_name ILIKE '%' || $2 || '%' OR 
     courses.course_tag ILIKE '%' || $2 || '%')
-AND ($3::text[] IS NULL OR departments.department_id = ANY($3::uuid[]))
+AND ($3::text IS NULL OR departments.department_id = $3::uuid)
 `;
 
 export const getCoursesByUniversityID = `
@@ -89,12 +89,25 @@ WHERE
     AND ($4::text IS NULL OR 
         courses.course_name ILIKE '%' || $4 || '%' OR 
         courses.course_tag ILIKE '%' || $4 || '%')
-    AND ($5::text[] IS NULL OR departments.department_id = ANY($5::uuid[]))
+    AND ($5::text IS NULL OR departments.department_id = $5::uuid)
 GROUP BY
     courses.course_id, universities.university_id, departments.department_id
 ORDER BY
-    courses.course_tag ASC,
-    courses.course_name ASC
+    CASE WHEN $6 = 'course_tag' AND $7 = 'asc' THEN courses.course_tag END ASC,
+    CASE WHEN $6 = 'course_tag' AND $7 = 'desc' THEN courses.course_tag END DESC,
+    CASE WHEN $6 = 'course_name' AND $7 = 'asc' THEN courses.course_name END ASC,
+    CASE WHEN $6 = 'course_name' AND $7 = 'desc' THEN courses.course_name END DESC,
+    CASE WHEN $6 = 'review_num' AND $7 = 'asc' THEN COUNT(reviews.review_id) END ASC,
+    CASE WHEN $6 = 'review_num' AND $7 = 'desc' THEN COUNT(reviews.review_id) END DESC,
+    CASE WHEN $6 = 'overall_score' AND $7 = 'asc' THEN ROUND(COALESCE(AVG(reviews.overall_score), 0), 1) END ASC,
+    CASE WHEN $6 = 'overall_score' AND $7 = 'desc' THEN ROUND(COALESCE(AVG(reviews.overall_score), 0), 1) END DESC,
+    CASE WHEN $6 = 'easy_score' AND $7 = 'asc' THEN ROUND(COALESCE(AVG(reviews.easy_score), 0), 1) END ASC,
+    CASE WHEN $6 = 'easy_score' AND $7 = 'desc' THEN ROUND(COALESCE(AVG(reviews.easy_score), 0), 1) END DESC,
+    CASE WHEN $6 = 'interest_score' AND $7 = 'asc' THEN ROUND(COALESCE(AVG(reviews.interest_score), 0), 1) END ASC,
+    CASE WHEN $6 = 'interest_score' AND $7 = 'desc' THEN ROUND(COALESCE(AVG(reviews.interest_score), 0), 1) END DESC,
+    CASE WHEN $6 = 'useful_score' AND $7 = 'asc' THEN ROUND(COALESCE(AVG(reviews.useful_score), 0), 1) END ASC,
+    CASE WHEN $6 = 'useful_score' AND $7 = 'desc' THEN ROUND(COALESCE(AVG(reviews.useful_score), 0), 1) END DESC,
+    courses.course_tag ASC
 LIMIT $2 OFFSET $3
 `;
 
@@ -224,6 +237,33 @@ LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.
 WHERE reviews.course_id = $2;
 `;
 
+export const getReviewsByCourseIDPaginated = `
+SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, 
+professors.professor_name, professors.professor_id,
+departments.department_id, departments.department_name, 
+universities.university_id, universities.university_name, 
+user_votes.vote
+FROM reviews
+JOIN professors ON professors.professor_id = reviews.professor_id
+JOIN courses ON courses.course_id = reviews.course_id
+JOIN departments ON departments.department_id = courses.department_id
+JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.user_id = $1
+WHERE reviews.course_id = $2
+`;
+
+export const getReviewsByCourseIDWithProfessor = `
+AND professors.professor_id = $PLACEHOLDER
+`;
+
+export const getReviewsByCourseIDWithTerm = `
+AND reviews.term_taken = $PLACEHOLDER
+`;
+
+export const getReviewsByCourseIDWithDelivery = `
+AND reviews.delivery_method = $PLACEHOLDER
+`;
+
 export const getExistingVote = `
 SELECT * FROM user_votes
 WHERE
@@ -266,6 +306,26 @@ WHERE
     reviews.user_id = $1
 `;
 
+export const getUserReviewsPaginated = `
+SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, 
+professors.professor_name, departments.department_id, departments.department_name, 
+universities.university_id, universities.university_name, user_votes.vote 
+FROM reviews
+JOIN professors ON professors.professor_id = reviews.professor_id
+JOIN courses ON courses.course_id = reviews.course_id
+JOIN departments ON departments.department_id = courses.department_id
+JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.user_id = $1
+WHERE reviews.user_id = $1
+ORDER BY reviews.$2 $3
+LIMIT $4 OFFSET $5
+`;
+
+export const getUserReviewsCount = `
+SELECT COUNT(*) FROM reviews
+WHERE reviews.user_id = $1
+`;
+
 export const getUserVotedReviews = `
 SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, professors.professor_name, departments.department_id, departments.department_name, universities.university_id, universities.university_name, user_votes.vote FROM reviews
 JOIN professors ON professors.professor_id = reviews.professor_id
@@ -276,8 +336,25 @@ LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.
 WHERE user_votes.vote = $2
 `;
 
-export const addUser = `
-INSERT INTO users (user_id, display_name, email) VALUES ($1, $2, $3)
+export const getUserVotedReviewsPaginated = `
+SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, 
+professors.professor_name, departments.department_id, departments.department_name, 
+universities.university_id, universities.university_name, user_votes.vote 
+FROM reviews
+JOIN professors ON professors.professor_id = reviews.professor_id
+JOIN courses ON courses.course_id = reviews.course_id
+JOIN departments ON departments.department_id = courses.department_id
+JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.user_id = $1
+WHERE user_votes.vote = $2
+ORDER BY reviews.$3 $4
+LIMIT $5 OFFSET $6
+`;
+
+export const getUserVotedReviewsCount = `
+SELECT COUNT(*) FROM reviews
+JOIN user_votes ON user_votes.review_id = reviews.review_id
+WHERE user_votes.user_id = $1 AND user_votes.vote = $2
 `;
 
 export const getUserVotes = `
@@ -287,6 +364,10 @@ FROM
     user_votes
 WHERE
     user_votes.user_id = $1
+`;
+
+export const addUser = `
+INSERT INTO users (user_id, display_name, email) VALUES ($1, $2, $3)
 `;
 
 export const getDepartmentID = `SELECT * from departments WHERE department_name = $1 AND university_id = $2`;

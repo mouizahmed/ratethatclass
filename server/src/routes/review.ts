@@ -2,6 +2,10 @@ import express, { Request, Response } from 'express';
 import {
   getReviews,
   getReviewsByCourseID,
+  getReviewsByCourseIDPaginated,
+  getReviewsByCourseIDWithProfessor,
+  getReviewsByCourseIDWithTerm,
+  getReviewsByCourseIDWithDelivery,
   getExistingVote,
   addVote,
   deleteVote,
@@ -34,12 +38,74 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/courseID/:courseID', validateTokenOptional, async (req: AuthenticatedRequest, res: Response) => {
   const { courseID } = req.params;
   const user = req.user;
+
+  // Pagination and filtering parameters
+  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+  const offset = (page - 1) * limit;
+  const professorID = (req.query.professor_id as string) || null;
+  const term = (req.query.term as string) || null;
+  const deliveryMethod = (req.query.delivery_method as string) || null;
+  const sortBy = (req.query.sort_by as string) || 'date_uploaded';
+  const sortOrder = (req.query.sort_order as string) || 'desc';
+
   try {
-    if (!user) {
-      const result = await pool.query(getReviewsByCourseID, ['', courseID]);
-      res.json(result.rows as Review[]);
+    // Start with the base query
+    let queryText = getReviewsByCourseIDPaginated;
+
+    // Add filters
+    const queryParams = [user?.uid || '', courseID];
+    let paramCounter = 3;
+
+    if (professorID) {
+      const professorFilter = getReviewsByCourseIDWithProfessor.replace(/\$PLACEHOLDER/g, `$${paramCounter}`);
+      queryText += professorFilter;
+      queryParams.push(professorID);
+      paramCounter++;
+    }
+
+    if (term) {
+      const termFilter = getReviewsByCourseIDWithTerm.replace(/\$PLACEHOLDER/g, `$${paramCounter}`);
+      queryText += termFilter;
+      queryParams.push(term);
+      paramCounter++;
+    }
+
+    if (deliveryMethod) {
+      const deliveryFilter = getReviewsByCourseIDWithDelivery.replace(/\$PLACEHOLDER/g, `$${paramCounter}`);
+      queryText += deliveryFilter;
+      queryParams.push(deliveryMethod);
+      paramCounter++;
+    }
+
+    // Count query
+    const countQuery = `SELECT COUNT(*) FROM (${queryText}) AS filtered_reviews`;
+    const countResult = await pool.query(countQuery, queryParams);
+    const totalItems = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalItems / limit);
+
+    // Add sorting and pagination
+    queryText += ` ORDER BY reviews.${sortBy} ${sortOrder === 'asc' ? 'ASC' : 'DESC'}`;
+    queryText += ` LIMIT $${paramCounter} OFFSET $${paramCounter + 1}`;
+    queryParams.push(limit.toString(), offset.toString());
+
+    const result = await pool.query(queryText, queryParams);
+
+    // If page parameter was provided, return paginated response
+    if (req.query.page) {
+      res.json({
+        success: true,
+        message: 'Reviews fetched successfully',
+        data: result.rows as Review[],
+        meta: {
+          current_page: page,
+          page_size: limit,
+          total_items: totalItems,
+          total_pages: totalPages,
+        },
+      });
     } else {
-      const result = await pool.query(getReviewsByCourseID, [user.uid, courseID]);
+      // Return old format for backward compatibility
       res.json(result.rows as Review[]);
     }
   } catch (error) {
