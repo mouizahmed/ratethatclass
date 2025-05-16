@@ -10,7 +10,7 @@ export interface ApiResponse<T> {
     page_size?: number;
     total_items?: number;
     total_pages?: number;
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 

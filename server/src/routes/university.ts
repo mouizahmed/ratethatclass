@@ -3,6 +3,8 @@ import { pool } from '../db/db';
 import { RequestedUniversity, University } from 'types';
 import {
   getUniversities,
+  getUniversitiesPaginated,
+  getUniversitiesCount,
   getUniversityDomains,
   getUniversityByID,
   getUniversityByName,
@@ -18,13 +20,30 @@ import crypto from 'crypto';
 const router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {
+  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+  const offset = (page - 1) * limit;
+  const search = (req.query.search as string) || null;
+  const sortBy = (req.query.sort_by as string) || 'review_num';
+  const sortOrder = (req.query.sort_order as string) || 'desc';
+
   try {
-    const result = await pool.query(getUniversities);
+    const result = await pool.query(getUniversitiesPaginated, [limit, offset, search, sortBy, sortOrder]);
+    const countResult = await pool.query(getUniversitiesCount, [search]);
+
+    const totalItems = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalItems / limit);
+
     res.json({
       success: true,
       message: 'Universities fetched successfully',
       data: result.rows as University[],
-      meta: {},
+      meta: {
+        current_page: page,
+        page_size: limit,
+        total_items: totalItems,
+        total_pages: totalPages,
+      },
     });
   } catch (error) {
     console.log(error);

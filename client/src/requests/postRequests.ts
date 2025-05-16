@@ -32,7 +32,7 @@ export async function postReview(review: Review): Promise<void> {
   const idToken = await getIdToken();
 
   const response = await axios
-    .post<ApiResponse<any>>(
+    .post<ApiResponse<Record<string, never>>>(
       `${process.env.NEXT_PUBLIC_URL}/review/add`,
       {
         reviewData: review,
@@ -57,7 +57,7 @@ export async function postCourse(course: Course, review: Review): Promise<void> 
   const idToken = await getIdToken();
 
   const response = await axios
-    .post<ApiResponse<any>>(
+    .post<ApiResponse<Record<string, never>>>(
       `${process.env.NEXT_PUBLIC_URL}/course/add`,
       {
         reviewData: review,
@@ -83,7 +83,7 @@ export async function postUpVote(review: Review): Promise<void> {
   const idToken = await getIdToken();
 
   const response = await axios
-    .post<ApiResponse<any>>(
+    .post<ApiResponse<Record<string, never>>>(
       `${process.env.NEXT_PUBLIC_URL}/review/upvote`,
       { review_id: review.review_id },
       { headers: { id_token: idToken } }
@@ -102,7 +102,7 @@ export async function postDownVote(review: Review): Promise<void> {
   const idToken = await getIdToken();
 
   const response = await axios
-    .post<ApiResponse<any>>(
+    .post<ApiResponse<Record<string, never>>>(
       `${process.env.NEXT_PUBLIC_URL}/review/downvote`,
       { review_id: review.review_id },
       { headers: { id_token: idToken } }
@@ -119,7 +119,7 @@ export async function postDownVote(review: Review): Promise<void> {
 
 export async function postUniversityRequest(universityName: string): Promise<void> {
   const response = await axios
-    .post<ApiResponse<any>>(
+    .post<ApiResponse<Record<string, never>>>(
       `${process.env.NEXT_PUBLIC_URL}/university/request-university`,
       {
         universityName: universityName,
@@ -142,7 +142,7 @@ export async function postReport(entityID: string, reason: string, type: string)
   const idToken = await getIdToken();
 
   const response = await axios
-    .post<ApiResponse<any>>(
+    .post<ApiResponse<Record<string, never>>>(
       `${process.env.NEXT_PUBLIC_URL}/report/create`,
       {
         reportDetails: {
