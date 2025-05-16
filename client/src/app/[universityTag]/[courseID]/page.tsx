@@ -126,20 +126,12 @@ export default function Page() {
         order
       );
 
-      if (response && typeof response === 'object' && 'data' in response && 'meta' in response) {
-        const data = response.data;
-        const meta = response.meta;
-        setReviewList(data);
-        setHasMore(meta.total_pages > 1);
-        setCurrentPage(1);
-        return data;
-      } else {
-        // Handle old API format for backward compatibility
-        setReviewList(response as Review[]);
-        setHasMore(false);
-        setCurrentPage(1);
-        return response as Review[];
-      }
+      const data = response.data;
+      const meta = response.meta;
+      setReviewList(data);
+      setHasMore(meta.total_pages > 1);
+      setCurrentPage(1);
+      return data;
     };
 
     const fetchData = async () => {
