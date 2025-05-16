@@ -15,6 +15,36 @@ GROUP BY
 ORDER BY 
     review_num DESC;`;
 
+export const getUniversitiesPaginated = `
+SELECT
+    universities.*, 
+    COUNT(reviews.review_id) AS review_num
+FROM 
+    universities
+LEFT JOIN 
+    departments ON universities.university_id = departments.university_id
+LEFT JOIN 
+    courses ON departments.department_id = courses.department_id
+LEFT JOIN 
+    reviews ON courses.course_id = reviews.course_id
+WHERE
+    ($3::text IS NULL OR universities.university_name ILIKE '%' || $3 || '%')
+GROUP BY 
+    universities.university_id
+ORDER BY
+    CASE WHEN $4 = 'university_name' AND $5 = 'asc' THEN universities.university_name END ASC,
+    CASE WHEN $4 = 'university_name' AND $5 = 'desc' THEN universities.university_name END DESC,
+    CASE WHEN $4 = 'review_num' AND $5 = 'asc' THEN COUNT(reviews.review_id) END ASC,
+    CASE WHEN $4 = 'review_num' AND $5 = 'desc' THEN COUNT(reviews.review_id) END DESC,
+    review_num DESC
+LIMIT $1 OFFSET $2
+`;
+
+export const getUniversitiesCount = `
+SELECT COUNT(*) FROM universities
+WHERE ($1::text IS NULL OR universities.university_name ILIKE '%' || $1 || '%')
+`;
+
 export const getUniversityDomains = `
 SELECT domain FROM universities;
 `;
@@ -31,12 +61,57 @@ export const getDepartments = `
 SELECT * FROM departments
 `;
 
+export const getDepartmentsPaginated = `
+SELECT departments.*, universities.university_name
+FROM departments
+JOIN universities ON universities.university_id = departments.university_id
+WHERE
+    ($3::text IS NULL OR 
+     departments.department_name ILIKE '%' || $3 || '%' OR
+     universities.university_name ILIKE '%' || $3 || '%')
+ORDER BY
+    CASE WHEN $4 = 'department_name' AND $5 = 'asc' THEN departments.department_name END ASC,
+    CASE WHEN $4 = 'department_name' AND $5 = 'desc' THEN departments.department_name END DESC,
+    CASE WHEN $4 = 'university_name' AND $5 = 'asc' THEN universities.university_name END ASC,
+    CASE WHEN $4 = 'university_name' AND $5 = 'desc' THEN universities.university_name END DESC,
+    departments.department_name ASC
+LIMIT $1 OFFSET $2
+`;
+
+export const getDepartmentsCount = `
+SELECT COUNT(*) FROM departments
+JOIN universities ON universities.university_id = departments.university_id
+WHERE
+    ($1::text IS NULL OR 
+     departments.department_name ILIKE '%' || $1 || '%' OR
+     universities.university_name ILIKE '%' || $1 || '%')
+`;
+
 export const getDepartmentByUniversityID = `
 SELECT * FROM departments WHERE university_id = $1
 `;
 
 export const getDepartmentByID = `
 SELECT * FROM departments WHERE department_id = $1
+`;
+
+export const getDepartmentByUniversityIDPaginated = `
+SELECT departments.*, universities.university_name
+FROM departments
+JOIN universities ON universities.university_id = departments.university_id
+WHERE departments.university_id = $3
+AND ($4::text IS NULL OR departments.department_name ILIKE '%' || $4 || '%')
+ORDER BY
+    CASE WHEN $5 = 'department_name' AND $6 = 'asc' THEN departments.department_name END ASC,
+    CASE WHEN $5 = 'department_name' AND $6 = 'desc' THEN departments.department_name END DESC,
+    departments.department_name ASC
+LIMIT $1 OFFSET $2
+`;
+
+export const getDepartmentByUniversityIDCount = `
+SELECT COUNT(*) FROM departments
+WHERE university_id = $1
+AND ($2::text IS NULL OR departments.department_name ILIKE '%' || $2 || '%')
 `;
 
 export const getCourses = `
@@ -216,6 +291,82 @@ export const getProfessors = `
 SELECT * FROM professors
 `;
 
+export const getProfessorsPaginated = `
+SELECT professors.*, courses.course_name, courses.course_tag
+FROM professors
+JOIN courses ON courses.course_id = professors.course_id
+WHERE
+    ($3::text IS NULL OR 
+     professors.professor_name ILIKE '%' || $3 || '%' OR
+     courses.course_name ILIKE '%' || $3 || '%' OR
+     courses.course_tag ILIKE '%' || $3 || '%')
+ORDER BY
+    CASE WHEN $4 = 'professor_name' AND $5 = 'asc' THEN professors.professor_name END ASC,
+    CASE WHEN $4 = 'professor_name' AND $5 = 'desc' THEN professors.professor_name END DESC,
+    CASE WHEN $4 = 'course_name' AND $5 = 'asc' THEN courses.course_name END ASC,
+    CASE WHEN $4 = 'course_name' AND $5 = 'desc' THEN courses.course_name END DESC,
+    CASE WHEN $4 = 'course_tag' AND $5 = 'asc' THEN courses.course_tag END ASC,
+    CASE WHEN $4 = 'course_tag' AND $5 = 'desc' THEN courses.course_tag END DESC,
+    professors.professor_name ASC
+LIMIT $1 OFFSET $2
+`;
+
+export const getProfessorsCount = `
+SELECT COUNT(*) FROM professors
+JOIN courses ON courses.course_id = professors.course_id
+WHERE
+    ($1::text IS NULL OR 
+     professors.professor_name ILIKE '%' || $1 || '%' OR
+     courses.course_name ILIKE '%' || $1 || '%' OR
+     courses.course_tag ILIKE '%' || $1 || '%')
+`;
+
+export const getProfessorsByUniversityIDPaginated = `
+SELECT professors.*, courses.course_name, courses.course_tag
+FROM professors
+JOIN courses ON courses.course_id = professors.course_id
+JOIN departments ON departments.department_id = courses.department_id
+JOIN universities ON universities.university_id = departments.university_id
+WHERE universities.university_id = $3
+AND ($4::text IS NULL OR professors.professor_name ILIKE '%' || $4 || '%')
+ORDER BY
+    CASE WHEN $5 = 'professor_name' AND $6 = 'asc' THEN professors.professor_name END ASC,
+    CASE WHEN $5 = 'professor_name' AND $6 = 'desc' THEN professors.professor_name END DESC,
+    CASE WHEN $5 = 'course_name' AND $6 = 'asc' THEN courses.course_name END ASC,
+    CASE WHEN $5 = 'course_name' AND $6 = 'desc' THEN courses.course_name END DESC,
+    CASE WHEN $5 = 'course_tag' AND $6 = 'asc' THEN courses.course_tag END ASC,
+    CASE WHEN $5 = 'course_tag' AND $6 = 'desc' THEN courses.course_tag END DESC,
+    professors.professor_name ASC
+LIMIT $1 OFFSET $2
+`;
+
+export const getProfessorsByUniversityIDCount = `
+SELECT COUNT(*) FROM professors
+JOIN courses ON courses.course_id = professors.course_id
+JOIN departments ON departments.department_id = courses.department_id
+JOIN universities ON universities.university_id = departments.university_id
+WHERE universities.university_id = $1
+AND ($2::text IS NULL OR professors.professor_name ILIKE '%' || $2 || '%')
+`;
+
+export const getProfessorsByCourseIDPaginated = `
+SELECT professors.*
+FROM professors
+WHERE course_id = $3
+AND ($4::text IS NULL OR professors.professor_name ILIKE '%' || $4 || '%')
+ORDER BY
+    CASE WHEN $5 = 'professor_name' AND $6 = 'asc' THEN professors.professor_name END ASC,
+    CASE WHEN $5 = 'professor_name' AND $6 = 'desc' THEN professors.professor_name END DESC,
+    professors.professor_name ASC
+LIMIT $1 OFFSET $2
+`;
+
+export const getProfessorsByCourseIDCount = `
+SELECT COUNT(*) FROM professors
+WHERE course_id = $1
+AND ($2::text IS NULL OR professors.professor_name ILIKE '%' || $2 || '%')
+`;
+
 export const getProfessorsByUniversityID = `
 SELECT * FROM professors
 WHERE
@@ -239,6 +390,39 @@ FROM
 JOIN professors ON professors.professor_id = reviews.professor_id
 GROUP BY
     reviews.review_id
+`;
+
+export const getReviewsPaginated = `
+SELECT 
+    reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods,
+    professors.professor_name, professors.professor_id,
+    courses.course_id, courses.course_name, courses.course_tag,
+    departments.department_id, departments.department_name,
+    universities.university_id, universities.university_name
+FROM 
+    reviews
+JOIN professors ON professors.professor_id = reviews.professor_id
+JOIN courses ON courses.course_id = reviews.course_id
+JOIN departments ON departments.department_id = courses.department_id
+JOIN universities ON universities.university_id = departments.university_id
+WHERE
+    ($3::text IS NULL OR 
+     professors.professor_name ILIKE '%' || $3 || '%' OR
+     courses.course_name ILIKE '%' || $3 || '%' OR
+     courses.course_tag ILIKE '%' || $3 || '%')
+`;
+
+export const getReviewsCount = `
+SELECT COUNT(*) FROM reviews
+JOIN professors ON professors.professor_id = reviews.professor_id
+JOIN courses ON courses.course_id = reviews.course_id
+JOIN departments ON departments.department_id = courses.department_id
+JOIN universities ON universities.university_id = departments.university_id
+WHERE
+    ($1::text IS NULL OR 
+     professors.professor_name ILIKE '%' || $1 || '%' OR
+     courses.course_name ILIKE '%' || $1 || '%' OR
+     courses.course_tag ILIKE '%' || $1 || '%')
 `;
 
 export const getReviewsByUniversityID = `

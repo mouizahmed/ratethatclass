@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
 import {
   getReviews,
+  getReviewsPaginated,
+  getReviewsCount,
   getReviewsByCourseIDPaginated,
   getReviewsByCourseIDWithProfessor,
   getReviewsByCourseIDWithTerm,
@@ -25,13 +27,34 @@ import { isEmailVerified } from '../helpers';
 const router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {
+  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+  const offset = (page - 1) * limit;
+  const search = (req.query.search as string) || null;
+  const sortBy = (req.query.sort_by as string) || 'date_uploaded';
+  const sortOrder = (req.query.sort_order as string) || 'desc';
+
   try {
-    const result = await pool.query(getReviews);
+    const queryText = `${getReviewsPaginated} ORDER BY reviews.${sortBy} ${
+      sortOrder === 'asc' ? 'ASC' : 'DESC'
+    } LIMIT $1 OFFSET $2`;
+    const result = await pool.query(queryText, [limit, offset, search]);
+
+    const countResult = await pool.query(getReviewsCount, [search]);
+
+    const totalItems = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalItems / limit);
+
     res.json({
       success: true,
       message: 'Reviews fetched successfully',
       data: result.rows as Review[],
-      meta: {},
+      meta: {
+        current_page: page,
+        page_size: limit,
+        total_items: totalItems,
+        total_pages: totalPages,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -48,7 +71,6 @@ router.get('/courseID/:courseID', validateTokenOptional, async (req: Authenticat
   const { courseID } = req.params;
   const user = req.user;
 
-  // Pagination and filtering parameters
   const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
   const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
   const offset = (page - 1) * limit;
@@ -59,10 +81,8 @@ router.get('/courseID/:courseID', validateTokenOptional, async (req: Authenticat
   const sortOrder = (req.query.sort_order as string) || 'desc';
 
   try {
-    // Start with the base query
     let queryText = getReviewsByCourseIDPaginated;
 
-    // Add filters
     const queryParams = [user?.uid || '', courseID];
     let paramCounter = 3;
 
@@ -87,13 +107,11 @@ router.get('/courseID/:courseID', validateTokenOptional, async (req: Authenticat
       paramCounter++;
     }
 
-    // Count query
     const countQuery = `SELECT COUNT(*) FROM (${queryText}) AS filtered_reviews`;
     const countResult = await pool.query(countQuery, queryParams);
     const totalItems = parseInt(countResult.rows[0].count, 10);
     const totalPages = Math.ceil(totalItems / limit);
 
-    // Add sorting and pagination
     queryText += ` ORDER BY reviews.${sortBy} ${sortOrder === 'asc' ? 'ASC' : 'DESC'}`;
     queryText += ` LIMIT $${paramCounter} OFFSET $${paramCounter + 1}`;
     queryParams.push(limit.toString(), offset.toString());

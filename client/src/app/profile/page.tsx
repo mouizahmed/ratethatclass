@@ -126,17 +126,11 @@ export default function Page() {
     setCurrentPage(1);
 
     if (value === 'Posted Reviews') {
-      if (userReviews.length === 0) {
-        getPosts('all');
-      }
+      getPosts('all');
     } else if (value === 'Up Voted Reviews') {
-      if (upvotes.length === 0) {
-        getPosts('upvoted');
-      }
+      getPosts('upvoted');
     } else if (value === 'Down Voted Reviews') {
-      if (downvotes.length === 0) {
-        getPosts('downvoted');
-      }
+      getPosts('downvoted');
     }
   };
 
