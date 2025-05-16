@@ -9,8 +9,6 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { ToastAction } from '../ui/toast';
-import Link from 'next/link';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
@@ -41,11 +39,6 @@ export function ReportDialog({ id, type, open, onOpenChange }: ReportDialogProps
       toast({
         title: `Uh oh! Report could not be sent.`,
         description: (error as Error).message,
-        action: (
-          <Link href="/login">
-            <ToastAction altText="Try again">Sign In</ToastAction>
-          </Link>
-        ),
       });
     }
   };
