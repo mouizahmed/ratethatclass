@@ -24,10 +24,20 @@ const router = express.Router();
 router.get('/', async (req: Request, res: Response) => {
   try {
     const result = await pool.query(getCourses);
-    res.json(result.rows as Course[]);
+    res.json({
+      success: true,
+      message: 'Courses fetched successfully',
+      data: result.rows as Course[],
+      meta: {},
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
@@ -69,7 +79,12 @@ router.get('/universityID/:universityID', async (req: Request, res: Response) =>
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
@@ -78,10 +93,20 @@ router.get('/departmentID/:departmentID', async (req: Request, res: Response) =>
 
   try {
     const result = await pool.query(getCoursesByDepartmentID, [departmentID]);
-    res.json(result.rows as Course[]);
+    res.json({
+      success: true,
+      message: 'Courses fetched successfully',
+      data: result.rows as Course[],
+      meta: {},
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
@@ -90,10 +115,29 @@ router.get('/courseID/:courseID', async (req: Request, res: Response) => {
 
   try {
     const result = await pool.query(getCoursesByCourseID, [courseID]);
-    res.json(result.rows[0] as Course);
+    if (result.rows.length === 0) {
+      res.json({
+        success: false,
+        message: 'Course not found',
+        data: {},
+        meta: {},
+      });
+    } else {
+      res.json({
+        success: true,
+        message: 'Course fetched successfully',
+        data: result.rows[0] as Course,
+        meta: {},
+      });
+    }
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
@@ -102,10 +146,29 @@ router.get('/universityID/:universityID/courseTag/:courseTag', async (req: Reque
 
   try {
     const result = await pool.query(getCoursesByCourseTag, [courseTag, universityID]);
-    res.json(result.rows[0] as Course);
+    if (result.rows.length === 0) {
+      res.json({
+        success: false,
+        message: 'Course not found',
+        data: {},
+        meta: {},
+      });
+    } else {
+      res.json({
+        success: true,
+        message: 'Course fetched successfully',
+        data: result.rows[0] as Course,
+        meta: {},
+      });
+    }
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
@@ -165,20 +228,36 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
     await client.query(addUpvote, [user.uid, review.rows[0].review_id]);
 
     await client.query('COMMIT');
-    res.json({ message: 'Course + Review successfully added.' });
+    res.json({
+      success: true,
+      message: 'Course and review successfully added',
+      data: {
+        course_id: course.rows[0].course_id,
+        review_id: review.rows[0].review_id,
+      },
+      meta: {},
+    });
   } catch (error) {
     if (client) {
       await client.query('ROLLBACK');
     }
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   } finally {
     if (client) {
       client.release();
     } else {
       console.log('Failed to acquire a database client.');
       res.status(500).json({
-        error: 'Failed to acquire a database client. Please try again later.',
+        success: false,
+        message: 'Failed to acquire a database client',
+        data: {},
+        meta: {},
       });
     }
   }

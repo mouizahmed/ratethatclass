@@ -222,7 +222,7 @@ export default function Page() {
           }
         }
       } catch (error) {
-        console.error(error);
+        console.log(error);
         addAlert('destructive', 'Failed to search reviews', 3000);
       } finally {
         setIsSearchLoading(false);
@@ -255,7 +255,7 @@ export default function Page() {
       setCurrentPage((prev) => prev + 1);
       setHasMore(currentPage + 1 < meta.total_pages);
     } catch (error) {
-      console.error(error);
+      console.log(error);
       addAlert('destructive', 'Failed to load more reviews', 3000);
     } finally {
       setIsLoadingMore(false);
