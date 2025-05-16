@@ -1,78 +1,145 @@
 import express, { Request, Response } from 'express';
 import { pool } from '../db/db';
-import { getProfessors, getProfessorsByUniversityID, getProfessorsByCourseID } from '../db/queries';
+import {
+  getProfessors,
+  getProfessorsPaginated,
+  getProfessorsCount,
+  getProfessorsByUniversityID,
+  getProfessorsByUniversityIDPaginated,
+  getProfessorsByUniversityIDCount,
+  getProfessorsByCourseID,
+  getProfessorsByCourseIDPaginated,
+  getProfessorsByCourseIDCount,
+} from '../db/queries';
 import { Professor } from 'types';
 
 const router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {
+  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+  const offset = (page - 1) * limit;
+  const search = (req.query.search as string) || null;
+  const sortBy = (req.query.sort_by as string) || 'professor_name';
+  const sortOrder = (req.query.sort_order as string) || 'asc';
+
   try {
-    const result = await pool.query(getProfessors);
-    res.json(result.rows as Professor[]);
+    const result = await pool.query(getProfessorsPaginated, [limit, offset, search, sortBy, sortOrder]);
+    const countResult = await pool.query(getProfessorsCount, [search]);
+
+    const totalItems = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalItems / limit);
+
+    res.json({
+      success: true,
+      message: 'Professors fetched successfully',
+      data: result.rows as Professor[],
+      meta: {
+        current_page: page,
+        page_size: limit,
+        total_items: totalItems,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
 router.get('/universityID/:universityID', async (req: Request, res: Response) => {
   const { universityID } = req.params;
+  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+  const offset = (page - 1) * limit;
+  const search = (req.query.search as string) || null;
+  const sortBy = (req.query.sort_by as string) || 'professor_name';
+  const sortOrder = (req.query.sort_order as string) || 'asc';
 
   try {
-    const result = await pool.query(getProfessorsByUniversityID, [universityID]);
-    res.json(result.rows as Professor[]);
+    const result = await pool.query(getProfessorsByUniversityIDPaginated, [
+      limit,
+      offset,
+      universityID,
+      search,
+      sortBy,
+      sortOrder,
+    ]);
+    const countResult = await pool.query(getProfessorsByUniversityIDCount, [universityID, search]);
+
+    const totalItems = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalItems / limit);
+
+    res.json({
+      success: true,
+      message: 'Professors fetched successfully',
+      data: result.rows as Professor[],
+      meta: {
+        current_page: page,
+        page_size: limit,
+        total_items: totalItems,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
 router.get('/courseID/:courseID', async (req: Request, res: Response) => {
   const { courseID } = req.params;
+  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+  const offset = (page - 1) * limit;
+  const search = (req.query.search as string) || null;
+  const sortBy = (req.query.sort_by as string) || 'professor_name';
+  const sortOrder = (req.query.sort_order as string) || 'asc';
 
   try {
-    const result = await pool.query(getProfessorsByCourseID, [courseID]);
-    res.json(result.rows as Professor[]);
+    const result = await pool.query(getProfessorsByCourseIDPaginated, [
+      limit,
+      offset,
+      courseID,
+      search,
+      sortBy,
+      sortOrder,
+    ]);
+    const countResult = await pool.query(getProfessorsByCourseIDCount, [courseID, search]);
+
+    const totalItems = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalItems / limit);
+
+    res.json({
+      success: true,
+      message: 'Professors fetched successfully',
+      data: result.rows as Professor[],
+      meta: {
+        current_page: page,
+        page_size: limit,
+        total_items: totalItems,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
-
-// router.post('/add', async (req: Request, res: Response) => {
-//   const { universityID, professorName, departmentID } = req.body;
-
-//   let client;
-
-//   try {
-//     client = await pool.connect();
-//     await client.query('BEGIN');
-//     const professorTable = await client.query(addProfessor, [universityID, professorName]);
-//     const professorID = professorTable.rows[0].professorID;
-
-//     await client.query(linkProfessorToDepartment, [professorID, departmentID]);
-
-//     await client.query('COMMIT');
-
-//     res.json({
-//       message: `Professor '${professorName}' successfully added and linked to departmentID: ${departmentID}.`,
-//     });
-//   } catch (error) {
-//     if (client) {
-//       await client.query('ROLLBACK');
-//     }
-//     console.log(error);
-//     res.json({ error: error.message });
-//   } finally {
-//     if (client) {
-//       client.release();
-//     } else {
-//       console.error('Failed to acquire a database client.');
-//       res.status(500).json({
-//         error: 'Failed to acquire a database client. Please try again later.',
-//       });
-//     }
-//   }
-// });
 
 export default router;

@@ -8,7 +8,7 @@ export function UniversityHeader({ university }: { university: University }) {
     <div className="w-full max-w-3xl">
       <Card>
         <CardHeader className="flex items-center">
-          <Image src={university.university_logo} width={100} height={100} alt={university?.university_name} />
+          <Image src={university.university_logo} width={100} height={100} alt={university?.university_name} priority />
           <CardTitle>{university?.university_name}</CardTitle>
         </CardHeader>
       </Card>

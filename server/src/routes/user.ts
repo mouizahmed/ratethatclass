@@ -1,7 +1,13 @@
 import express, { Response } from 'express';
-import { addUser, getUserReviews, getUserVotedReviews } from '../db/queries';
+import {
+  addUser,
+  getUserReviewsPaginated,
+  getUserReviewsCount,
+  getUserVotedReviewsPaginated,
+  getUserVotedReviewsCount,
+} from '../db/queries';
 import { pool } from '../db/db';
-import { AuthenticatedRequest, Review, VoteItem } from 'types';
+import { AuthenticatedRequest, Review } from 'types';
 import { validateToken } from '../../middleware/Auth';
 import { auth } from '../../firebase/firebase';
 
@@ -31,37 +37,128 @@ router.post('/register', async (req: AuthenticatedRequest, res: Response) => {
 router.get('/reviews', validateToken, async (req: AuthenticatedRequest, res: Response) => {
   const { uid } = req.user;
 
+  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 10);
+  const offset = (page - 1) * limit;
+  const sortBy = (req.query.sort_by as string) || 'date_uploaded';
+  const sortOrder = (req.query.sort_order as string) || 'desc';
+
   try {
-    const result = await pool.query(getUserReviews, [uid]);
-    res.json(result.rows as Review[]);
+    const countResult = await pool.query(getUserReviewsCount, [uid]);
+    const totalItems = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalItems / limit);
+
+    const result = await pool.query(getUserReviewsPaginated, [uid, sortBy, sortOrder.toUpperCase(), limit, offset]);
+
+    res.json({
+      success: true,
+      message: 'User reviews fetched successfully',
+      data: result.rows as Review[],
+      meta: {
+        current_page: page,
+        page_size: limit,
+        total_items: totalItems,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: [],
+      meta: {},
+    });
   }
 });
 
 router.get('/upvotes', validateToken, async (req: AuthenticatedRequest, res: Response) => {
   const { uid } = req.user;
 
-  try {
-    const result = await pool.query(getUserVotedReviews, [uid, 'up']);
+  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 10);
+  const offset = (page - 1) * limit;
+  const sortBy = (req.query.sort_by as string) || 'date_uploaded';
+  const sortOrder = (req.query.sort_order as string) || 'desc';
 
-    res.json(result.rows as Review[]);
+  try {
+    const countResult = await pool.query(getUserVotedReviewsCount, [uid, 'up']);
+    const totalItems = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalItems / limit);
+
+    const result = await pool.query(getUserVotedReviewsPaginated, [
+      uid,
+      'up',
+      sortBy,
+      sortOrder.toUpperCase(),
+      limit,
+      offset,
+    ]);
+
+    res.json({
+      success: true,
+      message: 'User upvoted reviews fetched successfully',
+      data: result.rows as Review[],
+      meta: {
+        current_page: page,
+        page_size: limit,
+        total_items: totalItems,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: [],
+      meta: {},
+    });
   }
 });
 
 router.get('/downvotes', validateToken, async (req: AuthenticatedRequest, res: Response) => {
   const { uid } = req.user;
 
+  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 10);
+  const offset = (page - 1) * limit;
+  const sortBy = (req.query.sort_by as string) || 'date_uploaded';
+  const sortOrder = (req.query.sort_order as string) || 'desc';
+
   try {
-    const result = await pool.query(getUserVotedReviews, [uid, 'down']);
-    res.json(result.rows as Review[]);
+    const countResult = await pool.query(getUserVotedReviewsCount, [uid, 'down']);
+    const totalItems = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalItems / limit);
+
+    const result = await pool.query(getUserVotedReviewsPaginated, [
+      uid,
+      'down',
+      sortBy,
+      sortOrder.toUpperCase(),
+      limit,
+      offset,
+    ]);
+
+    res.json({
+      success: true,
+      message: 'User downvoted reviews fetched successfully',
+      data: result.rows as Review[],
+      meta: {
+        current_page: page,
+        page_size: limit,
+        total_items: totalItems,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: [],
+      meta: {},
+    });
   }
 });
 

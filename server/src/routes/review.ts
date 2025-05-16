@@ -1,7 +1,12 @@
 import express, { Request, Response } from 'express';
 import {
   getReviews,
-  getReviewsByCourseID,
+  getReviewsPaginated,
+  getReviewsCount,
+  getReviewsByCourseIDPaginated,
+  getReviewsByCourseIDWithProfessor,
+  getReviewsByCourseIDWithTerm,
+  getReviewsByCourseIDWithDelivery,
   getExistingVote,
   addVote,
   deleteVote,
@@ -22,29 +27,116 @@ import { isEmailVerified } from '../helpers';
 const router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {
+  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+  const offset = (page - 1) * limit;
+  const search = (req.query.search as string) || null;
+  const sortBy = (req.query.sort_by as string) || 'date_uploaded';
+  const sortOrder = (req.query.sort_order as string) || 'desc';
+
   try {
-    const result = await pool.query(getReviews);
-    res.json(result.rows as Review[]);
+    const queryText = `${getReviewsPaginated} ORDER BY reviews.${sortBy} ${
+      sortOrder === 'asc' ? 'ASC' : 'DESC'
+    } LIMIT $1 OFFSET $2`;
+    const result = await pool.query(queryText, [limit, offset, search]);
+
+    const countResult = await pool.query(getReviewsCount, [search]);
+
+    const totalItems = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalItems / limit);
+
+    res.json({
+      success: true,
+      message: 'Reviews fetched successfully',
+      data: result.rows as Review[],
+      meta: {
+        current_page: page,
+        page_size: limit,
+        total_items: totalItems,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
 router.get('/courseID/:courseID', validateTokenOptional, async (req: AuthenticatedRequest, res: Response) => {
   const { courseID } = req.params;
   const user = req.user;
+
+  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+  const offset = (page - 1) * limit;
+  const professorID = (req.query.professor_id as string) || null;
+  const term = (req.query.term as string) || null;
+  const deliveryMethod = (req.query.delivery_method as string) || null;
+  const sortBy = (req.query.sort_by as string) || 'date_uploaded';
+  const sortOrder = (req.query.sort_order as string) || 'desc';
+
   try {
-    if (!user) {
-      const result = await pool.query(getReviewsByCourseID, ['', courseID]);
-      res.json(result.rows as Review[]);
-    } else {
-      const result = await pool.query(getReviewsByCourseID, [user.uid, courseID]);
-      res.json(result.rows as Review[]);
+    let queryText = getReviewsByCourseIDPaginated;
+
+    const queryParams = [user?.uid || '', courseID];
+    let paramCounter = 3;
+
+    if (professorID) {
+      const professorFilter = getReviewsByCourseIDWithProfessor.replace(/\$PLACEHOLDER/g, `$${paramCounter}`);
+      queryText += professorFilter;
+      queryParams.push(professorID);
+      paramCounter++;
     }
+
+    if (term) {
+      const termFilter = getReviewsByCourseIDWithTerm.replace(/\$PLACEHOLDER/g, `$${paramCounter}`);
+      queryText += termFilter;
+      queryParams.push(term);
+      paramCounter++;
+    }
+
+    if (deliveryMethod) {
+      const deliveryFilter = getReviewsByCourseIDWithDelivery.replace(/\$PLACEHOLDER/g, `$${paramCounter}`);
+      queryText += deliveryFilter;
+      queryParams.push(deliveryMethod);
+      paramCounter++;
+    }
+
+    const countQuery = `SELECT COUNT(*) FROM (${queryText}) AS filtered_reviews`;
+    const countResult = await pool.query(countQuery, queryParams);
+    const totalItems = parseInt(countResult.rows[0].count, 10);
+    const totalPages = Math.ceil(totalItems / limit);
+
+    queryText += ` ORDER BY reviews.${sortBy} ${sortOrder === 'asc' ? 'ASC' : 'DESC'}`;
+    queryText += ` LIMIT $${paramCounter} OFFSET $${paramCounter + 1}`;
+    queryParams.push(limit.toString(), offset.toString());
+
+    const result = await pool.query(queryText, queryParams);
+
+    res.json({
+      success: true,
+      message: 'Reviews fetched successfully',
+      data: result.rows as Review[],
+      meta: {
+        current_page: page,
+        page_size: limit,
+        total_items: totalItems,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
@@ -76,18 +168,34 @@ router.post('/downvote', validateToken, async (req: AuthenticatedRequest, res: R
     }
 
     await client.query('COMMIT');
-    res.json({ message: `Review ID: ${review_id} successfully downvoted by user ID: ${user.uid}` });
+    res.json({
+      success: true,
+      message: 'Review successfully downvoted',
+      data: { review_id, user_id: user.uid },
+      meta: {},
+    });
   } catch (error) {
     if (client) {
       await client.query('ROLLBACK');
     }
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   } finally {
     if (client) {
       client.release();
     } else {
       console.log('Failed to acquire a database client.');
+      res.status(500).json({
+        success: false,
+        message: 'Failed to acquire a database client',
+        data: {},
+        meta: {},
+      });
     }
   }
 });
@@ -121,20 +229,33 @@ router.post('/upvote', validateToken, async (req: AuthenticatedRequest, res: Res
     }
 
     await client.query('COMMIT');
-    res.json({ message: `Review ID: ${review_id} successfully upvoted by user ID: ${user.uid}` });
+    res.json({
+      success: true,
+      message: 'Review successfully upvoted',
+      data: { review_id, user_id: user.uid },
+      meta: {},
+    });
   } catch (error) {
     if (client) {
       await client.query('ROLLBACK');
     }
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   } finally {
     if (client) {
       client.release();
     } else {
       console.log('Failed to acquire a database client.');
       res.status(500).json({
-        error: 'Failed to acquire a database client. Please try again later.',
+        success: false,
+        message: 'Failed to acquire a database client',
+        data: {},
+        meta: {},
       });
     }
   }
@@ -190,20 +311,33 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
     await client.query(addUpvote, [user.uid, review.rows[0].review_id]);
 
     await client.query('COMMIT');
-    res.json({ message: 'Review successfully added.' });
+    res.json({
+      success: true,
+      message: 'Review successfully added',
+      data: { review_id: review.rows[0].review_id },
+      meta: {},
+    });
   } catch (error) {
     if (client) {
       await client.query('ROLLBACK');
     }
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   } finally {
     if (client) {
       client.release(); // Release the client if it was acquired
     } else {
       console.log('Failed to acquire a database client.');
       res.status(500).json({
-        error: 'Failed to acquire a database client. Please try again later.',
+        success: false,
+        message: 'Failed to acquire a database client',
+        data: {},
+        meta: {},
       });
     }
   }
@@ -215,35 +349,21 @@ router.delete('/delete/id/:reviewID', validateToken, async (req: AuthenticatedRe
 
   try {
     const result = await pool.query(deleteUserReview, [reviewID, user.uid]);
-    res.json({ message: `${result.rows.length} reviews deleted.` });
+    res.json({
+      success: true,
+      message: 'Review successfully deleted',
+      data: { reviews_deleted: result.rows.length },
+      meta: {},
+    });
   } catch (error) {
-    console.log('Failed to acquire a database client.');
+    console.log(error);
     res.status(500).json({
-      error: 'Failed to acquire a database client. Please try again later.',
+      success: false,
+      message: error.message || 'Failed to delete review',
+      data: {},
+      meta: {},
     });
   }
 });
-
-// router.get('/universityID/:universityID', async (req: Request, res: Response) => {
-//   const { universityID } = req.params;
-//   try {
-//     const result = await pool.query(getReviewsByUniversityID, [universityID]);
-//     res.json(result.rows as Review[]);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: error.message });
-//   }
-// });
-
-// router.get('/departmentID/:departmentID', async (req: Request, res: Response) => {
-//   const { departmentID } = req.params;
-//   try {
-//     const result = await pool.query(getReviewsByDepartmentID, [departmentID]);
-//     res.json(result.rows as Review[]);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: error.message });
-//   }
-// });
 
 export default router;

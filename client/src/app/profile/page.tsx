@@ -19,35 +19,96 @@ export default function Page() {
   const [userReviews, setUserReviews] = useState<Review[]>([]);
   const [upvotes, setUpvotes] = useState<Review[]>([]);
   const [downvotes, setDownvotes] = useState<Review[]>([]);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [emailSent, setEmailSent] = useState<boolean>(false);
 
-  const clearPosts = () => {
-    setUserReviews([]);
-    setUpvotes([]);
-    setDownvotes([]);
-  };
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [hasMorePosts, setHasMorePosts] = useState<boolean>(true);
+  const [hasMoreUpvotes, setHasMoreUpvotes] = useState<boolean>(true);
+  const [hasMoreDownvotes, setHasMoreDownvotes] = useState<boolean>(true);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>('Posted Reviews');
 
   const getPosts = useCallback(
-    async (type: 'all' | 'upvoted' | 'downvoted') => {
+    async (type: 'all' | 'upvoted' | 'downvoted', page: number = 1, append: boolean = false) => {
       try {
-        setLoading(true);
-        if (type === 'all') {
-          await getUserPosts(setUserReviews);
-        } else if (type === 'upvoted') {
-          await getUserUpvotes(setUpvotes);
-        } else if (type === 'downvoted') {
-          await getUserDownvotes(setDownvotes);
+        if (page === 1) {
+          setLoading(true);
+        } else {
+          setIsLoadingMore(true);
         }
-        setLoading(false);
+
+        if (type === 'all') {
+          const response = await getUserPosts(setUserReviews, page, 10, 'date_uploaded', 'desc');
+
+          const data = response.data;
+          const meta = response.meta;
+
+          if (append) {
+            setUserReviews((prev) => [...prev, ...data]);
+          } else {
+            setUserReviews(data);
+          }
+
+          setHasMorePosts(meta.current_page < meta.total_pages);
+        } else if (type === 'upvoted') {
+          const response = await getUserUpvotes(setUpvotes, page, 10, 'date_uploaded', 'desc');
+
+          const data = response.data;
+          const meta = response.meta;
+
+          if (append) {
+            setUpvotes((prev) => [...prev, ...data]);
+          } else {
+            setUpvotes(data);
+          }
+
+          setHasMoreUpvotes(meta.current_page < meta.total_pages);
+        } else if (type === 'downvoted') {
+          const response = await getUserDownvotes(setDownvotes, page, 10, 'date_uploaded', 'desc');
+
+          const data = response.data;
+          const meta = response.meta;
+
+          if (append) {
+            setDownvotes((prev) => [...prev, ...data]);
+          } else {
+            setDownvotes(data);
+          }
+
+          setHasMoreDownvotes(meta.current_page < meta.total_pages);
+        }
+
+        if (page === 1) {
+          setLoading(false);
+        } else {
+          setIsLoadingMore(false);
+        }
       } catch (error) {
         console.log(error);
         setLoading(false);
+        setIsLoadingMore(false);
         addAlert('destructive', (error as Error).message, 3000);
       }
     },
     [addAlert]
   );
+
+  const loadMoreReviews = useCallback(async () => {
+    if (isLoadingMore) return;
+
+    if (activeTab === 'Posted Reviews' && hasMorePosts) {
+      await getPosts('all', currentPage + 1, true);
+      setCurrentPage((prev) => prev + 1);
+    } else if (activeTab === 'Up Voted Reviews' && hasMoreUpvotes) {
+      await getPosts('upvoted', currentPage + 1, true);
+      setCurrentPage((prev) => prev + 1);
+    } else if (activeTab === 'Down Voted Reviews' && hasMoreDownvotes) {
+      await getPosts('downvoted', currentPage + 1, true);
+      setCurrentPage((prev) => prev + 1);
+    }
+  }, [activeTab, currentPage, getPosts, hasMorePosts, hasMoreUpvotes, hasMoreDownvotes, isLoadingMore]);
 
   useEffect(() => {
     if (!userLoggedIn) {
@@ -59,6 +120,19 @@ export default function Page() {
     };
     fetchData();
   }, [userLoggedIn, getPosts]);
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    setCurrentPage(1);
+
+    if (value === 'Posted Reviews') {
+      getPosts('all');
+    } else if (value === 'Up Voted Reviews') {
+      getPosts('upvoted');
+    } else if (value === 'Down Voted Reviews') {
+      getPosts('downvoted');
+    }
+  };
 
   return (
     <div className="flex flex-col items-center gap-10 p-8 sm:p-20">
@@ -94,35 +168,11 @@ export default function Page() {
               )}
             </h2>
 
-            <Tabs defaultValue="Posted Reviews" className="pt-8">
+            <Tabs defaultValue="Posted Reviews" className="pt-8" onValueChange={handleTabChange}>
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger
-                  value="Posted Reviews"
-                  onClick={async () => {
-                    clearPosts();
-                    getPosts('all');
-                  }}
-                >
-                  Posted
-                </TabsTrigger>
-                <TabsTrigger
-                  value="Up Voted Reviews"
-                  onClick={() => {
-                    clearPosts();
-                    getPosts('upvoted');
-                  }}
-                >
-                  Up Voted
-                </TabsTrigger>
-                <TabsTrigger
-                  value="Down Voted Reviews"
-                  onClick={() => {
-                    clearPosts();
-                    getPosts('downvoted');
-                  }}
-                >
-                  Down Voted
-                </TabsTrigger>
+                <TabsTrigger value="Posted Reviews">Posted</TabsTrigger>
+                <TabsTrigger value="Up Voted Reviews">Up Voted</TabsTrigger>
+                <TabsTrigger value="Down Voted Reviews">Down Voted</TabsTrigger>
               </TabsList>
               <TabsContent value="Posted Reviews">
                 <div className="grid md:grid-cols-1 gap-10 w-full max-w-3xl pt-4">
@@ -140,6 +190,20 @@ export default function Page() {
                           }
                         />
                       ))}
+                      <div className="flex justify-center py-4">
+                        {hasMorePosts && (
+                          <Button onClick={loadMoreReviews} disabled={isLoadingMore} className="w-40">
+                            {isLoadingMore ? (
+                              <div className="flex items-center gap-2">
+                                <Spinner size="small" />
+                                <span>Loading...</span>
+                              </div>
+                            ) : (
+                              'Load More'
+                            )}
+                          </Button>
+                        )}
+                      </div>
                     </>
                   ) : (
                     <div className="flex justify-center">
@@ -164,6 +228,20 @@ export default function Page() {
                           }
                         />
                       ))}
+                      <div className="flex justify-center py-4">
+                        {hasMoreUpvotes && (
+                          <Button onClick={loadMoreReviews} disabled={isLoadingMore} className="w-40">
+                            {isLoadingMore ? (
+                              <div className="flex items-center gap-2">
+                                <Spinner size="small" />
+                                <span>Loading...</span>
+                              </div>
+                            ) : (
+                              'Load More'
+                            )}
+                          </Button>
+                        )}
+                      </div>
                     </>
                   ) : (
                     <div className="flex justify-center">
@@ -186,6 +264,20 @@ export default function Page() {
                           onDelete={(deletedId) => setUpvotes((prev) => prev.filter((r) => r.review_id !== deletedId))}
                         />
                       ))}
+                      <div className="flex justify-center py-4">
+                        {hasMoreDownvotes && (
+                          <Button onClick={loadMoreReviews} disabled={isLoadingMore} className="w-40">
+                            {isLoadingMore ? (
+                              <div className="flex items-center gap-2">
+                                <Spinner size="small" />
+                                <span>Loading...</span>
+                              </div>
+                            ) : (
+                              'Load More'
+                            )}
+                          </Button>
+                        )}
+                      </div>
                     </>
                   ) : (
                     <div className="flex justify-center">
