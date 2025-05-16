@@ -206,9 +206,6 @@ export async function getReviewsByCourseID(
     if (sortOrder) {
       url += `&sort_order=${encodeURIComponent(sortOrder)}`;
     }
-  } else {
-    // If page is not specified, set default values
-    url += `?page=1&limit=1000`; // Get all reviews with high limit
   }
 
   const response = await axios
@@ -261,9 +258,6 @@ export async function getUserPosts(
     if (sortOrder) {
       url += `&sort_order=${encodeURIComponent(sortOrder)}`;
     }
-  } else {
-    // If page is not specified, set default values to get all reviews
-    url += `?page=1&limit=1000`;
   }
 
   const response = await axios
@@ -282,7 +276,6 @@ export async function getUserPosts(
     throw new Error(response.data.message || "Failed to retrieve user's posts");
   }
 
-  // Set the reviews list in the state if a setter is provided
   setListOfReviews(response.data.data);
 
   return {
@@ -319,9 +312,6 @@ export async function getUserUpvotes(
     if (sortOrder) {
       url += `&sort_order=${encodeURIComponent(sortOrder)}`;
     }
-  } else {
-    // If page is not specified, set default values to get all reviews
-    url += `?page=1&limit=1000`;
   }
 
   const response = await axios
@@ -340,7 +330,6 @@ export async function getUserUpvotes(
     throw new Error(response.data.message || "Failed to retrieve user's upvotes");
   }
 
-  // Set the reviews list in the state if a setter is provided
   setListOfReviews(response.data.data);
 
   return {
@@ -377,9 +366,6 @@ export async function getUserDownvotes(
     if (sortOrder) {
       url += `&sort_order=${encodeURIComponent(sortOrder)}`;
     }
-  } else {
-    // If page is not specified, set default values to get all reviews
-    url += `?page=1&limit=1000`;
   }
 
   const response = await axios
@@ -398,7 +384,6 @@ export async function getUserDownvotes(
     throw new Error(response.data.message || "Failed to retrieve user's downvotes");
   }
 
-  // Set the reviews list in the state if a setter is provided
   setListOfReviews(response.data.data);
 
   return {

@@ -21,7 +21,7 @@ export interface StepProps<T extends ZodObject<any>> {
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface SteppedFormDialogProps<T extends ZodObject<any>> {
   triggerButton: React.ReactNode;
-  steps: StepProps<T>[]; // Fixed type
+  steps: StepProps<T>[];
   onSubmit: (data: any) => void;
   schema: T;
 }

@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { DecodedIdToken } from 'firebase-admin/auth';
 
 export interface AuthenticatedRequest extends Request {
-  user?: DecodedIdToken; // Replace `any` with the specific type of `user` if known
+  user?: DecodedIdToken;
 }
 
 export interface RequestedUniversity {

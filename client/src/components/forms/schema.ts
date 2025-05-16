@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { Course } from '@/types/university';
 
-// Parameterized Course Schema with duplicate check
 export const getCourseSchema = (courseList: Course[]) =>
   z
     .object({
@@ -15,7 +14,6 @@ export const getCourseSchema = (courseList: Course[]) =>
       path: ['courseTag'], // attach error to the courseTag field
     });
 
-// Existing schemas
 export const reviewRatingSchema = z.object({
   overallScore: z.number().min(0).max(5),
   easyScore: z.number().min(0).max(5),
@@ -41,7 +39,6 @@ export const reviewCommentsSchema = z.object({
   adviceComments: z.string(),
 });
 
-// Schema for new course form that includes the course duplication check
 export const getNewCourseFormSchema = (courseList: Course[]) =>
   z.object({
     courseStep: getCourseSchema(courseList),
@@ -50,7 +47,6 @@ export const getNewCourseFormSchema = (courseList: Course[]) =>
     reviewCommentsStep: reviewCommentsSchema,
   });
 
-// Schema for new review form (without courseStep)
 export const newReviewForm = z.object({
   reviewRatingsStep: reviewRatingSchema,
   reviewMetadataStep: reviewMetadataSchema,
