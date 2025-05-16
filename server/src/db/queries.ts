@@ -46,13 +46,50 @@ SELECT
     ROUND(COALESCE(AVG(reviews.easy_score), 0), 1) AS easy_score,
     ROUND(COALESCE(AVG(reviews.interest_score), 0), 1) AS interest_score,
     ROUND(COALESCE(AVG(reviews.useful_score), 0), 1) AS useful_score,
-    COUNT(reviews.review_id) as review_num
+    COUNT(reviews.review_id) as review_num,
+    department_name,
+    universities.university_name
 FROM 
     courses
 LEFT JOIN
     reviews ON courses.course_id = reviews.course_id
+JOIN
+    departments ON departments.department_id = courses.department_id
+JOIN
+    universities ON universities.university_id = departments.university_id
+WHERE
+    ($3::text IS NULL OR 
+        courses.course_name ILIKE '%' || $3 || '%' OR 
+        courses.course_tag ILIKE '%' || $3 || '%')
 GROUP BY
-    courses.course_id
+    courses.course_id, departments.department_id, universities.university_id
+ORDER BY
+    CASE WHEN $4 = 'course_tag' AND $5 = 'asc' THEN courses.course_tag END ASC,
+    CASE WHEN $4 = 'course_tag' AND $5 = 'desc' THEN courses.course_tag END DESC,
+    CASE WHEN $4 = 'course_name' AND $5 = 'asc' THEN courses.course_name END ASC,
+    CASE WHEN $4 = 'course_name' AND $5 = 'desc' THEN courses.course_name END DESC,
+    CASE WHEN $4 = 'review_num' AND $5 = 'asc' THEN COUNT(reviews.review_id) END ASC,
+    CASE WHEN $4 = 'review_num' AND $5 = 'desc' THEN COUNT(reviews.review_id) END DESC,
+    CASE WHEN $4 = 'overall_score' AND $5 = 'asc' THEN ROUND(COALESCE(AVG(reviews.overall_score), 0), 1) END ASC,
+    CASE WHEN $4 = 'overall_score' AND $5 = 'desc' THEN ROUND(COALESCE(AVG(reviews.overall_score), 0), 1) END DESC,
+    CASE WHEN $4 = 'easy_score' AND $5 = 'asc' THEN ROUND(COALESCE(AVG(reviews.easy_score), 0), 1) END ASC,
+    CASE WHEN $4 = 'easy_score' AND $5 = 'desc' THEN ROUND(COALESCE(AVG(reviews.easy_score), 0), 1) END DESC,
+    CASE WHEN $4 = 'interest_score' AND $5 = 'asc' THEN ROUND(COALESCE(AVG(reviews.interest_score), 0), 1) END ASC,
+    CASE WHEN $4 = 'interest_score' AND $5 = 'desc' THEN ROUND(COALESCE(AVG(reviews.interest_score), 0), 1) END DESC,
+    CASE WHEN $4 = 'useful_score' AND $5 = 'asc' THEN ROUND(COALESCE(AVG(reviews.useful_score), 0), 1) END ASC,
+    CASE WHEN $4 = 'useful_score' AND $5 = 'desc' THEN ROUND(COALESCE(AVG(reviews.useful_score), 0), 1) END DESC,
+    courses.course_tag ASC
+LIMIT $1 OFFSET $2
+`;
+
+export const getCoursesCount = `
+SELECT COUNT(DISTINCT courses.course_id) 
+FROM courses
+LEFT JOIN departments ON departments.department_id = courses.department_id
+LEFT JOIN universities ON universities.university_id = departments.university_id
+WHERE ($1::text IS NULL OR 
+    courses.course_name ILIKE '%' || $1 || '%' OR 
+    courses.course_tag ILIKE '%' || $1 || '%')
 `;
 
 export const getCoursesByUniversityIDCount = `
