@@ -1,6 +1,3 @@
-/**
- * Standard API response format
- */
 export interface ApiResponse<T> {
   success: boolean;
   message: string;
@@ -14,9 +11,6 @@ export interface ApiResponse<T> {
   };
 }
 
-/**
- * Paginated API response metadata
- */
 export interface PaginationMeta {
   current_page: number;
   page_size: number;
@@ -24,9 +18,6 @@ export interface PaginationMeta {
   total_pages: number;
 }
 
-/**
- * Paginated data response
- */
 export interface PaginatedResponse<T> {
   data: T[];
   meta: PaginationMeta;
