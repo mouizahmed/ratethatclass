@@ -27,10 +27,20 @@ const router = express.Router();
 router.get('/', async (req: Request, res: Response) => {
   try {
     const result = await pool.query(getReviews);
-    res.json(result.rows as Review[]);
+    res.json({
+      success: true,
+      message: 'Reviews fetched successfully',
+      data: result.rows as Review[],
+      meta: {},
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
@@ -90,26 +100,25 @@ router.get('/courseID/:courseID', validateTokenOptional, async (req: Authenticat
 
     const result = await pool.query(queryText, queryParams);
 
-    // If page parameter was provided, return paginated response
-    if (req.query.page) {
-      res.json({
-        success: true,
-        message: 'Reviews fetched successfully',
-        data: result.rows as Review[],
-        meta: {
-          current_page: page,
-          page_size: limit,
-          total_items: totalItems,
-          total_pages: totalPages,
-        },
-      });
-    } else {
-      // Return old format for backward compatibility
-      res.json(result.rows as Review[]);
-    }
+    res.json({
+      success: true,
+      message: 'Reviews fetched successfully',
+      data: result.rows as Review[],
+      meta: {
+        current_page: page,
+        page_size: limit,
+        total_items: totalItems,
+        total_pages: totalPages,
+      },
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
@@ -141,18 +150,34 @@ router.post('/downvote', validateToken, async (req: AuthenticatedRequest, res: R
     }
 
     await client.query('COMMIT');
-    res.json({ message: `Review ID: ${review_id} successfully downvoted by user ID: ${user.uid}` });
+    res.json({
+      success: true,
+      message: 'Review successfully downvoted',
+      data: { review_id, user_id: user.uid },
+      meta: {},
+    });
   } catch (error) {
     if (client) {
       await client.query('ROLLBACK');
     }
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   } finally {
     if (client) {
       client.release();
     } else {
       console.log('Failed to acquire a database client.');
+      res.status(500).json({
+        success: false,
+        message: 'Failed to acquire a database client',
+        data: {},
+        meta: {},
+      });
     }
   }
 });
@@ -186,20 +211,33 @@ router.post('/upvote', validateToken, async (req: AuthenticatedRequest, res: Res
     }
 
     await client.query('COMMIT');
-    res.json({ message: `Review ID: ${review_id} successfully upvoted by user ID: ${user.uid}` });
+    res.json({
+      success: true,
+      message: 'Review successfully upvoted',
+      data: { review_id, user_id: user.uid },
+      meta: {},
+    });
   } catch (error) {
     if (client) {
       await client.query('ROLLBACK');
     }
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   } finally {
     if (client) {
       client.release();
     } else {
       console.log('Failed to acquire a database client.');
       res.status(500).json({
-        error: 'Failed to acquire a database client. Please try again later.',
+        success: false,
+        message: 'Failed to acquire a database client',
+        data: {},
+        meta: {},
       });
     }
   }
@@ -255,20 +293,33 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
     await client.query(addUpvote, [user.uid, review.rows[0].review_id]);
 
     await client.query('COMMIT');
-    res.json({ message: 'Review successfully added.' });
+    res.json({
+      success: true,
+      message: 'Review successfully added',
+      data: { review_id: review.rows[0].review_id },
+      meta: {},
+    });
   } catch (error) {
     if (client) {
       await client.query('ROLLBACK');
     }
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   } finally {
     if (client) {
       client.release(); // Release the client if it was acquired
     } else {
       console.log('Failed to acquire a database client.');
       res.status(500).json({
-        error: 'Failed to acquire a database client. Please try again later.',
+        success: false,
+        message: 'Failed to acquire a database client',
+        data: {},
+        meta: {},
       });
     }
   }
@@ -280,35 +331,21 @@ router.delete('/delete/id/:reviewID', validateToken, async (req: AuthenticatedRe
 
   try {
     const result = await pool.query(deleteUserReview, [reviewID, user.uid]);
-    res.json({ message: `${result.rows.length} reviews deleted.` });
+    res.json({
+      success: true,
+      message: 'Review successfully deleted',
+      data: { reviews_deleted: result.rows.length },
+      meta: {},
+    });
   } catch (error) {
-    console.log('Failed to acquire a database client.');
+    console.log(error);
     res.status(500).json({
-      error: 'Failed to acquire a database client. Please try again later.',
+      success: false,
+      message: error.message || 'Failed to delete review',
+      data: {},
+      meta: {},
     });
   }
 });
-
-// router.get('/universityID/:universityID', async (req: Request, res: Response) => {
-//   const { universityID } = req.params;
-//   try {
-//     const result = await pool.query(getReviewsByUniversityID, [universityID]);
-//     res.json(result.rows as Review[]);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: error.message });
-//   }
-// });
-
-// router.get('/departmentID/:departmentID', async (req: Request, res: Response) => {
-//   const { departmentID } = req.params;
-//   try {
-//     const result = await pool.query(getReviewsByDepartmentID, [departmentID]);
-//     res.json(result.rows as Review[]);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: error.message });
-//   }
-// });
 
 export default router;

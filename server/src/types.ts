@@ -45,7 +45,7 @@ export interface Report {
   user_id?: string;
   entity_type: 'course' | 'review';
   entity_id: string;
-  report_reason: string;
+  reason: string;
 }
 
 export interface Professor {

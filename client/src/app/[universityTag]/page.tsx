@@ -83,7 +83,7 @@ export default function Page() {
 
         initialLoadCompleteRef.current = true;
       } catch (error) {
-        console.error(error);
+        console.log(error);
         addAlert('destructive', (error as Error).message, 3000);
       } finally {
         setIsInitialLoading(false);
@@ -113,7 +113,7 @@ export default function Page() {
         setCourseList(data);
         setHasMore(meta.total_pages > 1);
       } catch (error) {
-        console.error(error);
+        console.log(error);
         addAlert('destructive', 'Failed to search courses', 3000);
       } finally {
         setIsSearchLoading(false);
@@ -143,7 +143,7 @@ export default function Page() {
 
       setHasMore(currentPage + 1 < meta.total_pages);
     } catch (error) {
-      console.error(error);
+      console.log(error);
       addAlert('destructive', 'Failed to load more courses', 3000);
     } finally {
       setIsLoadingMore(false);
