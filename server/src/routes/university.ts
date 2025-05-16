@@ -20,10 +20,20 @@ const router = express.Router();
 router.get('/', async (req: Request, res: Response) => {
   try {
     const result = await pool.query(getUniversities);
-    res.json(result.rows as University[]);
+    res.json({
+      success: true,
+      message: 'Universities fetched successfully',
+      data: result.rows as University[],
+      meta: {},
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
@@ -32,13 +42,28 @@ router.get('/name/:universityName', async (req: Request, res: Response) => {
   try {
     const result = await pool.query(getUniversityByName, [universityName]);
     if (result.rows.length == 0) {
-      res.json({});
+      res.json({
+        success: false,
+        message: 'University not found',
+        data: {},
+        meta: {},
+      });
     } else {
-      res.json(result.rows[0] as University);
+      res.json({
+        success: true,
+        message: 'University fetched successfully',
+        data: result.rows[0] as University,
+        meta: {},
+      });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
@@ -48,13 +73,28 @@ router.get('/id/:universityID', async (req: Request, res: Response) => {
     validateUUID(universityID);
     const result = await pool.query(getUniversityByID, [universityID]);
     if (result.rows.length == 0) {
-      res.json({});
+      res.json({
+        success: false,
+        message: 'University not found',
+        data: {},
+        meta: {},
+      });
     } else {
-      res.json(result.rows[0] as University);
+      res.json({
+        success: true,
+        message: 'University fetched successfully',
+        data: result.rows[0] as University,
+        meta: {},
+      });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
@@ -62,10 +102,20 @@ router.get('/domains', async (req: Request, res: Response) => {
   try {
     const result = await pool.query(getUniversityDomains);
     const domains = result.rows.map((item) => item.domain);
-    res.json(domains as string[]);
+    res.json({
+      success: true,
+      message: 'University domains fetched successfully',
+      data: domains as string[],
+      meta: {},
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
@@ -83,10 +133,20 @@ router.get('/request-university-list', async (req: Request, res: Response) => {
 
     const list = await pool.query(getRequestedUniversities, [token]);
 
-    res.json(list.rows as RequestedUniversity[]);
+    res.json({
+      success: true,
+      message: 'Requested universities fetched successfully',
+      data: list.rows as RequestedUniversity[],
+      meta: {},
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 
@@ -112,20 +172,33 @@ router.put('/vote-university/id/:universityID', async (req: Request, res: Respon
     await client.query(updateTotalVotesRequestedUniversity, [universityID]);
 
     await client.query('COMMIT');
-    res.json({ message: `${universityID} successfully upvoted by user_token ${token}` });
+    res.json({
+      success: true,
+      message: `University successfully upvoted`,
+      data: { university_id: universityID, user_token: token },
+      meta: {},
+    });
   } catch (error) {
     if (client) {
       await client.query('ROLLBACK');
     }
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   } finally {
     if (client) {
       client.release();
     } else {
       console.log('Failed to acquire a database client.');
       res.status(500).json({
-        error: 'Failed to acquire a database client. Please try again later.',
+        success: false,
+        message: 'Failed to acquire a database client',
+        data: {},
+        meta: {},
       });
     }
   }
@@ -151,19 +224,32 @@ router.post('/request-university', async (req: Request, res: Response) => {
       await client.query(upvoteRequestedUniversity, [universityRequest.rows[0].university_id, token]);
     }
     await client.query('COMMIT');
-    res.json({ message: `${universityName} successfully added to university request list.` });
+    res.json({
+      success: true,
+      message: `University request successfully added`,
+      data: { university_name: universityName },
+      meta: {},
+    });
   } catch (error) {
     if (client) {
       await client.query('ROLLBACK');
     }
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   } finally {
     if (client) {
       client.release();
     } else {
       res.status(500).json({
-        error: 'Failed to acquire a database client. Please try again later.',
+        success: false,
+        message: 'Failed to acquire a database client',
+        data: {},
+        meta: {},
       });
     }
   }
