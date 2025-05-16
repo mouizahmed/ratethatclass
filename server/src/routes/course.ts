@@ -13,6 +13,7 @@ import {
   addReview,
   addUpvote,
   getCoursesByUniversityIDCount,
+  getCoursesCount,
 } from '../db/queries';
 import { AuthenticatedRequest, Course, Review } from 'types';
 import { PoolClient } from 'pg';
@@ -22,13 +23,30 @@ import { isEmailVerified } from '../helpers';
 const router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {
+  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+  const offset = (page - 1) * limit;
+  const search = (req.query.search as string) || null;
+  const sortBy = (req.query.sort_by as string) || 'overall_score';
+  const sortOrder = (req.query.sort_order as string) || 'desc';
+
   try {
-    const result = await pool.query(getCourses);
+    const result = await pool.query(getCourses, [limit, offset, search, sortBy, sortOrder]);
+    const countResult = await pool.query(getCoursesCount, [search]);
+
+    const totalItems = parseInt(countResult.rows[0].count, 0);
+    const totalPages = Math.ceil(totalItems / limit);
+
     res.json({
       success: true,
       message: 'Courses fetched successfully',
       data: result.rows as Course[],
-      meta: {},
+      meta: {
+        current_page: page,
+        page_size: limit,
+        total_items: totalItems,
+        total_pages: totalPages,
+      },
     });
   } catch (error) {
     console.log(error);
