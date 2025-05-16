@@ -9,8 +9,7 @@ const API_TIMEOUT = 3000;
 export async function getUniversities() {
   try {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/university`, { timeout: API_TIMEOUT });
-
-    return response.data;
+    return response.data.data as University[];
   } catch (error) {
     console.log(error);
     throw new Error('Could not retrieve universities');
@@ -23,7 +22,7 @@ export async function getRequestedUniversities() {
       withCredentials: true,
     });
 
-    return response.data as RequestedUniversity[];
+    return response.data.data as RequestedUniversity[];
   } catch (error) {
     console.log(error);
     throw new Error('Could not retrieve requested universities.');
@@ -35,8 +34,11 @@ export async function getUniversity(universityName: string) {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/university/name/${universityName}`, {
       timeout: API_TIMEOUT,
     });
-    if (response.data.university_id == undefined) throw new Error();
-    return response.data as University;
+
+    const university: University = response.data.data;
+
+    if (university.university_id == undefined) throw new Error();
+    return university;
   } catch (error) {
     console.log(error);
     throw new Error('Error retrieving university data.');
@@ -211,6 +213,8 @@ export async function getUserPosts(
       },
       timeout: API_TIMEOUT,
     });
+
+    console.log(response.data);
 
     if (page !== undefined) {
       return response.data;

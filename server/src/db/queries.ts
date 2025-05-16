@@ -317,7 +317,19 @@ JOIN departments ON departments.department_id = courses.department_id
 JOIN universities ON universities.university_id = departments.university_id
 LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.user_id = $1
 WHERE reviews.user_id = $1
-ORDER BY reviews.$2 $3
+ORDER BY
+    CASE WHEN $2 = 'date_uploaded' AND $3 = 'ASC' THEN reviews.date_uploaded END ASC,
+    CASE WHEN $2 = 'date_uploaded' AND $3 = 'DESC' THEN reviews.date_uploaded END DESC,
+    CASE WHEN $2 = 'overall_score' AND $3 = 'ASC' THEN reviews.overall_score END ASC, 
+    CASE WHEN $2 = 'overall_score' AND $3 = 'DESC' THEN reviews.overall_score END DESC,
+    CASE WHEN $2 = 'easy_score' AND $3 = 'ASC' THEN reviews.easy_score END ASC,
+    CASE WHEN $2 = 'easy_score' AND $3 = 'DESC' THEN reviews.easy_score END DESC,
+    CASE WHEN $2 = 'interest_score' AND $3 = 'ASC' THEN reviews.interest_score END ASC,
+    CASE WHEN $2 = 'interest_score' AND $3 = 'DESC' THEN reviews.interest_score END DESC,
+    CASE WHEN $2 = 'useful_score' AND $3 = 'ASC' THEN reviews.useful_score END ASC,
+    CASE WHEN $2 = 'useful_score' AND $3 = 'DESC' THEN reviews.useful_score END DESC,
+    CASE WHEN $2 = 'votes' AND $3 = 'ASC' THEN reviews.votes END ASC,
+    CASE WHEN $2 = 'votes' AND $3 = 'DESC' THEN reviews.votes END DESC
 LIMIT $4 OFFSET $5
 `;
 
@@ -347,7 +359,19 @@ JOIN departments ON departments.department_id = courses.department_id
 JOIN universities ON universities.university_id = departments.university_id
 LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.user_id = $1
 WHERE user_votes.vote = $2
-ORDER BY reviews.$3 $4
+ORDER BY
+    CASE WHEN $3 = 'date_uploaded' AND $4 = 'ASC' THEN reviews.date_uploaded END ASC,
+    CASE WHEN $3 = 'date_uploaded' AND $4 = 'DESC' THEN reviews.date_uploaded END DESC,
+    CASE WHEN $3 = 'overall_score' AND $4 = 'ASC' THEN reviews.overall_score END ASC, 
+    CASE WHEN $3 = 'overall_score' AND $4 = 'DESC' THEN reviews.overall_score END DESC,
+    CASE WHEN $3 = 'easy_score' AND $4 = 'ASC' THEN reviews.easy_score END ASC,
+    CASE WHEN $3 = 'easy_score' AND $4 = 'DESC' THEN reviews.easy_score END DESC,
+    CASE WHEN $3 = 'interest_score' AND $4 = 'ASC' THEN reviews.interest_score END ASC,
+    CASE WHEN $3 = 'interest_score' AND $4 = 'DESC' THEN reviews.interest_score END DESC,
+    CASE WHEN $3 = 'useful_score' AND $4 = 'ASC' THEN reviews.useful_score END ASC,
+    CASE WHEN $3 = 'useful_score' AND $4 = 'DESC' THEN reviews.useful_score END DESC,
+    CASE WHEN $3 = 'votes' AND $4 = 'ASC' THEN reviews.votes END ASC,
+    CASE WHEN $3 = 'votes' AND $4 = 'DESC' THEN reviews.votes END DESC
 LIMIT $5 OFFSET $6
 `;
 
