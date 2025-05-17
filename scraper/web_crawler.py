@@ -8,7 +8,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
-import logging
 from typing import Dict, List, Tuple, Optional, Any
 import re
 import time

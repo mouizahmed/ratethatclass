@@ -14,11 +14,11 @@ def load_database_config():
     """Load database configuration from environment variables."""
     load_dotenv()
     return {
-        'dbname': os.getenv('DB_NAME', 'postgres'),
-        'user': os.getenv('DB_USER', 'postgres.jtfoxsubzgztlqsjpuqr'),
-        'password': os.getenv('DB_PASSWORD', '***REMOVED***'),
-        'host': os.getenv('DB_HOST', 'aws-0-us-west-1.pooler.supabase.com'),
-        'port': os.getenv('DB_PORT', '6543')
+        'dbname': os.getenv('DB_NAME'),
+        'user': os.getenv('DB_USER'),
+        'password': os.getenv('DB_PASSWORD'),
+        'host': os.getenv('DB_HOST'),
+        'port': os.getenv('DB_PORT')
     }
 
 def store_scraped_data(db_manager: DatabaseManager, scraped_data: dict):
