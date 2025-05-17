@@ -13,12 +13,8 @@ def setup_logger(name=None, level=logging.INFO):
     Returns:
         Logger instance
     """
-    # Create logs directory if it doesn't exist
-    log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
-    os.makedirs(log_dir, exist_ok=True)
-    
-    # Set up log file path
-    log_file = os.path.join(log_dir, "scraper.log")
+    # Set up log file path in the scraper folder
+    log_file = os.path.join(os.path.dirname(__file__), "scraper.log")
     
     # Configure logger
     logger = logging.getLogger(name)
