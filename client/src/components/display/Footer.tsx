@@ -31,6 +31,13 @@ export default function Footer() {
           Terms & Conditions
         </Link> */}
       </div>
+      <div className="text-[#4b5563] text-sm pb-4">
+        Copyright © 2025{' '}
+        <Link href="/" className="hover:underline underline-offset-4">
+          RateThatClass
+        </Link>
+        . All rights reserved.
+      </div>
     </footer>
   );
 }
