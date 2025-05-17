@@ -11,7 +11,6 @@ from logger import setup_logger
 logger = setup_logger(__name__)
 
 def load_database_config():
-    """Load database configuration from environment variables."""
     load_dotenv()
     return {
         'dbname': os.getenv('DB_NAME'),
