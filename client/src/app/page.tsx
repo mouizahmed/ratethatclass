@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   title: 'Rate That Class - University Course Reviews',
 };
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const universities = await getUniversities();
 
