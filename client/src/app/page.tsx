@@ -3,6 +3,11 @@ import ClientSearch from '@/components/common/ClientSearch';
 import { getUniversities } from '@/requests/getRequests';
 import Link from 'next/link';
 import UniversityCarousel from '@/components/display/UniversityCarousel';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Rate That Class - University Course Reviews',
+};
 
 export default async function Home() {
   const universities = await getUniversities();
