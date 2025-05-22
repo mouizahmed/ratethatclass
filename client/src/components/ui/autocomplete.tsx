@@ -7,6 +7,7 @@ import { SearchInput } from './searchInput';
 import { Popover, PopoverAnchor, PopoverContent } from './popover';
 import { Skeleton } from './skeleton';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 type Props<T extends string> = {
   selectedValue: T;
@@ -30,6 +31,7 @@ export function AutoComplete<T extends string>({
   placeholder = 'Search...',
 }: Props<T>) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   const labels = useMemo(
     () =>
@@ -69,7 +71,8 @@ export function AutoComplete<T extends string>({
     }
     setOpen(false);
   };
-  const currentPath = window.location.pathname.replace(/\/$/, '');
+
+  const currentPath = pathname?.replace(/\/$/, '') || '';
 
   return (
     <div className="flex items-center">
