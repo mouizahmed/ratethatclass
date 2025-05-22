@@ -2,7 +2,7 @@ import React from 'react';
 import ClientSearch from '@/components/common/ClientSearch';
 import { getUniversities } from '@/requests/getRequests';
 import Link from 'next/link';
-import UniversityCarousel from '@/components/display/UniversityCarousel';
+// import UniversityCarousel from '@/components/display/UniversityCarousel';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -37,7 +37,7 @@ export default async function Home() {
           </p>
         </div>
       </div>
-
+{/* 
       <div className="flex flex-col items-center justify-center w-full">
         {universities.length === 0 ? (
           <div className="flex justify-center">
@@ -46,7 +46,7 @@ export default async function Home() {
         ) : (
           <UniversityCarousel universities={universities} />
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
