@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Search from './Search';
 import { University } from '@/types/university';
+import { Input } from '@/components/ui/input';
+import { Search as SearchIcon } from 'lucide-react';
 
 interface ClientSearchProps {
   data: University[];
@@ -15,6 +17,33 @@ interface ClientSearchProps {
 export default function ClientSearch({ data, valueKey, labelKey, placeholder, emptyMessage }: ClientSearchProps) {
   const [searchValue, setSearchValue] = useState<string>('');
   const [selectedValue, setSelectedValue] = useState<string>('');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Static render for SEO
+  if (!mounted) {
+    return (
+      <div className="w-full">
+        <div className="flex h-10 items-center rounded-md border border-input bg-white pl-3 text-sm ring-offset-background focus-within:ring-1 focus-within:ring-ring focus-within:ring-offset-2">
+          <SearchIcon className="h-[16px] w-[16px]" />
+          <input
+            type="text"
+            placeholder={placeholder}
+            className="w-full p-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            readOnly
+          />
+        </div>
+        <div className="flex justify-center mt-2">
+          <p className="leading-7 text-sm">
+            Available universities: {data.length}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Search

@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   title: 'Rate That Class - University Course Reviews',
 };
 
-// Create a client component wrapper for the search and carousel
-'use client';
-function HomeContent({ universities }: { universities: any[] }) {
+export default async function Home() {
+  const universities = await getUniversities();
+
   return (
     <div className="flex flex-col items-center gap-10 p-8 sm:p-20">
       <div className="flex flex-col items-center gap-3">
@@ -49,10 +49,4 @@ function HomeContent({ universities }: { universities: any[] }) {
       </div>
     </div>
   );
-}
-
-// Server component that fetches data
-export default async function Home() {
-  const universities = await getUniversities();
-  return <HomeContent universities={universities} />;
 }
