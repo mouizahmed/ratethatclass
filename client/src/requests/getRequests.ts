@@ -2,7 +2,7 @@ import { Course, Department, Professor, RequestedUniversity, University } from '
 import { Review } from '@/types/review';
 import { ApiResponse, PaginatedResponse } from '@/types/api';
 
-const API_TIMEOUT = 3000;
+// const API_TIMEOUT = 3000;
 
 export async function getUniversities(): Promise<University[]> {
   try {
