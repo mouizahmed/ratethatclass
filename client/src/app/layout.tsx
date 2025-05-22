@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/display/Navbar';
-import { AuthProvider } from '@/contexts/authContext';
-import { AlertProvider } from '@/contexts/alertContext';
 import { Toaster } from '@/components/ui/toaster';
 import Footer from '@/components/display/Footer';
 import AdSense from '@/components/adsense/AdSense';
