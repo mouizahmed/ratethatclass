@@ -9,7 +9,8 @@ export const metadata: Metadata = {
   title: 'Rate That Class - University Course Reviews',
 };
 
-// export const dynamic = 'force-dynamic'
+// Force dynamic rendering to prevent hydration issues
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const universities = await getUniversities();
