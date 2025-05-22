@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Course, Department, Professor, RequestedUniversity, University } from '@/types/university';
 import { Review } from '@/types/review';
 import { ApiResponse, PaginatedResponse } from '@/types/api';
@@ -6,75 +5,102 @@ import { ApiResponse, PaginatedResponse } from '@/types/api';
 const API_TIMEOUT = 3000;
 
 export async function getUniversities(): Promise<University[]> {
-  const response = await axios
-    .get<ApiResponse<University[]>>(`${process.env.NEXT_PUBLIC_URL}/university`, { timeout: API_TIMEOUT })
-    .catch((error) => {
-      console.log(error);
-      throw new Error('Could not retrieve universities');
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/university`, {
+      next: { revalidate: 3600 }, // Cache for 1 hour
     });
+    
+    if (!response.ok) {
+      throw new Error('Could not retrieve universities');
+    }
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Failed to retrieve universities');
+    const data: ApiResponse<University[]> = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || 'Failed to retrieve universities');
+    }
+
+    return data.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Could not retrieve universities');
   }
-
-  return response.data.data;
 }
 
 export async function getRequestedUniversities(): Promise<RequestedUniversity[]> {
-  const response = await axios
-    .get<ApiResponse<RequestedUniversity[]>>(`${process.env.NEXT_PUBLIC_URL}/university/request-university-list`, {
-      withCredentials: true,
-    })
-    .catch((error) => {
-      console.log(error);
-      throw new Error('Could not retrieve requested universities.');
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/university/request-university-list`, {
+      credentials: 'include',
     });
+    
+    if (!response.ok) {
+      throw new Error('Could not retrieve requested universities.');
+    }
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Failed to retrieve requested universities');
+    const data: ApiResponse<RequestedUniversity[]> = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || 'Failed to retrieve requested universities');
+    }
+
+    return data.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Could not retrieve requested universities.');
   }
-
-  return response.data.data;
 }
 
 export async function getUniversity(universityName: string): Promise<University> {
-  const response = await axios
-    .get<ApiResponse<University>>(`${process.env.NEXT_PUBLIC_URL}/university/name/${universityName}`, {
-      timeout: API_TIMEOUT,
-    })
-    .catch((error) => {
-      console.log(error);
-      throw new Error('Error retrieving university data.');
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/university/name/${universityName}`, {
+      next: { revalidate: 3600 }, // Cache for 1 hour
     });
+    
+    if (!response.ok) {
+      throw new Error('Error retrieving university data.');
+    }
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'University not found');
+    const data: ApiResponse<University> = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || 'University not found');
+    }
+
+    const university = data.data;
+    if (university.university_id == undefined) {
+      throw new Error('University data is incomplete');
+    }
+
+    return university;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error retrieving university data.');
   }
-
-  const university = response.data.data;
-  if (university.university_id == undefined) {
-    throw new Error('University data is incomplete');
-  }
-
-  return university;
 }
 
 export async function getDepartmentsByUniversityID(universityID: string): Promise<Department[]> {
-  return axios
-    .get<ApiResponse<Department[]>>(`${process.env.NEXT_PUBLIC_URL}/department/universityID/${universityID}`, {
-      timeout: 3000,
-    })
-    .then((response) => {
-      if (!response.data.success) {
-        console.log(`Failed to get departments: ${response.data.message}`);
-        return [];
-      }
-      return response.data.data;
-    })
-    .catch((error) => {
-      console.log(error);
-      return [];
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/department/universityID/${universityID}`, {
+      next: { revalidate: 3600 }, // Cache for 1 hour
     });
+    
+    if (!response.ok) {
+      console.log('Failed to get departments');
+      return [];
+    }
+
+    const data: ApiResponse<Department[]> = await response.json();
+
+    if (!data.success) {
+      console.log(`Failed to get departments: ${data.message}`);
+      return [];
+    }
+
+    return data.data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 }
 
 export async function getCoursesByUniversityID(
@@ -104,66 +130,85 @@ export async function getCoursesByUniversityID(
     url += `&sort_order=${encodeURIComponent(sortOrder)}`;
   }
 
-  const response = await axios
-    .get<ApiResponse<Course[]>>(url, {
-      timeout: API_TIMEOUT,
-    })
-    .catch((error) => {
-      console.log(error);
-      throw new Error(`Error retrieving course list.`);
+  try {
+    const response = await fetch(url, {
+      next: { revalidate: 3600 }, // Cache for 1 hour
     });
+    
+    if (!response.ok) {
+      throw new Error('Error retrieving course list.');
+    }
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Failed to retrieve courses');
+    const data: ApiResponse<Course[]> = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || 'Failed to retrieve courses');
+    }
+
+    return {
+      data: data.data,
+      meta: {
+        current_page: data.meta.current_page ?? 1,
+        page_size: data.meta.page_size ?? limit,
+        total_items: data.meta.total_items ?? data.data.length,
+        total_pages: data.meta.total_pages ?? 1,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error retrieving course list.');
   }
-
-  return {
-    data: response.data.data,
-    meta: {
-      current_page: response.data.meta.current_page ?? 1,
-      page_size: response.data.meta.page_size ?? limit,
-      total_items: response.data.meta.total_items ?? response.data.data.length,
-      total_pages: response.data.meta.total_pages ?? 1,
-    },
-  };
 }
 
 export async function getProfessorsByCourseID(courseID: string): Promise<Professor[]> {
-  return axios
-    .get<ApiResponse<Professor[]>>(`${process.env.NEXT_PUBLIC_URL}/professor/courseID/${courseID}`, {
-      timeout: API_TIMEOUT,
-    })
-    .then((response) => {
-      if (!response.data.success) {
-        console.log(`Failed to get professors: ${response.data.message}`);
-        return [];
-      }
-      return response.data.data;
-    })
-    .catch((error) => {
-      console.log(error);
-      return [];
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/professor/courseID/${courseID}`, {
+      next: { revalidate: 3600 }, // Cache for 1 hour
     });
+    
+    if (!response.ok) {
+      console.log('Failed to get professors');
+      return [];
+    }
+
+    const data: ApiResponse<Professor[]> = await response.json();
+
+    if (!data.success) {
+      console.log(`Failed to get professors: ${data.message}`);
+      return [];
+    }
+
+    return data.data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 }
 
 export async function getCourseByCourseTag(universityID: string, courseTag: string): Promise<Course> {
-  const response = await axios
-    .get<ApiResponse<Course>>(
+  try {
+    const response = await fetch(
       `${process.env.NEXT_PUBLIC_URL}/course/universityID/${universityID}/courseTag/${courseTag}`,
       {
-        timeout: API_TIMEOUT,
+        next: { revalidate: 3600 }, // Cache for 1 hour
       }
-    )
-    .catch((error) => {
-      console.log(error);
+    );
+    
+    if (!response.ok) {
       throw new Error(`Course ${courseTag} does not exist.`);
-    });
+    }
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || `Course ${courseTag} does not exist.`);
+    const data: ApiResponse<Course> = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || `Course ${courseTag} does not exist.`);
+    }
+
+    return data.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Course ${courseTag} does not exist.`);
   }
-
-  return response.data.data;
 }
 
 export async function getReviewsByCourseID(
@@ -202,26 +247,27 @@ export async function getReviewsByCourseID(
     }
   }
 
-  const response = await axios
-    .get<ApiResponse<Review[]>>(url, {
-      timeout: API_TIMEOUT,
-    })
-    .catch((error) => {
-      console.log(error);
-      throw new Error('Could not retrieve Reviews.');
-    });
+  const response = await fetch(url, {
+    next: { revalidate: 3600 }, // Cache for 1 hour
+  });
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Failed to retrieve reviews');
+  if (!response.ok) {
+    throw new Error('Could not retrieve Reviews.');
+  }
+
+  const data: ApiResponse<Review[]> = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message || 'Failed to retrieve reviews');
   }
 
   return {
-    data: response.data.data,
+    data: data.data,
     meta: {
-      current_page: response.data.meta.current_page ?? 1,
-      page_size: response.data.meta.page_size ?? (limit || 10),
-      total_items: response.data.meta.total_items ?? response.data.data.length,
-      total_pages: response.data.meta.total_pages ?? 1,
+      current_page: data.meta.current_page ?? 1,
+      page_size: data.meta.page_size ?? (limit || 10),
+      total_items: data.meta.total_items ?? data.data.length,
+      total_pages: data.meta.total_pages ?? 1,
     },
   };
 }
