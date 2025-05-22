@@ -1,18 +1,18 @@
-import React from 'react';
-import ClientSearch from '@/components/common/ClientSearch';
-import { getUniversities } from '@/requests/getRequests';
+// import React from 'react';
+// import ClientSearch from '@/components/common/ClientSearch';
+// import { getUniversities } from '@/requests/getRequests';
 import Link from 'next/link';
-import UniversityCarousel from '@/components/display/UniversityCarousel';
+// import UniversityCarousel from '@/components/display/UniversityCarousel';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Rate That Class - University Course Reviews',
 };
 
-export const dynamic = 'force-dynamic'
+// export const dynamic = 'force-dynamic'
 
 export default async function Home() {
-  const universities = await getUniversities();
+  // const universities = await getUniversities();
 
   return (
     <div className="flex flex-col items-center gap-10 p-8 sm:p-20">
@@ -23,13 +23,13 @@ export default async function Home() {
         <p className="leading-7">Write anonymous reviews about your classes and help others make informed decisions.</p>
       </div>
       <div className="w-full max-w-3xl">
-        <ClientSearch
+        {/* <ClientSearch
           data={universities}
           valueKey="university_name"
           labelKey="university_name"
           placeholder="Search universities..."
           emptyMessage="No universities found."
-        />
+        /> */}
         <div className="flex justify-center">
           <p className="leading-7 text-sm">
             Don&apos;t see your school?{' '}
@@ -40,7 +40,7 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-center w-full">
+      {/* <div className="flex flex-col items-center justify-center w-full">
         {universities.length === 0 ? (
           <div className="flex justify-center">
             <p className="leading-7 [&:not(:first-child)]:mt-6">No universities found.</p>
@@ -48,7 +48,7 @@ export default async function Home() {
         ) : (
           <UniversityCarousel universities={universities} />
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
