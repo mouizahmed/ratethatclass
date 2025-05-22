@@ -1,4 +1,4 @@
-# RateThatClass | University Course Reviews
+# RateThatClass | University Course Reviews (IN PROGRESS)
 
 A web application that allows users to create course reviews for their respective post-secondary schools and ease their struggles within the course selection process.
 
