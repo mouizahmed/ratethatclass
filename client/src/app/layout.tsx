@@ -35,13 +35,9 @@ export default function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-1038054889464988"></meta>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning={true}>
-        <AuthProvider>
-          <AlertProvider>
-            <Navbar />
-            <div className="min-h-screen">{children}</div>
-            <Toaster />
-          </AlertProvider>
-        </AuthProvider>
+        <Navbar />
+        <div className="min-h-screen">{children}</div>
+        <Toaster />
         <Footer />
       </body>
     </html>
