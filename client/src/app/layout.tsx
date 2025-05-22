@@ -40,9 +40,9 @@ export default function RootLayout({
             <Navbar />
             <div className="min-h-screen">{children}</div>
             <Toaster />
-            <Footer />
           </AlertProvider>
         </AuthProvider>
+        <Footer />
       </body>
     </html>
   );
