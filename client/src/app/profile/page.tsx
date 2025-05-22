@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BadgeCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Review } from '@/types/review';
-import { getUserDownvotes, getUserPosts, getUserUpvotes } from '@/requests/getRequests';
+import { getUserDownvotes, getUserPosts, getUserUpvotes } from '@/requests/getAuthenticatedRequests';
 import { ReviewCard } from '@/components/display/ReviewCard';
 import { sendEmailVerification } from 'firebase/auth';
 import { Spinner } from '@/components/ui/Spinner';

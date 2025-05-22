@@ -4,9 +4,9 @@ import { useParams } from 'next/navigation';
 import {
   getUniversity,
   getCourseByCourseTag,
-  getReviewsByCourseID,
   getProfessorsByCourseID,
 } from '@/requests/getRequests';
+import { getReviewsByCourseID } from '@/requests/getAuthenticatedRequests';
 import { Course, University, Professor } from '@/types/university';
 import { Delivery, Evaluation, Grade, Review, Term, Textbook, Vote, Workload } from '@/types/review';
 import { UniversityHeader } from '@/components/display/UniversityHeader';
