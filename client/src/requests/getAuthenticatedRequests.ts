@@ -233,4 +233,4 @@ export async function getUserDownvotes(
       total_pages: response.data.meta.total_pages ?? 1,
     },
   };
-} 
+}
