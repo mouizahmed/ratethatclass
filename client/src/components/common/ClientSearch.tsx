@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Search from './Search';
 import { University } from '@/types/university';
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input';
 import { Search as SearchIcon } from 'lucide-react';
 
 interface ClientSearchProps {
