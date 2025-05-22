@@ -5,6 +5,7 @@ import Search from './Search';
 import { University } from '@/types/university';
 // import { Input } from '@/components/ui/input';
 import { Search as SearchIcon } from 'lucide-react';
+import Link from 'next/link';
 
 interface ClientSearchProps {
   data: University[];
@@ -36,10 +37,23 @@ export default function ClientSearch({ data, valueKey, labelKey, placeholder, em
             readOnly
           />
         </div>
-        <div className="flex justify-center mt-2">
-          <p className="leading-7 text-sm">
-            Available universities: {data.length}
-          </p>
+        <div className="mt-4">
+          <h2 className="text-lg font-semibold mb-2">Available Universities:</h2>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+            {data.map((university) => (
+              <li key={university.university_name}>
+                <Link 
+                  href={`/${university.university_name.replaceAll(' ', '_').toLowerCase()}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  {university.university_name}
+                </Link>
+                <span className="text-sm text-gray-500 ml-2">
+                  ({university.review_num} reviews)
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     );
