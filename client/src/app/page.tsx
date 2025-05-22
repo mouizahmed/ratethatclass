@@ -9,11 +9,11 @@ export const metadata: Metadata = {
   title: 'Rate That Class - University Course Reviews',
 };
 
-// Force dynamic rendering to prevent hydration issues
-export const dynamic = 'force-dynamic';
-
 export default async function Home() {
   const universities = await getUniversities();
+
+  // Ensure universities is always an array to prevent hydration mismatch
+  const safeUniversities = Array.isArray(universities) ? universities : [];
 
   return (
     <div className="flex flex-col items-center gap-10 p-8 sm:p-20">
@@ -25,7 +25,7 @@ export default async function Home() {
       </div>
       <div className="w-full max-w-3xl">
         <ClientSearch
-          data={universities}
+          data={safeUniversities}
           valueKey="university_name"
           labelKey="university_name"
           placeholder="Search universities..."
@@ -42,12 +42,12 @@ export default async function Home() {
       </div>
 
       <div className="flex flex-col items-center justify-center w-full">
-        {universities.length === 0 ? (
+        {safeUniversities.length === 0 ? (
           <div className="flex justify-center">
             <p className="leading-7 [&:not(:first-child)]:mt-6">No universities found.</p>
           </div>
         ) : (
-          <UniversityCarousel universities={universities} />
+          <UniversityCarousel universities={safeUniversities} />
         )}
       </div>
     </div>
