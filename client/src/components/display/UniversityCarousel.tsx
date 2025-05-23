@@ -15,6 +15,7 @@ interface UniversityCarouselProps {
 export default function UniversityCarousel({ universities }: UniversityCarouselProps) {
   const [itemsPerPage, setItemsPerPage] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,6 +28,16 @@ export default function UniversityCarousel({ universities }: UniversityCarouselP
     
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Trigger fade-in animation after mount
+  useEffect(() => {
+    if (mounted && itemsPerPage !== null) {
+      const timer = setTimeout(() => {
+        setShow(true);
+      }, 100); // Small delay to ensure smooth transition
+      return () => clearTimeout(timer);
+    }
+  }, [mounted, itemsPerPage]);
 
   const chunk = (list: University[]) => {
     if (!itemsPerPage) return [];
@@ -64,7 +75,11 @@ export default function UniversityCarousel({ universities }: UniversityCarouselP
   return (
     <>
       {seoList}
-      <div className="w-full max-w-3xl">
+      <div 
+        className={`w-full max-w-3xl transition-opacity duration-500 ease-in-out ${
+          show ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         <Carousel
           className="w-full"
           opts={{
