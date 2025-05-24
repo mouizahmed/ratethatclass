@@ -10,21 +10,81 @@ import {
   SheetTrigger,
   SheetClose,
 } from '@/components/ui/sheet';
-import { BadgeCheck, LogOutIcon } from 'lucide-react';
-import { useAuth } from '@/contexts/authContext';
-import { doSignOut } from '@/firebase//auth';
+import { BadgeCheck } from 'lucide-react';
+import { AuthProvider, useAuth } from '@/contexts/authContext';
+import { doSignOut } from '@/firebase/auth';
 import { JSX, SVGProps } from 'react';
 import { BadgeX } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function Navbar() {
-  const { currentUser, userLoggedIn } = useAuth();
+  return (
+    <AuthProvider>
+      <NavbarInner />
+    </AuthProvider>
+  );
+}
+
+function NavbarInner() {
+  const { currentUser, userLoggedIn, loading } = useAuth();
 
   const signOut = async () => {
     await doSignOut();
     window.location.reload();
   };
+
+  const renderAuthButtons = () => {
+    if (loading) {
+      return (
+        <div className="flex gap-4">
+          <Skeleton className="h-10 w-20" />
+          <Skeleton className="h-10 w-20" />
+        </div>
+      );
+    }
+
+    if (userLoggedIn && currentUser) {
+      return (
+        <div className="flex items-center gap-4">
+          {currentUser.emailVerified ? (
+            <Button variant="outline" className="flex items-center gap-2">
+              <BadgeCheck className="text-blue-500" />
+              <span className="hidden sm:inline">Verified</span>
+            </Button>
+          ) : (
+            <Link href="/profile">
+              <Button variant="outline" className="flex items-center gap-2">
+                <BadgeX className="text-red-500" />
+                <span className="hidden sm:inline">Not Verified</span>
+              </Button>
+            </Link>
+          )}
+          <Link href="/profile">
+            <Button variant="outline" className="max-w-[200px] truncate">
+              {currentUser.email}
+            </Button>
+          </Link>
+          <Button onClick={signOut} variant="destructive">
+            Log Out
+          </Button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="flex gap-4">
+        <Link href="/login">
+          <Button>Login</Button>
+        </Link>
+        <Link href="/register">
+          <Button variant="outline">Register</Button>
+        </Link>
+      </div>
+    );
+  };
+
   return (
-    <header className="flex w-full shrink-0 items-center py-4 px-4 md:px-6 z-0">
+    <header className="flex w-full shrink-0 items-center py-4 px-4 md:px-6 z-0 border-b">
       {/* Sheet Trigger for Menu */}
       <Sheet>
         <SheetTrigger asChild>
@@ -38,132 +98,46 @@ export default function Navbar() {
             <SheetTitle>RateThatClass</SheetTitle>
             <SheetDescription></SheetDescription>
           </SheetHeader>
-          <div className="flex flex-col justify-between py-6 h-full ">
-            <div>
+          <div className="flex flex-col justify-between py-6 h-full">
+            <div className="flex flex-col gap-4">
               <SheetClose asChild>
-                <Link href="/" className="flex w-full items-center py-2 text-lg font-semibold" prefetch={false}>
+                <Link href="/" className="flex w-full items-center py-2 text-lg font-semibold">
                   Home
                 </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link href="/about" className="flex w-full items-center py-2 text-lg font-semibold" prefetch={false}>
+                <Link href="/about" className="flex w-full items-center py-2 text-lg font-semibold">
                   About
                 </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link
-                  href="/guidelines"
-                  className="flex w-full items-center py-2 text-lg font-semibold"
-                  prefetch={false}
-                >
+                <Link href="/guidelines" className="flex w-full items-center py-2 text-lg font-semibold">
                   Site Guidelines
                 </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link href="/privacy" className="flex w-full items-center py-2 text-lg font-semibold" prefetch={false}>
+                <Link href="/privacy" className="flex w-full items-center py-2 text-lg font-semibold">
                   Privacy Policy
                 </Link>
               </SheetClose>
             </div>
-            <div className="flex flex-col items-center justify-center w-full mr-auto ml-auto  gap-4 py-6">
-              {userLoggedIn && currentUser ? (
-                <>
-                  <div className="w-full">
-                    {currentUser.emailVerified ? (
-                      <Button variant={'outline'} className="w-full">
-                        <BadgeCheck className="text-blue-500" />
-                      </Button>
-                    ) : (
-                      <SheetClose asChild>
-                        <Link href="/profile">
-                          <Button variant={'outline'} className="w-full">
-                            Not Verified
-                            <BadgeX className="text-red-500" />
-                          </Button>
-                        </Link>
-                      </SheetClose>
-                    )}
-                  </div>
-                  <div className="w-full">
-                    <SheetClose asChild>
-                      <Link href="/profile">
-                        <Button variant={'outline'} className="w-full whitespace-normal break-all">
-                          {currentUser?.email || null}
-                        </Button>
-                      </Link>
-                    </SheetClose>
-                  </div>
-                  <div className="w-full">
-                    <SheetClose asChild>
-                      <Button onClick={signOut} className="w-full">
-                        <LogOutIcon />
-                      </Button>
-                    </SheetClose>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="w-full grid grid-cols-2 gap-4">
-                    <Button>
-                      <SheetClose asChild>
-                        <Link href="/login">Login</Link>
-                      </SheetClose>
-                    </Button>
-
-                    <Button>
-                      <SheetClose asChild>
-                        <Link href="/register">Register</Link>
-                      </SheetClose>
-                    </Button>
-                  </div>
-                </>
-              )}
-            </div>
+            <div className="flex flex-col gap-4">{renderAuthButtons()}</div>
           </div>
         </SheetContent>
       </Sheet>
 
       {/* Home Button for Mobile */}
-      <Link href="/" className="ml-4 text-xl font-semibold tracking-tight lg:hidden" prefetch={false}>
+      <Link href="/" className="ml-4 text-xl font-semibold tracking-tight lg:hidden">
         RateThatClass
       </Link>
 
       {/* Home Button for Desktop */}
-      <Link href="/" className="mr-6 hidden lg:flex" prefetch={false}>
+      <Link href="/" className="mr-6 hidden lg:flex">
         <div className="text-xl scroll-m-20 tracking-tight font-semibold">RateThatClass</div>
       </Link>
 
       {/* Navigation for Desktop */}
-      {userLoggedIn && currentUser ? (
-        <nav className="ml-auto hidden lg:flex gap-6">
-          {currentUser.emailVerified ? (
-            <Button variant={'outline'}>
-              <BadgeCheck className="text-blue-500" />
-            </Button>
-          ) : (
-            <Link href="/profile">
-              <Button variant={'outline'}>
-                Not Verified
-                <BadgeX className="text-red-500" />
-              </Button>
-            </Link>
-          )}
-
-          <Link href="/profile">
-            <Button variant={'outline'}>{currentUser.email ?? 'ERROR'}</Button>
-          </Link>
-          <Button onClick={signOut}>Log Out</Button>
-        </nav>
-      ) : (
-        <nav className="ml-auto hidden lg:flex gap-6">
-          <Link href="/login">
-            <Button>Login</Button>
-          </Link>
-          <Link href="/register">
-            <Button>Register</Button>
-          </Link>
-        </nav>
-      )}
+      <nav className="ml-auto hidden lg:flex">{renderAuthButtons()}</nav>
     </header>
   );
 }

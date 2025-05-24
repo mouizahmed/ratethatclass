@@ -67,6 +67,37 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
+router.get('/votes', validateToken, async (req: AuthenticatedRequest, res: Response) => {
+  const review_ids = req.query.review_ids as string;
+  const user = req.user;
+
+  try {
+    const result = await pool.query(
+      `
+      SELECT * 
+      FROM user_votes 
+      WHERE user_id = $1 AND review_id = ANY($2::uuid[])
+    `,
+      [user.uid, review_ids.split(',')]
+    );
+
+    res.json({
+      success: true,
+      message: 'Vote states fetched successfully',
+      data: result.rows,
+      meta: {},
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
+  }
+});
+
 router.get('/courseID/:courseID', validateTokenOptional, async (req: AuthenticatedRequest, res: Response) => {
   const { courseID } = req.params;
   const user = req.user;

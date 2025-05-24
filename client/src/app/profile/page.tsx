@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState, useCallback } from 'react';
-import { useAuth } from '@/contexts/authContext';
+import { AuthProvider, useAuth } from '@/contexts/authContext';
 import { redirect } from 'next/navigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BadgeCheck } from 'lucide-react';
@@ -13,14 +13,22 @@ import { Spinner } from '@/components/ui/Spinner';
 import { useAlert } from '@/contexts/alertContext';
 
 export default function Page() {
-  const { userLoggedIn, currentUser } = useAuth();
+  return (
+    <AuthProvider>
+      <ProfilePageInner />
+    </AuthProvider>
+  );
+}
+
+function ProfilePageInner() {
+  const { userLoggedIn, currentUser, loading } = useAuth();
   const { addAlert } = useAlert();
 
   const [userReviews, setUserReviews] = useState<Review[]>([]);
   const [upvotes, setUpvotes] = useState<Review[]>([]);
   const [downvotes, setDownvotes] = useState<Review[]>([]);
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [postsLoading, setPostsLoading] = useState<boolean>(false);
   const [emailSent, setEmailSent] = useState<boolean>(false);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -34,60 +42,50 @@ export default function Page() {
     async (type: 'all' | 'upvoted' | 'downvoted', page: number = 1, append: boolean = false) => {
       try {
         if (page === 1) {
-          setLoading(true);
+          setPostsLoading(true);
         } else {
           setIsLoadingMore(true);
         }
 
         if (type === 'all') {
           const response = await getUserPosts(setUserReviews, page, 10, 'date_uploaded', 'desc');
-
           const data = response.data;
           const meta = response.meta;
-
           if (append) {
             setUserReviews((prev) => [...prev, ...data]);
           } else {
             setUserReviews(data);
           }
-
           setHasMorePosts(meta.current_page < meta.total_pages);
         } else if (type === 'upvoted') {
           const response = await getUserUpvotes(setUpvotes, page, 10, 'date_uploaded', 'desc');
-
           const data = response.data;
           const meta = response.meta;
-
           if (append) {
             setUpvotes((prev) => [...prev, ...data]);
           } else {
             setUpvotes(data);
           }
-
           setHasMoreUpvotes(meta.current_page < meta.total_pages);
         } else if (type === 'downvoted') {
           const response = await getUserDownvotes(setDownvotes, page, 10, 'date_uploaded', 'desc');
-
           const data = response.data;
           const meta = response.meta;
-
           if (append) {
             setDownvotes((prev) => [...prev, ...data]);
           } else {
             setDownvotes(data);
           }
-
           setHasMoreDownvotes(meta.current_page < meta.total_pages);
         }
 
         if (page === 1) {
-          setLoading(false);
+          setPostsLoading(false);
         } else {
           setIsLoadingMore(false);
         }
       } catch (error) {
-        console.log(error);
-        setLoading(false);
+        setPostsLoading(false);
         setIsLoadingMore(false);
         addAlert('destructive', (error as Error).message, 3000);
       }
@@ -97,7 +95,6 @@ export default function Page() {
 
   const loadMoreReviews = useCallback(async () => {
     if (isLoadingMore) return;
-
     if (activeTab === 'Posted Reviews' && hasMorePosts) {
       await getPosts('all', currentPage + 1, true);
       setCurrentPage((prev) => prev + 1);
@@ -111,20 +108,20 @@ export default function Page() {
   }, [activeTab, currentPage, getPosts, hasMorePosts, hasMoreUpvotes, hasMoreDownvotes, isLoadingMore]);
 
   useEffect(() => {
-    if (!userLoggedIn) {
+    if (!loading && userLoggedIn) {
+      getPosts('all');
+    }
+  }, [userLoggedIn, loading, getPosts]);
+
+  useEffect(() => {
+    if (!loading && !userLoggedIn) {
       redirect('/login');
     }
-
-    const fetchData = async () => {
-      getPosts('all');
-    };
-    fetchData();
-  }, [userLoggedIn, getPosts]);
+  }, [userLoggedIn, loading]);
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);
     setCurrentPage(1);
-
     if (value === 'Posted Reviews') {
       getPosts('all');
     } else if (value === 'Up Voted Reviews') {
@@ -133,6 +130,14 @@ export default function Page() {
       getPosts('downvoted');
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex min-h-svh w-full items-center justify-center">
+        <Spinner size="large" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center gap-10 p-8 sm:p-20">
@@ -176,7 +181,7 @@ export default function Page() {
               </TabsList>
               <TabsContent value="Posted Reviews">
                 <div className="grid md:grid-cols-1 gap-10 w-full max-w-3xl pt-4">
-                  {loading ? (
+                  {postsLoading ? (
                     <Spinner size="medium" />
                   ) : userReviews.length != 0 ? (
                     <>
@@ -214,7 +219,7 @@ export default function Page() {
               </TabsContent>
               <TabsContent value="Up Voted Reviews">
                 <div className="grid md:grid-cols-1 gap-10 w-full max-w-3xl pt-4">
-                  {loading ? (
+                  {postsLoading ? (
                     <Spinner size="medium" />
                   ) : upvotes.length != 0 ? (
                     <>
@@ -252,7 +257,7 @@ export default function Page() {
               </TabsContent>
               <TabsContent value="Down Voted Reviews">
                 <div className="grid md:grid-cols-1 gap-10 w-full max-w-3xl pt-4">
-                  {loading ? (
+                  {postsLoading ? (
                     <Spinner size="medium" />
                   ) : downvotes.length != 0 ? (
                     <>

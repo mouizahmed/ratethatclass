@@ -24,6 +24,7 @@ import { useRouter } from 'next/navigation';
 import { useDebounce } from '@/hooks/useDebounce';
 import { getCoursesByUniversityID } from '@/requests/getRequests';
 import { encodeCourseId } from '@/lib/url';
+import { AuthProvider } from '@/contexts/authContext';
 
 interface CourseListProps {
   initialCourses: Course[];
@@ -34,6 +35,26 @@ interface CourseListProps {
 }
 
 export function CourseList({
+  initialCourses,
+  initialHasMore,
+  universityId,
+  departmentList,
+  initialDepartment,
+}: CourseListProps) {
+  return (
+    <AuthProvider>
+      <CourseListContent
+        initialCourses={initialCourses}
+        initialHasMore={initialHasMore}
+        universityId={universityId}
+        departmentList={departmentList}
+        initialDepartment={initialDepartment}
+      />
+    </AuthProvider>
+  );
+}
+
+function CourseListContent({
   initialCourses,
   initialHasMore,
   universityId,

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { Review, Vote } from '@/types/review';
 import { Label } from '@/components/ui/label';
@@ -44,6 +44,11 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
   const { toast } = useToast();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showReportDialog, setShowReportDialog] = useState(false);
+
+  // Sync vote state with prop
+  useEffect(() => {
+    setVote(review.vote || Vote.noVote);
+  }, [review.vote]);
 
   const downVote = () => {
     if (!currentUser) {
@@ -116,7 +121,6 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
       });
       return;
     }
-
     value(true);
   };
 

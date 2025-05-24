@@ -71,9 +71,7 @@ export async function getUniversity(universityName: string): Promise<University>
 
 export async function getDepartmentsByUniversityID(universityID: string): Promise<Department[]> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/department/universityID/${universityID}`, {
-      next: { revalidate: 3600 }, // Cache for 1 hour
-    });
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/department/universityID/${universityID}`);
 
     if (!response.ok) {
       console.log('Failed to get departments');
@@ -234,9 +232,7 @@ export async function getReviewsByCourseID(
     }
   }
 
-  const response = await fetch(url, {
-    next: { revalidate: 3600 }, // Cache for 1 hour
-  });
+  const response = await fetch(url);
 
   if (!response.ok) {
     throw new Error('Could not retrieve Reviews.');

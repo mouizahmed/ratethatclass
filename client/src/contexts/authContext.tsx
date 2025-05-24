@@ -2,7 +2,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { auth } from '@/firebase/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { AuthenticationContext, ReactChildren } from '@/types';
+import { AuthenticationContext } from '@/types/auth';
+import { ReactChildren } from '@/types';
 import { User } from 'firebase/auth';
 
 const initialState: AuthenticationContext = {
@@ -10,6 +11,7 @@ const initialState: AuthenticationContext = {
   isEmailUser: false,
   currentUser: null,
   setCurrentUser: () => {},
+  loading: true,
 };
 
 const AuthContext = createContext<AuthenticationContext>(initialState);
@@ -32,16 +34,14 @@ export function AuthProvider({ children }: ReactChildren) {
   async function initializeUser(user: User | null) {
     if (user && user.isAnonymous == false) {
       setCurrentUser(user);
-
       const isEmail = user.providerData.some((provider) => provider.providerId === 'password');
       setIsEmailUser(isEmail);
-
       setUserLoggedIn(true);
     } else {
-      setCurrentUser(user);
+      setCurrentUser(null);
       setUserLoggedIn(false);
+      setIsEmailUser(false);
     }
-
     setLoading(false);
   }
 
@@ -50,7 +50,8 @@ export function AuthProvider({ children }: ReactChildren) {
     isEmailUser,
     currentUser,
     setCurrentUser,
+    loading,
   };
 
-  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

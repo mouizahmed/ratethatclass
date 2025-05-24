@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Course } from '@/types/university';
 import { Review } from '@/types/review';
 import { Dropdown } from '@/components/common/Dropdown';
@@ -13,7 +13,7 @@ import { Card, CardContent, CardDescription } from '@/components/ui/card';
 import { ratingItem } from '@/lib/display';
 import { deliveryOptions, sortingOptions, termOptions } from '@/lib/constants';
 import { Spinner } from '@/components/ui/Spinner';
-import { getReviewsByCourseID } from '@/requests/getAuthenticatedRequests';
+import { getReviewsByCourseID } from '@/requests/getRequests';
 import { DialogForm, StepProps } from '@/components/forms/DialogForm';
 import { newReviewForm } from '@/components/forms/schema';
 import { ReviewRatingForm } from '@/components/forms/steps/ReviewRatingForm';
@@ -35,6 +35,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ReportDialog } from '@/components/dialogs/ReportDialog';
+import { getVoteStates } from '@/requests/getAuthenticatedRequests';
+import { AuthProvider } from '@/contexts/authContext';
+import { useDebounce } from '@/hooks/useDebounce';
 
 interface CourseReviewsProps {
   course: Course;
@@ -48,6 +51,19 @@ export function CourseReviews({ course, initialReviews, initialHasMore, professo
     throw new Error('Course ID is required');
   }
 
+  return (
+    <AuthProvider>
+      <CourseReviewsContent
+        course={course}
+        initialReviews={initialReviews}
+        initialHasMore={initialHasMore}
+        professorList={professorList}
+      />
+    </AuthProvider>
+  );
+}
+
+function CourseReviewsContent({ course, initialReviews, initialHasMore, professorList }: CourseReviewsProps) {
   const courseId = course.course_id as string;
   const [reviewList, setReviewList] = useState<Review[]>(initialReviews);
   const [selectedProfessor, setSelectedProfessor] = useState<string>('');
@@ -61,12 +77,21 @@ export function CourseReviews({ course, initialReviews, initialHasMore, professo
   const [interestScore] = useState<number>(course.interest_score ?? 0);
   const [usefulScore] = useState<number>(course.useful_score ?? 0);
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
+  const [isFilterLoading, setIsFilterLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(initialHasMore);
   const [showReportDialog, setShowReportDialog] = useState<boolean>(false);
+  const [voteStates, setVoteStates] = useState<Record<string, 'up' | 'down' | undefined>>({});
+
+  // Debounced filter states
+  const debouncedProfessor = useDebounce(selectedProfessor, 300);
+  const debouncedTerm = useDebounce(term, 300);
+  const debouncedDeliveryMethod = useDebounce(deliveryMethod, 300);
+  const debouncedOrder = useDebounce(order, 300);
+  const debouncedOrderBy = useDebounce(orderBy, 300);
 
   const { addAlert } = useAlert();
-  const { userLoggedIn, currentUser } = useAuth();
+  const { userLoggedIn, currentUser, loading } = useAuth();
   const { toast } = useToast();
 
   const steps: StepProps<typeof newReviewForm>[] = [
@@ -158,6 +183,88 @@ export function CourseReviews({ course, initialReviews, initialHasMore, professo
     value(true);
   };
 
+  // Function to fetch reviews with current filter settings
+  const fetchReviews = useCallback(
+    async (page: number = 1, append: boolean = false) => {
+      try {
+        setIsFilterLoading(true);
+        const response = await getReviewsByCourseID(
+          courseId,
+          page,
+          10,
+          debouncedProfessor || undefined,
+          debouncedTerm || undefined,
+          debouncedDeliveryMethod || undefined,
+          debouncedOrderBy || 'date_uploaded',
+          debouncedOrder
+        );
+
+        if (append) {
+          setReviewList((prev) => [...prev, ...response.data]);
+        } else {
+          setReviewList(response.data);
+        }
+        setHasMore(page < response.meta.total_pages);
+        setCurrentPage(page);
+      } catch (error) {
+        console.log(error);
+        addAlert('destructive', 'Failed to fetch reviews', 3000);
+      } finally {
+        setIsFilterLoading(false);
+      }
+    },
+    [courseId, debouncedProfessor, debouncedTerm, debouncedDeliveryMethod, debouncedOrderBy, debouncedOrder, addAlert]
+  );
+
+  // Effect to fetch reviews when filters change
+  useEffect(() => {
+    const isInitialState =
+      debouncedProfessor === '' &&
+      debouncedTerm === '' &&
+      debouncedDeliveryMethod === '' &&
+      debouncedOrder === 'desc' &&
+      debouncedOrderBy === '';
+
+    if (isInitialState) {
+      setReviewList(initialReviews);
+      setHasMore(initialHasMore);
+      setCurrentPage(1);
+      return;
+    }
+
+    fetchReviews(1, false);
+  }, [
+    debouncedProfessor,
+    debouncedTerm,
+    debouncedDeliveryMethod,
+    debouncedOrder,
+    debouncedOrderBy,
+    fetchReviews,
+    initialReviews,
+    initialHasMore,
+  ]);
+
+  // Fetch vote states for current reviews
+  useEffect(() => {
+    if (loading) return; // Wait for auth to finish loading
+    const fetchVotes = async () => {
+      const reviewIds = reviewList.map((r) => r.review_id).filter((id): id is string => typeof id === 'string');
+      if (reviewIds.length === 0) return;
+      try {
+        const voteStatesArr = await getVoteStates(reviewIds);
+        const voteMap: Record<string, 'up' | 'down'> = {};
+        voteStatesArr.forEach((v) => {
+          voteMap[v.review_id] = v.vote;
+        });
+        setVoteStates(voteMap);
+      } catch (e) {
+        // Optionally handle error
+        console.log(e);
+      }
+    };
+    fetchVotes();
+  }, [reviewList, loading]);
+
   const loadMoreReviews = useCallback(async () => {
     if (isLoadingMore || !hasMore) return;
 
@@ -168,11 +275,11 @@ export function CourseReviews({ course, initialReviews, initialHasMore, professo
         courseId,
         currentPage + 1,
         10,
-        selectedProfessor || undefined,
-        term || undefined,
-        deliveryMethod || undefined,
-        orderBy,
-        order
+        debouncedProfessor || undefined,
+        debouncedTerm || undefined,
+        debouncedDeliveryMethod || undefined,
+        debouncedOrderBy || 'date_uploaded',
+        debouncedOrder
       );
 
       const data = response.data;
@@ -192,11 +299,11 @@ export function CourseReviews({ course, initialReviews, initialHasMore, professo
     isLoadingMore,
     hasMore,
     addAlert,
-    selectedProfessor,
-    term,
-    deliveryMethod,
-    orderBy,
-    order,
+    debouncedProfessor,
+    debouncedTerm,
+    debouncedDeliveryMethod,
+    debouncedOrderBy,
+    debouncedOrder,
   ]);
 
   function updateSort() {
@@ -208,6 +315,7 @@ export function CourseReviews({ course, initialReviews, initialHasMore, professo
     setTerm('');
     setDeliveryMethod('');
     setSelectedProfessor('');
+    setCurrentPage(1);
   }
 
   return (
@@ -250,7 +358,7 @@ export function CourseReviews({ course, initialReviews, initialHasMore, professo
           value={orderBy}
           setValue={setOrderBy}
           placeholder="Sort By"
-          initialValue="date_uploaded"
+          initialValue=""
           returnType={'key'}
         />
         <Dropdown
@@ -337,12 +445,22 @@ export function CourseReviews({ course, initialReviews, initialHasMore, professo
       </Card>
 
       <div className="grid md:grid-cols-1 gap-4 w-full max-w-3xl">
-        {reviewList.length > 0 ? (
+        {isFilterLoading ? (
+          <div className="flex justify-center py-10">
+            <Spinner size="medium" />
+          </div>
+        ) : reviewList.length > 0 ? (
           <>
             {reviewList.map((review) => (
               <ReviewCard
                 key={review.review_id}
-                review={review}
+                review={{
+                  ...review,
+                  vote:
+                    review.review_id && voteStates && voteStates[review.review_id]
+                      ? (voteStates[review.review_id] as Vote)
+                      : review.vote,
+                }}
                 preview={false}
                 onDelete={(deletedId) => setReviewList((prev) => prev.filter((r) => r.review_id !== deletedId))}
               />

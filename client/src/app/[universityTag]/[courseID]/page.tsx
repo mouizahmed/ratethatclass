@@ -1,6 +1,6 @@
 import React from 'react';
 import { getUniversity, getCourseByCourseTag, getProfessorsByCourseID } from '@/requests/getRequests';
-import { getReviewsByCourseID } from '@/requests/getAuthenticatedRequests';
+import { getReviewsByCourseID } from '@/requests/getRequests';
 import { UniversityHeader } from '@/components/display/UniversityHeader';
 import { BreadCrumb } from '@/components/display/BreadCrumb';
 import { Metadata } from 'next';

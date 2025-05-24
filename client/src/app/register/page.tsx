@@ -1,15 +1,23 @@
 'use client';
 import React, { useEffect } from 'react';
-import { useAuth } from '@/contexts/authContext';
+import { AuthProvider, useAuth } from '@/contexts/authContext';
 import { redirect } from 'next/navigation';
 import { RegisterForm } from '@/components/auth/RegisterForm';
 
 export default function Page() {
+  return (
+    <AuthProvider>
+      <RegisterPageInner />
+    </AuthProvider>
+  );
+}
+
+function RegisterPageInner() {
   const { userLoggedIn } = useAuth();
 
   useEffect(() => {
     if (userLoggedIn) {
-      redirect('/');
+      redirect('/profile');
     }
   }, [userLoggedIn]);
 
