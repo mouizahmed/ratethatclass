@@ -9,7 +9,7 @@ export async function getUniversities(): Promise<University[]> {
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/university`, {
       next: { revalidate: 3600 }, // Cache for 1 hour
     });
-    
+
     if (!response.ok) {
       throw new Error('Could not retrieve universities');
     }
@@ -32,7 +32,7 @@ export async function getRequestedUniversities(): Promise<RequestedUniversity[]>
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/university/request-university-list`, {
       credentials: 'include',
     });
-    
+
     if (!response.ok) {
       throw new Error('Could not retrieve requested universities.');
     }
@@ -55,26 +55,17 @@ export async function getUniversity(universityName: string): Promise<University>
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/university/name/${universityName}`, {
       next: { revalidate: 3600 }, // Cache for 1 hour
     });
-    
-    if (!response.ok) {
-      throw new Error('Error retrieving university data.');
-    }
 
     const data: ApiResponse<University> = await response.json();
 
-    if (!data.success) {
-      throw new Error(data.message || 'University not found');
+    if (!data.success || !data.data.university_id) {
+      return {} as University; // Return empty university object to trigger notFound()
     }
 
-    const university = data.data;
-    if (university.university_id == undefined) {
-      throw new Error('University data is incomplete');
-    }
-
-    return university;
+    return data.data;
   } catch (error) {
     console.error(error);
-    throw new Error('Error retrieving university data.');
+    return {} as University; // Return empty university object to trigger notFound()
   }
 }
 
@@ -83,7 +74,7 @@ export async function getDepartmentsByUniversityID(universityID: string): Promis
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/department/universityID/${universityID}`, {
       next: { revalidate: 3600 }, // Cache for 1 hour
     });
-    
+
     if (!response.ok) {
       console.log('Failed to get departments');
       return [];
@@ -134,7 +125,7 @@ export async function getCoursesByUniversityID(
     const response = await fetch(url, {
       next: { revalidate: 3600 }, // Cache for 1 hour
     });
-    
+
     if (!response.ok) {
       throw new Error('Error retrieving course list.');
     }
@@ -165,7 +156,7 @@ export async function getProfessorsByCourseID(courseID: string): Promise<Profess
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/professor/courseID/${courseID}`, {
       next: { revalidate: 3600 }, // Cache for 1 hour
     });
-    
+
     if (!response.ok) {
       console.log('Failed to get professors');
       return [];
@@ -193,21 +184,17 @@ export async function getCourseByCourseTag(universityID: string, courseTag: stri
         next: { revalidate: 3600 }, // Cache for 1 hour
       }
     );
-    
-    if (!response.ok) {
-      throw new Error(`Course ${courseTag} does not exist.`);
-    }
 
     const data: ApiResponse<Course> = await response.json();
 
-    if (!data.success) {
-      throw new Error(data.message || `Course ${courseTag} does not exist.`);
+    if (!data.success || !data.data.course_id) {
+      return {} as Course; // Return empty course object to trigger notFound()
     }
 
     return data.data;
   } catch (error) {
     console.error(error);
-    throw new Error(`Course ${courseTag} does not exist.`);
+    return {} as Course; // Return empty course object to trigger notFound()
   }
 }
 

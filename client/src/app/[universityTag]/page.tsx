@@ -5,6 +5,7 @@ import { BreadCrumb } from '@/components/display/BreadCrumb';
 import { CourseList } from '@/components/display/CourseList';
 import { Metadata } from 'next';
 import { courseSortingOptions } from '@/lib/constants';
+import { notFound } from 'next/navigation';
 
 type PageProps = {
   params: Promise<{
@@ -16,14 +17,26 @@ type PageProps = {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const university = await getUniversity(resolvedParams.universityTag);
+
+  if (!university.university_id) {
+    return {
+      title: 'University Not Found',
+    };
+  }
+
   return {
-    title: `${university.university_name} - Course Reviews`,
+    title: `${university.university_name} Course Reviews`,
   };
 }
 
 export default async function Page({ params }: PageProps) {
   const resolvedParams = await params;
   const university = await getUniversity(resolvedParams.universityTag);
+
+  if (!university.university_id) {
+    notFound();
+  }
+
   const departments = await getDepartmentsByUniversityID(university.university_id);
 
   // Default sorting parameters

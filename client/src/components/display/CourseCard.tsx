@@ -4,13 +4,12 @@ import { Course } from '@/types/university';
 import Link from 'next/link';
 import { Separator } from '../ui/separator';
 import { ratingItem } from '@/lib/display';
+import { encodeCourseId } from '@/lib/url';
 
 export function CourseCard({ course }: { course: Course }) {
   return (
     <div className="w-full">
-      <Link
-        href={`/${course.university_name.replaceAll(' ', '_').toLowerCase()}/${course.course_tag.replaceAll(' ', '_')}`}
-      >
+      <Link href={`/${course.university_name.replaceAll(' ', '_').toLowerCase()}/${encodeCourseId(course.course_tag)}`}>
         <Card className="w-full hover:bg-zinc-100 cursor-pointer hover:shadow-xl hover:border-zinc-300">
           <CardHeader>
             <CardTitle>

@@ -23,6 +23,7 @@ import { Spinner } from '@/components/ui/Spinner';
 import { useRouter } from 'next/navigation';
 import { useDebounce } from '@/hooks/useDebounce';
 import { getCoursesByUniversityID } from '@/requests/getRequests';
+import { encodeCourseId } from '@/lib/url';
 
 interface CourseListProps {
   initialCourses: Course[];
@@ -237,7 +238,7 @@ export function CourseList({ initialCourses, initialHasMore, universityId, depar
 
     await postCourse(courseData, reviewData);
 
-    const courseLink = data.courseStep.courseTag.trim().replaceAll(' ', '_');
+    const courseLink = encodeCourseId(data.courseStep.courseTag);
     router.push(`/${courseLink}`);
   };
 

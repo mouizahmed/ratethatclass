@@ -6,6 +6,8 @@ import { BreadCrumb } from '@/components/display/BreadCrumb';
 import { Metadata } from 'next';
 import { sortingOptions } from '@/lib/constants';
 import { CourseReviews } from '@/components/display/CourseReviews';
+import { decodeCourseId } from '@/lib/url';
+import { notFound } from 'next/navigation';
 
 type PageProps = {
   params: Promise<{
@@ -18,7 +20,13 @@ type PageProps = {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const university = await getUniversity(resolvedParams.universityTag);
-  const course = await getCourseByCourseTag(university.university_id, resolvedParams.courseID.replaceAll('_', ' '));
+  const course = await getCourseByCourseTag(university.university_id, decodeCourseId(resolvedParams.courseID));
+
+  if (!course.course_id) {
+    return {
+      title: 'Course Not Found',
+    };
+  }
 
   return {
     title: `${course.course_tag} - ${university.university_name} Course Reviews`,
@@ -28,10 +36,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function Page({ params }: PageProps) {
   const resolvedParams = await params;
   const university = await getUniversity(resolvedParams.universityTag);
-  const course = await getCourseByCourseTag(university.university_id, resolvedParams.courseID.replaceAll('_', ' '));
+  const course = await getCourseByCourseTag(university.university_id, decodeCourseId(resolvedParams.courseID));
 
   if (!course.course_id) {
-    throw new Error('Course ID not found');
+    notFound();
   }
 
   const professors = await getProfessorsByCourseID(course.course_id);
