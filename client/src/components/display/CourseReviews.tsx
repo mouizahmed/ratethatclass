@@ -218,7 +218,7 @@ export function CourseReviews({ course, initialReviews, initialHasMore, professo
       <div className="w-full max-w-3xl flex flex items-center justify-between gap-2">
         <div>
           <div className="text-lg font-semibold">
-            {course.course_tag}: {course.course_name}
+            {course.course_tag}: {course.course_name} Reviews
           </div>
           <p className="text-md text-muted-foreground">{course.department_name}</p>
         </div>
