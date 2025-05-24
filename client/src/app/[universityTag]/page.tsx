@@ -6,15 +6,24 @@ import { CourseList } from '@/components/display/CourseList';
 import { Metadata } from 'next';
 import { courseSortingOptions } from '@/lib/constants';
 
-export async function generateMetadata({ params }: { params: { universityTag: string } }): Promise<Metadata> {
-  const university = await getUniversity(params.universityTag);
+type PageProps = {
+  params: Promise<{
+    universityTag: string;
+  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await params;
+  const university = await getUniversity(resolvedParams.universityTag);
   return {
     title: `${university.university_name} - Course Reviews`,
   };
 }
 
-export default async function Page({ params }: { params: { universityTag: string } }) {
-  const university = await getUniversity(params.universityTag);
+export default async function Page({ params }: PageProps) {
+  const resolvedParams = await params;
+  const university = await getUniversity(resolvedParams.universityTag);
   const departments = await getDepartmentsByUniversityID(university.university_id);
 
   // Default sorting parameters

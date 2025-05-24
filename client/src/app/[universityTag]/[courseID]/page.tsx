@@ -7,22 +7,28 @@ import { Metadata } from 'next';
 import { sortingOptions } from '@/lib/constants';
 import { CourseReviews } from '@/components/display/CourseReviews';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { universityTag: string; courseID: string };
-}): Promise<Metadata> {
-  const university = await getUniversity(params.universityTag);
-  const course = await getCourseByCourseTag(university.university_id, params.courseID.replaceAll('_', ' '));
+type PageProps = {
+  params: Promise<{
+    universityTag: string;
+    courseID: string;
+  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await params;
+  const university = await getUniversity(resolvedParams.universityTag);
+  const course = await getCourseByCourseTag(university.university_id, resolvedParams.courseID.replaceAll('_', ' '));
 
   return {
     title: `${course.course_tag} - ${university.university_name} Course Reviews`,
   };
 }
 
-export default async function Page({ params }: { params: { universityTag: string; courseID: string } }) {
-  const university = await getUniversity(params.universityTag);
-  const course = await getCourseByCourseTag(university.university_id, params.courseID.replaceAll('_', ' '));
+export default async function Page({ params }: PageProps) {
+  const resolvedParams = await params;
+  const university = await getUniversity(resolvedParams.universityTag);
+  const course = await getCourseByCourseTag(university.university_id, resolvedParams.courseID.replaceAll('_', ' '));
 
   if (!course.course_id) {
     throw new Error('Course ID not found');
