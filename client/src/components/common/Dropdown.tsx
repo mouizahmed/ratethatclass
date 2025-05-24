@@ -17,6 +17,7 @@ export function Dropdown({
   setValue,
   initialValue,
   returnType,
+  disabled,
 }: {
   data: Record<string, string>;
   placeholder: string;
@@ -24,9 +25,10 @@ export function Dropdown({
   setValue: React.Dispatch<React.SetStateAction<string>>;
   initialValue: string;
   returnType: 'key' | 'value';
+  disabled?: boolean;
 }) {
   return (
-    <Select defaultValue={initialValue} value={value} onValueChange={setValue}>
+    <Select defaultValue={initialValue} value={value} onValueChange={setValue} disabled={disabled}>
       <SelectTrigger className="w-full hover:bg-zinc-100 transition duration-150 h-10">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

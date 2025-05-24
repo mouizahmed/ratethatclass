@@ -6,12 +6,12 @@ import { CourseList } from '@/components/display/CourseList';
 import { Metadata } from 'next';
 import { courseSortingOptions } from '@/lib/constants';
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
 import { createDepartmentSlug } from '@/lib/url';
 
 type PageProps = {
   params: Promise<{
     universityTag: string;
+    departmentName: string;
   }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
@@ -26,8 +26,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
+  const departments = await getDepartmentsByUniversityID(university.university_id);
+  const department = departments.find((d) => createDepartmentSlug(d.department_name) === resolvedParams.departmentName);
+
+  if (!department) {
+    return {
+      title: 'Department Not Found',
+    };
+  }
+
   return {
-    title: `${university.university_name} Course Reviews`,
+    title: `${department.department_name} Courses at ${university.university_name} - Course Reviews`,
+    description: `Browse and review courses in the ${department.department_name} department at ${university.university_name}. Find detailed course reviews, ratings, and student feedback.`,
   };
 }
 
@@ -40,8 +50,12 @@ export default async function Page({ params }: PageProps) {
   }
 
   const departments = await getDepartmentsByUniversityID(university.university_id);
+  const department = departments.find((d) => createDepartmentSlug(d.department_name) === resolvedParams.departmentName);
 
-  // Default sorting parameters
+  if (!department) {
+    notFound();
+  }
+
   const initialOrderBy = Object.keys(courseSortingOptions)[0];
   const initialOrder = 'desc' as const;
 
@@ -50,7 +64,7 @@ export default async function Page({ params }: PageProps) {
     1,
     20,
     '',
-    undefined,
+    department.department_id,
     initialOrderBy,
     initialOrder
   );
@@ -67,6 +81,10 @@ export default async function Page({ params }: PageProps) {
     },
     {
       label: university?.university_name || '',
+      link: `/${resolvedParams.universityTag}`,
+    },
+    {
+      label: department.department_name,
       link: null,
     },
   ];
@@ -77,22 +95,12 @@ export default async function Page({ params }: PageProps) {
       <div className="w-full max-w-3xl">
         <BreadCrumb links={prevLinks} />
       </div>
-      <div className="w-full max-w-3xl flex flex-wrap gap-2 sr-only">
-        {departments.map((dept) => (
-          <Link
-            key={dept.department_id}
-            href={`/${resolvedParams.universityTag}/department/${createDepartmentSlug(dept.department_name)}`}
-            className="px-3 py-1 bg-zinc-100 hover:bg-zinc-200 rounded-full text-sm transition-colors"
-          >
-            {dept.department_name}
-          </Link>
-        ))}
-      </div>
       <CourseList
         initialCourses={initialCourses}
         initialHasMore={meta.total_pages > 1}
         universityId={university.university_id}
         departmentList={departmentMap}
+        initialDepartment={department.department_id}
       />
     </div>
   );

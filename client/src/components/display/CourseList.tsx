@@ -30,14 +30,21 @@ interface CourseListProps {
   initialHasMore: boolean;
   universityId: string;
   departmentList: Record<string, string>;
+  initialDepartment?: string;
 }
 
-export function CourseList({ initialCourses, initialHasMore, universityId, departmentList }: CourseListProps) {
+export function CourseList({
+  initialCourses,
+  initialHasMore,
+  universityId,
+  departmentList,
+  initialDepartment,
+}: CourseListProps) {
   const { addAlert } = useAlert();
   const router = useRouter();
 
   const [courseList, setCourseList] = useState<Course[]>(initialCourses);
-  const [selectedDepartment, setSelectedDepartment] = useState<string>('');
+  const [selectedDepartment, setSelectedDepartment] = useState<string>(initialDepartment || '');
   const [searchValue, setSearchValue] = useState<string>('');
   const [order, setOrder] = useState<'asc' | 'desc'>('desc');
   const [orderBy, setOrderBy] = useState<keyof typeof courseSortingOptions>('');
@@ -82,11 +89,10 @@ export function CourseList({ initialCourses, initialHasMore, universityId, depar
     [universityId, debouncedSearchValue, debouncedDepartment, debouncedOrderBy, debouncedOrder, addAlert]
   );
 
-  // Single effect to handle all search/filter/sort changes
   React.useEffect(() => {
     const isInitialState =
       (debouncedSearchValue === '' &&
-        debouncedDepartment === '' &&
+        debouncedDepartment === initialDepartment &&
         debouncedOrder === 'desc' &&
         (debouncedOrderBy === '' || debouncedOrderBy === Object.keys(courseSortingOptions)[0])) ||
       '';
@@ -95,7 +101,7 @@ export function CourseList({ initialCourses, initialHasMore, universityId, depar
       setCourseList(initialCourses);
       setHasMore(initialHasMore);
       setCurrentPage(1);
-    } else {
+    } else if (!initialDepartment || debouncedDepartment !== initialDepartment) {
       fetchCourses(1, false);
     }
   }, [
@@ -106,6 +112,7 @@ export function CourseList({ initialCourses, initialHasMore, universityId, depar
     fetchCourses,
     initialCourses,
     initialHasMore,
+    initialDepartment,
   ]);
 
   const loadMoreCourses = useCallback(async () => {

@@ -44,7 +44,6 @@ export default async function Page({ params }: PageProps) {
 
   const professors = await getProfessorsByCourseID(course.course_id);
 
-  // Default sorting parameters
   const initialOrderBy = Object.keys(sortingOptions)[0];
   const initialOrder = 'desc' as const;
 
