@@ -91,17 +91,19 @@ export function CourseList({
 
   React.useEffect(() => {
     const isInitialState =
-      (debouncedSearchValue === '' &&
-        debouncedDepartment === initialDepartment &&
-        debouncedOrder === 'desc' &&
-        (debouncedOrderBy === '' || debouncedOrderBy === Object.keys(courseSortingOptions)[0])) ||
-      '';
+      debouncedSearchValue === '' &&
+      debouncedDepartment === (initialDepartment || '') &&
+      debouncedOrder === 'desc' &&
+      (debouncedOrderBy === '' || debouncedOrderBy === Object.keys(courseSortingOptions)[0]);
 
     if (isInitialState) {
       setCourseList(initialCourses);
       setHasMore(initialHasMore);
       setCurrentPage(1);
-    } else if (!initialDepartment || debouncedDepartment !== initialDepartment) {
+      return;
+    }
+
+    if (!initialDepartment || debouncedDepartment !== initialDepartment) {
       fetchCourses(1, false);
     }
   }, [
