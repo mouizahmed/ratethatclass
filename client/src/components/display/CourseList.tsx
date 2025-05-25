@@ -352,7 +352,7 @@ function CourseListContent({
             ))}
             <div className="flex justify-center py-4">
               {hasMore && (
-                <Button onClick={loadMoreCourses} disabled={isLoadingMore} className="w-40">
+                <Button onClick={loadMoreCourses} disabled={isLoadingMore} className="w-40" data-noindex="true">
                   {isLoadingMore ? (
                     <div className="flex items-center gap-2">
                       <Spinner size="small" />
