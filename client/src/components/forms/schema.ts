@@ -1,12 +1,15 @@
 import { z } from 'zod';
 import { Course } from '@/types/university';
 
+// Validation function to allow only letters, numbers, and spaces
+const alphanumericWithSpaces = z.string().regex(/^[a-zA-Z0-9\s]*$/, 'Only letters, numbers, and spaces are allowed');
+
 export const getCourseSchema = (courseList: Course[]) =>
   z
     .object({
-      courseName: z.string().min(1, 'Course name is required'),
-      courseTag: z.string().min(1, 'Course tag is required'),
-      departmentName: z.string().min(1, 'Department name is required'),
+      courseName: alphanumericWithSpaces.min(1, 'Course name is required'),
+      courseTag: alphanumericWithSpaces.min(1, 'Course tag is required'),
+      departmentName: alphanumericWithSpaces.min(1, 'Department name is required'),
       newDepartment: z.boolean().default(false),
     })
     .refine((data) => !courseList.some((course) => course.course_tag === data.courseTag), {
@@ -22,7 +25,7 @@ export const reviewRatingSchema = z.object({
 });
 
 export const reviewMetadataSchema = z.object({
-  professorName: z.string().min(1, 'Professor name is required'),
+  professorName: alphanumericWithSpaces.min(1, 'Professor name is required'),
   newProfessor: z.boolean().default(false),
   grade: z.string().min(1, 'Grade is required'),
   deliveryMethod: z.string().min(1, 'Delivery Method is required'),
