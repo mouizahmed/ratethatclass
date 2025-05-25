@@ -180,7 +180,7 @@ function ProfilePageInner() {
                 <TabsTrigger value="Down Voted Reviews">Down Voted</TabsTrigger>
               </TabsList>
               <TabsContent value="Posted Reviews">
-                <div className="grid md:grid-cols-1 gap-10 w-full max-w-3xl pt-4">
+                <div className="grid md:grid-cols-1 gap-4 w-full max-w-3xl pt-4">
                   {postsLoading ? (
                     <Spinner size="medium" />
                   ) : userReviews.length != 0 ? (
@@ -218,7 +218,7 @@ function ProfilePageInner() {
                 </div>
               </TabsContent>
               <TabsContent value="Up Voted Reviews">
-                <div className="grid md:grid-cols-1 gap-10 w-full max-w-3xl pt-4">
+                <div className="grid md:grid-cols-1 gap-4 w-full max-w-3xl pt-4">
                   {postsLoading ? (
                     <Spinner size="medium" />
                   ) : upvotes.length != 0 ? (
@@ -256,7 +256,7 @@ function ProfilePageInner() {
                 </div>
               </TabsContent>
               <TabsContent value="Down Voted Reviews">
-                <div className="grid md:grid-cols-1 gap-10 w-full max-w-3xl pt-4">
+                <div className="grid md:grid-cols-1 gap-4 w-full max-w-3xl pt-4">
                   {postsLoading ? (
                     <Spinner size="medium" />
                   ) : downvotes.length != 0 ? (
