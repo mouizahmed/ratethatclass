@@ -54,9 +54,6 @@ router.get('/', async (req: Request, res: Response) => {
 
 router.get('/universityID/:universityID', async (req: Request, res: Response) => {
   const { universityID } = req.params;
-  const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
-  const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
-  const offset = (page - 1) * limit;
   const search = (req.query.search as string) || null;
   const sortBy = (req.query.sort_by as string) || 'department_name';
   const sortOrder = (req.query.sort_order as string) || 'asc';
@@ -64,28 +61,14 @@ router.get('/universityID/:universityID', async (req: Request, res: Response) =>
   try {
     validateUUID(universityID);
 
-    const result = await pool.query(getDepartmentByUniversityIDPaginated, [
-      limit,
-      offset,
-      universityID,
-      search,
-      sortBy,
-      sortOrder,
-    ]);
-    const countResult = await pool.query(getDepartmentByUniversityIDCount, [universityID, search]);
-
-    const totalItems = parseInt(countResult.rows[0].count, 10);
-    const totalPages = Math.ceil(totalItems / limit);
+    const result = await pool.query(getDepartmentByUniversityID, [universityID, search, sortBy, sortOrder]);
 
     res.json({
       success: true,
       message: 'Departments fetched successfully',
       data: result.rows as Department[],
       meta: {
-        current_page: page,
-        page_size: limit,
-        total_items: totalItems,
-        total_pages: totalPages,
+        total_items: result.rows.length,
       },
     });
   } catch (error) {

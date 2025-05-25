@@ -69,9 +69,31 @@ export async function getUniversity(universityName: string): Promise<University>
   }
 }
 
-export async function getDepartmentsByUniversityID(universityID: string): Promise<Department[]> {
+export async function getDepartmentsByUniversityID(
+  universityID: string,
+  search?: string,
+  sortBy?: string,
+  sortOrder?: 'asc' | 'desc'
+): Promise<Department[]> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/department/universityID/${universityID}`);
+    let url = `${process.env.NEXT_PUBLIC_URL}/department/universityID/${universityID}`;
+
+    const params = new URLSearchParams();
+    if (search) {
+      params.append('search', search);
+    }
+    if (sortBy) {
+      params.append('sort_by', sortBy);
+    }
+    if (sortOrder) {
+      params.append('sort_order', sortOrder);
+    }
+
+    if (params.toString()) {
+      url += `?${params.toString()}`;
+    }
+
+    const response = await fetch(url);
 
     if (!response.ok) {
       console.log('Failed to get departments');

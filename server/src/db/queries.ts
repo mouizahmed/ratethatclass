@@ -88,7 +88,15 @@ WHERE
 `;
 
 export const getDepartmentByUniversityID = `
-SELECT * FROM departments WHERE university_id = $1
+SELECT departments.*, universities.university_name
+FROM departments
+JOIN universities ON universities.university_id = departments.university_id
+WHERE departments.university_id = $1
+AND ($2::text IS NULL OR departments.department_name ILIKE '%' || $2 || '%')
+ORDER BY
+    CASE WHEN $3 = 'department_name' AND $4 = 'asc' THEN departments.department_name END ASC,
+    CASE WHEN $3 = 'department_name' AND $4 = 'desc' THEN departments.department_name END DESC,
+    departments.department_name ASC
 `;
 
 export const getDepartmentByID = `
