@@ -2,7 +2,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Course } from '@/types/university';
 import Link from 'next/link';
-import { Separator } from '../ui/separator';
 import { ratingItem } from '@/lib/display';
 import { encodeCourseId } from '@/lib/url';
 

@@ -10,7 +10,7 @@ import { getUserDownvotes, getUserPosts, getUserUpvotes } from '@/requests/getAu
 import { ReviewCard } from '@/components/display/ReviewCard';
 import { sendEmailVerification } from 'firebase/auth';
 import { Spinner } from '@/components/ui/Spinner';
-import { useAlert } from '@/contexts/alertContext';
+import { useToast } from '@/hooks/use-toast';
 
 export default function Page() {
   return (
@@ -22,7 +22,7 @@ export default function Page() {
 
 function ProfilePageInner() {
   const { userLoggedIn, currentUser, loading } = useAuth();
-  const { addAlert } = useAlert();
+  const { toast } = useToast();
 
   const [userReviews, setUserReviews] = useState<Review[]>([]);
   const [upvotes, setUpvotes] = useState<Review[]>([]);
@@ -87,10 +87,13 @@ function ProfilePageInner() {
       } catch (error) {
         setPostsLoading(false);
         setIsLoadingMore(false);
-        addAlert('destructive', (error as Error).message, 3000);
+        toast({
+          variant: 'destructive',
+          description: (error as Error).message,
+        });
       }
     },
-    [addAlert]
+    [toast]
   );
 
   const loadMoreReviews = useCallback(async () => {
@@ -164,7 +167,10 @@ function ProfilePageInner() {
                       }, 2000);
                     } catch (error) {
                       console.log(error);
-                      addAlert('destructive', (error as Error).message, 3000);
+                      toast({
+                        variant: 'destructive',
+                        description: (error as Error).message,
+                      });
                     }
                   }}
                 >

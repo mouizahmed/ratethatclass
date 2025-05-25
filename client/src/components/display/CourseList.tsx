@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Dropdown } from '@/components/common/Dropdown';
 import { ArrowUpWideNarrow, ArrowDownWideNarrow, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useAlert } from '@/contexts/alertContext';
+import { useToast } from '@/hooks/use-toast';
 import { courseSortingOptions } from '@/lib/constants';
 import { DialogForm, StepProps } from '@/components/forms/DialogForm';
 import { ReviewMetadataForm } from '@/components/forms/steps/ReviewMetadataForm';
@@ -61,7 +61,7 @@ function CourseListContent({
   departmentList,
   initialDepartment,
 }: CourseListProps) {
-  const { addAlert } = useAlert();
+  const { toast } = useToast();
   const router = useRouter();
 
   const [courseList, setCourseList] = useState<Course[]>(initialCourses);
@@ -101,13 +101,16 @@ function CourseListContent({
         setHasMore(page < meta.total_pages);
         setCurrentPage(page);
       } catch (error) {
-        console.log(error);
-        addAlert('destructive', 'Failed to fetch courses', 3000);
+        console.error('Error fetching courses:', error);
+        toast({
+          variant: 'destructive',
+          description: 'Failed to load courses. Please try again.',
+        });
       } finally {
         setIsSearchLoading(false);
       }
     },
-    [universityId, debouncedSearchValue, debouncedDepartment, debouncedOrderBy, debouncedOrder, addAlert]
+    [universityId, debouncedSearchValue, debouncedDepartment, debouncedOrderBy, debouncedOrder, toast]
   );
 
   React.useEffect(() => {
@@ -158,7 +161,10 @@ function CourseListContent({
       setHasMore(currentPage + 1 < meta.total_pages);
     } catch (error) {
       console.log(error);
-      addAlert('destructive', 'Failed to load more courses', 3000);
+      toast({
+        variant: 'destructive',
+        description: 'Failed to load more courses. Please try again.',
+      });
     } finally {
       setIsLoadingMore(false);
     }
@@ -171,7 +177,7 @@ function CourseListContent({
     debouncedDepartment,
     debouncedOrderBy,
     debouncedOrder,
-    addAlert,
+    toast,
   ]);
 
   function updateSort() {

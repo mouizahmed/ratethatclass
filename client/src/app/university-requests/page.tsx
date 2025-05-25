@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/Spinner';
-import { useAlert } from '@/contexts/alertContext';
 import { useToast } from '@/hooks/use-toast';
 import { getRequestedUniversities } from '@/requests/getRequests';
 import { postUniversityRequest } from '@/requests/postRequests';
@@ -18,7 +17,6 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false);
   const [requestSent, setRequestSent] = useState<boolean>(false);
   const { toast } = useToast();
-  const { addAlert } = useAlert();
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -73,11 +71,14 @@ export default function Home() {
       } catch (error) {
         console.log(error);
         setLoading(false);
-        addAlert('destructive', (error as Error).message, 3000);
+        toast({
+          variant: 'destructive',
+          description: (error as Error).message,
+        });
       }
     };
     fetchData();
-  }, [refresh, addAlert]);
+  }, [refresh, toast]);
 
   const filterSearch = useCallback(
     (university: RequestedUniversity) => {

@@ -7,7 +7,6 @@ import { Dropdown } from '@/components/common/Dropdown';
 import { ArrowUpWideNarrow, ArrowDownWideNarrow, EllipsisVertical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ReviewCard } from '@/components/display/ReviewCard';
-import { useAlert } from '@/contexts/alertContext';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardDescription } from '@/components/ui/card';
 import { ratingItem } from '@/lib/display';
@@ -90,9 +89,8 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
   const debouncedOrder = useDebounce(order, 300);
   const debouncedOrderBy = useDebounce(orderBy, 300);
 
-  const { addAlert } = useAlert();
-  const { userLoggedIn, currentUser, loading } = useAuth();
   const { toast } = useToast();
+  const { userLoggedIn, currentUser, loading } = useAuth();
 
   const steps: StepProps<typeof newReviewForm>[] = [
     {
@@ -207,13 +205,16 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
         setHasMore(page < response.meta.total_pages);
         setCurrentPage(page);
       } catch (error) {
-        console.log(error);
-        addAlert('destructive', 'Failed to fetch reviews', 3000);
+        console.error('Error fetching reviews:', error);
+        toast({
+          variant: 'destructive',
+          description: 'Failed to load reviews. Please try again.',
+        });
       } finally {
         setIsFilterLoading(false);
       }
     },
-    [courseId, debouncedProfessor, debouncedTerm, debouncedDeliveryMethod, debouncedOrderBy, debouncedOrder, addAlert]
+    [courseId, debouncedProfessor, debouncedTerm, debouncedDeliveryMethod, debouncedOrderBy, debouncedOrder, toast]
   );
 
   // Effect to fetch reviews when filters change
@@ -247,6 +248,7 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
   // Fetch vote states for current reviews
   useEffect(() => {
     if (loading) return; // Wait for auth to finish loading
+    if (!userLoggedIn) return; // Only fetch votes if user is logged in
     const fetchVotes = async () => {
       const reviewIds = reviewList.map((r) => r.review_id).filter((id): id is string => typeof id === 'string');
       if (reviewIds.length === 0) return;
@@ -263,7 +265,7 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
       }
     };
     fetchVotes();
-  }, [reviewList, loading]);
+  }, [reviewList, loading, userLoggedIn]);
 
   const loadMoreReviews = useCallback(async () => {
     if (isLoadingMore || !hasMore) return;
@@ -289,7 +291,10 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
       setHasMore(currentPage + 1 < meta.total_pages);
     } catch (error) {
       console.log(error);
-      addAlert('destructive', 'Failed to load more reviews', 3000);
+      toast({
+        variant: 'destructive',
+        description: 'Failed to load more reviews. Please try again.',
+      });
     } finally {
       setIsLoadingMore(false);
     }
@@ -298,12 +303,12 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
     currentPage,
     isLoadingMore,
     hasMore,
-    addAlert,
     debouncedProfessor,
     debouncedTerm,
     debouncedDeliveryMethod,
     debouncedOrderBy,
     debouncedOrder,
+    toast,
   ]);
 
   function updateSort() {
