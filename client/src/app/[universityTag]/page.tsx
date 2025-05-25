@@ -77,7 +77,7 @@ export default async function Page({ params }: PageProps) {
         <BreadCrumb links={prevLinks} />
       </div>
       <div className="w-full max-w-3xl flex flex-wrap gap-2 sr-only">
-        {departments.slice(0, 20).map((dept) => (
+        {departments.slice(0, 10).map((dept) => (
           <Link
             key={dept.department_id}
             href={`/${resolvedParams.universityTag}/department/${createDepartmentSlug(dept.department_name)}`}
