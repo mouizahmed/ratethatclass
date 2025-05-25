@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { Review, Vote } from '@/types/review';
 import { Label } from '@/components/ui/label';
@@ -40,6 +40,7 @@ type ReviewCardProps = PreviewReviewCardProps | FullReviewCardProps;
 export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
   const [vote, setVote] = useState<Vote>(review.vote || Vote.noVote);
   const [totalVotes, setTotalVotes] = useState<number>(review.votes || 0);
+  const [isVoting, setIsVoting] = useState<boolean>(false);
   const { userLoggedIn, currentUser } = useAuth();
   const { toast } = useToast();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -50,57 +51,77 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
     setVote(review.vote || Vote.noVote);
   }, [review.vote]);
 
-  const downVote = () => {
-    if (!currentUser) {
-      toast({
-        title: `Uh oh! You're not logged in!`,
-        description: 'Please log in to perform this action.',
-        action: (
-          <Link href="/login">
-            <ToastAction altText="Try again">Sign In</ToastAction>
-          </Link>
-        ),
-      });
-      return;
-    }
-    postDownVote(review);
-    if (vote === 'down') {
-      setVote(Vote.noVote);
-      setTotalVotes((prev) => prev + 1);
-    } else if (vote === 'up') {
-      setVote(Vote.down);
-      setTotalVotes((prev) => prev - 2);
-    } else {
-      setVote(Vote.down);
-      setTotalVotes((prev) => prev - 1);
-    }
-  };
+  const handleVote = useCallback(
+    async (voteType: 'up' | 'down') => {
+      if (!currentUser) {
+        toast({
+          title: `Uh oh! You're not logged in!`,
+          description: 'Please log in to perform this action.',
+          action: (
+            <Link href="/login">
+              <ToastAction altText="Try again">Sign In</ToastAction>
+            </Link>
+          ),
+        });
+        return;
+      }
 
-  const upVote = () => {
-    if (!currentUser) {
-      toast({
-        title: `Uh oh! You're not logged in!`,
-        description: 'Please log in to perform this action.',
-        action: (
-          <Link href="/login">
-            <ToastAction altText="Try again">Sign In</ToastAction>
-          </Link>
-        ),
-      });
-      return;
-    }
-    postUpVote(review);
-    if (vote === 'up') {
-      setVote(Vote.noVote);
-      setTotalVotes((prev) => prev - 1);
-    } else if (vote === 'down') {
-      setVote(Vote.up);
-      setTotalVotes((prev) => prev + 2);
-    } else {
-      setVote(Vote.up);
-      setTotalVotes((prev) => prev + 1);
-    }
-  };
+      if (isVoting) {
+        return; // Prevent multiple simultaneous votes
+      }
+
+      setIsVoting(true);
+
+      // Store current state for rollback on error
+      const previousVote = vote;
+      const previousTotalVotes = totalVotes;
+
+      try {
+        // Optimistically update UI
+        if (voteType === 'up') {
+          if (vote === 'up') {
+            setVote(Vote.noVote);
+            setTotalVotes((prev) => prev - 1);
+          } else if (vote === 'down') {
+            setVote(Vote.up);
+            setTotalVotes((prev) => prev + 2);
+          } else {
+            setVote(Vote.up);
+            setTotalVotes((prev) => prev + 1);
+          }
+          await postUpVote(review);
+        } else {
+          if (vote === 'down') {
+            setVote(Vote.noVote);
+            setTotalVotes((prev) => prev + 1);
+          } else if (vote === 'up') {
+            setVote(Vote.down);
+            setTotalVotes((prev) => prev - 2);
+          } else {
+            setVote(Vote.down);
+            setTotalVotes((prev) => prev - 1);
+          }
+          await postDownVote(review);
+        }
+      } catch (error) {
+        // Rollback optimistic updates on error
+        setVote(previousVote);
+        setTotalVotes(previousTotalVotes);
+
+        toast({
+          variant: 'destructive',
+          title: 'Vote failed',
+          description: 'Failed to submit your vote. Please try again.',
+        });
+      } finally {
+        setIsVoting(false);
+      }
+    },
+    [currentUser, vote, totalVotes, isVoting, review, toast]
+  );
+
+  const upVote = useCallback(() => handleVote('up'), [handleVote]);
+  const downVote = useCallback(() => handleVote('down'), [handleVote]);
 
   const openDialog = (value: React.Dispatch<React.SetStateAction<boolean>>) => {
     if (!userLoggedIn) {
@@ -287,15 +308,19 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
 
             <div className="flex items-center border rounded-lg p-2 gap-2">
               <div
-                className={`hover:bg-zinc-200 ${vote === 'up' ? 'text-red-600' : ''} rounded-2xl p-1`}
-                onClick={upVote}
+                className={`${isVoting ? 'cursor-not-allowed opacity-50' : 'hover:bg-zinc-200 cursor-pointer'} ${
+                  vote === 'up' ? 'text-red-600' : ''
+                } rounded-2xl p-1 transition-all`}
+                onClick={isVoting ? undefined : upVote}
               >
                 <ChevronUp />
               </div>
               {totalVotes}
               <div
-                className={`hover:bg-zinc-200 ${vote === 'down' ? 'text-red-600' : ''} rounded-2xl p-1`}
-                onClick={downVote}
+                className={`${isVoting ? 'cursor-not-allowed opacity-50' : 'hover:bg-zinc-200 cursor-pointer'} ${
+                  vote === 'down' ? 'text-red-600' : ''
+                } rounded-2xl p-1 transition-all`}
+                onClick={isVoting ? undefined : downVote}
               >
                 <ChevronDown />
               </div>

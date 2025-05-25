@@ -22,8 +22,8 @@ export async function getUniversities(): Promise<University[]> {
 
     return data.data;
   } catch (error) {
-    console.error(error);
-    throw new Error('Could not retrieve universities');
+    console.log(error);
+    return [] as University[];
   }
 }
 
@@ -45,7 +45,7 @@ export async function getRequestedUniversities(): Promise<RequestedUniversity[]>
 
     return data.data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     throw new Error('Could not retrieve requested universities.');
   }
 }
@@ -61,10 +61,9 @@ export async function getUniversity(universityName: string): Promise<University>
     if (!data.success || !data.data.university_id) {
       return {} as University; // Return empty university object to trigger notFound()
     }
-
     return data.data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return {} as University; // Return empty university object to trigger notFound()
   }
 }
@@ -109,7 +108,7 @@ export async function getDepartmentsByUniversityID(
 
     return data.data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return [];
   }
 }
@@ -166,8 +165,16 @@ export async function getCoursesByUniversityID(
       },
     };
   } catch (error) {
-    console.error(error);
-    throw new Error('Error retrieving course list.');
+    console.log(error);
+    return {
+      data: [],
+      meta: {
+        current_page: 1,
+        page_size: limit,
+        total_items: 0,
+        total_pages: 1,
+      },
+    };
   }
 }
 
@@ -191,7 +198,7 @@ export async function getProfessorsByCourseID(courseID: string): Promise<Profess
 
     return data.data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return [];
   }
 }
@@ -213,7 +220,7 @@ export async function getCourseByCourseTag(universityID: string, courseTag: stri
 
     return data.data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return {} as Course; // Return empty course object to trigger notFound()
   }
 }
@@ -228,51 +235,64 @@ export async function getReviewsByCourseID(
   sortBy?: string,
   sortOrder?: 'asc' | 'desc'
 ): Promise<PaginatedResponse<Review>> {
-  let url = `${process.env.NEXT_PUBLIC_URL}/review/courseID/${courseID}`;
+  try {
+    let url = `${process.env.NEXT_PUBLIC_URL}/review/courseID/${courseID}`;
 
-  if (page !== undefined) {
-    url += `?page=${page}&limit=${limit || 10}`;
+    if (page !== undefined) {
+      url += `?page=${page}&limit=${limit || 10}`;
 
-    if (professorID) {
-      url += `&professor_id=${encodeURIComponent(professorID)}`;
+      if (professorID) {
+        url += `&professor_id=${encodeURIComponent(professorID)}`;
+      }
+
+      if (term) {
+        url += `&term=${encodeURIComponent(term)}`;
+      }
+
+      if (deliveryMethod) {
+        url += `&delivery_method=${encodeURIComponent(deliveryMethod)}`;
+      }
+
+      if (sortBy) {
+        url += `&sort_by=${encodeURIComponent(sortBy)}`;
+      }
+
+      if (sortOrder) {
+        url += `&sort_order=${encodeURIComponent(sortOrder)}`;
+      }
     }
 
-    if (term) {
-      url += `&term=${encodeURIComponent(term)}`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error('Could not retrieve Reviews.');
     }
 
-    if (deliveryMethod) {
-      url += `&delivery_method=${encodeURIComponent(deliveryMethod)}`;
+    const data: ApiResponse<Review[]> = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || 'Failed to retrieve reviews');
     }
 
-    if (sortBy) {
-      url += `&sort_by=${encodeURIComponent(sortBy)}`;
-    }
-
-    if (sortOrder) {
-      url += `&sort_order=${encodeURIComponent(sortOrder)}`;
-    }
+    return {
+      data: data.data,
+      meta: {
+        current_page: data.meta.current_page ?? 1,
+        page_size: data.meta.page_size ?? (limit || 10),
+        total_items: data.meta.total_items ?? data.data.length,
+        total_pages: data.meta.total_pages ?? 1,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      data: [],
+      meta: {
+        current_page: 1,
+        page_size: limit || 10,
+        total_items: 0,
+        total_pages: 1,
+      },
+    };
   }
-
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Error('Could not retrieve Reviews.');
-  }
-
-  const data: ApiResponse<Review[]> = await response.json();
-
-  if (!data.success) {
-    throw new Error(data.message || 'Failed to retrieve reviews');
-  }
-
-  return {
-    data: data.data,
-    meta: {
-      current_page: data.meta.current_page ?? 1,
-      page_size: data.meta.page_size ?? (limit || 10),
-      total_items: data.meta.total_items ?? data.data.length,
-      total_pages: data.meta.total_pages ?? 1,
-    },
-  };
 }
