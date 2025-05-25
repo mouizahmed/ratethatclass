@@ -83,6 +83,66 @@ function NavbarInner() {
     );
   };
 
+  const renderMobileAuthButtons = () => {
+    if (loading) {
+      return (
+        <div className="flex flex-col gap-3 w-full">
+          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-10 w-full" />
+        </div>
+      );
+    }
+
+    if (userLoggedIn && currentUser) {
+      return (
+        <div className="flex flex-col gap-3 w-full">
+          {currentUser.emailVerified ? (
+            <Button variant="outline" className="flex items-center justify-center gap-2 w-full">
+              <BadgeCheck className="text-blue-500" />
+              <span>Verified</span>
+            </Button>
+          ) : (
+            <SheetClose asChild>
+              <Link href="/profile">
+                <Button variant="outline" className="flex items-center justify-center gap-2 w-full">
+                  <BadgeX className="text-red-500" />
+                  <span>Not Verified</span>
+                </Button>
+              </Link>
+            </SheetClose>
+          )}
+          <SheetClose asChild>
+            <Link href="/profile">
+              <Button variant="outline" className="w-full truncate">
+                {currentUser.email}
+              </Button>
+            </Link>
+          </SheetClose>
+          <Button onClick={signOut} variant="destructive" className="w-full">
+            Log Out
+          </Button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="flex flex-col gap-3 w-full">
+        <SheetClose asChild>
+          <Link href="/login">
+            <Button className="w-full">Login</Button>
+          </Link>
+        </SheetClose>
+        <SheetClose asChild>
+          <Link href="/register">
+            <Button variant="outline" className="w-full">
+              Register
+            </Button>
+          </Link>
+        </SheetClose>
+      </div>
+    );
+  };
+
   return (
     <header className="flex w-full shrink-0 items-center py-4 px-4 md:px-6 z-0 border-b">
       {/* Sheet Trigger for Menu */}
@@ -93,35 +153,47 @@ function NavbarInner() {
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left">
-          <SheetHeader>
-            <SheetTitle>RateThatClass</SheetTitle>
+        <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+          <SheetHeader className="mb-6">
+            <SheetTitle className="text-left">RateThatClass</SheetTitle>
             <SheetDescription></SheetDescription>
           </SheetHeader>
-          <div className="flex flex-col justify-between py-6 h-full">
-            <div className="flex flex-col gap-4">
+          <div className="flex flex-col justify-between h-[calc(100vh-120px)]">
+            <div className="flex flex-col gap-6">
               <SheetClose asChild>
-                <Link href="/" className="flex w-full items-center py-2 text-lg font-semibold">
+                <Link
+                  href="/"
+                  className="flex w-full items-center py-3 text-lg font-semibold hover:text-primary transition-colors"
+                >
                   Home
                 </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link href="/about" className="flex w-full items-center py-2 text-lg font-semibold">
+                <Link
+                  href="/about"
+                  className="flex w-full items-center py-3 text-lg font-semibold hover:text-primary transition-colors"
+                >
                   About
                 </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link href="/guidelines" className="flex w-full items-center py-2 text-lg font-semibold">
+                <Link
+                  href="/guidelines"
+                  className="flex w-full items-center py-3 text-lg font-semibold hover:text-primary transition-colors"
+                >
                   Site Guidelines
                 </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link href="/privacy" className="flex w-full items-center py-2 text-lg font-semibold">
+                <Link
+                  href="/privacy"
+                  className="flex w-full items-center py-3 text-lg font-semibold hover:text-primary transition-colors"
+                >
                   Privacy Policy
                 </Link>
               </SheetClose>
             </div>
-            <div className="flex flex-col gap-4">{renderAuthButtons()}</div>
+            <div className="mt-8 pt-6 border-t">{renderMobileAuthButtons()}</div>
           </div>
         </SheetContent>
       </Sheet>
