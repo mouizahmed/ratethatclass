@@ -65,22 +65,29 @@ export const getDepartmentsPaginated = `
 SELECT departments.*, universities.university_name
 FROM departments
 JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN courses ON departments.department_id = courses.department_id
+LEFT JOIN reviews ON courses.course_id = reviews.course_id
 WHERE
     ($3::text IS NULL OR 
      departments.department_name ILIKE '%' || $3 || '%' OR
      universities.university_name ILIKE '%' || $3 || '%')
+GROUP BY departments.department_id, universities.university_id
 ORDER BY
     CASE WHEN $4 = 'department_name' AND $5 = 'asc' THEN departments.department_name END ASC,
     CASE WHEN $4 = 'department_name' AND $5 = 'desc' THEN departments.department_name END DESC,
     CASE WHEN $4 = 'university_name' AND $5 = 'asc' THEN universities.university_name END ASC,
     CASE WHEN $4 = 'university_name' AND $5 = 'desc' THEN universities.university_name END DESC,
-    departments.department_name ASC
+    CASE WHEN $4 = 'total_reviews' AND $5 = 'asc' THEN COUNT(reviews.review_id) END ASC,
+    CASE WHEN $4 = 'total_reviews' AND $5 = 'desc' THEN COUNT(reviews.review_id) END DESC,
+    COUNT(reviews.review_id) DESC, departments.department_name ASC
 LIMIT $1 OFFSET $2
 `;
 
 export const getDepartmentsCount = `
-SELECT COUNT(*) FROM departments
+SELECT COUNT(DISTINCT departments.department_id) FROM departments
 JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN courses ON departments.department_id = courses.department_id
+LEFT JOIN reviews ON courses.course_id = reviews.course_id
 WHERE
     ($1::text IS NULL OR 
      departments.department_name ILIKE '%' || $1 || '%' OR
@@ -91,12 +98,17 @@ export const getDepartmentByUniversityID = `
 SELECT departments.*, universities.university_name
 FROM departments
 JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN courses ON departments.department_id = courses.department_id
+LEFT JOIN reviews ON courses.course_id = reviews.course_id
 WHERE departments.university_id = $1
 AND ($2::text IS NULL OR departments.department_name ILIKE '%' || $2 || '%')
+GROUP BY departments.department_id, universities.university_id
 ORDER BY
     CASE WHEN $3 = 'department_name' AND $4 = 'asc' THEN departments.department_name END ASC,
     CASE WHEN $3 = 'department_name' AND $4 = 'desc' THEN departments.department_name END DESC,
-    departments.department_name ASC
+    CASE WHEN $3 = 'total_reviews' AND $4 = 'asc' THEN COUNT(reviews.review_id) END ASC,
+    CASE WHEN $3 = 'total_reviews' AND $4 = 'desc' THEN COUNT(reviews.review_id) END DESC,
+    COUNT(reviews.review_id) DESC, departments.department_name ASC
 `;
 
 export const getDepartmentByID = `
@@ -107,17 +119,24 @@ export const getDepartmentByUniversityIDPaginated = `
 SELECT departments.*, universities.university_name
 FROM departments
 JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN courses ON departments.department_id = courses.department_id
+LEFT JOIN reviews ON courses.course_id = reviews.course_id
 WHERE departments.university_id = $3
 AND ($4::text IS NULL OR departments.department_name ILIKE '%' || $4 || '%')
+GROUP BY departments.department_id, universities.university_id
 ORDER BY
     CASE WHEN $5 = 'department_name' AND $6 = 'asc' THEN departments.department_name END ASC,
     CASE WHEN $5 = 'department_name' AND $6 = 'desc' THEN departments.department_name END DESC,
-    departments.department_name ASC
+    CASE WHEN $5 = 'total_reviews' AND $6 = 'asc' THEN COUNT(reviews.review_id) END ASC,
+    CASE WHEN $5 = 'total_reviews' AND $6 = 'desc' THEN COUNT(reviews.review_id) END DESC,
+    COUNT(reviews.review_id) DESC, departments.department_name ASC
 LIMIT $1 OFFSET $2
 `;
 
 export const getDepartmentByUniversityIDCount = `
-SELECT COUNT(*) FROM departments
+SELECT COUNT(DISTINCT departments.department_id) FROM departments
+LEFT JOIN courses ON departments.department_id = courses.department_id
+LEFT JOIN reviews ON courses.course_id = reviews.course_id
 WHERE university_id = $1
 AND ($2::text IS NULL OR departments.department_name ILIKE '%' || $2 || '%')
 `;

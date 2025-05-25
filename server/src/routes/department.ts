@@ -20,8 +20,8 @@ router.get('/', async (req: Request, res: Response) => {
   const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
   const offset = (page - 1) * limit;
   const search = (req.query.search as string) || null;
-  const sortBy = (req.query.sort_by as string) || 'department_name';
-  const sortOrder = (req.query.sort_order as string) || 'asc';
+  const sortBy = (req.query.sort_by as string) || 'total_reviews';
+  const sortOrder = (req.query.sort_order as string) || 'desc';
 
   try {
     const result = await pool.query(getDepartmentsPaginated, [limit, offset, search, sortBy, sortOrder]);
@@ -55,8 +55,8 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/universityID/:universityID', async (req: Request, res: Response) => {
   const { universityID } = req.params;
   const search = (req.query.search as string) || null;
-  const sortBy = (req.query.sort_by as string) || 'department_name';
-  const sortOrder = (req.query.sort_order as string) || 'asc';
+  const sortBy = (req.query.sort_by as string) || 'total_reviews';
+  const sortOrder = (req.query.sort_order as string) || 'desc';
 
   try {
     validateUUID(universityID);
