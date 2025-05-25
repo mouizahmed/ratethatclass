@@ -342,9 +342,9 @@ function CourseListContent({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-3xl">
+      <div className="flex flex-col gap-4 w-full max-w-3xl">
         {isSearchLoading ? (
-          <div className="col-span-1 md:col-span-2 flex justify-center py-10">
+          <div className="flex justify-center py-10">
             <Spinner size="medium" />
           </div>
         ) : courseList.length > 0 ? (
@@ -352,7 +352,7 @@ function CourseListContent({
             {courseList.map((course) => (
               <CourseCard key={course.course_id} course={course} />
             ))}
-            <div className="col-span-1 md:col-span-2 flex justify-center py-4">
+            <div className="flex justify-center py-4">
               {hasMore && (
                 <Button onClick={loadMoreCourses} disabled={isLoadingMore} className="w-40">
                   {isLoadingMore ? (
@@ -368,7 +368,7 @@ function CourseListContent({
             </div>
           </>
         ) : (
-          <div className="col-span-1 md:col-span-2 flex justify-center py-10">
+          <div className="flex justify-center py-10">
             <p className="text-lg text-gray-500">No courses match your search criteria.</p>
           </div>
         )}
