@@ -8,11 +8,11 @@ import {
   DialogHeader,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
 import { postReport } from '@/requests/postRequests';
+import { toastUtils } from '@/lib/toast-utils';
 
 interface ReportDialogProps {
   id: string;
@@ -22,7 +22,6 @@ interface ReportDialogProps {
 }
 
 export function ReportDialog({ id, type, open, onOpenChange }: ReportDialogProps) {
-  const { toast } = useToast();
   const [reason, setReason] = useState<string>('');
 
   const handleReport = async () => {
@@ -30,16 +29,10 @@ export function ReportDialog({ id, type, open, onOpenChange }: ReportDialogProps
       await postReport(id, reason, type);
 
       onOpenChange(false);
-      toast({
-        title: `Successfully reported ${type.toLowerCase()}`,
-        description: 'Your report has been created.',
-      });
+      toastUtils.crud.created(`${type} report`);
     } catch (error) {
       console.log(error);
-      toast({
-        title: `Uh oh! Report could not be sent.`,
-        description: (error as Error).message,
-      });
+      toastUtils.crud.createError('report', (error as Error).message);
     }
   };
 

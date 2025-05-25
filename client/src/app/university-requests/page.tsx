@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/Spinner';
-import { useToast } from '@/hooks/use-toast';
+import { toastUtils } from '@/lib/toast-utils';
 import { getRequestedUniversities } from '@/requests/getRequests';
 import { postUniversityRequest } from '@/requests/postRequests';
 import { voteUniversity } from '@/requests/putRequests';
@@ -16,7 +16,6 @@ export default function Home() {
   const [requestedUniversityList, setRequestedUniversityList] = useState<RequestedUniversity[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [requestSent, setRequestSent] = useState<boolean>(false);
-  const { toast } = useToast();
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -28,17 +27,11 @@ export default function Home() {
     try {
       setRequestSent(true);
       await postUniversityRequest(universityName);
-      toast({
-        title: `Success!`,
-        description: `Sucessfully requested ${universityName}`,
-      });
+      toastUtils.success(`Successfully requested ${universityName}`);
       setRefresh((prev) => !prev);
       setRequestSent(false);
     } catch (error) {
-      toast({
-        title: `Uh oh! There was an error.`,
-        description: `${(error as Error).message}`,
-      });
+      toastUtils.error('Request failed', (error as Error).message);
       console.log(error);
       setRequestSent(false);
     }
@@ -48,15 +41,9 @@ export default function Home() {
     try {
       await voteUniversity(university.university_id);
       setRefresh((prev) => !prev);
-      toast({
-        title: `Success!`,
-        description: `Sucessfully upvoted ${university.university_name}`,
-      });
+      toastUtils.success(`Successfully upvoted ${university.university_name}`);
     } catch (error) {
-      toast({
-        title: `Uh oh! There was an error.`,
-        description: `${(error as Error).message}`,
-      });
+      toastUtils.error('Vote failed', (error as Error).message);
       console.log(error);
     }
   };
@@ -71,14 +58,11 @@ export default function Home() {
       } catch (error) {
         console.log(error);
         setLoading(false);
-        toast({
-          variant: 'destructive',
-          description: (error as Error).message,
-        });
+        toastUtils.error('Failed to load universities', (error as Error).message);
       }
     };
     fetchData();
-  }, [refresh, toast]);
+  }, [refresh]);
 
   const filterSearch = useCallback(
     (university: RequestedUniversity) => {

@@ -9,9 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/authContext';
-import { useToast } from '@/hooks/use-toast';
-import { ToastAction } from '../ui/toast';
-import Link from 'next/link';
+import { toastUtils } from '@/lib/toast-utils';
 import { Review } from '@/types/review';
 import { deleteReview } from '@/requests/deleteRequests';
 
@@ -28,7 +26,6 @@ export function DeleteReviewConfirmationDialog({
   review,
   onDelete,
 }: DeleteReviewConfirmationDialogProps) {
-  const { toast } = useToast();
   const { userLoggedIn, currentUser } = useAuth();
 
   const handleDelete = async () => {
@@ -39,42 +36,20 @@ export function DeleteReviewConfirmationDialog({
       await deleteReview(review.review_id);
       onDelete(review.review_id);
       onOpenChange(false);
-      toast({
-        title: `Successfully deleted review!`,
-        description: 'Review has been permanently deleted.',
-      });
+      toastUtils.crud.deleted('Review');
     } catch (error) {
       console.log(error);
-      toast({
-        title: `Uh oh! Review could not be deleted.`,
-        description: (error as Error).message,
-        action: (
-          <Link href="/login">
-            <ToastAction altText="Try again">Sign In</ToastAction>
-          </Link>
-        ),
-      });
+      toastUtils.crud.deleteError('review', (error as Error).message);
     }
   };
 
   const handleOpenChange = (newOpen: boolean) => {
     if (newOpen) {
       if (!userLoggedIn) {
-        toast({
-          title: `Uh oh! You're not logged in!`,
-          description: 'Please log in to perform this action.',
-          action: (
-            <Link href="/login">
-              <ToastAction altText="Try again">Sign In</ToastAction>
-            </Link>
-          ),
-        });
+        toastUtils.auth.notLoggedIn();
         return;
       } else if (currentUser?.emailVerified === false) {
-        toast({
-          title: `Uh oh! You're not verified!`,
-          description: 'Please verify your email to perform this action.',
-        });
+        toastUtils.auth.notVerified();
         return;
       }
     }

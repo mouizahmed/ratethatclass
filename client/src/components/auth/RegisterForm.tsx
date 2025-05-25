@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { Dropdown } from '../common/Dropdown';
 import { University } from '@/types/university';
 import { getUniversities } from '@/requests/getRequests';
-import { useToast } from '@/hooks/use-toast';
+import { toastUtils } from '@/lib/toast-utils';
 
 export function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
@@ -26,8 +26,6 @@ export function RegisterForm() {
     confirmPassword: '',
   });
 
-  const { toast } = useToast();
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,14 +39,11 @@ export function RegisterForm() {
         setUniversityList(universities);
       } catch (error) {
         setAxiosError(true);
-        toast({
-          variant: 'destructive',
-          description: (error as Error).message,
-        });
+        toastUtils.error('Failed to load universities', (error as Error).message);
       }
     };
     fetchData();
-  }, [toast]);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

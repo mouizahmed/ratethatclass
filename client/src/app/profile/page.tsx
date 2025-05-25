@@ -10,7 +10,7 @@ import { getUserDownvotes, getUserPosts, getUserUpvotes } from '@/requests/getAu
 import { ReviewCard } from '@/components/display/ReviewCard';
 import { sendEmailVerification } from 'firebase/auth';
 import { Spinner } from '@/components/ui/Spinner';
-import { useToast } from '@/hooks/use-toast';
+import { toastUtils } from '@/lib/toast-utils';
 
 export default function Page() {
   return (
@@ -22,7 +22,6 @@ export default function Page() {
 
 function ProfilePageInner() {
   const { userLoggedIn, currentUser, loading } = useAuth();
-  const { toast } = useToast();
 
   const [userReviews, setUserReviews] = useState<Review[]>([]);
   const [upvotes, setUpvotes] = useState<Review[]>([]);
@@ -47,10 +46,11 @@ function ProfilePageInner() {
           setIsLoadingMore(true);
         }
 
+        const response = await getUserPosts(setUserReviews, page, 10, 'date_uploaded', 'desc');
+        const data = response.data;
+        const meta = response.meta;
+
         if (type === 'all') {
-          const response = await getUserPosts(setUserReviews, page, 10, 'date_uploaded', 'desc');
-          const data = response.data;
-          const meta = response.meta;
           if (append) {
             setUserReviews((prev) => [...prev, ...data]);
           } else {
@@ -58,25 +58,25 @@ function ProfilePageInner() {
           }
           setHasMorePosts(meta.current_page < meta.total_pages);
         } else if (type === 'upvoted') {
-          const response = await getUserUpvotes(setUpvotes, page, 10, 'date_uploaded', 'desc');
-          const data = response.data;
-          const meta = response.meta;
+          const responseUpvotes = await getUserUpvotes(setUpvotes, page, 10, 'date_uploaded', 'desc');
+          const dataUpvotes = responseUpvotes.data;
+          const metaUpvotes = responseUpvotes.meta;
           if (append) {
-            setUpvotes((prev) => [...prev, ...data]);
+            setUpvotes((prev) => [...prev, ...dataUpvotes]);
           } else {
-            setUpvotes(data);
+            setUpvotes(dataUpvotes);
           }
-          setHasMoreUpvotes(meta.current_page < meta.total_pages);
+          setHasMoreUpvotes(metaUpvotes.current_page < metaUpvotes.total_pages);
         } else if (type === 'downvoted') {
-          const response = await getUserDownvotes(setDownvotes, page, 10, 'date_uploaded', 'desc');
-          const data = response.data;
-          const meta = response.meta;
+          const responseDownvotes = await getUserDownvotes(setDownvotes, page, 10, 'date_uploaded', 'desc');
+          const dataDownvotes = responseDownvotes.data;
+          const metaDownvotes = responseDownvotes.meta;
           if (append) {
-            setDownvotes((prev) => [...prev, ...data]);
+            setDownvotes((prev) => [...prev, ...dataDownvotes]);
           } else {
-            setDownvotes(data);
+            setDownvotes(dataDownvotes);
           }
-          setHasMoreDownvotes(meta.current_page < meta.total_pages);
+          setHasMoreDownvotes(metaDownvotes.current_page < metaDownvotes.total_pages);
         }
 
         if (page === 1) {
@@ -87,13 +87,10 @@ function ProfilePageInner() {
       } catch (error) {
         setPostsLoading(false);
         setIsLoadingMore(false);
-        toast({
-          variant: 'destructive',
-          description: (error as Error).message,
-        });
+        toastUtils.error('Failed to load reviews', (error as Error).message);
       }
     },
-    [toast]
+    []
   );
 
   const loadMoreReviews = useCallback(async () => {
@@ -167,10 +164,7 @@ function ProfilePageInner() {
                       }, 2000);
                     } catch (error) {
                       console.log(error);
-                      toast({
-                        variant: 'destructive',
-                        description: (error as Error).message,
-                      });
+                      toastUtils.error('Email verification failed', (error as Error).message);
                     }
                   }}
                 >

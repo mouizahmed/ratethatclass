@@ -8,8 +8,6 @@ import { BadgeCheck, ChevronDown, ChevronUp, EllipsisVertical } from 'lucide-rea
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { postUpVote, postDownVote } from '@/requests/postRequests';
-import { useToast } from '@/hooks/use-toast';
-import { ToastAction } from '../ui/toast';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,10 +16,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/contexts/authContext';
-import Link from 'next/link';
 import { ratingItem } from '@/lib/display';
 import { DeleteReviewConfirmationDialog } from '../dialogs/DeleteReviewConfirmationDialog';
 import { ReportDialog } from '../dialogs/ReportDialog';
+import { toastUtils } from '@/lib/toast-utils';
 
 interface PreviewReviewCardProps {
   review: Review;
@@ -42,7 +40,6 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
   const [totalVotes, setTotalVotes] = useState<number>(review.votes || 0);
   const [isVoting, setIsVoting] = useState<boolean>(false);
   const { userLoggedIn, currentUser } = useAuth();
-  const { toast } = useToast();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showReportDialog, setShowReportDialog] = useState(false);
 
@@ -54,15 +51,7 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
   const handleVote = useCallback(
     async (voteType: 'up' | 'down') => {
       if (!currentUser) {
-        toast({
-          title: `Uh oh! You're not logged in!`,
-          description: 'Please log in to perform this action.',
-          action: (
-            <Link href="/login">
-              <ToastAction altText="Try again">Sign In</ToastAction>
-            </Link>
-          ),
-        });
+        toastUtils.auth.notLoggedIn();
         return;
       }
 
@@ -103,21 +92,17 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
           }
           await postDownVote(review);
         }
-      } catch (error) {
+      } catch {
         // Rollback optimistic updates on error
         setVote(previousVote);
         setTotalVotes(previousTotalVotes);
 
-        toast({
-          variant: 'destructive',
-          title: 'Vote failed',
-          description: 'Failed to submit your vote. Please try again.',
-        });
+        toastUtils.error('Vote failed', 'Failed to submit your vote. Please try again.');
       } finally {
         setIsVoting(false);
       }
     },
-    [currentUser, vote, totalVotes, isVoting, review, toast]
+    [currentUser, vote, totalVotes, isVoting, review]
   );
 
   const upVote = useCallback(() => handleVote('up'), [handleVote]);
@@ -125,21 +110,10 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
 
   const openDialog = (value: React.Dispatch<React.SetStateAction<boolean>>) => {
     if (!userLoggedIn) {
-      toast({
-        title: `Uh oh! You're not logged in!`,
-        description: 'Please log in to perform this action.',
-        action: (
-          <Link href="/login">
-            <ToastAction altText="Try again">Sign In</ToastAction>
-          </Link>
-        ),
-      });
+      toastUtils.auth.notLoggedIn();
       return;
     } else if (currentUser?.emailVerified === false) {
-      toast({
-        title: `Uh oh! You're not verified!`,
-        description: 'Please verify your email to perform this action.',
-      });
+      toastUtils.auth.notVerified();
       return;
     }
     value(true);

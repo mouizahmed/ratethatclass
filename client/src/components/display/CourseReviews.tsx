@@ -22,9 +22,6 @@ import ReviewConfirmationForm from '@/components/forms/steps/ReviewConfirmationF
 import { getCurrentSQLDate } from '@/lib/utils';
 import { postReview } from '@/requests/postRequests';
 import { useAuth } from '@/contexts/authContext';
-import { useToast } from '@/hooks/use-toast';
-import { ToastAction } from '@/components/ui/toast';
-import Link from 'next/link';
 import { Delivery, Evaluation, Grade, Term, Textbook, Vote, Workload } from '@/types/review';
 import {
   DropdownMenu,
@@ -37,6 +34,7 @@ import { ReportDialog } from '@/components/dialogs/ReportDialog';
 import { getVoteStates } from '@/requests/getAuthenticatedRequests';
 import { AuthProvider } from '@/contexts/authContext';
 import { useDebounce } from '@/hooks/useDebounce';
+import { toastUtils } from '@/lib/toast-utils';
 
 interface CourseReviewsProps {
   course: Course;
@@ -89,7 +87,6 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
   const debouncedOrder = useDebounce(order, 300);
   const debouncedOrderBy = useDebounce(orderBy, 300);
 
-  const { toast } = useToast();
   const { userLoggedIn, currentUser, loading } = useAuth();
 
   const steps: StepProps<typeof newReviewForm>[] = [
@@ -160,21 +157,10 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
 
   const openDialog = (value: React.Dispatch<React.SetStateAction<boolean>>) => {
     if (!userLoggedIn) {
-      toast({
-        title: `Uh oh! You're not logged in!`,
-        description: 'Please log in to perform this action.',
-        action: (
-          <Link href="/login">
-            <ToastAction altText="Try again">Sign In</ToastAction>
-          </Link>
-        ),
-      });
+      toastUtils.auth.notLoggedIn();
       return;
     } else if (currentUser?.emailVerified === false) {
-      toast({
-        title: `Uh oh! You're not verified!`,
-        description: 'Please verify your email to perform this action.',
-      });
+      toastUtils.auth.notVerified();
       return;
     }
 
@@ -206,15 +192,12 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
         setCurrentPage(page);
       } catch (error) {
         console.error('Error fetching reviews:', error);
-        toast({
-          variant: 'destructive',
-          description: 'Failed to load reviews. Please try again.',
-        });
+        toastUtils.loadError('reviews');
       } finally {
         setIsFilterLoading(false);
       }
     },
-    [courseId, debouncedProfessor, debouncedTerm, debouncedDeliveryMethod, debouncedOrderBy, debouncedOrder, toast]
+    [courseId, debouncedProfessor, debouncedTerm, debouncedDeliveryMethod, debouncedOrderBy, debouncedOrder]
   );
 
   // Effect to fetch reviews when filters change
@@ -291,10 +274,7 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
       setHasMore(currentPage + 1 < meta.total_pages);
     } catch (error) {
       console.log(error);
-      toast({
-        variant: 'destructive',
-        description: 'Failed to load more reviews. Please try again.',
-      });
+      toastUtils.loadError('more reviews');
     } finally {
       setIsLoadingMore(false);
     }
@@ -308,7 +288,6 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
     debouncedDeliveryMethod,
     debouncedOrderBy,
     debouncedOrder,
-    toast,
   ]);
 
   function updateSort() {

@@ -7,7 +7,6 @@ import { Input } from '@/components/ui/input';
 import { Dropdown } from '@/components/common/Dropdown';
 import { ArrowUpWideNarrow, ArrowDownWideNarrow, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
 import { courseSortingOptions } from '@/lib/constants';
 import { DialogForm, StepProps } from '@/components/forms/DialogForm';
 import { ReviewMetadataForm } from '@/components/forms/steps/ReviewMetadataForm';
@@ -25,6 +24,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { getCoursesByUniversityID } from '@/requests/getRequests';
 import { encodeCourseId } from '@/lib/url';
 import { AuthProvider } from '@/contexts/authContext';
+import { toastUtils } from '@/lib/toast-utils';
 
 interface CourseListProps {
   initialCourses: Course[];
@@ -61,7 +61,6 @@ function CourseListContent({
   departmentList,
   initialDepartment,
 }: CourseListProps) {
-  const { toast } = useToast();
   const router = useRouter();
 
   const [courseList, setCourseList] = useState<Course[]>(initialCourses);
@@ -102,15 +101,12 @@ function CourseListContent({
         setCurrentPage(page);
       } catch (error) {
         console.error('Error fetching courses:', error);
-        toast({
-          variant: 'destructive',
-          description: 'Failed to load courses. Please try again.',
-        });
+        toastUtils.loadError('courses');
       } finally {
         setIsSearchLoading(false);
       }
     },
-    [universityId, debouncedSearchValue, debouncedDepartment, debouncedOrderBy, debouncedOrder, toast]
+    [universityId, debouncedSearchValue, debouncedDepartment, debouncedOrderBy, debouncedOrder]
   );
 
   React.useEffect(() => {
@@ -161,10 +157,7 @@ function CourseListContent({
       setHasMore(currentPage + 1 < meta.total_pages);
     } catch (error) {
       console.log(error);
-      toast({
-        variant: 'destructive',
-        description: 'Failed to load more courses. Please try again.',
-      });
+      toastUtils.loadError('more courses');
     } finally {
       setIsLoadingMore(false);
     }
@@ -177,7 +170,6 @@ function CourseListContent({
     debouncedDepartment,
     debouncedOrderBy,
     debouncedOrder,
-    toast,
   ]);
 
   function updateSort() {

@@ -81,7 +81,6 @@ export async function postCourse(course: Course, review: Review): Promise<void> 
 
 export async function postUpVote(review: Review): Promise<void> {
   const idToken = await getIdToken();
-
   const response = await axios
     .post<ApiResponse<Record<string, never>>>(
       `${process.env.NEXT_PUBLIC_URL}/review/upvote`,

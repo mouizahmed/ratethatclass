@@ -6,9 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import DialogFormStep from './DialogFormStep';
 import { z, ZodObject } from 'zod';
 import { useAuth } from '@/contexts/authContext';
-import { useToast } from '@/hooks/use-toast';
-import Link from 'next/link';
-import { ToastAction } from '../ui/toast';
+import { toastUtils } from '@/lib/toast-utils';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface StepProps<T extends ZodObject<any>> {
@@ -33,7 +31,6 @@ export function DialogForm<T extends ZodObject<any>>({
   onSubmit,
   schema,
 }: SteppedFormDialogProps<T>) {
-  const { toast } = useToast();
   const { userLoggedIn, currentUser } = useAuth();
   const [open, setOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -58,10 +55,7 @@ export function DialogForm<T extends ZodObject<any>>({
           methods.reset();
         } catch (error) {
           console.log(error);
-          toast({
-            title: `Uh oh! There was an error submitting your request.`,
-            description: (error as Error).message,
-          });
+          toastUtils.error('Submission failed', (error as Error).message);
         }
       }
     }
@@ -76,26 +70,10 @@ export function DialogForm<T extends ZodObject<any>>({
   const toggleDialog = (open: boolean) => {
     if (open === true) {
       if (userLoggedIn === false) {
-        toast({
-          title: `Uh oh! You're not logged in!`,
-          description: 'Please log in to perform this action.',
-          action: (
-            <Link href="/login">
-              <ToastAction altText="Try again">Sign In</ToastAction>
-            </Link>
-          ),
-        });
+        toastUtils.auth.notLoggedIn();
         return;
       } else if (currentUser?.emailVerified === false) {
-        toast({
-          title: `Uh oh! You're not verified!`,
-          description: 'Please verify your email to perform this action.',
-          action: (
-            <Link href="/profile">
-              <ToastAction altText="Try again">Profile</ToastAction>
-            </Link>
-          ),
-        });
+        toastUtils.auth.notVerified();
         return;
       }
     }
