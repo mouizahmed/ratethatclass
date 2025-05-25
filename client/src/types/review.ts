@@ -1,4 +1,4 @@
-import { SQLDate } from '@/types';
+import { SQLDate } from './common';
 
 export interface Review {
   review_id?: string;

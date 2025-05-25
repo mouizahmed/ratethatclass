@@ -13,13 +13,7 @@ import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
 import { postReport } from '@/requests/postRequests';
 import { toastUtils } from '@/lib/toast-utils';
-
-interface ReportDialogProps {
-  id: string;
-  type: 'Course' | 'Review';
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
+import { ReportDialogProps } from '@/types/components';
 
 export function ReportDialog({ id, type, open, onOpenChange }: ReportDialogProps) {
   const [reason, setReason] = useState<string>('');

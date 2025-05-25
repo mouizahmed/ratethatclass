@@ -2,15 +2,7 @@
 
 import React, { useState } from 'react';
 import Search from './Search';
-import { University } from '@/types/university';
-
-interface ClientSearchProps {
-  data: University[];
-  valueKey: keyof University;
-  labelKey: keyof University;
-  placeholder: string;
-  emptyMessage: string;
-}
+import { ClientSearchProps } from '@/types/components';
 
 export default function ClientSearch({ data, valueKey, labelKey, placeholder, emptyMessage }: ClientSearchProps) {
   const [searchValue, setSearchValue] = useState<string>('');

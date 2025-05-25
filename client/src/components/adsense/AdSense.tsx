@@ -1,11 +1,8 @@
 import Script from 'next/script';
 import React from 'react';
+import { AdsenseProps } from '@/types/components';
 
-type AdsenseTypes = {
-  pId: string;
-};
-
-const AdSense = ({ pId }: AdsenseTypes) => {
+const AdSense = ({ pId }: AdsenseProps) => {
   return (
     <Script
       async

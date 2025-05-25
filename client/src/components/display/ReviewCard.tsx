@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
-import { Review, Vote } from '@/types/review';
+import { Vote } from '@/types/review';
+import { ReviewCardProps } from '@/types/components';
 import { Label } from '@/components/ui/label';
 import { BadgeCheck, ChevronDown, ChevronUp, EllipsisVertical } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
@@ -20,20 +21,6 @@ import { ratingItem } from '@/lib/display';
 import { DeleteReviewConfirmationDialog } from '../dialogs/DeleteReviewConfirmationDialog';
 import { ReportDialog } from '../dialogs/ReportDialog';
 import { toastUtils } from '@/lib/toast-utils';
-
-interface PreviewReviewCardProps {
-  review: Review;
-  preview: true;
-  onDelete?: never;
-}
-
-interface FullReviewCardProps {
-  review: Review;
-  preview: false;
-  onDelete: (deletedId: string) => void;
-}
-
-type ReviewCardProps = PreviewReviewCardProps | FullReviewCardProps;
 
 export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
   const [vote, setVote] = useState<Vote>(review.vote || Vote.noVote);

@@ -3,14 +3,9 @@ import axios from 'axios';
 import { getCurrentUser } from '../firebase/auth';
 import { Review } from '@/types/review';
 import { ApiResponse, PaginatedResponse } from '@/types/api';
+import { VoteState } from '@/types/requests';
 
 const API_TIMEOUT = 3000;
-
-type VoteState = {
-  review_id: string;
-  vote: 'up' | 'down';
-  vote_id: string;
-};
 
 export async function getVoteStates(review_ids: string[]): Promise<VoteState[]> {
   const currentUser = await getCurrentUser();

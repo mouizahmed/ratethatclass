@@ -1,13 +1,9 @@
 'use client';
 import AlertBox from '@/components/display/AlertBox';
 import { Alert, AlertType, ReactChildren } from '@/types';
+import { AlertContextType } from '@/types/contexts';
 import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
-type AlertContextType = {
-  addAlert: (type: AlertType, message: string, timeout: number) => void;
-  removeAlert: (id: string) => void;
-};
 
 const initialState: AlertContextType = {
   addAlert: () => {},

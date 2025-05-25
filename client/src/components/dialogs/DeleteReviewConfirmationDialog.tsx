@@ -10,15 +10,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/authContext';
 import { toastUtils } from '@/lib/toast-utils';
-import { Review } from '@/types/review';
 import { deleteReview } from '@/requests/deleteRequests';
-
-interface DeleteReviewConfirmationDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  review: Review;
-  onDelete: (deletedId: string) => void;
-}
+import { DeleteReviewConfirmationDialogProps } from '@/types/components';
 
 export function DeleteReviewConfirmationDialog({
   open,

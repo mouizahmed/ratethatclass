@@ -8,15 +8,9 @@ import { courseSortingOptions } from '@/lib/constants';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { createDepartmentSlug } from '@/lib/url';
+import { UniversityPageProps } from '@/types/pages';
 
-type PageProps = {
-  params: Promise<{
-    universityTag: string;
-  }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: UniversityPageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const university = await getUniversity(resolvedParams.universityTag);
 
@@ -31,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params }: UniversityPageProps) {
   const resolvedParams = await params;
   const university = await getUniversity(resolvedParams.universityTag);
 
