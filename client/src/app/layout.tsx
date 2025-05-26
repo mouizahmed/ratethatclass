@@ -5,7 +5,7 @@ import Navbar from '@/components/display/Navbar';
 import { Toaster } from '@/components/ui/toaster';
 import Footer from '@/components/display/Footer';
 import AdSense from '@/components/adsense/AdSense';
-import { generateMetadata, SEO_CONFIGS } from '@/lib/seo';
+import { generateMetadata, generateViewport, SEO_CONFIGS } from '@/lib/seo';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -18,6 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = generateMetadata(SEO_CONFIGS.home);
+export const viewport = generateViewport();
 
 export default function RootLayout({
   children,

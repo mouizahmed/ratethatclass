@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 import { courseSortingOptions } from '@/lib/constants';
 import { notFound } from 'next/navigation';
 import { createDepartmentSlug } from '@/lib/url';
-import { generateDepartmentMetadata } from '@/lib/seo';
+import { generateDepartmentMetadata, generateViewport } from '@/lib/seo';
 
 type PageProps = {
   params: Promise<{
@@ -47,6 +47,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     resolvedParams.departmentName
   );
 }
+
+export const viewport = generateViewport();
 
 export default async function Page({ params }: PageProps) {
   const resolvedParams = await params;

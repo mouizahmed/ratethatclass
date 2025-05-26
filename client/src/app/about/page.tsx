@@ -2,9 +2,10 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import React from 'react';
 import { Metadata } from 'next';
-import { generateMetadata, SEO_CONFIGS } from '@/lib/seo';
+import { generateMetadata, generateViewport, SEO_CONFIGS } from '@/lib/seo';
 
 export const metadata: Metadata = generateMetadata(SEO_CONFIGS.about);
+export const viewport = generateViewport();
 
 export default function About() {
   return (
@@ -19,9 +20,9 @@ export default function About() {
           <Link href="https://www.ratemyprofessors.com" className="text-[#4b5563] hover:underline underline-offset-4">
             Rate My Professors
           </Link>{' '}
-          offer insights into professors, they often fall short when it comes to course-specific information. That's why
-          I created Rate That Class—to provide a dedicated platform where students can share reviews and advice, helping
-          others make informed decisions about their course selections.
+          offer insights into professors, they often fall short when it comes to course-specific information.
+          That&apos;s why I created Rate That Class—to provide a dedicated platform where students can share reviews and
+          advice, helping others make informed decisions about their course selections.
         </p>
       </div>
 

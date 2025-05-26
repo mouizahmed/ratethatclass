@@ -8,7 +8,7 @@ import { sortingOptions } from '@/lib/constants';
 import { CourseReviews } from '@/components/display/CourseReviews';
 import { decodeCourseId } from '@/lib/url';
 import { notFound } from 'next/navigation';
-import { generateCourseMetadata } from '@/lib/seo';
+import { generateCourseMetadata, generateViewport } from '@/lib/seo';
 
 type PageProps = {
   params: Promise<{
@@ -39,6 +39,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     resolvedParams.courseID
   );
 }
+
+export const viewport = generateViewport();
 
 export default async function Page({ params }: PageProps) {
   const resolvedParams = await params;

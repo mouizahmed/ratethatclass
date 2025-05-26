@@ -1,8 +1,9 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { generateMetadata, SEO_CONFIGS } from '@/lib/seo';
+import { generateMetadata, generateViewport, SEO_CONFIGS } from '@/lib/seo';
 
 export const metadata: Metadata = generateMetadata(SEO_CONFIGS.privacy);
+export const viewport = generateViewport();
 
 export default function Privacy() {
   return (

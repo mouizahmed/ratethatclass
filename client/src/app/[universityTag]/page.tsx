@@ -9,7 +9,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { createDepartmentSlug } from '@/lib/url';
 import { UniversityPageProps } from '@/types/pages';
-import { generateUniversityMetadata } from '@/lib/seo';
+import { generateUniversityMetadata, generateViewport } from '@/lib/seo';
 
 export async function generateMetadata({ params }: UniversityPageProps): Promise<Metadata> {
   const resolvedParams = await params;
@@ -25,6 +25,8 @@ export async function generateMetadata({ params }: UniversityPageProps): Promise
 
   return generateUniversityMetadata(university.university_name, resolvedParams.universityTag);
 }
+
+export const viewport = generateViewport();
 
 export default async function Page({ params }: UniversityPageProps) {
   const resolvedParams = await params;

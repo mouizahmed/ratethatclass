@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 
 export interface SEOConfig {
   title: string;
@@ -78,8 +78,6 @@ export function generateMetadata(config: SEOConfig): Metadata {
       creator: DEFAULT_CONFIG.twitterHandle,
       site: DEFAULT_CONFIG.twitterHandle,
     },
-    viewport: 'width=device-width, initial-scale=1',
-    themeColor: '#000000',
     manifest: '/manifest.json',
     icons: {
       icon: [
@@ -88,6 +86,14 @@ export function generateMetadata(config: SEOConfig): Metadata {
       ],
       apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
     },
+  };
+}
+
+export function generateViewport(): Viewport {
+  return {
+    width: 'device-width',
+    initialScale: 1,
+    themeColor: '#000000',
   };
 }
 
