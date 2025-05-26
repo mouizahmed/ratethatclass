@@ -39,6 +39,50 @@ This web application only allows validated post-secondary students to register w
 6. **Engage Community**: Vote on helpful reviews and manage your contributions
 7. **Discover Courses**: Use insights to make informed decisions about future course selections
 
+# Project Structure
+
+```
+rate-that-class/
+├── client/                 # Next.js frontend application
+│   ├── src/
+│   │   ├── app/           # Next.js app router pages
+│   │   ├── components/    # Reusable UI components
+│   │   │   ├── auth/      # Authentication forms
+│   │   │   ├── common/    # Shared components
+│   │   │   ├── display/   # Data display components
+│   │   │   ├── forms/     # Form components and steps
+│   │   │   └── ui/        # Base UI components (shadcn/ui)
+│   │   ├── contexts/      # React context providers
+│   │   ├── firebase/      # Firebase client configuration
+│   │   ├── hooks/         # Custom React hooks
+│   │   ├── lib/           # Utility functions and constants
+│   │   ├── requests/      # API request functions
+│   │   └── types/         # TypeScript type definitions
+│   ├── public/            # Static assets (images, icons)
+│   └── package.json       # Frontend dependencies
+├── server/                # Express.js backend API
+│   ├── src/
+│   │   ├── routes/        # API endpoint handlers
+│   │   │   ├── course.ts      # Course-related endpoints
+│   │   │   ├── review.ts      # Review CRUD and voting
+│   │   │   ├── user.ts        # User management
+│   │   │   ├── university.ts  # University data
+│   │   │   ├── department.ts  # Department endpoints
+│   │   │   ├── professor.ts   # Professor management
+│   │   │   └── report.ts      # Content reporting
+│   │   ├── db/            # Database queries and connection
+│   │   ├── types.ts       # Backend type definitions
+│   │   └── index.ts       # Express server entry point
+│   ├── middleware/        # Authentication middleware
+│   ├── firebase/          # Firebase admin configuration
+│   └── package.json       # Backend dependencies
+├── init-db/               # PostgreSQL database setup
+│   └── init-db.sql        # Database schema and initial data
+├── scraper/               # University data collection tools
+├── docker-compose.yml     # Multi-container Docker setup
+└── README.md              # Project documentation
+```
+
 # Tools & Frameworks
 
 Database: PostgreSQL
