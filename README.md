@@ -29,6 +29,7 @@ This web application only allows validated post-secondary students to register w
 - 👤 **Review Management**: View and manage your own reviews from your profile
 - 🚨 **Report System**: Report inappropriate content to maintain community standards
 - 📈 **Live Statistics**: Real-time course ratings and review counts
+- 🔍 **SEO Optimized**: Google SEO optimized with Server-Side Rendering (SSR) and dynamic sitemap generation
 
 # Usage Flow
 
