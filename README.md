@@ -1,4 +1,9 @@
-# Rate That Class
+<div align="center">
+    <img alt="Logo" src="client/public/rtc_logo.png" width="100" />
+</div>
+<h1 align="center">
+    Rate That Class
+</h1>
 
 A web application that allows users to anonymously create course reviews for their respective post-secondary schools and ease their struggles within the course selection process.
 
@@ -83,31 +88,34 @@ rate-that-class/
 └── README.md              # Project documentation
 ```
 
-# Tools & Frameworks
+# Tech Stack
 
-Database: PostgreSQL
+## Frontend
 
-Front-End: NextJS (ReactJS)
+- **Framework**: Next.js 15.1.3 (React)
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **Authentication**: Firebase Auth
+- **Language**: TypeScript
 
-CSS/Styling: Tailwind + shadcn/ui
+## Backend
 
-Backend: NodeJS, ExpressJS
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Database**: PostgreSQL
+- **Authentication**: Firebase Admin SDK
+- **Language**: TypeScript
 
-Images: [Cloudinary](https://cloudinary.com/)
+## Infrastructure
 
-# Deployment
+- **Frontend Hosting**: [Vercel](https://vercel.com/)
+- **Backend Hosting**: [Render](https://render.com/)
+- **Database Hosting**: [Supabase](https://supabase.com/)
+- **Image Hosting**: [Cloudinary](https://cloudinary.com/)
+- **Containerization**: Docker & Docker Compose
 
-[Vercel](https://vercel.com/) to host the front-end.
+# Getting Started
 
-[Render](https://render.com/) to host the back-end.
-
-[Supabase](https://supabase.com/) to host the PostgreSQL database.
-
-# Live Service
-
-[https://ratethatclass.com/](https://ratethatclass.com/)
-
-# How to run locally
+This application is designed to run with Firebase and cannot be run locally due to Firebase auth dependencies.
 
 ## Prerequisites
 
