@@ -120,7 +120,7 @@ This application is designed to run with Firebase and cannot be run locally due 
 ## Prerequisites
 
 - Running Docker Daemon
-- Firebase Project
+- Firebase Project with auth enabled
 
 ## Installing
 
@@ -128,39 +128,39 @@ This application is designed to run with Firebase and cannot be run locally due 
 
 2. Install the project by cloning this repository: `git clone git@github.com:mouizahmed/ratethatclass.git`
 
-3. Set up Firebase:
+3. Configure Firebase:
+
+   **Client-side Configuration (Frontend):**
 
    - Go to [Firebase Console](https://console.firebase.google.com/)
    - Create a new project or use an existing one
    - Enable Authentication in your Firebase project
-   - Go to Project Settings > General
-   - Scroll down to "Your apps" section
-   - Create a new web app if you haven't already
-   - Copy the Firebase configuration values
+   - Go to Project Settings > General and copy your web app configuration
+   - In `docker-compose.yml`, replace the client Firebase environment variables:
+     - `NEXT_PUBLIC_FIREBASE_API_KEY`
+     - `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
+     - `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+     - `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`
+     - `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`
+     - `NEXT_PUBLIC_FIREBASE_APP_ID`
 
-4. Create a `.env` file in the root directory with the following variables:
+   **Server-side Configuration (Firebase Admin SDK):**
 
-   ```
-   # Database Configuration
-   DB_USER=postgres
-   DB_PASSWORD=postgres
-   DB_HOST=postgres
-   DB_PORT=5432
-   DB_NAME=ratethatclass
+   - Go to Project Settings > Service Accounts
+   - Click "Generate new private key" to download a JSON file
+   - Extract the following values from the JSON file and add them to `docker-compose.yml`:
+     - `CLIENT_EMAIL` (from `client_email`)
+     - `CLIENT_ID` (from `client_id`)
+     - `CLIENT_X509_CERT_URL` (from `client_x509_cert_url`)
+     - `PRIVATE_KEY` (from `private_key` - keep the quotes and newlines)
+     - `PRIVATE_KEY_ID` (from `private_key_id`)
+     - `PROJECT_ID` (from `project_id`)
 
-   # Firebase Configuration
-   FIREBASE_API_KEY=your_api_key
-   FIREBASE_AUTH_DOMAIN=your_auth_domain
-   FIREBASE_PROJECT_ID=your_project_id
-   FIREBASE_STORAGE_BUCKET=your_storage_bucket
-   FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
-   FIREBASE_APP_ID=your_app_id
-
-   # Node Environment
-   NODE_ENV=development
-   ```
-
-5. Start the application:
+4. Start the application:
    ```bash
    docker-compose up -d
    ```
+
+# License
+
+[MIT License](https://github.com/mouizahmed/ratethatclass/blob/master/LICENSE)
