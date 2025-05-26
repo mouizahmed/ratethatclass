@@ -7,6 +7,7 @@ import { Metadata } from 'next';
 import { courseSortingOptions } from '@/lib/constants';
 import { notFound } from 'next/navigation';
 import { createDepartmentSlug } from '@/lib/url';
+import { generateDepartmentMetadata } from '@/lib/seo';
 
 type PageProps = {
   params: Promise<{
@@ -23,6 +24,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!university.university_id) {
     return {
       title: 'University Not Found',
+      description: 'The university you are looking for could not be found.',
+      robots: 'noindex, nofollow',
     };
   }
 
@@ -32,13 +35,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!department) {
     return {
       title: 'Department Not Found',
+      description: 'The department you are looking for could not be found.',
+      robots: 'noindex, nofollow',
     };
   }
 
-  return {
-    title: `${department.department_name} Courses at ${university.university_name} - Course Reviews`,
-    description: `Browse and review courses in the ${department.department_name} department at ${university.university_name}. Find detailed course reviews, ratings, and student feedback.`,
-  };
+  return generateDepartmentMetadata(
+    department.department_name,
+    university.university_name,
+    resolvedParams.universityTag,
+    resolvedParams.departmentName
+  );
 }
 
 export default async function Page({ params }: PageProps) {

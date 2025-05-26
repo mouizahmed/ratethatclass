@@ -5,6 +5,7 @@ import Navbar from '@/components/display/Navbar';
 import { Toaster } from '@/components/ui/toaster';
 import Footer from '@/components/display/Footer';
 import AdSense from '@/components/adsense/AdSense';
+import { generateMetadata, SEO_CONFIGS } from '@/lib/seo';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -16,10 +17,7 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = {
-  title: 'Rate That Class',
-  description: 'Course selection made easier!',
-};
+export const metadata: Metadata = generateMetadata(SEO_CONFIGS.home);
 
 export default function RootLayout({
   children,
@@ -31,6 +29,9 @@ export default function RootLayout({
       <head>
         <AdSense pId={'1038054889464988'} />
         <meta name="google-adsense-account" content="ca-pub-1038054889464988"></meta>
+        <meta name="google-site-verification" content="your-google-site-verification-code" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning={true}>
         <Navbar />

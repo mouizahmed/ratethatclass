@@ -1,31 +1,15 @@
-'use client';
-import React, { useEffect } from 'react';
-import { AuthProvider, useAuth } from '@/contexts/authContext';
-import { redirect } from 'next/navigation';
-import { RegisterForm } from '@/components/auth/RegisterForm';
+import React from 'react';
+import { AuthProvider } from '@/contexts/authContext';
+import { Metadata } from 'next';
+import { generateMetadata, SEO_CONFIGS } from '@/lib/seo';
+import RegisterPageClient from './RegisterPageClient';
+
+export const metadata: Metadata = generateMetadata(SEO_CONFIGS.register);
 
 export default function Page() {
   return (
     <AuthProvider>
-      <RegisterPageInner />
+      <RegisterPageClient />
     </AuthProvider>
-  );
-}
-
-function RegisterPageInner() {
-  const { userLoggedIn } = useAuth();
-
-  useEffect(() => {
-    if (userLoggedIn) {
-      redirect('/profile');
-    }
-  }, [userLoggedIn]);
-
-  return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        <RegisterForm />
-      </div>
-    </div>
   );
 }

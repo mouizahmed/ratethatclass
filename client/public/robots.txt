@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Disallow private pages
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+Disallow: /api/
+
+# Allow important pages
+Allow: /about
+Allow: /privacy
+Allow: /guidelines
+Allow: /university-requests
+
+# Sitemaps
+Sitemap: https://ratethatclass.com/sitemap.xml
+Sitemap: https://ratethatclass.com/sitemap-index.xml
+
+# Crawl delay (optional - helps prevent overwhelming your server)
+Crawl-delay: 1 

@@ -9,6 +9,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { createDepartmentSlug } from '@/lib/url';
 import { UniversityPageProps } from '@/types/pages';
+import { generateUniversityMetadata } from '@/lib/seo';
 
 export async function generateMetadata({ params }: UniversityPageProps): Promise<Metadata> {
   const resolvedParams = await params;
@@ -17,12 +18,12 @@ export async function generateMetadata({ params }: UniversityPageProps): Promise
   if (!university.university_id) {
     return {
       title: 'University Not Found',
+      description: 'The university you are looking for could not be found.',
+      robots: 'noindex, nofollow',
     };
   }
 
-  return {
-    title: `${university.university_name} Course Reviews`,
-  };
+  return generateUniversityMetadata(university.university_name, resolvedParams.universityTag);
 }
 
 export default async function Page({ params }: UniversityPageProps) {

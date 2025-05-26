@@ -1,7 +1,10 @@
-'use client';
 import React from 'react';
+import { Metadata } from 'next';
+import { generateMetadata, SEO_CONFIGS } from '@/lib/seo';
 
-export default function Home() {
+export const metadata: Metadata = generateMetadata(SEO_CONFIGS.guidelines);
+
+export default function Guidelines() {
   return (
     <div className="flex justify-center gap-4 p-8 sm:p-20 h-screen">
       <div className="flex flex-col gap-4 max-w-3xl">

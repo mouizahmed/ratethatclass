@@ -1,9 +1,12 @@
-'use client';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import React from 'react';
+import { Metadata } from 'next';
+import { generateMetadata, SEO_CONFIGS } from '@/lib/seo';
 
-export default function Home() {
+export const metadata: Metadata = generateMetadata(SEO_CONFIGS.about);
+
+export default function About() {
   return (
     <div className="flex flex-col items-center gap-4 p-8 sm:p-20 h-screen ">
       <div className="max-w-3xl">
@@ -16,7 +19,7 @@ export default function Home() {
           <Link href="https://www.ratemyprofessors.com" className="text-[#4b5563] hover:underline underline-offset-4">
             Rate My Professors
           </Link>{' '}
-          offer insights into professors, they often fall short when it comes to course-specific information. That’s why
+          offer insights into professors, they often fall short when it comes to course-specific information. That's why
           I created Rate That Class—to provide a dedicated platform where students can share reviews and advice, helping
           others make informed decisions about their course selections.
         </p>

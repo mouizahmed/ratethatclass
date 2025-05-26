@@ -8,6 +8,7 @@ import { sortingOptions } from '@/lib/constants';
 import { CourseReviews } from '@/components/display/CourseReviews';
 import { decodeCourseId } from '@/lib/url';
 import { notFound } from 'next/navigation';
+import { generateCourseMetadata } from '@/lib/seo';
 
 type PageProps = {
   params: Promise<{
@@ -25,12 +26,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!course.course_id) {
     return {
       title: 'Course Not Found',
+      description: 'The course you are looking for could not be found.',
+      robots: 'noindex, nofollow',
     };
   }
 
-  return {
-    title: `${course.course_tag} - ${university.university_name} Course Reviews`,
-  };
+  return generateCourseMetadata(
+    course.course_tag,
+    course.course_name || '',
+    university.university_name,
+    resolvedParams.universityTag,
+    resolvedParams.courseID
+  );
 }
 
 export default async function Page({ params }: PageProps) {
