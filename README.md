@@ -163,4 +163,4 @@ This application is designed to run with Firebase and cannot be run locally due 
 
 # License
 
-[MIT License](https://github.com/mouizahmed/ratethatclass/blob/master/LICENSE)
+[AGPL]([https://github.com/mouizahmed/ratethatclass/blob/master/LICENSE](https://github.com/mouizahmed/ratethatclass/blob/master/LICENSE))
