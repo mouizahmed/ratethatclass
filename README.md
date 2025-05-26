@@ -1,12 +1,43 @@
-# RateThatClass | University Course Reviews (IN PROGRESS)
+# Rate That Class
 
-A web application that allows users to create course reviews for their respective post-secondary schools and ease their struggles within the course selection process.
+A web application that allows users to anonymously create course reviews for their respective post-secondary schools and ease their struggles within the course selection process.
 
-This is a tool that students can use to evaluate courses and find courses that meet their expectations. Each review is categorized by its school, department, course, and professor. If any of these categories are not listed, the user can add them to the database in order to complete their course review.
+Try it now: [https://ratethatclass.com/](https://ratethatclass.com/)
+
+# Overview
+
+This is a web application that students can use to evaluate courses and find courses that meet their expectations. Each review is categorized by its school, department, course, and professor. If any of these categories are not listed, the user can add them to the database in order to complete their course review.
 
 Each course review is anonymous and can be deleted at any time if the user made the review while signed in. Users can also upvote or downvote other reviews anonymously.
 
 This web application only allows validated post-secondary students to register which is done through verifying emails from a set of whitelisted domains and a confirmation email.
+
+# Features
+
+- 🎓 **Anonymous Course Reviews**: Create detailed, anonymous reviews for courses at your post-secondary institution
+- 📊 **4-Point Rating System**: Rate courses on Overall Quality, Easiness, Interest Level, and Usefulness (1-5 scale)
+- 🏫 **University-Organized & Smart Filtering**: Browse reviews by university, department, course, and professor with filtering by term, delivery method, and sorting options
+- 🔐 **Verified Students Only**: Email domain verification ensures only legitimate post-secondary students can join
+- 🗳️ **Community Voting**: Upvote and downvote reviews to highlight the most helpful content
+- 📱 **Mobile-Friendly**: Works seamlessly on desktop and mobile devices
+- 💬 **Detailed Reviews**: Share insights about course content, professors, and advice for future students, plus include grade, workload, textbook usage, and evaluation methods
+- 👤 **Review Management**: View and manage your own reviews from your profile
+- 🚨 **Report System**: Report inappropriate content to maintain community standards
+- 📈 **Live Statistics**: Real-time course ratings and review counts
+
+# Usage Flow
+
+1. **Register & Verify**: Sign up with your university email and verify your account
+2. **Browse Universities**: Select your post-secondary institution from the list
+3. **Explore Departments**: Navigate to your department and find your course
+4. **Read Reviews**: View existing reviews with ratings, comments, and filtering options
+5. **Create Review**: Add your own anonymous review with ratings and detailed feedback
+   - Rate the course on 4 dimensions (Overall, Easiness, Interest, Usefulness)
+   - Enter course details (professor, grade, delivery method, workload, textbook usage)
+   - Write comments about course content, professor, and advice for future students
+   - Review and confirm your submission
+6. **Engage Community**: Vote on helpful reviews and manage your contributions
+7. **Discover Courses**: Use insights to make informed decisions about future course selections
 
 # Tools & Frameworks
 
