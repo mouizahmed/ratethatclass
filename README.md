@@ -17,13 +17,7 @@ Each course review is anonymous and can be deleted at any time if the user made 
 
 This web application only allows validated post-secondary students to register which is done through verifying emails from a set of whitelisted domains and a confirmation email.
 
-<div align="center">
-    <img alt="Home Page" src="docs/home_page.png" />
-</div>
-
-<div align="center">
-    <img alt="University Page" src="docs/university_page.png" />
-</div>
+![Home Page](docs/home_page.png)
 
 # Features
 
@@ -60,6 +54,7 @@ rate-that-class/
 ├── client/                 # Next.js frontend application
 │   ├── src/
 │   │   ├── app/           # Next.js app router pages
+│   │   ├── components/    # Reusable UI components
 │   │   │   ├── auth/      # Authentication forms
 │   │   │   ├── common/    # Shared components
 │   │   │   ├── display/   # Data display components
