@@ -17,6 +17,8 @@ Each course review is anonymous and can be deleted at any time if the user made 
 
 This web application only allows validated post-secondary students to register which is done through verifying emails from a set of whitelisted domains and a confirmation email.
 
+![Home Page](docs/home_page.png)
+
 # Features
 
 - 🎓 **Anonymous Course Reviews**: Create detailed, anonymous reviews for courses at your post-secondary institution
