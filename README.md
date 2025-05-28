@@ -19,6 +19,8 @@ This web application only allows validated post-secondary students to register w
 
 ![Home Page](docs/home_page.png)
 
+![University Page](docs/university_page.png)
+
 # Features
 
 - 🎓 **Anonymous Course Reviews**: Create detailed, anonymous reviews for courses at your post-secondary institution
