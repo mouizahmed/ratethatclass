@@ -16,6 +16,7 @@ Try it now: [https://ratethatclass.com/](https://ratethatclass.com/)
 - Create management account functionality
    - Handle reports.
    - Adding universities + file upload.
+   - View logs of last cron job / execute cron job (manage schedules + clusters)
 - Develop backend server test cases.
 
 # Overview
