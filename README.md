@@ -15,7 +15,7 @@ Try it now: [https://ratethatclass.com/](https://ratethatclass.com/)
 - Create management account functionality
    - Handle reports.
    - Adding universities + file upload.
-   - Websocket connection on client side to run scraper with streamed updated.
+   - Websocket connection on client side to run scraper with streamed updates.
 - Develop backend API documentation.
 - Develop backend server test cases.
 
