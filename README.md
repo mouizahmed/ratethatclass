@@ -9,6 +9,14 @@ A web application that allows users to anonymously create course reviews for the
 
 Try it now: [https://ratethatclass.com/](https://ratethatclass.com/)
 
+# Current Development
+- Finish and optimize university python scraper.
+- Execute scraper to populate universities.
+- Create management account functionality
+   - Handle reports
+   - Adding universities + file upload
+   - Websocket connection on client side to run scraper with streamed updated.
+
 # Overview
 
 This is a web application that students can use to evaluate courses and find courses that meet their expectations. Each review is categorized by its school, department, course, and professor. If any of these categories are not listed, the user can add them to the database in order to complete their course review.
