@@ -13,9 +13,11 @@ Try it now: [https://ratethatclass.com/](https://ratethatclass.com/)
 - Finish and optimize university python scraper.
 - Execute scraper to populate universities.
 - Create management account functionality
-   - Handle reports
-   - Adding universities + file upload
+   - Handle reports.
+   - Adding universities + file upload.
    - Websocket connection on client side to run scraper with streamed updated.
+- Develop backend API documentation.
+- Develop backend server test cases.
 
 # Overview
 
