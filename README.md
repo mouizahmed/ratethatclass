@@ -102,10 +102,6 @@ rate-that-class/
 └── README.md              # Project documentation
 ```
 
-# Database ERD
-
-![ERD](/docs/erd.png)
-
 # Tech Stack
 
 ## Frontend
