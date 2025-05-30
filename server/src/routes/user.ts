@@ -14,8 +14,6 @@ import { auth } from '../../firebase/firebase';
 const router = express.Router();
 
 router.post('/register', async (req: AuthenticatedRequest, res: Response) => {
-  35;
-
   const { display_name, email, password } = req.body;
 
   try {
@@ -27,10 +25,21 @@ router.post('/register', async (req: AuthenticatedRequest, res: Response) => {
     });
     await pool.query(addUser, [newUser.uid, display_name.trim(), email.trim()]);
     const token = await auth.createCustomToken(newUser.uid);
-    res.json({ token: token });
+
+    res.json({
+      success: true,
+      message: 'User registered successfully',
+      data: { token: token },
+      meta: {},
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: {},
+      meta: {},
+    });
   }
 });
 

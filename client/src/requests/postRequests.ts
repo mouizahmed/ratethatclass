@@ -17,8 +17,9 @@ export async function registerAccount(displayName: string, email: string, passwo
       password: password,
     })
     .catch((error) => {
+      console.log('ASDASDAD');
       console.log(error);
-      throw new Error('Registration failed. Please try again.');
+      throw new Error(error.response.data.message || 'Registration failed. Please try again.');
     });
 
   if (!response.data.success) {
