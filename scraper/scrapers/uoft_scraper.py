@@ -1,7 +1,6 @@
 from typing import Dict, List, Tuple, Optional, Any
 import time
 import random
-import re
 from .base_scraper import BaseScraper, logger
 
 try:
@@ -73,36 +72,55 @@ class UofTScraper(BaseScraper):
 
     def scrapeCourses(self, course_elements: List) -> List[Dict[str, str]]:
         department_courses = []
-        for course in course_elements:
+        for course_container in course_elements:
             try:
-                course_text = course.text.strip()
+                # Try multiple selectors for course code
+                h3_element = None
+                for selector in ['h3.courseTitle.courseCode', 'h3[class*="courseCode"]', 'h3']:
+                    try:
+                        h3_element = course_container.find_element(By.CSS_SELECTOR, selector)
+                        break
+                    except:
+                        continue
                 
-                if course_text:
-                    course_code_match = re.match(r'^([A-Z]{3}\d{3}[HY]\d)', course_text)
+                if not h3_element:
+                    logger.debug("Skipping course: No h3 course code element found")
+                    continue
                     
-                    if course_code_match:
-                        course_tag = course_code_match.group(1)
-                        course_name = course_text[len(course_tag):].strip()
-                        course_name = re.sub(r'^[\s\-:]+', '', course_name)
-                        
-                        department_courses.append({
-                            "courseTag": course_tag,
-                            "courseName": course_name
-                        })
-                    else:
-                        # If no clear course code pattern, try to split by common separators
-                        parts = re.split(r'[\-:]', course_text, 1)
-                        if len(parts) >= 2:
-                            course_tag = parts[0].strip()
-                            course_name = parts[1].strip()
-                            
-                            department_courses.append({
-                                "courseTag": course_tag,
-                                "courseName": course_name
-                            })
-                        
+                course_code_text = h3_element.text.strip()
+                
+                course_tag = course_code_text.split()[0] if course_code_text else ""
+                
+                if not course_tag:
+                    logger.debug(f"Skipping course: Empty course tag from text: '{course_code_text}'")
+                    continue
+                
+                h4_element = None
+                for selector in ['h4.courseTitle', 'h4[class*="courseTitle"]', 'h4']:
+                    try:
+                        h4_element = course_container.find_element(By.CSS_SELECTOR, selector)
+                        break
+                    except:
+                        continue
+                
+                if not h4_element:
+                    logger.debug(f"Skipping course {course_tag}: No h4 course name element found")
+                    continue
+                    
+                course_name = h4_element.text.strip()
+                
+                if course_name:
+                    department_courses.append({
+                        "courseTag": course_tag,
+                        "courseName": course_name
+                    })
+                else:
+                    logger.debug(f"Skipping course {course_tag}: Empty course name")
+                    
             except Exception as e:
-                logger.error(f"Error scraping course: {e}")
+                logger.debug(f"Error scraping course: {e}")
+                continue
+                
         return department_courses
 
     def scrapeDepartment(self, department_element: Any, department_name: str, max_retries: int = 2) -> None:
@@ -121,7 +139,7 @@ class UofTScraper(BaseScraper):
                     # Click on the main content area to close dropdown
                     body = self.driver.find_element(By.TAG_NAME, "body")
                     self.driver.execute_script("arguments[0].click();", body)
-                    time.sleep(2)  # Wait for dropdown to close and courses to load
+                    time.sleep(2)
                 except Exception as e:
                     logger.warning(f"Could not close dropdown: {e}")
                 
@@ -131,32 +149,26 @@ class UofTScraper(BaseScraper):
                 while True:
                     logger.info(f"Scraping page {page_number} for department: {department_name}")
                     
-                    try:
-                        course_elements = self.wait.until(
-                            EC.presence_of_all_elements_located(
-                                (By.CSS_SELECTOR, 'h3.courseTitle.courseCode, .courseTitle.courseCode')
+                    # Try multiple selectors for course containers
+                    course_elements = []
+                    selectors = [
+                        'div.col.hover.py-2.pl-0',
+                        '.course-container', 
+                        '.course-item',
+                        'div[data-v-e58d897e]',
+                        'div.col'
+                    ]
+                    
+                    for selector in selectors:
+                        try:
+                            course_elements = self.wait.until(
+                                EC.presence_of_all_elements_located((By.CSS_SELECTOR, selector))
                             )
-                        )
-                        logger.info(f"Found {len(course_elements)} course elements on page {page_number}")
-                    except TimeoutException:
-                        logger.warning("courseTitle selector didn't work, trying fallback selectors")
-                        course_elements = []
-                        fallback_selectors = [
-                            'h3[class*="courseTitle"]',
-                            '.course-item',
-                            '.v-list-item',
-                            '[data-course]',
-                            'h3[data-v-e58d897e]'
-                        ]
-                        
-                        for selector in fallback_selectors:
-                            try:
-                                course_elements = self.driver.find_elements(By.CSS_SELECTOR, selector)
-                                if course_elements:
-                                    logger.info(f"Found courses using fallback selector: {selector}")
-                                    break
-                            except:
-                                continue
+                            if course_elements:
+                                logger.info(f"Found {len(course_elements)} course elements with: {selector}")
+                                break
+                        except TimeoutException:
+                            continue
                     
                     if not course_elements:
                         logger.warning(f"No courses found on page {page_number} for {department_name}")
@@ -171,7 +183,7 @@ class UofTScraper(BaseScraper):
                         logger.info(f"Found next page button, navigating to page {page_number + 1}")
                         try:
                             self.driver.execute_script("arguments[0].click();", next_page_button)
-                            time.sleep(2)  # Wait for page to load
+                            time.sleep(2)
                             page_number += 1
                         except Exception as e:
                             logger.error(f"Error clicking next page button: {e}")
@@ -202,41 +214,32 @@ class UofTScraper(BaseScraper):
 
     def findNextPage(self) -> Optional[Any]:
         try:
-            # Look for the "Next page" button in the v-data-footer
+            # Try multiple pagination selectors
+            selectors = [
+                'button[aria-label="Next page"]:not([disabled]):not(.v-btn--disabled)',
+                'button[aria-label*="next"]:not([disabled])',
+                '.pagination .next:not([disabled])',
+                'a[aria-label*="next"]:not([disabled])'
+            ]
+            
+            for selector in selectors:
+                try:
+                    next_button = self.driver.find_element(By.CSS_SELECTOR, selector)
+                    if next_button and next_button.is_enabled():
+                        return next_button
+                except NoSuchElementException:
+                    continue
+            
+            # Try XPath fallback
             try:
-                next_button = self.driver.find_element(
-                    By.CSS_SELECTOR, 
-                    'button[aria-label="Next page"]:not([disabled]):not(.v-btn--disabled)'
-                )
+                next_button = self.driver.find_element(By.XPATH, '//button[@aria-label="Next page" and not(@disabled)]')
                 if next_button and next_button.is_enabled():
-                    logger.info("Found enabled Next page button")
                     return next_button
             except NoSuchElementException:
                 pass
             
-            # Fallback: try other common pagination patterns
-            try:
-                next_button = self.driver.find_element(By.CSS_SELECTOR, 'a[aria-label*="next"]:not([disabled])')
-                if next_button and next_button.is_enabled():
-                    return next_button
-            except NoSuchElementException:
-                try:
-                    next_button = self.driver.find_element(By.CSS_SELECTOR, '.pagination .next:not([disabled])')
-                    if next_button and next_button.is_enabled():
-                        return next_button
-                except NoSuchElementException:
-                    try:
-                        next_button = self.driver.find_element(By.XPATH, '//a[contains(text(), "Next") and not(@disabled)]')
-                        if next_button and next_button.is_enabled():
-                            return next_button
-                    except NoSuchElementException:
-                        pass
-            
-            logger.info("No enabled next page button found - likely on last page or single page")
             return None
             
-        except (NoSuchElementException, ValueError, TimeoutException):
-            return None
         except Exception as e:
             logger.error(f"Error finding next page: {e}")
             return None
@@ -278,7 +281,8 @@ class UofTScraper(BaseScraper):
                     logger.error(f"Error scraping department {department_name}: {e}")
                     continue
             
-            logger.info(f"Scraping completed. Found {len(self.department_courses)} departments")
+            total_courses = sum(len(courses) for courses in self.department_courses.values())
+            logger.info(f"Scraping completed. Found {len(self.department_courses)} departments with {total_courses} total courses")
             return self.department_courses
             
         except Exception as e:

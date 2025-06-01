@@ -66,20 +66,22 @@ class GuelphScraper(BaseScraper):
                 if span_element:
                     course_text = span_element.text.strip()
                     
+                    # Remove credits part if it exists (text in parentheses at the end)
                     if ' (' in course_text and course_text.endswith(')'):
-                        course_info, credits_part = course_text.rsplit(' (', 1)
-                        credits = credits_part.rstrip(')')
+                        course_info = course_text.rsplit(' (', 1)[0]
+                    else:
+                        course_info = course_text
+                    
+                    # Split to get course tag and course name
+                    parts = course_info.split(' ', 1)
+                    if len(parts) >= 2:
+                        course_tag = parts[0].strip()
+                        course_name = parts[1].strip()
                         
-                        parts = course_info.split(' ', 1)
-                        if len(parts) >= 2:
-                            course_tag = parts[0].strip()
-                            course_name = parts[1].strip()
-                            
-                            department_courses.append({
-                                "courseTag": course_tag,
-                                "courseName": course_name,
-                                "credits": credits
-                            })
+                        department_courses.append({
+                            "courseTag": course_tag,
+                            "courseName": course_name
+                        })
                         
             except Exception as e:
                 logger.error(f"Error scraping course: {e}")
@@ -91,6 +93,11 @@ class GuelphScraper(BaseScraper):
         while retry_count < max_retries:
             try:
                 logger.info(f"Scraping department: {department_name}")
+                
+                # Navigate to the department page
+                logger.info(f"Navigating to: {department_link}")
+                self.driver.get(department_link)
+                time.sleep(2)
                 
                 course_elements = self.wait.until(
                     EC.presence_of_all_elements_located(
@@ -173,11 +180,6 @@ class GuelphScraper(BaseScraper):
             for i, (link, name) in enumerate(departments, 1):
                 try:
                     logger.info(f"Scraping department: {name} ({i}/{total})")
-                    
-                    logger.info(f"Navigating to: {link}")
-                    self.driver.get(link)
-                    
-                    time.sleep(2)
                     
                     self.scrapeDepartment(link, name)
                     
