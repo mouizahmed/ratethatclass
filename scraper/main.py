@@ -13,7 +13,8 @@ from scrapers import (
     TMUScraper,
     WaterlooScraper,
     QueensScraper,
-    GuelphScraper
+    GuelphScraper,
+    UofTScraper
 )
 from scrapers.utils import run_scraper
 from scrapers.base_scraper import logger
@@ -30,8 +31,9 @@ def main():
         # McMasterScraper,
         # UWOScraper,
         # TMUScraper,
-        # QueensScraper,
-        GuelphScraper
+        # QueensScraper, 
+        # GuelphScraper,
+        UofTScraper
     ]
     
     results = {}
