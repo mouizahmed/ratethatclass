@@ -1,9 +1,9 @@
 {
   "university_name": "University of Waterloo",
   "scraper_used": "WaterlooScraper",
-  "scrape_timestamp": "2025-05-26 18:21:40",
+  "scrape_timestamp": "2025-05-31 23:54:44",
   "total_departments": 120,
-  "total_courses": 1755,
+  "total_courses": 1758,
   "departments": {
     "ACTSC": [
       {
@@ -2425,6 +2425,10 @@
         "courseName": "Computational Intelligence"
       },
       {
+        "courseTag": "ECE 493",
+        "courseName": "Special Topics"
+      },
+      {
         "courseTag": "ECE 498A",
         "courseName": "Engineering Design Project"
       },
@@ -2617,6 +2621,10 @@
       {
         "courseTag": "ENBUS 306",
         "courseName": "Research Design"
+      },
+      {
+        "courseTag": "ENBUS 309",
+        "courseName": "Behaviour Change & Sust"
       },
       {
         "courseTag": "ENBUS 315",
@@ -2957,6 +2965,10 @@
       {
         "courseTag": "ENVE 400",
         "courseName": "Design Project 1"
+      },
+      {
+        "courseTag": "ENVE 481",
+        "courseName": "Open Channel Hydraulics"
       },
       {
         "courseTag": "ENVE 498",
