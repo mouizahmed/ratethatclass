@@ -8,6 +8,7 @@ from .uwo_scraper import UWOScraper
 from .tmu_scraper import TMUScraper
 from .waterloo_scraper import WaterlooScraper
 from .queens_scraper import QueensScraper
+from .guelph_scraper import GuelphScraper
 
 __all__ = [
     'BaseScraper',
@@ -19,5 +20,6 @@ __all__ = [
     'UWOScraper',
     'TMUScraper',
     'WaterlooScraper',
-    'QueensScraper'
+    'QueensScraper',
+    'GuelphScraper'
 ] 
