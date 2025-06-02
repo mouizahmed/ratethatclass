@@ -62,7 +62,6 @@ class CarletonUScraper(BaseScraper):
                 url = f"{self.BASE_URL}{department_code}"
                 logger.info(f"Requesting URL: {url} (Attempt {attempt+1}/{max_retries})")
                 
-                # Add a user agent to look more like a browser
                 headers = {
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
                 }
@@ -97,7 +96,7 @@ class CarletonUScraper(BaseScraper):
                         logger.error(f"Error parsing course: {e}")
                         continue
                 
-                # If we got here without an exception, we're done
+                # fin
                 return
                     
             except (requests.ConnectionError, requests.Timeout) as e:
@@ -140,7 +139,6 @@ class CarletonUScraper(BaseScraper):
                         successful_departments += 1
                         logger.info(f"Found {new_course_count} courses for department {name}")
                     
-                    # Add a small delay between departments to avoid overwhelming the server
                     time.sleep(0.5)
                     
                 except Exception as e:
@@ -148,7 +146,6 @@ class CarletonUScraper(BaseScraper):
                     continue
             
             logger.info(f"Successfully scraped {successful_departments}/{total} departments")
-            print(len(self.department_courses))
             return self.department_courses
         except Exception as e:
             logger.error(f"Error in run: {e}")

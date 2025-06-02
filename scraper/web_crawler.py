@@ -338,7 +338,6 @@ class OttawaUScraper(BaseScraper):
         try:
             departments = self.get_department_options()
             logger.info(f"Found {len(departments)} departments")
-            print(departments)
             
             total = len(departments)
             successful_departments = 0
@@ -1128,7 +1127,7 @@ def save_to_json(university_name, departments, scraper_name):
 
 def main():
     scrapers = [
-        WaterlooScraper,
+        OttawaUScraper,
     ]
     
     results = {}

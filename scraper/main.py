@@ -2,8 +2,8 @@
 
 from scrapers import (
     CarletonUScraper,
-    OttawaUScraper,
-    YorkUScraper,
+    OttawaScraper,
+    YorkScraper,
     OntarioTechScraper,
     McMasterScraper,
     UWOScraper,
@@ -17,19 +17,18 @@ from scrapers.utils import run_scraper
 from scrapers.base_scraper import logger
 
 def main():
-    """Main function to run all scrapers."""
     scrapers = [
         # WaterlooScraper,
         # CarletonUScraper,
-        # OttawaUScraper,
-        # YorkUScraper,
+        # OttawaScraper,
+        # YorkScraper,
         # OntarioTechScraper,
         # McMasterScraper,
         # UWOScraper,
         # TMUScraper,
         # QueensScraper, 
         # GuelphScraper,
-        # UofTScraper
+        UofTScraper
     ]
     
     results = {}

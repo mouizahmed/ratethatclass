@@ -1,24 +1,11 @@
 from typing import Dict, List, Tuple, Optional, Any
 import time
 import random
-import re
 from .base_scraper import BaseScraper, logger
 
-# Additional imports based on what each scraper needs
-try:
-    import requests
-    from bs4 import BeautifulSoup
-except ImportError:
-    pass
-
-try:
-    from selenium.webdriver.common.by import By
-    from selenium.webdriver.support.ui import Select
-    from selenium.webdriver.support import expected_conditions as EC
-    from selenium.common.exceptions import TimeoutException, NoSuchElementException
-except ImportError:
-    pass
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 class GuelphScraper(BaseScraper):
     BASE_URL = "https://colleague-ss.uoguelph.ca/Student/Courses"
@@ -87,18 +74,39 @@ class GuelphScraper(BaseScraper):
                 logger.error(f"Error scraping course: {e}")
         return department_courses
 
+    def find_next_page(self) -> Optional[Any]:
+        try:
+            # Look for the next page button directly
+            next_button = self.wait.until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, "[id='course-results-next-page'], .next-page, [aria-label='Next page']"))
+            )
+            
+            # Check if button is enabled and clickable
+            if next_button and not next_button.get_attribute('disabled'):
+                return next_button
+            return None
+            
+        except TimeoutException:
+            return None
+        except Exception as e:
+            logger.error(f"Error finding next page: {e}")
+            return None
+
     def scrape_department(self, department_link: str, department_name: str, max_retries: int = 2) -> None:
         retry_count = 0
+        page_number = 1
         
         while retry_count < max_retries:
             try:
-                logger.info(f"Scraping department: {department_name}")
+                logger.info(f"Scraping department: {department_name} - Page {page_number}")
                 
-                # Navigate to the department page
-                logger.info(f"Navigating to: {department_link}")
-                self.driver.get(department_link)
-                time.sleep(2)
+                # Navigate to department page only on first page
+                if page_number == 1:
+                    logger.info(f"Navigating to: {department_link}")
+                    self.driver.get(department_link)
+                    time.sleep(2)
                 
+                # Wait for course elements
                 course_elements = self.wait.until(
                     EC.presence_of_all_elements_located(
                         (By.CSS_SELECTOR, 'h3 span[id^="course-"]')
@@ -106,7 +114,7 @@ class GuelphScraper(BaseScraper):
                 )
                 
                 if not course_elements:
-                    logger.warning(f"No courses found for {department_name}")
+                    logger.warning(f"No courses found for {department_name} on page {page_number}")
                     break
                 
                 h3_elements = [elem.find_element(By.XPATH, './..') for elem in course_elements]
@@ -118,13 +126,15 @@ class GuelphScraper(BaseScraper):
                     else:
                         self.department_courses[department_name] = courses
                 
-                logger.info(f"Found {len(courses)} courses on current page for {department_name}")
+                logger.info(f"Found {len(courses)} courses on page {page_number} for {department_name}")
 
+                # Try to find and click next page
                 next_page = self.find_next_page()
                 if not next_page:
                     break
 
                 self.driver.execute_script("arguments[0].click();", next_page)
+                page_number += 1
                 time.sleep(2)
                 
             except TimeoutException:
@@ -138,34 +148,6 @@ class GuelphScraper(BaseScraper):
                 logger.error(f"Error in scrape_department for {department_name}: {e}")
                 break
 
-    def find_next_page(self) -> Optional[Any]:
-        try:
-            # Check if pagination exists
-            total_pages_element = self.driver.find_element(By.ID, "course-results-total-pages")
-            current_page_element = self.driver.find_element(By.ID, "course-results-current-page")
-            
-            if total_pages_element and current_page_element:
-                total_pages = int(total_pages_element.text.strip())
-                current_page = int(current_page_element.get_attribute('value') or '1')
-                
-                logger.info(f"Pagination: Page {current_page} of {total_pages}")
-                
-                if current_page < total_pages:
-                    # Find the next page button
-                    next_button = self.driver.find_element(By.ID, "course-results-next-page")
-                    
-                    # Check if button is enabled (not disabled)
-                    if not next_button.get_attribute('disabled'):
-                        return next_button
-                        
-            return None
-            
-        except (NoSuchElementException, ValueError, TimeoutException):
-            return None
-        except Exception as e:
-            logger.error(f"Error finding next page: {e}")
-            return None
-    
     def run(self) -> Dict[str, List[Dict[str, str]]]:
         try:
             self.driver.get(self.BASE_URL)

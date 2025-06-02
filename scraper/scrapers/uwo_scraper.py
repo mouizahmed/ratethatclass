@@ -1,31 +1,15 @@
-from typing import Dict, List, Tuple, Optional, Any
-import time
-import random
+from typing import Dict, List
 import re
 from .base_scraper import BaseScraper, logger
 
-# Additional imports based on what each scraper needs
-try:
-    import requests
-    from bs4 import BeautifulSoup
-except ImportError:
-    pass
-
-try:
-    from selenium.webdriver.common.by import By
-    from selenium.webdriver.support.ui import Select
-    from selenium.webdriver.support import expected_conditions as EC
-    from selenium.common.exceptions import TimeoutException, NoSuchElementException
-except ImportError:
-    pass
-
+from selenium.webdriver.common.by import By
 
 class UWOScraper(BaseScraper):
     BASE_URL = "https://www.westerncalendar.uwo.ca/Courses.cfm"
     
     def __init__(self, headless: bool = True):
         super().__init__(headless=headless)
-        self.university_name = "University of Western Ontario"
+        self.university_name = "University of Western"
 
     def get_department_links(self, departments) -> Dict[str, str]:
         department_links = {}
@@ -71,6 +55,10 @@ class UWOScraper(BaseScraper):
                     logger.info(f"Scraping department: {name} ({i}/{total})")
                     self.driver.get(link)
                     self.scrape_courses(name)
+                    
+                    courses_count = len(self.department_courses.get(name, []))
+                    logger.info(f"Scraped {courses_count} courses for {name}")
+                    
                 except Exception as e:
                     logger.error(f"Error processing department {name}: {e}")
                     continue

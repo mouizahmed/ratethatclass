@@ -1,0 +1,7281 @@
+{
+  "university_name": "University of Waterloo",
+  "scraper_used": "WaterlooScraper",
+  "scrape_timestamp": "2025-06-01 22:14:51",
+  "total_departments": 120,
+  "total_courses": 1758,
+  "departments": {
+    "ACTSC": [
+      {
+        "course_tag": "ACTSC 221",
+        "course_name": "Intro Fin Math (Non-Spec)"
+      },
+      {
+        "course_tag": "ACTSC 231",
+        "course_name": "Intro Financial Mathematics"
+      },
+      {
+        "course_tag": "ACTSC 232",
+        "course_name": "Life Contingencies 1"
+      },
+      {
+        "course_tag": "ACTSC 331",
+        "course_name": "Life Contingencies 2"
+      },
+      {
+        "course_tag": "ACTSC 363",
+        "course_name": "Casualty & Hlth Ins Math 1"
+      },
+      {
+        "course_tag": "ACTSC 372",
+        "course_name": "Investment Sci & Corporate Fin"
+      },
+      {
+        "course_tag": "ACTSC 431",
+        "course_name": "Casualty & Hlth Insur Math 2"
+      },
+      {
+        "course_tag": "ACTSC 445",
+        "course_name": "Quantitative Ent Risk Mgmt"
+      },
+      {
+        "course_tag": "ACTSC 446",
+        "course_name": "Math of Financial Markets"
+      },
+      {
+        "course_tag": "ACTSC 489",
+        "course_name": "Advanced Topics"
+      }
+    ],
+    "AE": [
+      {
+        "course_tag": "AE 100",
+        "course_name": "Concepts Studio"
+      },
+      {
+        "course_tag": "AE 101",
+        "course_name": "History of Built Environment"
+      },
+      {
+        "course_tag": "AE 104",
+        "course_name": "Mechanics 1"
+      },
+      {
+        "course_tag": "AE 115",
+        "course_name": "Linear Algebra"
+      },
+      {
+        "course_tag": "AE 205",
+        "course_name": "Solid Mechanics 2"
+      },
+      {
+        "course_tag": "AE 223",
+        "course_name": "Diff Equations & Balance Laws"
+      },
+      {
+        "course_tag": "AE 225",
+        "course_name": "Env Building Systems Studio"
+      },
+      {
+        "course_tag": "AE 265",
+        "course_name": "Structure & Props of Materials"
+      },
+      {
+        "course_tag": "AE 299",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "AE 572",
+        "course_name": "Building Energy Analysis"
+      }
+    ],
+    "AFM": [
+      {
+        "course_tag": "AFM 101",
+        "course_name": "Intro Financial Accounting"
+      },
+      {
+        "course_tag": "AFM 101",
+        "course_name": "Intro Financial Accounting"
+      },
+      {
+        "course_tag": "AFM 102",
+        "course_name": "Intro Managerial Accounting"
+      },
+      {
+        "course_tag": "AFM 111",
+        "course_name": "Prof Pathways & Prob-Solving"
+      },
+      {
+        "course_tag": "AFM 112",
+        "course_name": "Analytic Methods for Bus 1"
+      },
+      {
+        "course_tag": "AFM 123",
+        "course_name": "Accounting Info for Managers"
+      },
+      {
+        "course_tag": "AFM 127",
+        "course_name": "Intro Global Capital Markets"
+      },
+      {
+        "course_tag": "AFM 131",
+        "course_name": "Intro North American Bus"
+      },
+      {
+        "course_tag": "AFM 131",
+        "course_name": "Intro North American Bus"
+      },
+      {
+        "course_tag": "AFM 132",
+        "course_name": "Intro Business Stages"
+      },
+      {
+        "course_tag": "AFM 191",
+        "course_name": "Reporting & Decision Making 1"
+      },
+      {
+        "course_tag": "AFM 205",
+        "course_name": "Intro Financial Services"
+      },
+      {
+        "course_tag": "AFM 206",
+        "course_name": "Intro Tax"
+      },
+      {
+        "course_tag": "AFM 207",
+        "course_name": "Intro Performance Analytics"
+      },
+      {
+        "course_tag": "AFM 208",
+        "course_name": "Intro Assurance"
+      },
+      {
+        "course_tag": "AFM 212",
+        "course_name": "Financial Analysis & Planning"
+      },
+      {
+        "course_tag": "AFM 231",
+        "course_name": "Business Law"
+      },
+      {
+        "course_tag": "AFM 272",
+        "course_name": "Global Capital Markets"
+      },
+      {
+        "course_tag": "AFM 273",
+        "course_name": "Fin Instruments & Cap Markets"
+      },
+      {
+        "course_tag": "AFM 274",
+        "course_name": "Intro Corporate Finance"
+      },
+      {
+        "course_tag": "AFM 276",
+        "course_name": "Financial Statement Analysis"
+      },
+      {
+        "course_tag": "AFM 291",
+        "course_name": "Intmd Financial Accounting 1"
+      },
+      {
+        "course_tag": "AFM 321",
+        "course_name": "Pers Financial Planning & Tax"
+      },
+      {
+        "course_tag": "AFM 322",
+        "course_name": "Derivative Securities"
+      },
+      {
+        "course_tag": "AFM 323",
+        "course_name": "Quantitative Foundations"
+      },
+      {
+        "course_tag": "AFM 326",
+        "course_name": "Student Venture Fund: Analyst"
+      },
+      {
+        "course_tag": "AFM 328",
+        "course_name": "Investm Mgmt: Jr Analyst"
+      },
+      {
+        "course_tag": "AFM 329",
+        "course_name": "Investm Mgmt: Sr Analyst"
+      },
+      {
+        "course_tag": "AFM 333",
+        "course_name": "International Business"
+      },
+      {
+        "course_tag": "AFM 335",
+        "course_name": "Bus Law for Fin Managers"
+      },
+      {
+        "course_tag": "AFM 341",
+        "course_name": "Accounting Information Systems"
+      },
+      {
+        "course_tag": "AFM 346",
+        "course_name": "Predictive Analytics Applic"
+      },
+      {
+        "course_tag": "AFM 347",
+        "course_name": "Cybersecurity"
+      },
+      {
+        "course_tag": "AFM 373",
+        "course_name": "Corporate Fin: Cases & Applic"
+      },
+      {
+        "course_tag": "AFM 382",
+        "course_name": "Cost Management Systems"
+      },
+      {
+        "course_tag": "AFM 415",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "AFM 417",
+        "course_name": "Topics: Accounting"
+      },
+      {
+        "course_tag": "AFM 425",
+        "course_name": "Fixed Income Securities"
+      },
+      {
+        "course_tag": "AFM 426",
+        "course_name": "Student Venture Fund: Assoc"
+      },
+      {
+        "course_tag": "AFM 428",
+        "course_name": "Investm Mgmt: Jr Portfolio Mgr"
+      },
+      {
+        "course_tag": "AFM 429",
+        "course_name": "Investm Mgmt: Sr Portfolio Mgr"
+      },
+      {
+        "course_tag": "AFM 433",
+        "course_name": "Business Strategy"
+      },
+      {
+        "course_tag": "AFM 434",
+        "course_name": "Corp Governance & Risk Mgmt"
+      },
+      {
+        "course_tag": "AFM 445",
+        "course_name": "Tech Assur & Audit Analytics"
+      },
+      {
+        "course_tag": "AFM 462",
+        "course_name": "Topics: Taxation"
+      },
+      {
+        "course_tag": "AFM 463",
+        "course_name": "Intro US Taxation"
+      },
+      {
+        "course_tag": "AFM 470",
+        "course_name": "Fin Mgmt: High Growth Comp"
+      },
+      {
+        "course_tag": "AFM 477",
+        "course_name": "Mergers & Acquisitions"
+      },
+      {
+        "course_tag": "AFM 478",
+        "course_name": "International Financial Mgmt"
+      },
+      {
+        "course_tag": "AFM 480",
+        "course_name": "Intro Org Behaviour"
+      },
+      {
+        "course_tag": "AFM 482",
+        "course_name": "Perform Measure & Org Control"
+      },
+      {
+        "course_tag": "AFM 485",
+        "course_name": "Approaches to Measuring Value"
+      },
+      {
+        "course_tag": "AFM 491",
+        "course_name": "Advanced Financial Accounting"
+      }
+    ],
+    "AMATH": [
+      {
+        "course_tag": "AMATH 231",
+        "course_name": "Calculus 4"
+      },
+      {
+        "course_tag": "AMATH 250",
+        "course_name": "Intro Differential Equations"
+      },
+      {
+        "course_tag": "AMATH 250",
+        "course_name": "Intro Differential Equations"
+      },
+      {
+        "course_tag": "AMATH 251",
+        "course_name": "Intro Diff Equations (Adv)"
+      },
+      {
+        "course_tag": "AMATH 271",
+        "course_name": "Intro Theoretical Mechanics"
+      },
+      {
+        "course_tag": "AMATH 331",
+        "course_name": "Applied Real Analysis"
+      },
+      {
+        "course_tag": "AMATH 333",
+        "course_name": "Calc on Mani Appl Math & Phys"
+      },
+      {
+        "course_tag": "AMATH 342",
+        "course_name": "Comp Methods: Diff Eq"
+      },
+      {
+        "course_tag": "AMATH 343",
+        "course_name": "Discrete Models"
+      },
+      {
+        "course_tag": "AMATH 345",
+        "course_name": "Data-Driven Models"
+      },
+      {
+        "course_tag": "AMATH 350",
+        "course_name": "Diff Eq (Bus & Econ)"
+      },
+      {
+        "course_tag": "AMATH 351",
+        "course_name": "Ordinary Diff Equations"
+      },
+      {
+        "course_tag": "AMATH 390",
+        "course_name": "Mathematics & Music"
+      },
+      {
+        "course_tag": "AMATH 391",
+        "course_name": "Data Analysis: Fourier/Wavelet"
+      },
+      {
+        "course_tag": "AMATH 442",
+        "course_name": "Comp Methods: Partial Diff Eq"
+      },
+      {
+        "course_tag": "AMATH 449",
+        "course_name": "Neural Networks"
+      },
+      {
+        "course_tag": "AMATH 453",
+        "course_name": "Partial Diff Equations 2"
+      },
+      {
+        "course_tag": "AMATH 456",
+        "course_name": "Calculus of Variations"
+      },
+      {
+        "course_tag": "AMATH 463",
+        "course_name": "Fluid Mechanics"
+      },
+      {
+        "course_tag": "AMATH 473",
+        "course_name": "Quantum Theory 2"
+      },
+      {
+        "course_tag": "AMATH 477",
+        "course_name": "Stochastic Processes"
+      }
+    ],
+    "ANTH": [
+      {
+        "course_tag": "ANTH 100",
+        "course_name": "Intro Anthropology"
+      },
+      {
+        "course_tag": "ANTH 100",
+        "course_name": "Intro Anthropology"
+      },
+      {
+        "course_tag": "ANTH 201",
+        "course_name": "Intro Archaeology"
+      },
+      {
+        "course_tag": "ANTH 204",
+        "course_name": "Biological Anthropology"
+      },
+      {
+        "course_tag": "ANTH 222",
+        "course_name": "Anthropologies of the Body"
+      },
+      {
+        "course_tag": "ANTH 245",
+        "course_name": "Anthropology of Education"
+      },
+      {
+        "course_tag": "ANTH 251",
+        "course_name": "Doing Ethnography"
+      },
+      {
+        "course_tag": "ANTH 272",
+        "course_name": "Indigenous Communities Issues"
+      },
+      {
+        "course_tag": "ANTH 309",
+        "course_name": "Archaeology of North America"
+      },
+      {
+        "course_tag": "ANTH 355",
+        "course_name": "Human Osteology"
+      },
+      {
+        "course_tag": "ANTH 382",
+        "course_name": "Anthropology of East Asia"
+      },
+      {
+        "course_tag": "ANTH 499A",
+        "course_name": "Honours Essay"
+      },
+      {
+        "course_tag": "ANTH 499A",
+        "course_name": "Honours Essay"
+      },
+      {
+        "course_tag": "ANTH 499A",
+        "course_name": "Honours Essay"
+      },
+      {
+        "course_tag": "ANTH 499B",
+        "course_name": "Honours Essay"
+      }
+    ],
+    "APPLS": [
+      {
+        "course_tag": "APPLS 205R",
+        "course_name": "Second Language Acquisition"
+      }
+    ],
+    "ARABIC": [
+      {
+        "course_tag": "ARABIC 101R",
+        "course_name": "Intro Arabic 1"
+      }
+    ],
+    "ARBUS": [
+      {
+        "course_tag": "ARBUS 101",
+        "course_name": "Intro North American Bus"
+      },
+      {
+        "course_tag": "ARBUS 200",
+        "course_name": "Entrepreneurship"
+      },
+      {
+        "course_tag": "ARBUS 202",
+        "course_name": "Professional & Business Ethics"
+      },
+      {
+        "course_tag": "ARBUS 202",
+        "course_name": "Professional & Business Ethics"
+      },
+      {
+        "course_tag": "ARBUS 300",
+        "course_name": "Practical Business Skills"
+      },
+      {
+        "course_tag": "ARBUS 301",
+        "course_name": "International Business"
+      },
+      {
+        "course_tag": "ARBUS 302",
+        "course_name": "Principles of Marketing"
+      },
+      {
+        "course_tag": "ARBUS 302",
+        "course_name": "Principles of Marketing"
+      },
+      {
+        "course_tag": "ARBUS 303",
+        "course_name": "Marketing Strategy"
+      },
+      {
+        "course_tag": "ARBUS 400",
+        "course_name": "Strategy & Program Integration"
+      }
+    ],
+    "ARCH": [
+      {
+        "course_tag": "ARCH 110",
+        "course_name": "Visual & Digital Media 1"
+      },
+      {
+        "course_tag": "ARCH 120",
+        "course_name": "Archit Ideas & Communications"
+      },
+      {
+        "course_tag": "ARCH 142",
+        "course_name": "Intro Cultural History"
+      },
+      {
+        "course_tag": "ARCH 172",
+        "course_name": "Building Construction 1"
+      },
+      {
+        "course_tag": "ARCH 192",
+        "course_name": "Design Studio"
+      },
+      {
+        "course_tag": "ARCH 212",
+        "course_name": "Digital Fabrication"
+      },
+      {
+        "course_tag": "ARCH 246",
+        "course_name": "Cultural Encounters 600-1600"
+      },
+      {
+        "course_tag": "ARCH 260",
+        "course_name": "Principles of Structures"
+      },
+      {
+        "course_tag": "ARCH 292",
+        "course_name": "Design Studio"
+      },
+      {
+        "course_tag": "ARCH 393",
+        "course_name": "Option Design Studio"
+      },
+      {
+        "course_tag": "ARCH 428",
+        "course_name": "Rome & the Campagna"
+      },
+      {
+        "course_tag": "ARCH 442",
+        "course_name": "Contemporary Archit Theory"
+      },
+      {
+        "course_tag": "ARCH 446",
+        "course_name": "Italian Urban History (Rome)"
+      },
+      {
+        "course_tag": "ARCH 449",
+        "course_name": "Dev Modern Italian Archit"
+      },
+      {
+        "course_tag": "ARCH 485",
+        "course_name": "Architectural Research"
+      },
+      {
+        "course_tag": "ARCH 485",
+        "course_name": "Architectural Research"
+      },
+      {
+        "course_tag": "ARCH 492",
+        "course_name": "Design Studio"
+      },
+      {
+        "course_tag": "ARCH 510",
+        "course_name": "Topics: Visual & Digital Media"
+      },
+      {
+        "course_tag": "ARCH 510",
+        "course_name": "Topics: Visual & Digital Media"
+      },
+      {
+        "course_tag": "ARCH 520",
+        "course_name": "Topics: Urbanism & Landscape"
+      },
+      {
+        "course_tag": "ARCH 520",
+        "course_name": "Topics: Urbanism & Landscape"
+      },
+      {
+        "course_tag": "ARCH 540",
+        "course_name": "Topics: Archit Hist & Theory"
+      },
+      {
+        "course_tag": "ARCH 540",
+        "course_name": "Topics: Archit Hist & Theory"
+      },
+      {
+        "course_tag": "ARCH 570",
+        "course_name": "Topics: Building Tech & Env"
+      },
+      {
+        "course_tag": "ARCH 570",
+        "course_name": "Topics: Building Tech & Env"
+      }
+    ],
+    "ARTS": [
+      {
+        "course_tag": "ARTS 280",
+        "course_name": "Statistics for Arts Students"
+      },
+      {
+        "course_tag": "ARTS 290",
+        "course_name": "Topics: Second-Year Arts"
+      },
+      {
+        "course_tag": "ARTS 450",
+        "course_name": "Global Engagement Seminar"
+      }
+    ],
+    "ASL": [
+      {
+        "course_tag": "ASL 101R",
+        "course_name": "American Sign Language 1"
+      }
+    ],
+    "AVIA": [
+      {
+        "course_tag": "AVIA 100",
+        "course_name": "Intro Aviation"
+      },
+      {
+        "course_tag": "AVIA 102",
+        "course_name": "Prof Pilot Program Course 2"
+      },
+      {
+        "course_tag": "AVIA 203",
+        "course_name": "Prof Pilot Program Course 3"
+      },
+      {
+        "course_tag": "AVIA 205",
+        "course_name": "Prof Pilot Program Course 5"
+      },
+      {
+        "course_tag": "AVIA 222",
+        "course_name": "Prof Pilot Program Course 2"
+      },
+      {
+        "course_tag": "AVIA 243",
+        "course_name": "Preparatory Ground Instr 3"
+      },
+      {
+        "course_tag": "AVIA 306",
+        "course_name": "Prof Pilot Program Course 6"
+      },
+      {
+        "course_tag": "AVIA 310",
+        "course_name": "Human Factors in Aviation"
+      },
+      {
+        "course_tag": "AVIA 408",
+        "course_name": "Prof Pilot Program Course 8"
+      },
+      {
+        "course_tag": "AVIA 474",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "AVIA 474",
+        "course_name": "Special Topics"
+      }
+    ],
+    "BET": [
+      {
+        "course_tag": "BET 100",
+        "course_name": "Entrepreneurial Pract Found"
+      },
+      {
+        "course_tag": "BET 201",
+        "course_name": "Entrepreneurial Prob Solving"
+      },
+      {
+        "course_tag": "BET 210",
+        "course_name": "Business Tech & Infrastructure"
+      },
+      {
+        "course_tag": "BET 300",
+        "course_name": "Venture Creation Foundations"
+      },
+      {
+        "course_tag": "BET 320",
+        "course_name": "Entrepreneurial Strategy"
+      },
+      {
+        "course_tag": "BET 320",
+        "course_name": "Entrepreneurial Strategy"
+      },
+      {
+        "course_tag": "BET 340",
+        "course_name": "Entrepreneurial Plan & Execute"
+      },
+      {
+        "course_tag": "BET 350",
+        "course_name": "Customer Experience Design"
+      },
+      {
+        "course_tag": "BET 360",
+        "course_name": "Design for Social Ventures"
+      },
+      {
+        "course_tag": "BET 405",
+        "course_name": "Digital Transformation"
+      },
+      {
+        "course_tag": "BET 420",
+        "course_name": "Entrepreneurship Social Impact"
+      },
+      {
+        "course_tag": "BET 430",
+        "course_name": "Sales Fundamentals"
+      },
+      {
+        "course_tag": "BET 450",
+        "course_name": "Leadership"
+      },
+      {
+        "course_tag": "BET 460",
+        "course_name": "Business Negotiations"
+      },
+      {
+        "course_tag": "BET 580",
+        "course_name": "Consulting"
+      }
+    ],
+    "BIOL": [
+      {
+        "course_tag": "BIOL 110",
+        "course_name": "Biodiversity, Biomes & Evol"
+      },
+      {
+        "course_tag": "BIOL 130",
+        "course_name": "Intro Cell Biology"
+      },
+      {
+        "course_tag": "BIOL 130L",
+        "course_name": "Cell Biology Lab"
+      },
+      {
+        "course_tag": "BIOL 201",
+        "course_name": "Human Anatomy"
+      },
+      {
+        "course_tag": "BIOL 225",
+        "course_name": "Plants & Civilization"
+      },
+      {
+        "course_tag": "BIOL 235",
+        "course_name": "Molecular Biology Foundations"
+      },
+      {
+        "course_tag": "BIOL 239",
+        "course_name": "Genetics"
+      },
+      {
+        "course_tag": "BIOL 240",
+        "course_name": "Fundamentals of Microbiology"
+      },
+      {
+        "course_tag": "BIOL 240L",
+        "course_name": "Microbiology Lab"
+      },
+      {
+        "course_tag": "BIOL 251",
+        "course_name": "Fundamentals of Ecology"
+      },
+      {
+        "course_tag": "BIOL 266",
+        "course_name": "Intro Computational Biology"
+      },
+      {
+        "course_tag": "BIOL 273",
+        "course_name": "Human Physiol Principles 1"
+      },
+      {
+        "course_tag": "BIOL 308",
+        "course_name": "Principles of Molecular Biol"
+      },
+      {
+        "course_tag": "BIOL 310",
+        "course_name": "Invertebrate Zoology"
+      },
+      {
+        "course_tag": "BIOL 323",
+        "course_name": "Plant Physiology"
+      },
+      {
+        "course_tag": "BIOL 335L",
+        "course_name": "Molecular Biology Techniques"
+      },
+      {
+        "course_tag": "BIOL 342",
+        "course_name": "Molecular Biotechnology 1"
+      },
+      {
+        "course_tag": "BIOL 345",
+        "course_name": "Microorganisms in Foods"
+      },
+      {
+        "course_tag": "BIOL 349",
+        "course_name": "Synthetic Biol Project Design"
+      },
+      {
+        "course_tag": "BIOL 350",
+        "course_name": "Ecosystem Ecology"
+      },
+      {
+        "course_tag": "BIOL 354",
+        "course_name": "Environmental Toxicology"
+      },
+      {
+        "course_tag": "BIOL 359",
+        "course_name": "Evolution 1: Mechanisms"
+      },
+      {
+        "course_tag": "BIOL 370",
+        "course_name": "Animal Physiol: Env Aspects"
+      },
+      {
+        "course_tag": "BIOL 376",
+        "course_name": "Cellular Neurophysiology"
+      },
+      {
+        "course_tag": "BIOL 403",
+        "course_name": "Dev Biology & Embryology"
+      },
+      {
+        "course_tag": "BIOL 433",
+        "course_name": "Plant Biotechnology"
+      },
+      {
+        "course_tag": "BIOL 434",
+        "course_name": "Human Molecular Genetics"
+      },
+      {
+        "course_tag": "BIOL 439",
+        "course_name": "Env & Natural Products Biochem"
+      },
+      {
+        "course_tag": "BIOL 443",
+        "course_name": "Fermentation Biotechnology"
+      },
+      {
+        "course_tag": "BIOL 444",
+        "course_name": "Bacterial Pathogenesis"
+      },
+      {
+        "course_tag": "BIOL 447",
+        "course_name": "Environmental Microbiology"
+      },
+      {
+        "course_tag": "BIOL 448",
+        "course_name": "Microbial Physiol & Biochem"
+      },
+      {
+        "course_tag": "BIOL 451",
+        "course_name": "Advanced Ecology & Evolution"
+      },
+      {
+        "course_tag": "BIOL 455",
+        "course_name": "Ecol Risk Assessment & Mgmt"
+      },
+      {
+        "course_tag": "BIOL 458",
+        "course_name": "Quantitative Ecology"
+      },
+      {
+        "course_tag": "BIOL 462",
+        "course_name": "Applied Wetland Science"
+      },
+      {
+        "course_tag": "BIOL 469",
+        "course_name": "Genomics"
+      },
+      {
+        "course_tag": "BIOL 470",
+        "course_name": "Methods of Aquatic Ecology"
+      },
+      {
+        "course_tag": "BIOL 472",
+        "course_name": "Cell Biology of Human Disease"
+      },
+      {
+        "course_tag": "BIOL 473",
+        "course_name": "Mammalian Reproduction"
+      },
+      {
+        "course_tag": "BIOL 479",
+        "course_name": "Population Genetics & Evol"
+      },
+      {
+        "course_tag": "BIOL 489",
+        "course_name": "Arctic Ecology"
+      }
+    ],
+    "BLKST": [
+      {
+        "course_tag": "BLKST 103",
+        "course_name": "Combating Racisms"
+      },
+      {
+        "course_tag": "BLKST 203",
+        "course_name": "Intro Anti-Racist Comm"
+      },
+      {
+        "course_tag": "BLKST 340",
+        "course_name": "Contemp African Lit & Film"
+      },
+      {
+        "course_tag": "BLKST 399",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "BLKST 399",
+        "course_name": "Special Topics"
+      }
+    ],
+    "BME": [
+      {
+        "course_tag": "BME 101",
+        "course_name": "Communications: Written & Oral"
+      },
+      {
+        "course_tag": "BME 101L",
+        "course_name": "Communications: Visualization"
+      },
+      {
+        "course_tag": "BME 121",
+        "course_name": "Digital Computation"
+      },
+      {
+        "course_tag": "BME 161",
+        "course_name": "Intro Biomedical Design"
+      },
+      {
+        "course_tag": "BME 181",
+        "course_name": "Physics 1: Statics"
+      },
+      {
+        "course_tag": "BME 182",
+        "course_name": "Physics 2: Dynamics"
+      },
+      {
+        "course_tag": "BME 201",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "BME 281",
+        "course_name": "Mechanics of Deformable Solids"
+      },
+      {
+        "course_tag": "BME 281L",
+        "course_name": "Deformable Solid Mechanics Lab"
+      },
+      {
+        "course_tag": "BME 282",
+        "course_name": "Materials Science"
+      },
+      {
+        "course_tag": "BME 285",
+        "course_name": "Engineering Biology"
+      },
+      {
+        "course_tag": "BME 285L",
+        "course_name": "Engineering Biology Lab"
+      },
+      {
+        "course_tag": "BME 302",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "BME 356",
+        "course_name": "Control Systems"
+      },
+      {
+        "course_tag": "BME 356L",
+        "course_name": "Control Systems Lab"
+      },
+      {
+        "course_tag": "BME 362",
+        "course_name": "Design Workshop 1"
+      },
+      {
+        "course_tag": "BME 364",
+        "course_name": "Eng Biomedical Economics"
+      },
+      {
+        "course_tag": "BME 384",
+        "course_name": "Biofluids & Mass Transfer"
+      },
+      {
+        "course_tag": "BME 386",
+        "course_name": "The Physics of Medical Imaging"
+      },
+      {
+        "course_tag": "BME 399",
+        "course_name": "Directed Research Project"
+      },
+      {
+        "course_tag": "BME 400",
+        "course_name": "Work-Term Presentation"
+      },
+      {
+        "course_tag": "BME 401",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "BME 411",
+        "course_name": "Optimization & Num Methods"
+      },
+      {
+        "course_tag": "BME 461",
+        "course_name": "Design Workshop 2"
+      },
+      {
+        "course_tag": "BME 499",
+        "course_name": "Elective Research Project"
+      },
+      {
+        "course_tag": "BME 530",
+        "course_name": "Healthcare System"
+      },
+      {
+        "course_tag": "BME 540",
+        "course_name": "Neural & Rehabilitation Eng"
+      },
+      {
+        "course_tag": "BME 550",
+        "course_name": "Sports Engineering"
+      }
+    ],
+    "BUS": [
+      {
+        "course_tag": "BUS 111W",
+        "course_name": "Understanding Bus. Env. (WLU)"
+      },
+      {
+        "course_tag": "BUS 127W",
+        "course_name": "Intro to Financial Acc (WLU)"
+      },
+      {
+        "course_tag": "BUS 223W",
+        "course_name": "Fundamentals of Finance(WLU)"
+      },
+      {
+        "course_tag": "BUS 231W",
+        "course_name": "Business Law (WLU)"
+      },
+      {
+        "course_tag": "BUS 247W",
+        "course_name": "Managerial Accounting (WLU)"
+      },
+      {
+        "course_tag": "BUS 247W",
+        "course_name": "Managerial Accounting (WLU)"
+      },
+      {
+        "course_tag": "BUS 252W",
+        "course_name": "Intro to Marketing Mgmt (WLU)"
+      },
+      {
+        "course_tag": "BUS 301W",
+        "course_name": "Entrepreneurial Method (WLU)"
+      },
+      {
+        "course_tag": "BUS 353W",
+        "course_name": "Intro Risk Mang't & Ins. (WLU)"
+      },
+      {
+        "course_tag": "BUS 357W",
+        "course_name": "Taxation I (WLU)"
+      },
+      {
+        "course_tag": "BUS 362W",
+        "course_name": "Applied Marketing (WLU)"
+      },
+      {
+        "course_tag": "BUS 381W",
+        "course_name": "Strategic Management I (WLU)"
+      },
+      {
+        "course_tag": "BUS 387W",
+        "course_name": "Intermediate Accounting 1(WLU)"
+      },
+      {
+        "course_tag": "BUS 397W",
+        "course_name": "Intermediate Account 2 (WLU)"
+      },
+      {
+        "course_tag": "BUS 403W",
+        "course_name": "Entrepreneurial Finance(WLU)"
+      },
+      {
+        "course_tag": "BUS 405W",
+        "course_name": "Procurem't & Supply Mgt (WLU)"
+      },
+      {
+        "course_tag": "BUS 408W",
+        "course_name": "Recruitment and Selection(WLU)"
+      },
+      {
+        "course_tag": "BUS 412W",
+        "course_name": "Services Marketing Mgt (WLU)"
+      },
+      {
+        "course_tag": "BUS 413W",
+        "course_name": "Pers. Fin. Plan. & Manage(WLU)"
+      },
+      {
+        "course_tag": "BUS 415W",
+        "course_name": "Intro Mgmt Info Systems (WLU)"
+      },
+      {
+        "course_tag": "BUS 422W",
+        "course_name": "Marketing Research (WLU)"
+      },
+      {
+        "course_tag": "BUS 423W",
+        "course_name": "Options, Futures & Swaps(WLU)"
+      },
+      {
+        "course_tag": "BUS 425W",
+        "course_name": "Business Analytics (WLU)"
+      },
+      {
+        "course_tag": "BUS 431W",
+        "course_name": "Mgmt Consulting Practicum (WLU"
+      },
+      {
+        "course_tag": "BUS 432W",
+        "course_name": "Consumer Behaviour (WLU)"
+      },
+      {
+        "course_tag": "BUS 435W",
+        "course_name": "Supply Chain Management(WLU)"
+      },
+      {
+        "course_tag": "BUS 443W",
+        "course_name": "International Fin'l Mgt (WLU)"
+      },
+      {
+        "course_tag": "BUS 451W",
+        "course_name": "Law & Entrepreneurship (WLU)"
+      },
+      {
+        "course_tag": "BUS 452W",
+        "course_name": "Marketing Strategy (WLU)"
+      },
+      {
+        "course_tag": "BUS 459W",
+        "course_name": "Marketing & Soc. Networks(WLU)"
+      },
+      {
+        "course_tag": "BUS 460W",
+        "course_name": "Laurier Start-Up Fund (WLU)"
+      },
+      {
+        "course_tag": "BUS 461AW",
+        "course_name": "Comp. Case Analysis (WLU)"
+      },
+      {
+        "course_tag": "BUS 461ZW",
+        "course_name": "Ethics in Mgmt&Strat Dec (WLU)"
+      },
+      {
+        "course_tag": "BUS 466W",
+        "course_name": "Taxation II (WLU)"
+      },
+      {
+        "course_tag": "BUS 467W",
+        "course_name": "Advanced Management Acct (WLU)"
+      },
+      {
+        "course_tag": "BUS 470W",
+        "course_name": "Brand Management (WLU)"
+      },
+      {
+        "course_tag": "BUS 472W",
+        "course_name": "Marketing Communications(WLU)"
+      },
+      {
+        "course_tag": "BUS 473W",
+        "course_name": "Investment Management (WLU)"
+      },
+      {
+        "course_tag": "BUS 474W",
+        "course_name": "Training & Development (WLU)"
+      },
+      {
+        "course_tag": "BUS 477W",
+        "course_name": "Auditing (WLU)"
+      },
+      {
+        "course_tag": "BUS 479W",
+        "course_name": "High-Tech Marketing (WLU)"
+      },
+      {
+        "course_tag": "BUS 480ZW",
+        "course_name": "Case Competition (WLU)"
+      },
+      {
+        "course_tag": "BUS 481W",
+        "course_name": "Strategic Management I (WLU)"
+      },
+      {
+        "course_tag": "BUS 482W",
+        "course_name": "Sales Management (WLU)"
+      },
+      {
+        "course_tag": "BUS 486W",
+        "course_name": "Data Analytics & Acc Sys (WLU)"
+      },
+      {
+        "course_tag": "BUS 487W",
+        "course_name": "Advanced Accounting (WLU)"
+      },
+      {
+        "course_tag": "BUS 491W",
+        "course_name": "Strategic Management II (WLU)"
+      },
+      {
+        "course_tag": "BUS 492NW",
+        "course_name": "Digital Marketing (WLU)"
+      },
+      {
+        "course_tag": "BUS 495TW",
+        "course_name": "Analytics for Life (WLU)"
+      }
+    ],
+    "CC": [
+      {
+        "course_tag": "CC 325W",
+        "course_name": "Crimes Against Humanity (WLU)"
+      }
+    ],
+    "CDNST": [
+      {
+        "course_tag": "CDNST 101",
+        "course_name": "Intro Canadian Studies"
+      },
+      {
+        "course_tag": "CDNST 201",
+        "course_name": "Indigenous Experience Canada"
+      }
+    ],
+    "CFM": [
+      {
+        "course_tag": "CFM 101",
+        "course_name": "Intro Fin Markets & Analytics"
+      },
+      {
+        "course_tag": "CFM 401",
+        "course_name": "Topics: Financial Technology"
+      }
+    ],
+    "CHE": [
+      {
+        "course_tag": "CHE 100",
+        "course_name": "Chemical Eng Concepts 1"
+      },
+      {
+        "course_tag": "CHE 102",
+        "course_name": "Chemistry for Engineers"
+      },
+      {
+        "course_tag": "CHE 120",
+        "course_name": "Comp Literacy & Programming"
+      },
+      {
+        "course_tag": "CHE 180",
+        "course_name": "Design Studio 1"
+      },
+      {
+        "course_tag": "CHE 200",
+        "course_name": "Equilibrium Stage Operations"
+      },
+      {
+        "course_tag": "CHE 201",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "CHE 202",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "CHE 211",
+        "course_name": "Fluid Mechanics"
+      },
+      {
+        "course_tag": "CHE 220",
+        "course_name": "Process Data Analysis"
+      },
+      {
+        "course_tag": "CHE 225",
+        "course_name": "Strategies for Process Improve"
+      },
+      {
+        "course_tag": "CHE 230",
+        "course_name": "Physical Chemistry 1"
+      },
+      {
+        "course_tag": "CHE 231",
+        "course_name": "Physical Chemistry 2"
+      },
+      {
+        "course_tag": "CHE 241",
+        "course_name": "Materials Sci & Eng"
+      },
+      {
+        "course_tag": "CHE 290",
+        "course_name": "Chemical Engineering Lab 1"
+      },
+      {
+        "course_tag": "CHE 291",
+        "course_name": "Chemical Engineering Lab 2"
+      },
+      {
+        "course_tag": "CHE 298",
+        "course_name": "Directed Research Project"
+      },
+      {
+        "course_tag": "CHE 299",
+        "course_name": "Directed Research Project"
+      },
+      {
+        "course_tag": "CHE 302",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "CHE 313",
+        "course_name": "Applic of Heat & Mass Transfer"
+      },
+      {
+        "course_tag": "CHE 331",
+        "course_name": "Electrochemical Engineering"
+      },
+      {
+        "course_tag": "CHE 341",
+        "course_name": "Intro Process Control"
+      },
+      {
+        "course_tag": "CHE 361",
+        "course_name": "Bioprocess Engineering"
+      },
+      {
+        "course_tag": "CHE 383",
+        "course_name": "Design Workshop"
+      },
+      {
+        "course_tag": "CHE 399",
+        "course_name": "Directed Research Project"
+      },
+      {
+        "course_tag": "CHE 401",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "CHE 450",
+        "course_name": "Technical Work-Term Report"
+      },
+      {
+        "course_tag": "CHE 480",
+        "course_name": "Process Analysis & Design"
+      },
+      {
+        "course_tag": "CHE 482",
+        "course_name": "Group Design Project"
+      },
+      {
+        "course_tag": "CHE 490",
+        "course_name": "Chemical Engineering Lab 4"
+      },
+      {
+        "course_tag": "CHE 498",
+        "course_name": "Directed Research Project"
+      },
+      {
+        "course_tag": "CHE 499",
+        "course_name": "Elective Research Project"
+      },
+      {
+        "course_tag": "CHE 514",
+        "course_name": "Petroleum Production"
+      },
+      {
+        "course_tag": "CHE 522",
+        "course_name": "Adv Process Dynamics & Control"
+      },
+      {
+        "course_tag": "CHE 541",
+        "course_name": "Intro Polymer Sci & Properties"
+      },
+      {
+        "course_tag": "CHE 560",
+        "course_name": "Nanomed & Nanobiotech"
+      },
+      {
+        "course_tag": "CHE 565",
+        "course_name": "Synthetic Biol Project Design"
+      },
+      {
+        "course_tag": "CHE 571",
+        "course_name": "Industrial Ecology"
+      }
+    ],
+    "CHEM": [
+      {
+        "course_tag": "CHEM 120",
+        "course_name": "General Chemistry 1"
+      },
+      {
+        "course_tag": "CHEM 120L",
+        "course_name": "General Chemistry Lab 1"
+      },
+      {
+        "course_tag": "CHEM 121",
+        "course_name": "Phys & Chem Props of Matter"
+      },
+      {
+        "course_tag": "CHEM 121L",
+        "course_name": "Chemical Reaction Lab 1"
+      },
+      {
+        "course_tag": "CHEM 140",
+        "course_name": "Intro Scientific Calculations"
+      },
+      {
+        "course_tag": "CHEM 200",
+        "course_name": "Intro Lab Techniques"
+      },
+      {
+        "course_tag": "CHEM 209",
+        "course_name": "Intro Spectroscopy & Structure"
+      },
+      {
+        "course_tag": "CHEM 220",
+        "course_name": "Intro Analytical Chemistry"
+      },
+      {
+        "course_tag": "CHEM 220L",
+        "course_name": "Quantitative Chem Anal Lab"
+      },
+      {
+        "course_tag": "CHEM 240",
+        "course_name": "Math Methods for Chemistry"
+      },
+      {
+        "course_tag": "CHEM 250L",
+        "course_name": "Physical Chemistry Lab 1"
+      },
+      {
+        "course_tag": "CHEM 262",
+        "course_name": "Organic Chemistry (Eng)"
+      },
+      {
+        "course_tag": "CHEM 262L",
+        "course_name": "Organic Chemistry Lab (Eng)"
+      },
+      {
+        "course_tag": "CHEM 264",
+        "course_name": "Organic Chemistry 1"
+      },
+      {
+        "course_tag": "CHEM 266",
+        "course_name": "Basic Organic Chemistry 1"
+      },
+      {
+        "course_tag": "CHEM 266L",
+        "course_name": "Organic Chemistry Lab"
+      },
+      {
+        "course_tag": "CHEM 267",
+        "course_name": "Basic Organic Chemistry 2"
+      },
+      {
+        "course_tag": "CHEM 310",
+        "course_name": "Transition Metal & Inorg Mat"
+      },
+      {
+        "course_tag": "CHEM 310L",
+        "course_name": "Inorganic Chemistry Lab 2"
+      },
+      {
+        "course_tag": "CHEM 323",
+        "course_name": "Analytical Instrumentation"
+      },
+      {
+        "course_tag": "CHEM 331",
+        "course_name": "Fundamentals of Metabolism 1"
+      },
+      {
+        "course_tag": "CHEM 333",
+        "course_name": "Metabolism 1"
+      },
+      {
+        "course_tag": "CHEM 335L",
+        "course_name": "Advanced Biochemistry Lab"
+      },
+      {
+        "course_tag": "CHEM 350L",
+        "course_name": "Physical Chemistry Lab 2"
+      },
+      {
+        "course_tag": "CHEM 356",
+        "course_name": "Intro Quantum Mechanics"
+      },
+      {
+        "course_tag": "CHEM 360L",
+        "course_name": "Senior Organic Chemistry Lab"
+      },
+      {
+        "course_tag": "CHEM 370",
+        "course_name": "Intro Polymer Science"
+      },
+      {
+        "course_tag": "CHEM 381",
+        "course_name": "Bioorganic Chemistry"
+      },
+      {
+        "course_tag": "CHEM 382L",
+        "course_name": "Advanced Organic Synthesis Lab"
+      },
+      {
+        "course_tag": "CHEM 392A",
+        "course_name": "Research Project 1"
+      },
+      {
+        "course_tag": "CHEM 392B",
+        "course_name": "Research Project 2"
+      },
+      {
+        "course_tag": "CHEM 400",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "CHEM 400",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "CHEM 400",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "CHEM 400",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "CHEM 430",
+        "course_name": "Topics: Biochemistry"
+      },
+      {
+        "course_tag": "CHEM 432",
+        "course_name": "Metabolism 2"
+      },
+      {
+        "course_tag": "CHEM 464",
+        "course_name": "Organic Chem Spectroscopy"
+      },
+      {
+        "course_tag": "CHEM 481",
+        "course_name": "Rational Drug Design"
+      },
+      {
+        "course_tag": "CHEM 494A",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "CHEM 494B",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "CHEM 495",
+        "course_name": "Advanced Research Project"
+      }
+    ],
+    "CHINA": [
+      {
+        "course_tag": "CHINA 101R",
+        "course_name": "First-Year Chinese 1"
+      },
+      {
+        "course_tag": "CHINA 102R",
+        "course_name": "First-Year Chinese 2"
+      },
+      {
+        "course_tag": "CHINA 120R",
+        "course_name": "Advanced First-Year Chinese"
+      }
+    ],
+    "CI": [
+      {
+        "course_tag": "CI 100",
+        "course_name": "Cultural Identities Today"
+      },
+      {
+        "course_tag": "CI 200",
+        "course_name": "Transcultural Studies"
+      }
+    ],
+    "CIVE": [
+      {
+        "course_tag": "CIVE 100",
+        "course_name": "Civil Engineering Concepts"
+      },
+      {
+        "course_tag": "CIVE 104",
+        "course_name": "Mechanics 1"
+      },
+      {
+        "course_tag": "CIVE 115",
+        "course_name": "Linear Algebra"
+      },
+      {
+        "course_tag": "CIVE 204",
+        "course_name": "Solid Mechanics 1"
+      },
+      {
+        "course_tag": "CIVE 221",
+        "course_name": "Advanced Calculus"
+      },
+      {
+        "course_tag": "CIVE 224",
+        "course_name": "Probability & Statistics"
+      },
+      {
+        "course_tag": "CIVE 241",
+        "course_name": "Transport: Principles & Applic"
+      },
+      {
+        "course_tag": "CIVE 265",
+        "course_name": "Material Struct & Props"
+      },
+      {
+        "course_tag": "CIVE 298",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "CIVE 306",
+        "course_name": "Solid Mechanics 3"
+      },
+      {
+        "course_tag": "CIVE 310",
+        "course_name": "Intro Structural Design"
+      },
+      {
+        "course_tag": "CIVE 343",
+        "course_name": "Traffic Sim Model & Appli"
+      },
+      {
+        "course_tag": "CIVE 354",
+        "course_name": "Geotechnical Engineering 2"
+      },
+      {
+        "course_tag": "CIVE 375",
+        "course_name": "Env Eng Principles"
+      },
+      {
+        "course_tag": "CIVE 399",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "CIVE 495",
+        "course_name": "Topics: Design Intensive"
+      },
+      {
+        "course_tag": "CIVE 497",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "CIVE 517",
+        "course_name": "Structural Wood Design"
+      }
+    ],
+    "CLAS": [
+      {
+        "course_tag": "CLAS 100",
+        "course_name": "Intro Classical Studies"
+      },
+      {
+        "course_tag": "CLAS 104",
+        "course_name": "Classical Mythology"
+      },
+      {
+        "course_tag": "CLAS 202",
+        "course_name": "Love, Life & Death in Rome"
+      },
+      {
+        "course_tag": "CLAS 210",
+        "course_name": "History of Ancient Law"
+      },
+      {
+        "course_tag": "CLAS 221",
+        "course_name": "Intro Archaeology"
+      },
+      {
+        "course_tag": "CLAS 241",
+        "course_name": "Greek Art & Architecture"
+      },
+      {
+        "course_tag": "CLAS 251",
+        "course_name": "Greek History"
+      },
+      {
+        "course_tag": "CLAS 325",
+        "course_name": "Greek & Roman Religion"
+      },
+      {
+        "course_tag": "CLAS 326",
+        "course_name": "The Body, Dress & Religion"
+      },
+      {
+        "course_tag": "CLAS 486",
+        "course_name": "Senior Seminar"
+      }
+    ],
+    "CMW": [
+      {
+        "course_tag": "CMW 201",
+        "course_name": "Worship Practicum 1"
+      },
+      {
+        "course_tag": "CMW 202",
+        "course_name": "Worship Practicum 2"
+      }
+    ],
+    "CO": [
+      {
+        "course_tag": "CO 227",
+        "course_name": "Intro Optimization (Non-Spec)"
+      },
+      {
+        "course_tag": "CO 250",
+        "course_name": "Intro Optimization"
+      },
+      {
+        "course_tag": "CO 250",
+        "course_name": "Intro Optimization"
+      },
+      {
+        "course_tag": "CO 255",
+        "course_name": "Intro Optimization (Adv)"
+      },
+      {
+        "course_tag": "CO 330",
+        "course_name": "Combinatorial Enumeration"
+      },
+      {
+        "course_tag": "CO 342",
+        "course_name": "Intro Graph Theory"
+      },
+      {
+        "course_tag": "CO 351",
+        "course_name": "Network Flow Theory"
+      },
+      {
+        "course_tag": "CO 367",
+        "course_name": "Nonlinear Optimization"
+      },
+      {
+        "course_tag": "CO 370",
+        "course_name": "Deterministic OR Models"
+      },
+      {
+        "course_tag": "CO 372",
+        "course_name": "Portfolio Optimization Models"
+      },
+      {
+        "course_tag": "CO 431",
+        "course_name": "Symmetric Functions"
+      },
+      {
+        "course_tag": "CO 439",
+        "course_name": "Topics: Combinatorics"
+      },
+      {
+        "course_tag": "CO 442",
+        "course_name": "Graph Theory"
+      },
+      {
+        "course_tag": "CO 450",
+        "course_name": "Combinatorial Optimization"
+      },
+      {
+        "course_tag": "CO 456",
+        "course_name": "Intro Game Theory"
+      },
+      {
+        "course_tag": "CO 466",
+        "course_name": "Continuous Optimization"
+      },
+      {
+        "course_tag": "CO 485",
+        "course_name": "Public-Key Cryptography Math"
+      },
+      {
+        "course_tag": "CO 487",
+        "course_name": "Applied Cryptography"
+      }
+    ],
+    "COGSCI": [
+      {
+        "course_tag": "COGSCI 300",
+        "course_name": "Intelligence"
+      }
+    ],
+    "COMM": [
+      {
+        "course_tag": "COMM 101",
+        "course_name": "Intro Financial Markets"
+      },
+      {
+        "course_tag": "COMM 101",
+        "course_name": "Intro Financial Markets"
+      },
+      {
+        "course_tag": "COMM 421",
+        "course_name": "Financial Statement Analysis"
+      },
+      {
+        "course_tag": "COMM 431",
+        "course_name": "Project Management"
+      },
+      {
+        "course_tag": "COMM 433",
+        "course_name": "Income Tax (Finance Students)"
+      }
+    ],
+    "COMMST": [
+      {
+        "course_tag": "COMMST 100",
+        "course_name": "Interpersonal Communication"
+      },
+      {
+        "course_tag": "COMMST 101",
+        "course_name": "Theories of Communication"
+      },
+      {
+        "course_tag": "COMMST 102",
+        "course_name": "Intro Performance"
+      },
+      {
+        "course_tag": "COMMST 103",
+        "course_name": "Combating Racisms"
+      },
+      {
+        "course_tag": "COMMST 149",
+        "course_name": "Intro Critical Design Practice"
+      },
+      {
+        "course_tag": "COMMST 191",
+        "course_name": "Eng Comm (AE/CIVE/ENVE/GEOE)"
+      },
+      {
+        "course_tag": "COMMST 192",
+        "course_name": "Eng Comm (COMPE/ELE/MGTE)"
+      },
+      {
+        "course_tag": "COMMST 203",
+        "course_name": "Intro Anti-Racist Comm"
+      },
+      {
+        "course_tag": "COMMST 204",
+        "course_name": "Leadership, Teams & Comm"
+      },
+      {
+        "course_tag": "COMMST 220",
+        "course_name": "Performance Studies"
+      },
+      {
+        "course_tag": "COMMST 223",
+        "course_name": "Public Speaking"
+      },
+      {
+        "course_tag": "COMMST 225",
+        "course_name": "Interviewing"
+      },
+      {
+        "course_tag": "COMMST 226",
+        "course_name": "Intro Race, Culture & Comm"
+      },
+      {
+        "course_tag": "COMMST 228",
+        "course_name": "Public Communication"
+      },
+      {
+        "course_tag": "COMMST 324",
+        "course_name": "Small Group Communication"
+      },
+      {
+        "course_tag": "COMMST 402",
+        "course_name": "Adv Race, Culture & Comm"
+      },
+      {
+        "course_tag": "COMMST 490",
+        "course_name": "Selected Seminars"
+      },
+      {
+        "course_tag": "COMMST 490",
+        "course_name": "Selected Seminars"
+      }
+    ],
+    "CROAT": [
+      {
+        "course_tag": "CROAT 101",
+        "course_name": "Elementary Croatian 1"
+      }
+    ],
+    "CS": [
+      {
+        "course_tag": "CS 100",
+        "course_name": "Intro Computing Through Applic"
+      },
+      {
+        "course_tag": "CS 105",
+        "course_name": "Intro Computer Programming 1"
+      },
+      {
+        "course_tag": "CS 114",
+        "course_name": "Computing Principles (Sci)"
+      },
+      {
+        "course_tag": "CS 115",
+        "course_name": "Intro Computer Science 1"
+      },
+      {
+        "course_tag": "CS 116",
+        "course_name": "Intro Computer Science 2"
+      },
+      {
+        "course_tag": "CS 135",
+        "course_name": "Designing Functional Programs"
+      },
+      {
+        "course_tag": "CS 136",
+        "course_name": "Elem Algo Dsgn & Data Abstrac"
+      },
+      {
+        "course_tag": "CS 136L",
+        "course_name": "Tools & Tech for Software Dev"
+      },
+      {
+        "course_tag": "CS 137",
+        "course_name": "Programming Principles"
+      },
+      {
+        "course_tag": "CS 145",
+        "course_name": "Designing Func Programs (Adv)"
+      },
+      {
+        "course_tag": "CS 234",
+        "course_name": "Data Types & Structures"
+      },
+      {
+        "course_tag": "CS 240",
+        "course_name": "Data Structures & Data Mgmt"
+      },
+      {
+        "course_tag": "CS 241",
+        "course_name": "Found of Sequential Programs"
+      },
+      {
+        "course_tag": "CS 241E",
+        "course_name": "Found Sequential Prog (Enrich)"
+      },
+      {
+        "course_tag": "CS 245",
+        "course_name": "Logic & Computation"
+      },
+      {
+        "course_tag": "CS 245E",
+        "course_name": "Logic & Computation (Enrich)"
+      },
+      {
+        "course_tag": "CS 246",
+        "course_name": "Obj-Oriented Soft Dev"
+      },
+      {
+        "course_tag": "CS 246E",
+        "course_name": "Obj-Oriented Soft Dev (Enrich)"
+      },
+      {
+        "course_tag": "CS 251",
+        "course_name": "Computer Organization & Design"
+      },
+      {
+        "course_tag": "CS 330",
+        "course_name": "Management Information Systems"
+      },
+      {
+        "course_tag": "CS 335",
+        "course_name": "Comp Meth in Bus & Fin"
+      },
+      {
+        "course_tag": "CS 338",
+        "course_name": "Comp Applic in Bus Databases"
+      },
+      {
+        "course_tag": "CS 341",
+        "course_name": "Algorithms"
+      },
+      {
+        "course_tag": "CS 343",
+        "course_name": "Concurrent & Parallel Program"
+      },
+      {
+        "course_tag": "CS 346",
+        "course_name": "Application Development"
+      },
+      {
+        "course_tag": "CS 348",
+        "course_name": "Intro Database Management"
+      },
+      {
+        "course_tag": "CS 349",
+        "course_name": "User Interfaces"
+      },
+      {
+        "course_tag": "CS 350",
+        "course_name": "Operating Systems"
+      },
+      {
+        "course_tag": "CS 360",
+        "course_name": "Intro Theory of Computing"
+      },
+      {
+        "course_tag": "CS 370",
+        "course_name": "Numerical Computation"
+      },
+      {
+        "course_tag": "CS 398",
+        "course_name": "Topics"
+      },
+      {
+        "course_tag": "CS 430",
+        "course_name": "Applications Software Eng"
+      },
+      {
+        "course_tag": "CS 431",
+        "course_name": "Data-Intense Distrib Analytics"
+      },
+      {
+        "course_tag": "CS 445",
+        "course_name": "Software Req Specif & Analysis"
+      },
+      {
+        "course_tag": "CS 449",
+        "course_name": "Human-Computer Interaction"
+      },
+      {
+        "course_tag": "CS 451",
+        "course_name": "Data-Intense Distrib Computing"
+      },
+      {
+        "course_tag": "CS 453",
+        "course_name": "Software & Systems Security"
+      },
+      {
+        "course_tag": "CS 454",
+        "course_name": "Distributed Systems"
+      },
+      {
+        "course_tag": "CS 456",
+        "course_name": "Computer Networks"
+      },
+      {
+        "course_tag": "CS 459",
+        "course_name": "Privacy, Crypto & Security"
+      },
+      {
+        "course_tag": "CS 466",
+        "course_name": "Algorithm Design & Analysis"
+      },
+      {
+        "course_tag": "CS 479",
+        "course_name": "Neural Networks"
+      },
+      {
+        "course_tag": "CS 480",
+        "course_name": "Intro Machine Learning"
+      },
+      {
+        "course_tag": "CS 485",
+        "course_name": "Machine Learning Foundations"
+      },
+      {
+        "course_tag": "CS 486",
+        "course_name": "Intro Artificial Intelligence"
+      },
+      {
+        "course_tag": "CS 488",
+        "course_name": "Intro Computer Graphics"
+      },
+      {
+        "course_tag": "CS 489",
+        "course_name": "Advanced Topics"
+      },
+      {
+        "course_tag": "CS 493",
+        "course_name": "Team Project 1"
+      }
+    ],
+    "DAC": [
+      {
+        "course_tag": "DAC 201",
+        "course_name": "Designing Digital Media"
+      },
+      {
+        "course_tag": "DAC 202",
+        "course_name": "Designing Digital Video"
+      },
+      {
+        "course_tag": "DAC 203",
+        "course_name": "Designing Digital Sound"
+      },
+      {
+        "course_tag": "DAC 204",
+        "course_name": "Intro Game Design"
+      },
+      {
+        "course_tag": "DAC 209",
+        "course_name": "Intro Critical Design Practice"
+      },
+      {
+        "course_tag": "DAC 246",
+        "course_name": "Design for Performance Media"
+      },
+      {
+        "course_tag": "DAC 300",
+        "course_name": "Topics: Digital Design"
+      },
+      {
+        "course_tag": "DAC 302",
+        "course_name": "Digital Storytelling Design"
+      },
+      {
+        "course_tag": "DAC 303",
+        "course_name": "Adv Topics: Design Dig Sound"
+      },
+      {
+        "course_tag": "DAC 309",
+        "course_name": "User Experience Design"
+      },
+      {
+        "course_tag": "DAC 401",
+        "course_name": "Digital Design Profession"
+      }
+    ],
+    "DUTCH": [
+      {
+        "course_tag": "DUTCH 101",
+        "course_name": "Elementary Dutch 1"
+      }
+    ],
+    "EARTH": [
+      {
+        "course_tag": "EARTH 121",
+        "course_name": "Intro Earth Sciences"
+      },
+      {
+        "course_tag": "EARTH 121",
+        "course_name": "Intro Earth Sciences"
+      },
+      {
+        "course_tag": "EARTH 121L",
+        "course_name": "Intro Earth Sciences Lab"
+      },
+      {
+        "course_tag": "EARTH 122",
+        "course_name": "Intro Env Sciences"
+      },
+      {
+        "course_tag": "EARTH 123",
+        "course_name": "Introductory Hydrology"
+      },
+      {
+        "course_tag": "EARTH 123",
+        "course_name": "Introductory Hydrology"
+      },
+      {
+        "course_tag": "EARTH 223",
+        "course_name": "Field Methods in Hydrology"
+      },
+      {
+        "course_tag": "EARTH 231",
+        "course_name": "Mineralogy"
+      },
+      {
+        "course_tag": "EARTH 235",
+        "course_name": "Stratigraphy: Earth's History"
+      },
+      {
+        "course_tag": "EARTH 260",
+        "course_name": "Intro Applied Geophysics"
+      },
+      {
+        "course_tag": "EARTH 321",
+        "course_name": "Intro Geomicrobiology"
+      },
+      {
+        "course_tag": "EARTH 331",
+        "course_name": "Volcanology & Igneous Petrol"
+      },
+      {
+        "course_tag": "EARTH 342",
+        "course_name": "Geomorphology & GIS Applic"
+      },
+      {
+        "course_tag": "EARTH 421",
+        "course_name": "Advanced Geochemistry"
+      },
+      {
+        "course_tag": "EARTH 436A",
+        "course_name": "Thesis Proposal"
+      },
+      {
+        "course_tag": "EARTH 439",
+        "course_name": "Flow & Transpo Fractured Rocks"
+      },
+      {
+        "course_tag": "EARTH 440",
+        "course_name": "Quaternary Geology"
+      },
+      {
+        "course_tag": "EARTH 444",
+        "course_name": "Applied Wetland Science"
+      },
+      {
+        "course_tag": "EARTH 458",
+        "course_name": "Physical Hydrogeology"
+      },
+      {
+        "course_tag": "EARTH 458L",
+        "course_name": "Hydrogeology Field Methods"
+      },
+      {
+        "course_tag": "EARTH 461",
+        "course_name": "Near-Surface Geophysics"
+      }
+    ],
+    "EASIA": [
+      {
+        "course_tag": "EASIA 100R",
+        "course_name": "Intro East Asia"
+      },
+      {
+        "course_tag": "EASIA 203R",
+        "course_name": "Japanese Culture & Society"
+      },
+      {
+        "course_tag": "EASIA 204R",
+        "course_name": "Korean Culture & Society"
+      },
+      {
+        "course_tag": "EASIA 207R",
+        "course_name": "Buddhism"
+      },
+      {
+        "course_tag": "EASIA 262R",
+        "course_name": "Manga"
+      },
+      {
+        "course_tag": "EASIA 291R",
+        "course_name": "Special Topics"
+      }
+    ],
+    "ECE": [
+      {
+        "course_tag": "ECE 105",
+        "course_name": "Classical Mechanics"
+      },
+      {
+        "course_tag": "ECE 109",
+        "course_name": "Materials Chemistry for Eng"
+      },
+      {
+        "course_tag": "ECE 150",
+        "course_name": "Fundamentals of Programming"
+      },
+      {
+        "course_tag": "ECE 190",
+        "course_name": "Eng Profession & Practice"
+      },
+      {
+        "course_tag": "ECE 198",
+        "course_name": "Project Studio"
+      },
+      {
+        "course_tag": "ECE 201",
+        "course_name": "Information Session"
+      },
+      {
+        "course_tag": "ECE 202",
+        "course_name": "Information Session"
+      },
+      {
+        "course_tag": "ECE 203",
+        "course_name": "Probability Theory & Stats 1"
+      },
+      {
+        "course_tag": "ECE 204",
+        "course_name": "Numerical Methods"
+      },
+      {
+        "course_tag": "ECE 204",
+        "course_name": "Numerical Methods"
+      },
+      {
+        "course_tag": "ECE 205",
+        "course_name": "Adv Calculus 1 (ECE)"
+      },
+      {
+        "course_tag": "ECE 206",
+        "course_name": "Adv Calculus 2 (Elec Eng)"
+      },
+      {
+        "course_tag": "ECE 207",
+        "course_name": "Signals & Systems"
+      },
+      {
+        "course_tag": "ECE 208",
+        "course_name": "Discrete Math & Logic 2"
+      },
+      {
+        "course_tag": "ECE 222",
+        "course_name": "Digital Computers"
+      },
+      {
+        "course_tag": "ECE 224",
+        "course_name": "Embedded Microprocessor Sys"
+      },
+      {
+        "course_tag": "ECE 231",
+        "course_name": "Semiconductor Phys & Devices"
+      },
+      {
+        "course_tag": "ECE 240",
+        "course_name": "Electronic Circuits 1"
+      },
+      {
+        "course_tag": "ECE 250",
+        "course_name": "Algorithms & Data Structures"
+      },
+      {
+        "course_tag": "ECE 252",
+        "course_name": "Systems Program & Concurrency"
+      },
+      {
+        "course_tag": "ECE 260",
+        "course_name": "Electromech Energy Conversion"
+      },
+      {
+        "course_tag": "ECE 298",
+        "course_name": "Instrument & Prototyping Lab"
+      },
+      {
+        "course_tag": "ECE 302",
+        "course_name": "Information Session"
+      },
+      {
+        "course_tag": "ECE 305",
+        "course_name": "Intro Quantum Mechanics"
+      },
+      {
+        "course_tag": "ECE 307",
+        "course_name": "Probability Theory & Stats 2"
+      },
+      {
+        "course_tag": "ECE 313",
+        "course_name": "Digital Signal Processing"
+      },
+      {
+        "course_tag": "ECE 320",
+        "course_name": "Computer Architecture"
+      },
+      {
+        "course_tag": "ECE 331",
+        "course_name": "Electronic Devices"
+      },
+      {
+        "course_tag": "ECE 351",
+        "course_name": "Compilers"
+      },
+      {
+        "course_tag": "ECE 356",
+        "course_name": "Database Systems"
+      },
+      {
+        "course_tag": "ECE 358",
+        "course_name": "Computer Networks"
+      },
+      {
+        "course_tag": "ECE 360",
+        "course_name": "Power Systems & Smart Grids"
+      },
+      {
+        "course_tag": "ECE 373",
+        "course_name": "Radio Freq & Microwave Circuit"
+      },
+      {
+        "course_tag": "ECE 401",
+        "course_name": "Information Session"
+      },
+      {
+        "course_tag": "ECE 405A",
+        "course_name": "Quant Info Processing Devices"
+      },
+      {
+        "course_tag": "ECE 451",
+        "course_name": "Software Req Specif & Analysis"
+      },
+      {
+        "course_tag": "ECE 457B",
+        "course_name": "Computational Intelligence"
+      },
+      {
+        "course_tag": "ECE 493",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "ECE 498A",
+        "course_name": "Engineering Design Project"
+      },
+      {
+        "course_tag": "ECE 498B",
+        "course_name": "Engineering Design Project"
+      },
+      {
+        "course_tag": "ECE 499",
+        "course_name": "Engineering Project"
+      }
+    ],
+    "ECON": [
+      {
+        "course_tag": "ECON 101",
+        "course_name": "Intro Microeconomics"
+      },
+      {
+        "course_tag": "ECON 101",
+        "course_name": "Intro Microeconomics"
+      },
+      {
+        "course_tag": "ECON 102",
+        "course_name": "Intro Macroeconomics"
+      },
+      {
+        "course_tag": "ECON 102",
+        "course_name": "Intro Macroeconomics"
+      },
+      {
+        "course_tag": "ECON 201",
+        "course_name": "Microecon Theory: Bus & Policy"
+      },
+      {
+        "course_tag": "ECON 206",
+        "course_name": "Money & Banking 1"
+      },
+      {
+        "course_tag": "ECON 211",
+        "course_name": "Intro Mathematical Econ"
+      },
+      {
+        "course_tag": "ECON 212",
+        "course_name": "Intro Game Theory"
+      },
+      {
+        "course_tag": "ECON 221",
+        "course_name": "Statistics for Economists"
+      },
+      {
+        "course_tag": "ECON 223W",
+        "course_name": "Econ Cdn Banking&Fin Sys (WLU)"
+      },
+      {
+        "course_tag": "ECON 238W",
+        "course_name": "Environmental Economics (WLU)"
+      },
+      {
+        "course_tag": "ECON 239W",
+        "course_name": "Intro Internat'l Trade (WLU)"
+      },
+      {
+        "course_tag": "ECON 241",
+        "course_name": "Intro Public Economics"
+      },
+      {
+        "course_tag": "ECON 248W",
+        "course_name": "Economics of Health (WLU)"
+      },
+      {
+        "course_tag": "ECON 250W",
+        "course_name": "Int Macroec Anlys for Mgt(WLU)"
+      },
+      {
+        "course_tag": "ECON 254",
+        "course_name": "Economics of Sport"
+      },
+      {
+        "course_tag": "ECON 260W",
+        "course_name": "Int Microec Analysis Mgt (WLU)"
+      },
+      {
+        "course_tag": "ECON 290",
+        "course_name": "Choice in Competitive Markets"
+      },
+      {
+        "course_tag": "ECON 306",
+        "course_name": "Macroeconomics"
+      },
+      {
+        "course_tag": "ECON 322",
+        "course_name": "Econometric Analysis 1"
+      },
+      {
+        "course_tag": "ECON 323",
+        "course_name": "Econometric Analysis 2"
+      },
+      {
+        "course_tag": "ECON 361",
+        "course_name": "Cost-Benefit Analysis & Eval"
+      },
+      {
+        "course_tag": "ECON 366",
+        "course_name": "Gender & Economics"
+      },
+      {
+        "course_tag": "ECON 371",
+        "course_name": "Business Finance 1"
+      },
+      {
+        "course_tag": "ECON 372",
+        "course_name": "Business Finance 2"
+      },
+      {
+        "course_tag": "ECON 391",
+        "course_name": "Equilibrium: Market Economies"
+      },
+      {
+        "course_tag": "ECON 393",
+        "course_name": "Market Failures"
+      },
+      {
+        "course_tag": "ECON 407",
+        "course_name": "Economic Growth & Dev 2"
+      },
+      {
+        "course_tag": "ECON 408",
+        "course_name": "Business Cycles"
+      },
+      {
+        "course_tag": "ECON 423",
+        "course_name": "Time Series Econometrics"
+      },
+      {
+        "course_tag": "ECON 424",
+        "course_name": "Machine Learning in Economics"
+      },
+      {
+        "course_tag": "ECON 451",
+        "course_name": "Law & Economics"
+      },
+      {
+        "course_tag": "ECON 472",
+        "course_name": "Senior Honours Essay"
+      },
+      {
+        "course_tag": "ECON 491",
+        "course_name": "Advanced Microeconomics"
+      }
+    ],
+    "EMLS": [
+      {
+        "course_tag": "EMLS 101R",
+        "course_name": "Oral Comm: Academic Purposes"
+      },
+      {
+        "course_tag": "EMLS 102R",
+        "course_name": "Clear Comm in Engl Writing"
+      },
+      {
+        "course_tag": "EMLS 129R",
+        "course_name": "Written Academic English"
+      },
+      {
+        "course_tag": "EMLS 129R",
+        "course_name": "Written Academic English"
+      }
+    ],
+    "ENBUS": [
+      {
+        "course_tag": "ENBUS 102",
+        "course_name": "Intro Environment & Business"
+      },
+      {
+        "course_tag": "ENBUS 103",
+        "course_name": "Economics & Sustainability 1"
+      },
+      {
+        "course_tag": "ENBUS 202",
+        "course_name": "Env Management Systems"
+      },
+      {
+        "course_tag": "ENBUS 203",
+        "course_name": "Green Entrepreneurship"
+      },
+      {
+        "course_tag": "ENBUS 204",
+        "course_name": "Principles of Industrial Ecol"
+      },
+      {
+        "course_tag": "ENBUS 306",
+        "course_name": "Research Design"
+      },
+      {
+        "course_tag": "ENBUS 309",
+        "course_name": "Behaviour Change & Sust"
+      },
+      {
+        "course_tag": "ENBUS 315",
+        "course_name": "Fashion, Consumption & Sustain"
+      },
+      {
+        "course_tag": "ENBUS 406",
+        "course_name": "Industrial Ecol: Sust Material"
+      },
+      {
+        "course_tag": "ENBUS 407",
+        "course_name": "Corp Sust Acct & Reporting"
+      },
+      {
+        "course_tag": "ENBUS 408",
+        "course_name": "Policy Instruments for Sust"
+      },
+      {
+        "course_tag": "ENBUS 409A",
+        "course_name": "Environment & Business Project"
+      },
+      {
+        "course_tag": "ENBUS 410",
+        "course_name": "Engaging Stakeholders"
+      },
+      {
+        "course_tag": "ENBUS 475",
+        "course_name": "Env & Bus Special Topics"
+      },
+      {
+        "course_tag": "ENBUS 475",
+        "course_name": "Env & Bus Special Topics"
+      }
+    ],
+    "ENGL": [
+      {
+        "course_tag": "ENGL 100A",
+        "course_name": "Fiction"
+      },
+      {
+        "course_tag": "ENGL 100B",
+        "course_name": "Poetry"
+      },
+      {
+        "course_tag": "ENGL 101A",
+        "course_name": "Intro Literary Studies"
+      },
+      {
+        "course_tag": "ENGL 101A",
+        "course_name": "Intro Literary Studies"
+      },
+      {
+        "course_tag": "ENGL 101B",
+        "course_name": "Intro Rhetorical Studies"
+      },
+      {
+        "course_tag": "ENGL 101B",
+        "course_name": "Intro Rhetorical Studies"
+      },
+      {
+        "course_tag": "ENGL 101C",
+        "course_name": "Intro Literature & Rhetoric"
+      },
+      {
+        "course_tag": "ENGL 103",
+        "course_name": "Combating Racisms"
+      },
+      {
+        "course_tag": "ENGL 108D",
+        "course_name": "Digital Lives"
+      },
+      {
+        "course_tag": "ENGL 108D",
+        "course_name": "Digital Lives"
+      },
+      {
+        "course_tag": "ENGL 108E",
+        "course_name": "Gender & Representation"
+      },
+      {
+        "course_tag": "ENGL 108G",
+        "course_name": "Horror"
+      },
+      {
+        "course_tag": "ENGL 108P",
+        "course_name": "Popular Potter"
+      },
+      {
+        "course_tag": "ENGL 109",
+        "course_name": "Intro Academic Writing"
+      },
+      {
+        "course_tag": "ENGL 109",
+        "course_name": "Intro Academic Writing"
+      },
+      {
+        "course_tag": "ENGL 119",
+        "course_name": "Communications (Math/Comp Sci)"
+      },
+      {
+        "course_tag": "ENGL 190",
+        "course_name": "Shakespeare"
+      },
+      {
+        "course_tag": "ENGL 191",
+        "course_name": "Eng Comm (AE/CIVE/ENVE/GEOE)"
+      },
+      {
+        "course_tag": "ENGL 192",
+        "course_name": "Eng Comm (COMPE/ELE/MGTE)"
+      },
+      {
+        "course_tag": "ENGL 200A",
+        "course_name": "English Literatures 1"
+      },
+      {
+        "course_tag": "ENGL 200A",
+        "course_name": "English Literatures 1"
+      },
+      {
+        "course_tag": "ENGL 200C",
+        "course_name": "English Literatures 3"
+      },
+      {
+        "course_tag": "ENGL 203",
+        "course_name": "Designing Digital Media"
+      },
+      {
+        "course_tag": "ENGL 204",
+        "course_name": "Designing Digital Video"
+      },
+      {
+        "course_tag": "ENGL 206",
+        "course_name": "Writing Lives"
+      },
+      {
+        "course_tag": "ENGL 208A",
+        "course_name": "Forms of Fantasy"
+      },
+      {
+        "course_tag": "ENGL 210C",
+        "course_name": "Genres of Creative Writing"
+      },
+      {
+        "course_tag": "ENGL 210C",
+        "course_name": "Genres of Creative Writing"
+      },
+      {
+        "course_tag": "ENGL 210F",
+        "course_name": "Business Communication Genres"
+      },
+      {
+        "course_tag": "ENGL 210H",
+        "course_name": "Arts Writing"
+      },
+      {
+        "course_tag": "ENGL 210I",
+        "course_name": "Legal Writing"
+      },
+      {
+        "course_tag": "ENGL 210J",
+        "course_name": "Technical Editing"
+      },
+      {
+        "course_tag": "ENGL 225",
+        "course_name": "Intro Anti-Racist Comm"
+      },
+      {
+        "course_tag": "ENGL 230",
+        "course_name": "The Pleasure of Poetry"
+      },
+      {
+        "course_tag": "ENGL 234",
+        "course_name": "Young Adult Literature"
+      },
+      {
+        "course_tag": "ENGL 251",
+        "course_name": "Literary Theory & Criticism"
+      },
+      {
+        "course_tag": "ENGL 251",
+        "course_name": "Literary Theory & Criticism"
+      },
+      {
+        "course_tag": "ENGL 262",
+        "course_name": "Manga"
+      },
+      {
+        "course_tag": "ENGL 292",
+        "course_name": "Rhetorical Theory & Criticism"
+      },
+      {
+        "course_tag": "ENGL 292",
+        "course_name": "Rhetorical Theory & Criticism"
+      },
+      {
+        "course_tag": "ENGL 293",
+        "course_name": "Intro Digital Media Studies"
+      },
+      {
+        "course_tag": "ENGL 295",
+        "course_name": "Social Media"
+      },
+      {
+        "course_tag": "ENGL 304",
+        "course_name": "Designing Digital Sound"
+      },
+      {
+        "course_tag": "ENGL 305A",
+        "course_name": "Old English Language & Lit"
+      },
+      {
+        "course_tag": "ENGL 306A",
+        "course_name": "Intro Linguistics"
+      },
+      {
+        "course_tag": "ENGL 306A",
+        "course_name": "Intro Linguistics"
+      },
+      {
+        "course_tag": "ENGL 309A",
+        "course_name": "Rhetoric: Classical to Enlight"
+      },
+      {
+        "course_tag": "ENGL 309C",
+        "course_name": "Contemporary Rhetoric"
+      },
+      {
+        "course_tag": "ENGL 310B",
+        "course_name": "Chaucer"
+      },
+      {
+        "course_tag": "ENGL 318",
+        "course_name": "Contemporary Canadian Lit"
+      },
+      {
+        "course_tag": "ENGL 325",
+        "course_name": "Austen"
+      },
+      {
+        "course_tag": "ENGL 335",
+        "course_name": "Creative Writing 1"
+      },
+      {
+        "course_tag": "ENGL 335",
+        "course_name": "Creative Writing 1"
+      },
+      {
+        "course_tag": "ENGL 340",
+        "course_name": "Contemp African Lit & Film"
+      },
+      {
+        "course_tag": "ENGL 344",
+        "course_name": "American Lit: Modern"
+      },
+      {
+        "course_tag": "ENGL 345",
+        "course_name": "American Lit: Global Context"
+      },
+      {
+        "course_tag": "ENGL 350A",
+        "course_name": "17th-Century Lit 1"
+      },
+      {
+        "course_tag": "ENGL 363",
+        "course_name": "Shakespeare 2"
+      },
+      {
+        "course_tag": "ENGL 371",
+        "course_name": "Editing Literary Works"
+      },
+      {
+        "course_tag": "ENGL 378",
+        "course_name": "Prof Comm (Stats & Actsc)"
+      },
+      {
+        "course_tag": "ENGL 392A",
+        "course_name": "Information Design"
+      },
+      {
+        "course_tag": "ENGL 392B",
+        "course_name": "Visual Rhetoric"
+      },
+      {
+        "course_tag": "ENGL 406",
+        "course_name": "Advanced Rhetorical Study"
+      },
+      {
+        "course_tag": "ENGL 432",
+        "course_name": "Topics: Creative Writing"
+      },
+      {
+        "course_tag": "ENGL 486",
+        "course_name": "Topics: Lit Modern to Contemp"
+      },
+      {
+        "course_tag": "ENGL 492",
+        "course_name": "Topics: Rhetoric Hist & Theory"
+      },
+      {
+        "course_tag": "ENGL 493",
+        "course_name": "Topics: Prof Writing Comm Dsgn"
+      }
+    ],
+    "ENVE": [
+      {
+        "course_tag": "ENVE 100",
+        "course_name": "Concepts: Env & Geol Eng"
+      },
+      {
+        "course_tag": "ENVE 115",
+        "course_name": "Linear Algebra"
+      },
+      {
+        "course_tag": "ENVE 175",
+        "course_name": "Intro Environmental Chem"
+      },
+      {
+        "course_tag": "ENVE 225",
+        "course_name": "Environmental Modelling"
+      },
+      {
+        "course_tag": "ENVE 277",
+        "course_name": "Air Quality Engineering"
+      },
+      {
+        "course_tag": "ENVE 279",
+        "course_name": "Energy & Environment"
+      },
+      {
+        "course_tag": "ENVE 299",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "ENVE 382",
+        "course_name": "Hydrol & Open Channel Flow"
+      },
+      {
+        "course_tag": "ENVE 400",
+        "course_name": "Design Project 1"
+      },
+      {
+        "course_tag": "ENVE 481",
+        "course_name": "Open Channel Hydraulics"
+      },
+      {
+        "course_tag": "ENVE 498",
+        "course_name": "Seminar"
+      }
+    ],
+    "ENVS": [
+      {
+        "course_tag": "ENVS 105",
+        "course_name": "Env Sustainability & Ethics"
+      },
+      {
+        "course_tag": "ENVS 131",
+        "course_name": "Comm for Env Professions"
+      },
+      {
+        "course_tag": "ENVS 178",
+        "course_name": "Env Appli: Data Mgmt & Stats"
+      },
+      {
+        "course_tag": "ENVS 195",
+        "course_name": "Intro Environmental Studies"
+      },
+      {
+        "course_tag": "ENVS 200",
+        "course_name": "Field Ecology"
+      },
+      {
+        "course_tag": "ENVS 205",
+        "course_name": "Sustainability: Future We Want"
+      },
+      {
+        "course_tag": "ENVS 278",
+        "course_name": "Applied Stats for Env Research"
+      },
+      {
+        "course_tag": "ENVS 403A",
+        "course_name": "Interdisciplinary Project"
+      },
+      {
+        "course_tag": "ENVS 404",
+        "course_name": "Interdisciplinary Project"
+      }
+    ],
+    "ERS": [
+      {
+        "course_tag": "ERS 101",
+        "course_name": "Env, Resources & Sust Approach"
+      },
+      {
+        "course_tag": "ERS 201",
+        "course_name": "Env Policy, Politics & Gov"
+      },
+      {
+        "course_tag": "ERS 202",
+        "course_name": "Natural Resources Ecology"
+      },
+      {
+        "course_tag": "ERS 215",
+        "course_name": "Env & Sust Assessment 1"
+      },
+      {
+        "course_tag": "ERS 221",
+        "course_name": "Oceans Sustainability"
+      },
+      {
+        "course_tag": "ERS 225",
+        "course_name": "Gendering Env Politics"
+      },
+      {
+        "course_tag": "ERS 270",
+        "course_name": "Intro Sustain Agroecosystems"
+      },
+      {
+        "course_tag": "ERS 300",
+        "course_name": "Social Ecol Systems Analysis"
+      },
+      {
+        "course_tag": "ERS 301",
+        "course_name": "Sust Thought, Pract & Prospect"
+      },
+      {
+        "course_tag": "ERS 302",
+        "course_name": "Research Methods & Design"
+      },
+      {
+        "course_tag": "ERS 315",
+        "course_name": "Env & Sust Assessment 2"
+      },
+      {
+        "course_tag": "ERS 316",
+        "course_name": "Urban Water & Wastewater Sys"
+      },
+      {
+        "course_tag": "ERS 335",
+        "course_name": "Restoration Ecology"
+      },
+      {
+        "course_tag": "ERS 365",
+        "course_name": "Water Governance"
+      },
+      {
+        "course_tag": "ERS 400",
+        "course_name": "Sust: Soc-Ecol Approaches"
+      },
+      {
+        "course_tag": "ERS 403A",
+        "course_name": "Senior Honours Thesis"
+      },
+      {
+        "course_tag": "ERS 403B",
+        "course_name": "Senior Honours Thesis"
+      },
+      {
+        "course_tag": "ERS 454",
+        "course_name": "Parks & Protected Areas"
+      },
+      {
+        "course_tag": "ERS 462",
+        "course_name": "Global Food & Agric Politics"
+      },
+      {
+        "course_tag": "ERS 484",
+        "course_name": "Soil Ecosystem Dynamics"
+      }
+    ],
+    "FINE": [
+      {
+        "course_tag": "FINE 100",
+        "course_name": "Studio Fundamentals"
+      },
+      {
+        "course_tag": "FINE 150",
+        "course_name": "Appreciation & Expression"
+      },
+      {
+        "course_tag": "FINE 202",
+        "course_name": "Painting"
+      },
+      {
+        "course_tag": "FINE 225",
+        "course_name": "Observational Drawing"
+      },
+      {
+        "course_tag": "FINE 231",
+        "course_name": "Mixed Multiples"
+      },
+      {
+        "course_tag": "FINE 243",
+        "course_name": "Topics: Experiential Learning"
+      },
+      {
+        "course_tag": "FINE 272",
+        "course_name": "Clay Studies"
+      },
+      {
+        "course_tag": "FINE 304",
+        "course_name": "Topics: Studio Practice"
+      },
+      {
+        "course_tag": "FINE 315",
+        "course_name": "Adv Topics: Expanded Media"
+      },
+      {
+        "course_tag": "FINE 343",
+        "course_name": "Topics: Experiential Learning"
+      },
+      {
+        "course_tag": "FINE 407",
+        "course_name": "Honours Concept & Research"
+      },
+      {
+        "course_tag": "FINE 472",
+        "course_name": "Honours Thesis 1"
+      }
+    ],
+    "FR": [
+      {
+        "course_tag": "FR 101",
+        "course_name": "Beginner French"
+      },
+      {
+        "course_tag": "FR 151",
+        "course_name": "Basic French 1"
+      },
+      {
+        "course_tag": "FR 151",
+        "course_name": "Basic French 1"
+      },
+      {
+        "course_tag": "FR 152",
+        "course_name": "Basic French 2"
+      },
+      {
+        "course_tag": "FR 152",
+        "course_name": "Basic French 2"
+      },
+      {
+        "course_tag": "FR 192A",
+        "course_name": "French Language 1: Module 1"
+      },
+      {
+        "course_tag": "FR 192A",
+        "course_name": "French Language 1: Module 1"
+      },
+      {
+        "course_tag": "FR 192A",
+        "course_name": "French Language 1: Module 1"
+      },
+      {
+        "course_tag": "FR 192B",
+        "course_name": "French Language 1: Module 2"
+      },
+      {
+        "course_tag": "FR 192B",
+        "course_name": "French Language 1: Module 2"
+      },
+      {
+        "course_tag": "FR 250",
+        "course_name": "Intermediate Spoken French"
+      },
+      {
+        "course_tag": "FR 251",
+        "course_name": "French Language 2: Module 1"
+      },
+      {
+        "course_tag": "FR 252",
+        "course_name": "French Language 2: Module 2"
+      },
+      {
+        "course_tag": "FR 276",
+        "course_name": "Intro to Quebec Literature"
+      },
+      {
+        "course_tag": "FR 296",
+        "course_name": "Culture & Lit: Origins to 1715"
+      },
+      {
+        "course_tag": "FR 297",
+        "course_name": "Culture & Lit: 1715 to Present"
+      },
+      {
+        "course_tag": "FR 303",
+        "course_name": "Intro Linguistics"
+      },
+      {
+        "course_tag": "FR 332",
+        "course_name": "French Lit: 17th Century"
+      },
+      {
+        "course_tag": "FR 351",
+        "course_name": "French Language 3"
+      },
+      {
+        "course_tag": "FR 353",
+        "course_name": "Intro Translation"
+      }
+    ],
+    "GBDA": [
+      {
+        "course_tag": "GBDA 101",
+        "course_name": "Intro Digital Media Design"
+      },
+      {
+        "course_tag": "GBDA 102",
+        "course_name": "Intro Global Business"
+      },
+      {
+        "course_tag": "GBDA 201",
+        "course_name": "Digital Media Project 1"
+      },
+      {
+        "course_tag": "GBDA 202",
+        "course_name": "Digital Media Project 2"
+      },
+      {
+        "course_tag": "GBDA 203",
+        "course_name": "Intro Digital Culture"
+      },
+      {
+        "course_tag": "GBDA 204",
+        "course_name": "Working in Teams & Prj Mgmt"
+      },
+      {
+        "course_tag": "GBDA 210",
+        "course_name": "Intro User Experience Design"
+      },
+      {
+        "course_tag": "GBDA 212",
+        "course_name": "Portfolio & Prof Communication"
+      },
+      {
+        "course_tag": "GBDA 228",
+        "course_name": "Digital Imaging Online Applic"
+      },
+      {
+        "course_tag": "GBDA 410",
+        "course_name": "User Experience Research"
+      },
+      {
+        "course_tag": "GBDA 412",
+        "course_name": "Topics: Digital Cultures"
+      },
+      {
+        "course_tag": "GBDA 413",
+        "course_name": "Topics: Design & Society"
+      },
+      {
+        "course_tag": "GBDA 413",
+        "course_name": "Topics: Design & Society"
+      },
+      {
+        "course_tag": "GBDA 414",
+        "course_name": "Topics: Interaction Design"
+      },
+      {
+        "course_tag": "GBDA 414",
+        "course_name": "Topics: Interaction Design"
+      },
+      {
+        "course_tag": "GBDA 465",
+        "course_name": "Study Abroad"
+      }
+    ],
+    "GENE": [
+      {
+        "course_tag": "GENE 119",
+        "course_name": "First-Year Engineering Seminar"
+      },
+      {
+        "course_tag": "GENE 315",
+        "course_name": "Directed Studies: Non-Tech"
+      },
+      {
+        "course_tag": "GENE 395",
+        "course_name": "Engineering Study Abroad"
+      },
+      {
+        "course_tag": "GENE 403",
+        "course_name": "Interdiscipl Design Project 1"
+      },
+      {
+        "course_tag": "GENE 404",
+        "course_name": "Interdiscipl Design Project 2"
+      },
+      {
+        "course_tag": "GENE 415",
+        "course_name": "Non-Tech: Student Leadership"
+      },
+      {
+        "course_tag": "GENE 501",
+        "course_name": "Directed Studies: Visiting Stu"
+      },
+      {
+        "course_tag": "GENE 502",
+        "course_name": "Directed Studies: Visiting Stu"
+      },
+      {
+        "course_tag": "GENE 503",
+        "course_name": "Directed Studies: Visiting Stu"
+      }
+    ],
+    "GEOE": [
+      {
+        "course_tag": "GEOE 100",
+        "course_name": "Concepts: Env & Geol Eng"
+      },
+      {
+        "course_tag": "GEOE 115",
+        "course_name": "Linear Algebra"
+      },
+      {
+        "course_tag": "GEOE 221",
+        "course_name": "Advanced Calculus"
+      },
+      {
+        "course_tag": "GEOE 299",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "GEOE 354",
+        "course_name": "Geotechnical Engineering 2"
+      },
+      {
+        "course_tag": "GEOE 400",
+        "course_name": "Design Project 1"
+      },
+      {
+        "course_tag": "GEOE 498",
+        "course_name": "Seminar"
+      }
+    ],
+    "GEOG": [
+      {
+        "course_tag": "GEOG 100",
+        "course_name": "On Becoming a Geographer"
+      },
+      {
+        "course_tag": "GEOG 101",
+        "course_name": "Human Geographies"
+      },
+      {
+        "course_tag": "GEOG 181",
+        "course_name": "Designing Effective Maps"
+      },
+      {
+        "course_tag": "GEOG 187",
+        "course_name": "Geospatial Data Science"
+      },
+      {
+        "course_tag": "GEOG 203",
+        "course_name": "Env & Dev Global Perspective"
+      },
+      {
+        "course_tag": "GEOG 205",
+        "course_name": "Principles of Geomorphology"
+      },
+      {
+        "course_tag": "GEOG 207",
+        "course_name": "Climate Change Fundamentals"
+      },
+      {
+        "course_tag": "GEOG 219",
+        "course_name": "How Pandemic Change World"
+      },
+      {
+        "course_tag": "GEOG 225",
+        "course_name": "Global Environment & Health"
+      },
+      {
+        "course_tag": "GEOG 233",
+        "course_name": "Geography of Tourism"
+      },
+      {
+        "course_tag": "GEOG 271",
+        "course_name": "Remote Sensing: Earth/Space"
+      },
+      {
+        "course_tag": "GEOG 281",
+        "course_name": "Intro GIS"
+      },
+      {
+        "course_tag": "GEOG 293",
+        "course_name": "Human Geog Research Approaches"
+      },
+      {
+        "course_tag": "GEOG 294",
+        "course_name": "Approach to Res in Phys Geog"
+      },
+      {
+        "course_tag": "GEOG 302",
+        "course_name": "Geog of Work & Employment"
+      },
+      {
+        "course_tag": "GEOG 303",
+        "course_name": "Physical Hydrology"
+      },
+      {
+        "course_tag": "GEOG 305",
+        "course_name": "Fluvial Geomorphology"
+      },
+      {
+        "course_tag": "GEOG 310",
+        "course_name": "Geodesy & Surveying"
+      },
+      {
+        "course_tag": "GEOG 316",
+        "course_name": "Multivariate Statistics"
+      },
+      {
+        "course_tag": "GEOG 319",
+        "course_name": "Economic Analyses for Reg Plan"
+      },
+      {
+        "course_tag": "GEOG 356",
+        "course_name": "Resources Management"
+      },
+      {
+        "course_tag": "GEOG 359",
+        "course_name": "Low Carbon Transition"
+      },
+      {
+        "course_tag": "GEOG 371",
+        "course_name": "Adv Remote Sensing Techniques"
+      },
+      {
+        "course_tag": "GEOG 387",
+        "course_name": "Spatial Databases"
+      },
+      {
+        "course_tag": "GEOG 391",
+        "course_name": "Field Research"
+      },
+      {
+        "course_tag": "GEOG 403",
+        "course_name": "Eutrophication: Water Quality"
+      },
+      {
+        "course_tag": "GEOG 404",
+        "course_name": "Soil Ecosystem Dynamics"
+      },
+      {
+        "course_tag": "GEOG 453",
+        "course_name": "Urban Stormwater Management"
+      },
+      {
+        "course_tag": "GEOG 462",
+        "course_name": "Global Food & Agric Politics"
+      },
+      {
+        "course_tag": "GEOG 481",
+        "course_name": "GIS Project"
+      },
+      {
+        "course_tag": "GEOG 490A",
+        "course_name": "Honours Thesis Preparation"
+      },
+      {
+        "course_tag": "GEOG 490B",
+        "course_name": "Honours Thesis Completion"
+      }
+    ],
+    "GER": [
+      {
+        "course_tag": "GER 100",
+        "course_name": "Zeitgeist & Popular Culture"
+      },
+      {
+        "course_tag": "GER 101",
+        "course_name": "Elementary German 1"
+      },
+      {
+        "course_tag": "GER 101",
+        "course_name": "Elementary German 1"
+      },
+      {
+        "course_tag": "GER 102",
+        "course_name": "Elementary German 2"
+      },
+      {
+        "course_tag": "GER 120",
+        "course_name": "Fairy Tales: Then & Now"
+      },
+      {
+        "course_tag": "GER 200",
+        "course_name": "Transcultural Studies"
+      },
+      {
+        "course_tag": "GER 201",
+        "course_name": "Intermediate German 1"
+      },
+      {
+        "course_tag": "GER 202",
+        "course_name": "Intermediate German 2"
+      },
+      {
+        "course_tag": "GER 261",
+        "course_name": "Understanding Conversation"
+      },
+      {
+        "course_tag": "GER 283",
+        "course_name": "The Holocaust & Film"
+      }
+    ],
+    "GERON": [
+      {
+        "course_tag": "GERON 201",
+        "course_name": "Aging & Health"
+      },
+      {
+        "course_tag": "GERON 218",
+        "course_name": "Psychology of Death & Dying"
+      },
+      {
+        "course_tag": "GERON 220",
+        "course_name": "Lifespan Development & Health"
+      }
+    ],
+    "GRK": [
+      {
+        "course_tag": "GRK 101",
+        "course_name": "Intro Ancient Greek 1"
+      },
+      {
+        "course_tag": "GRK 201",
+        "course_name": "Intermediate Greek"
+      }
+    ],
+    "GSJ": [
+      {
+        "course_tag": "GSJ 101",
+        "course_name": "Intro to GSJ: The Global North"
+      },
+      {
+        "course_tag": "GSJ 108",
+        "course_name": "Gender & Representation"
+      },
+      {
+        "course_tag": "GSJ 201",
+        "course_name": "Gender Soc Justice Pop Culture"
+      },
+      {
+        "course_tag": "GSJ 203",
+        "course_name": "The Waves of Feminist Thought"
+      },
+      {
+        "course_tag": "GSJ 232",
+        "course_name": "Anthropologies of the Body"
+      },
+      {
+        "course_tag": "GSJ 327",
+        "course_name": "The Body, Dress & Religion"
+      },
+      {
+        "course_tag": "GSJ 380",
+        "course_name": "Applied Public Health Ethics"
+      },
+      {
+        "course_tag": "GSJ 472",
+        "course_name": "Topics: Intersect Fem Theory"
+      },
+      {
+        "course_tag": "GSJ 472",
+        "course_name": "Topics: Intersect Fem Theory"
+      },
+      {
+        "course_tag": "GSJ 472",
+        "course_name": "Topics: Intersect Fem Theory"
+      },
+      {
+        "course_tag": "GSJ 473",
+        "course_name": "Topics: Fem & Soc Just Praxis"
+      }
+    ],
+    "HEALTH": [
+      {
+        "course_tag": "HEALTH 105",
+        "course_name": "Mental Health Literacy"
+      },
+      {
+        "course_tag": "HEALTH 107",
+        "course_name": "Sociology of Activity & Health"
+      },
+      {
+        "course_tag": "HEALTH 395",
+        "course_name": "Study Abroad"
+      }
+    ],
+    "HHUM": [
+      {
+        "course_tag": "HHUM 101",
+        "course_name": "Health Humanities Foundations"
+      },
+      {
+        "course_tag": "HHUM 263",
+        "course_name": "Contagion, Disease & Illness"
+      },
+      {
+        "course_tag": "HHUM 307",
+        "course_name": "Hlth & Disease West Med Hist"
+      }
+    ],
+    "HIST": [
+      {
+        "course_tag": "HIST 101",
+        "course_name": "Modern Global History"
+      },
+      {
+        "course_tag": "HIST 103",
+        "course_name": "Canada Through Biography"
+      },
+      {
+        "course_tag": "HIST 110",
+        "course_name": "History of Western World 1"
+      },
+      {
+        "course_tag": "HIST 113",
+        "course_name": "Canadian Business History"
+      },
+      {
+        "course_tag": "HIST 115",
+        "course_name": "Crusading in the Middle Ages"
+      },
+      {
+        "course_tag": "HIST 200",
+        "course_name": "History & Film"
+      },
+      {
+        "course_tag": "HIST 207",
+        "course_name": "The Beatles & the Sixties"
+      },
+      {
+        "course_tag": "HIST 210",
+        "course_name": "History of Ancient Law"
+      },
+      {
+        "course_tag": "HIST 212",
+        "course_name": "The Computing Society"
+      },
+      {
+        "course_tag": "HIST 223",
+        "course_name": "The Holocaust in History"
+      },
+      {
+        "course_tag": "HIST 232",
+        "course_name": "A History of Peace Movements"
+      },
+      {
+        "course_tag": "HIST 242",
+        "course_name": "Greek History"
+      },
+      {
+        "course_tag": "HIST 250",
+        "course_name": "Intro Historical Thinking"
+      },
+      {
+        "course_tag": "HIST 256",
+        "course_name": "Murder in Canadian History"
+      },
+      {
+        "course_tag": "HIST 260",
+        "course_name": "Medieval Europe: c300-c1500"
+      },
+      {
+        "course_tag": "HIST 269",
+        "course_name": "Indigenous Histories in Canada"
+      },
+      {
+        "course_tag": "HIST 312",
+        "course_name": "The First World War"
+      },
+      {
+        "course_tag": "HIST 322",
+        "course_name": "History of the Detention Camp"
+      },
+      {
+        "course_tag": "HIST 348",
+        "course_name": "The Radical Reformation"
+      },
+      {
+        "course_tag": "HIST 358",
+        "course_name": "Nazi Germany"
+      },
+      {
+        "course_tag": "HIST 389",
+        "course_name": "Canada in World Affairs"
+      },
+      {
+        "course_tag": "HIST 391",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "HIST 422",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "HIST 422",
+        "course_name": "Special Topics"
+      }
+    ],
+    "HLTH": [
+      {
+        "course_tag": "HLTH 101",
+        "course_name": "Intro Health 1"
+      },
+      {
+        "course_tag": "HLTH 101",
+        "course_name": "Intro Health 1"
+      },
+      {
+        "course_tag": "HLTH 103",
+        "course_name": "Biol Determinants of Health"
+      },
+      {
+        "course_tag": "HLTH 201",
+        "course_name": "Aging & Health"
+      },
+      {
+        "course_tag": "HLTH 202",
+        "course_name": "Public & Population Health"
+      },
+      {
+        "course_tag": "HLTH 204",
+        "course_name": "Qnt Approaches to Hlth Sci"
+      },
+      {
+        "course_tag": "HLTH 205",
+        "course_name": "Intro Health Research"
+      },
+      {
+        "course_tag": "HLTH 217",
+        "course_name": "Biochemistry for Health"
+      },
+      {
+        "course_tag": "HLTH 218",
+        "course_name": "Psychology of Death & Dying"
+      },
+      {
+        "course_tag": "HLTH 220",
+        "course_name": "Lifespan Development & Health"
+      },
+      {
+        "course_tag": "HLTH 290",
+        "course_name": "Intro Health Neuroscience"
+      },
+      {
+        "course_tag": "HLTH 301",
+        "course_name": "Applied Health Promotion"
+      },
+      {
+        "course_tag": "HLTH 303",
+        "course_name": "Program Planning & Evaluation"
+      },
+      {
+        "course_tag": "HLTH 304",
+        "course_name": "Health Communication"
+      },
+      {
+        "course_tag": "HLTH 333",
+        "course_name": "Principles of Epidemiology"
+      },
+      {
+        "course_tag": "HLTH 340",
+        "course_name": "Env Toxicology & Public Health"
+      },
+      {
+        "course_tag": "HLTH 341",
+        "course_name": "Pathobiology Principles"
+      },
+      {
+        "course_tag": "HLTH 380",
+        "course_name": "Applied Public Health Ethics"
+      },
+      {
+        "course_tag": "HLTH 410",
+        "course_name": "Health Policy"
+      },
+      {
+        "course_tag": "HLTH 427",
+        "course_name": "Dementia Care"
+      },
+      {
+        "course_tag": "HLTH 442",
+        "course_name": "Non-Communicable Disease Epid"
+      },
+      {
+        "course_tag": "HLTH 448",
+        "course_name": "Adv Soc Determinants of Hlth"
+      },
+      {
+        "course_tag": "HLTH 451",
+        "course_name": "Analysis & Mgmt of Hlth Info"
+      },
+      {
+        "course_tag": "HLTH 453",
+        "course_name": "Computing in Hlth Informatics"
+      },
+      {
+        "course_tag": "HLTH 465",
+        "course_name": "Epigenetics & Health"
+      },
+      {
+        "course_tag": "HLTH 480",
+        "course_name": "Competencies in Health"
+      }
+    ],
+    "HRM": [
+      {
+        "course_tag": "HRM 200",
+        "course_name": "Basic Human Resources Mgmt"
+      },
+      {
+        "course_tag": "HRM 200",
+        "course_name": "Basic Human Resources Mgmt"
+      },
+      {
+        "course_tag": "HRM 301",
+        "course_name": "Strategic Human Resources Mgmt"
+      },
+      {
+        "course_tag": "HRM 303",
+        "course_name": "Compensation"
+      },
+      {
+        "course_tag": "HRM 305",
+        "course_name": "Health & Safety"
+      },
+      {
+        "course_tag": "HRM 307",
+        "course_name": "Labour Relations"
+      },
+      {
+        "course_tag": "HRM 400",
+        "course_name": "Hon Sem: Special Topics in HRM"
+      }
+    ],
+    "HRTS": [
+      {
+        "course_tag": "HRTS 101",
+        "course_name": "Intro Human Rights"
+      },
+      {
+        "course_tag": "HRTS 201",
+        "course_name": "Found of Human Rights"
+      },
+      {
+        "course_tag": "HRTS 305",
+        "course_name": "Indigenous Rights"
+      },
+      {
+        "course_tag": "HRTS 390",
+        "course_name": "Special Topics"
+      }
+    ],
+    "HUMSC": [
+      {
+        "course_tag": "HUMSC 101",
+        "course_name": "Reflection & Action"
+      }
+    ],
+    "INDENT": [
+      {
+        "course_tag": "INDENT 200",
+        "course_name": "Past, Present, Future"
+      },
+      {
+        "course_tag": "INDENT 210",
+        "course_name": "Fundamentals"
+      },
+      {
+        "course_tag": "INDENT 225",
+        "course_name": "Practicum 1"
+      }
+    ],
+    "INDEV": [
+      {
+        "course_tag": "INDEV 401",
+        "course_name": "International Dev Placement 1"
+      },
+      {
+        "course_tag": "INDEV 404",
+        "course_name": "International Dev Theory"
+      },
+      {
+        "course_tag": "INDEV 490A",
+        "course_name": "Hons Thesis: Prj Prep"
+      }
+    ],
+    "INDG": [
+      {
+        "course_tag": "INDG 201",
+        "course_name": "Indigenous Experience Canada"
+      },
+      {
+        "course_tag": "INDG 272",
+        "course_name": "Indigenous Communities Issues"
+      }
+    ],
+    "INNOV": [
+      {
+        "course_tag": "INNOV 200",
+        "course_name": "Social Innovation Theory"
+      },
+      {
+        "course_tag": "INNOV 300",
+        "course_name": "Social Innovation Case Studies"
+      },
+      {
+        "course_tag": "INNOV 311",
+        "course_name": "Research for Social Impact"
+      }
+    ],
+    "INTEG": [
+      {
+        "course_tag": "INTEG 10",
+        "course_name": "Knowledge Integration Seminar"
+      },
+      {
+        "course_tag": "INTEG 120",
+        "course_name": "Art & Science of Learning"
+      },
+      {
+        "course_tag": "INTEG 210",
+        "course_name": "Making Collaboration Work"
+      },
+      {
+        "course_tag": "INTEG 220",
+        "course_name": "Nature of Scientific Knowledge"
+      },
+      {
+        "course_tag": "INTEG 320",
+        "course_name": "Museum: Research & Design"
+      },
+      {
+        "course_tag": "INTEG 340",
+        "course_name": "Research Design & Methods"
+      },
+      {
+        "course_tag": "INTEG 420A",
+        "course_name": "Senior Honours Project A"
+      }
+    ],
+    "ITAL": [
+      {
+        "course_tag": "ITAL 101",
+        "course_name": "Intro Italian Language 1"
+      },
+      {
+        "course_tag": "ITAL 101",
+        "course_name": "Intro Italian Language 1"
+      },
+      {
+        "course_tag": "ITAL 201",
+        "course_name": "Intermediate Italian 1"
+      }
+    ],
+    "ITALST": [
+      {
+        "course_tag": "ITALST 100",
+        "course_name": "Understanding Modern Italy"
+      },
+      {
+        "course_tag": "ITALST 263",
+        "course_name": "Contagion, Disease & Illness"
+      },
+      {
+        "course_tag": "ITALST 265",
+        "course_name": "The Mafia"
+      },
+      {
+        "course_tag": "ITALST 291",
+        "course_name": "Ital Culture & Civilization 1"
+      }
+    ],
+    "JAPAN": [
+      {
+        "course_tag": "JAPAN 101R",
+        "course_name": "First-Year Japanese 1"
+      },
+      {
+        "course_tag": "JAPAN 102R",
+        "course_name": "First-Year Japanese 2"
+      },
+      {
+        "course_tag": "JAPAN 201R",
+        "course_name": "Second-Year Japanese 1"
+      },
+      {
+        "course_tag": "JAPAN 202R",
+        "course_name": "Second-Year Japanese 2"
+      }
+    ],
+    "JS": [
+      {
+        "course_tag": "JS 203",
+        "course_name": "Holocaust: Jewish Responses"
+      },
+      {
+        "course_tag": "JS 228",
+        "course_name": "Big Ideas of the Bible"
+      },
+      {
+        "course_tag": "JS 233",
+        "course_name": "The Holocaust & Film"
+      },
+      {
+        "course_tag": "JS 236",
+        "course_name": "Paul: Life & Letters"
+      }
+    ],
+    "KIN": [
+      {
+        "course_tag": "KIN 104",
+        "course_name": "Fundamentals of Kinesiology"
+      },
+      {
+        "course_tag": "KIN 104L",
+        "course_name": "Kinesiology Fundamentals Lab"
+      },
+      {
+        "course_tag": "KIN 121",
+        "course_name": "Biomech of Human Movement"
+      },
+      {
+        "course_tag": "KIN 121L",
+        "course_name": "Biomech of Human Movement Lab"
+      },
+      {
+        "course_tag": "KIN 202",
+        "course_name": "Exercise Physiology"
+      },
+      {
+        "course_tag": "KIN 202L",
+        "course_name": "Exercise Physiology Lab"
+      },
+      {
+        "course_tag": "KIN 217",
+        "course_name": "Human Biochemistry"
+      },
+      {
+        "course_tag": "KIN 255",
+        "course_name": "Neuroscience Fundamentals"
+      },
+      {
+        "course_tag": "KIN 255L",
+        "course_name": "Fund of Neuroscience Lab"
+      },
+      {
+        "course_tag": "KIN 301",
+        "course_name": "Human Anatomy of the CNS"
+      },
+      {
+        "course_tag": "KIN 305",
+        "course_name": "Anatomy of Thorax & Abdomen"
+      },
+      {
+        "course_tag": "KIN 308",
+        "course_name": "Cardiovasc & Pulmonary Physiol"
+      },
+      {
+        "course_tag": "KIN 312",
+        "course_name": "Intro Neurological Disorders"
+      },
+      {
+        "course_tag": "KIN 314",
+        "course_name": "Clinical Exercise Physiology"
+      },
+      {
+        "course_tag": "KIN 340",
+        "course_name": "Injuries in Sport & Activity"
+      },
+      {
+        "course_tag": "KIN 343",
+        "course_name": "Micronutrient Metabolism"
+      },
+      {
+        "course_tag": "KIN 354",
+        "course_name": "Physical Activity Psychology"
+      },
+      {
+        "course_tag": "KIN 357",
+        "course_name": "Motor Learn & Neuroplasticity"
+      },
+      {
+        "course_tag": "KIN 390",
+        "course_name": "Clinical Field Placement"
+      },
+      {
+        "course_tag": "KIN 390",
+        "course_name": "Clinical Field Placement"
+      },
+      {
+        "course_tag": "KIN 391",
+        "course_name": "Research Apprenticeship"
+      },
+      {
+        "course_tag": "KIN 400",
+        "course_name": "Athletic Injury Practicum"
+      },
+      {
+        "course_tag": "KIN 406",
+        "course_name": "Muscle Aging & Disease"
+      },
+      {
+        "course_tag": "KIN 407",
+        "course_name": "Cardio Pathophysiology"
+      },
+      {
+        "course_tag": "KIN 416",
+        "course_name": "Neuromuscular Integration"
+      },
+      {
+        "course_tag": "KIN 418",
+        "course_name": "Physical Activity & Aging"
+      },
+      {
+        "course_tag": "KIN 420",
+        "course_name": "Occupational Biomechanics"
+      },
+      {
+        "course_tag": "KIN 422",
+        "course_name": "Human Posture, Balance & Gait"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 431",
+        "course_name": "Research Proposal"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 432",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 433",
+        "course_name": "Senior Essay"
+      },
+      {
+        "course_tag": "KIN 470",
+        "course_name": "Sem: Kinesiology"
+      },
+      {
+        "course_tag": "KIN 470",
+        "course_name": "Sem: Kinesiology"
+      },
+      {
+        "course_tag": "KIN 470",
+        "course_name": "Sem: Kinesiology"
+      },
+      {
+        "course_tag": "KIN 470",
+        "course_name": "Sem: Kinesiology"
+      },
+      {
+        "course_tag": "KIN 471",
+        "course_name": "Kin: Contemporary Issues"
+      },
+      {
+        "course_tag": "KIN 471",
+        "course_name": "Kin: Contemporary Issues"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 472",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "KIN 491",
+        "course_name": "Clinic: Sports Injuries Assess"
+      }
+    ],
+    "KOREA": [
+      {
+        "course_tag": "KOREA 101R",
+        "course_name": "First-Year Korean 1"
+      }
+    ],
+    "LAT": [
+      {
+        "course_tag": "LAT 101",
+        "course_name": "Intro Latin 1"
+      },
+      {
+        "course_tag": "LAT 201",
+        "course_name": "Intermediate Latin"
+      },
+      {
+        "course_tag": "LAT 331",
+        "course_name": "Adv Readings: Latin Prose"
+      },
+      {
+        "course_tag": "LAT 490",
+        "course_name": "Latin: Selected Topics"
+      }
+    ],
+    "LS": [
+      {
+        "course_tag": "LS 101",
+        "course_name": "Intro Legal Studies"
+      },
+      {
+        "course_tag": "LS 101",
+        "course_name": "Intro Legal Studies"
+      },
+      {
+        "course_tag": "LS 202",
+        "course_name": "Criminal Law"
+      },
+      {
+        "course_tag": "LS 221",
+        "course_name": "Research Methods"
+      },
+      {
+        "course_tag": "LS 227",
+        "course_name": "Criminology"
+      },
+      {
+        "course_tag": "LS 229",
+        "course_name": "Topics: Criminology"
+      },
+      {
+        "course_tag": "LS 235",
+        "course_name": "History of Ancient Law"
+      },
+      {
+        "course_tag": "LS 271",
+        "course_name": "Conflict Resolution"
+      },
+      {
+        "course_tag": "LS 271",
+        "course_name": "Conflict Resolution"
+      },
+      {
+        "course_tag": "LS 272",
+        "course_name": "Psychology & Law"
+      },
+      {
+        "course_tag": "LS 273",
+        "course_name": "Children's Rights in Canada"
+      },
+      {
+        "course_tag": "LS 283",
+        "course_name": "Business Law"
+      },
+      {
+        "course_tag": "LS 291",
+        "course_name": "Legal Writing"
+      },
+      {
+        "course_tag": "LS 300",
+        "course_name": "Sociology of Law"
+      },
+      {
+        "course_tag": "LS 305",
+        "course_name": "Privacy in Socio-Legal Context"
+      },
+      {
+        "course_tag": "LS 319",
+        "course_name": "Negotiation: Theory & Strat"
+      },
+      {
+        "course_tag": "LS 322",
+        "course_name": "Field Research Methods"
+      },
+      {
+        "course_tag": "LS 327",
+        "course_name": "Policing in a Democratic Soc"
+      },
+      {
+        "course_tag": "LS 329",
+        "course_name": "Security & Governance"
+      },
+      {
+        "course_tag": "LS 342",
+        "course_name": "Migration & Legality"
+      },
+      {
+        "course_tag": "LS 344",
+        "course_name": "Restorative Justice"
+      },
+      {
+        "course_tag": "LS 348",
+        "course_name": "Animal Law"
+      },
+      {
+        "course_tag": "LS 351",
+        "course_name": "Philosophy of Law"
+      },
+      {
+        "course_tag": "LS 364",
+        "course_name": "Politics of Free Speech"
+      },
+      {
+        "course_tag": "LS 374",
+        "course_name": "Evolution of CDN Family Law"
+      },
+      {
+        "course_tag": "LS 387",
+        "course_name": "Criminal Justice Institutions"
+      },
+      {
+        "course_tag": "LS 401",
+        "course_name": "Law, Culture & Rights"
+      },
+      {
+        "course_tag": "LS 402",
+        "course_name": "Legal Authority & Subjectivity"
+      },
+      {
+        "course_tag": "LS 403",
+        "course_name": "Crime & Public Policy"
+      },
+      {
+        "course_tag": "LS 423",
+        "course_name": "Peers & Crime"
+      },
+      {
+        "course_tag": "LS 428",
+        "course_name": "Sentencing as a Social Process"
+      },
+      {
+        "course_tag": "LS 433",
+        "course_name": "Crime, Law & Technoscience"
+      },
+      {
+        "course_tag": "LS 435",
+        "course_name": "Cybercrime & Digital Harm"
+      },
+      {
+        "course_tag": "LS 463",
+        "course_name": "Rights & Public Policy"
+      },
+      {
+        "course_tag": "LS 496",
+        "course_name": "Special Topics"
+      }
+    ],
+    "MATBUS": [
+      {
+        "course_tag": "MATBUS 470",
+        "course_name": "Derivatives"
+      },
+      {
+        "course_tag": "MATBUS 471",
+        "course_name": "Fixed Income Securities"
+      }
+    ],
+    "MATH": [
+      {
+        "course_tag": "MATH 103",
+        "course_name": "Intro Algebra (Arts & Soc Sci)"
+      },
+      {
+        "course_tag": "MATH 104",
+        "course_name": "Intro Calc (Arts & Soc Sci)"
+      },
+      {
+        "course_tag": "MATH 106",
+        "course_name": "Applied Linear Algebra 1"
+      },
+      {
+        "course_tag": "MATH 114",
+        "course_name": "Linear Algebra (Sci)"
+      },
+      {
+        "course_tag": "MATH 115",
+        "course_name": "Linear Algebra (Eng)"
+      },
+      {
+        "course_tag": "MATH 116",
+        "course_name": "Calculus 1 (Eng)"
+      },
+      {
+        "course_tag": "MATH 117",
+        "course_name": "Calculus 1 (Eng)"
+      },
+      {
+        "course_tag": "MATH 124",
+        "course_name": "Calc & Vector Algebra (Kin)"
+      },
+      {
+        "course_tag": "MATH 127",
+        "course_name": "Calculus 1 (Sci)"
+      },
+      {
+        "course_tag": "MATH 127",
+        "course_name": "Calculus 1 (Sci)"
+      },
+      {
+        "course_tag": "MATH 128",
+        "course_name": "Calculus 2 (Sci)"
+      },
+      {
+        "course_tag": "MATH 135",
+        "course_name": "Algebra (Honours)"
+      },
+      {
+        "course_tag": "MATH 136",
+        "course_name": "Linear Algebra 1 (Honours)"
+      },
+      {
+        "course_tag": "MATH 136",
+        "course_name": "Linear Algebra 1 (Honours)"
+      },
+      {
+        "course_tag": "MATH 137",
+        "course_name": "Calculus 1 (Honours)"
+      },
+      {
+        "course_tag": "MATH 138",
+        "course_name": "Calculus 2 (Honours)"
+      },
+      {
+        "course_tag": "MATH 138",
+        "course_name": "Calculus 2 (Honours)"
+      },
+      {
+        "course_tag": "MATH 145",
+        "course_name": "Algebra (Adv)"
+      },
+      {
+        "course_tag": "MATH 147",
+        "course_name": "Calculus 1 (Adv)"
+      },
+      {
+        "course_tag": "MATH 207",
+        "course_name": "Calculus 3 (Non-Spec)"
+      },
+      {
+        "course_tag": "MATH 217",
+        "course_name": "Calculus 3 (Chem Eng)"
+      },
+      {
+        "course_tag": "MATH 218",
+        "course_name": "Differential Equations (Eng)"
+      },
+      {
+        "course_tag": "MATH 225",
+        "course_name": "Applied Linear Algebra 2"
+      },
+      {
+        "course_tag": "MATH 227",
+        "course_name": "Calculus 3 (Hons Phys)"
+      },
+      {
+        "course_tag": "MATH 228",
+        "course_name": "Diff Equations (Phys & Chem)"
+      },
+      {
+        "course_tag": "MATH 229",
+        "course_name": "Intro Combinatorics (Non-Spec)"
+      },
+      {
+        "course_tag": "MATH 235",
+        "course_name": "Linear Algebra 2 (Honours)"
+      },
+      {
+        "course_tag": "MATH 235",
+        "course_name": "Linear Algebra 2 (Honours)"
+      },
+      {
+        "course_tag": "MATH 237",
+        "course_name": "Calculus 3 (Honours)"
+      },
+      {
+        "course_tag": "MATH 237",
+        "course_name": "Calculus 3 (Honours)"
+      },
+      {
+        "course_tag": "MATH 239",
+        "course_name": "Intro Combinatorics"
+      },
+      {
+        "course_tag": "MATH 245",
+        "course_name": "Linear Algebra 2 (Adv)"
+      },
+      {
+        "course_tag": "MATH 247",
+        "course_name": "Calculus 3 (Adv)"
+      },
+      {
+        "course_tag": "MATH 249",
+        "course_name": "Intro Combinatorics (Adv)"
+      }
+    ],
+    "ME": [
+      {
+        "course_tag": "ME 100",
+        "course_name": "Intro Practice 1"
+      },
+      {
+        "course_tag": "ME 200A",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "ME 200B",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "ME 201",
+        "course_name": "Advanced Calculus"
+      },
+      {
+        "course_tag": "ME 202",
+        "course_name": "Statistics for Engineers"
+      },
+      {
+        "course_tag": "ME 203",
+        "course_name": "Ordinary Differential Equation"
+      },
+      {
+        "course_tag": "ME 212",
+        "course_name": "Dynamics"
+      },
+      {
+        "course_tag": "ME 219",
+        "course_name": "Mech of Deformable Solids 1"
+      },
+      {
+        "course_tag": "ME 220",
+        "course_name": "Mech of Deformable Solids 2"
+      },
+      {
+        "course_tag": "ME 230",
+        "course_name": "Control of Material Properties"
+      },
+      {
+        "course_tag": "ME 250",
+        "course_name": "Thermodynamics 1"
+      },
+      {
+        "course_tag": "ME 262",
+        "course_name": "Microprocessors & Digi Logic"
+      },
+      {
+        "course_tag": "ME 269",
+        "course_name": "Electromech Dev & Power Proc"
+      },
+      {
+        "course_tag": "ME 300B",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "ME 322",
+        "course_name": "Mechanical Design 1"
+      },
+      {
+        "course_tag": "ME 353",
+        "course_name": "Heat Transfer 1"
+      },
+      {
+        "course_tag": "ME 360",
+        "course_name": "Intro Control Systems"
+      },
+      {
+        "course_tag": "ME 362",
+        "course_name": "Fluid Mechanics 2"
+      },
+      {
+        "course_tag": "ME 380",
+        "course_name": "Design Workshop"
+      },
+      {
+        "course_tag": "ME 400A",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "ME 423",
+        "course_name": "Mechanical Design 2"
+      },
+      {
+        "course_tag": "ME 435",
+        "course_name": "Industrial Metallurgy"
+      },
+      {
+        "course_tag": "ME 436",
+        "course_name": "Welding & Joining Processes"
+      },
+      {
+        "course_tag": "ME 456",
+        "course_name": "Heat Transfer 2"
+      },
+      {
+        "course_tag": "ME 459",
+        "course_name": "Energy Conversion"
+      },
+      {
+        "course_tag": "ME 481",
+        "course_name": "Design Project 1"
+      },
+      {
+        "course_tag": "ME 540",
+        "course_name": "Neural & Rehabilitation Eng"
+      },
+      {
+        "course_tag": "ME 548",
+        "course_name": "Num Control of Machine Tools 1"
+      },
+      {
+        "course_tag": "ME 559",
+        "course_name": "Finite Element Methods"
+      },
+      {
+        "course_tag": "ME 561",
+        "course_name": "Fluid Power Control Systems"
+      },
+      {
+        "course_tag": "ME 566",
+        "course_name": "Computational Fluid Dynamics"
+      },
+      {
+        "course_tag": "ME 572",
+        "course_name": "Building Energy Analysis"
+      },
+      {
+        "course_tag": "ME 595",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "ME 595",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "ME 597",
+        "course_name": "Special Topics"
+      }
+    ],
+    "MEDVL": [
+      {
+        "course_tag": "MEDVL 115",
+        "course_name": "Crusading in the Middle Ages"
+      },
+      {
+        "course_tag": "MEDVL 252",
+        "course_name": "Medieval Monsters"
+      },
+      {
+        "course_tag": "MEDVL 260",
+        "course_name": "Medieval Europe: c300-c1500"
+      },
+      {
+        "course_tag": "MEDVL 307",
+        "course_name": "Hlth & Disease West Med Hist"
+      }
+    ],
+    "MGMT": [
+      {
+        "course_tag": "MGMT 171",
+        "course_name": "Fund of Personal & Bus Fin"
+      },
+      {
+        "course_tag": "MGMT 220",
+        "course_name": "Entrepreneur & Creative Workpl"
+      },
+      {
+        "course_tag": "MGMT 244",
+        "course_name": "Principles of Marketing"
+      },
+      {
+        "course_tag": "MGMT 244",
+        "course_name": "Principles of Marketing"
+      }
+    ],
+    "MNS": [
+      {
+        "course_tag": "MNS 10",
+        "course_name": "Sem: Materials & Nanosciences"
+      },
+      {
+        "course_tag": "MNS 101",
+        "course_name": "Materials & Nanosciences"
+      },
+      {
+        "course_tag": "MNS 211",
+        "course_name": "Chemistry & Solid State"
+      },
+      {
+        "course_tag": "MNS 321",
+        "course_name": "Electr & Optic Prop of Mtls"
+      }
+    ],
+    "MSE": [
+      {
+        "course_tag": "MSE 100",
+        "course_name": "Management Eng Concepts"
+      },
+      {
+        "course_tag": "MSE 121",
+        "course_name": "Intro Computer Programming"
+      },
+      {
+        "course_tag": "MSE 200A",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "MSE 211",
+        "course_name": "Organizational Behaviour"
+      },
+      {
+        "course_tag": "MSE 240",
+        "course_name": "Algorithms & Data Structures"
+      },
+      {
+        "course_tag": "MSE 251",
+        "course_name": "Probability & Statistics 1"
+      },
+      {
+        "course_tag": "MSE 261",
+        "course_name": "Eng Economics: Fin Mgmt"
+      },
+      {
+        "course_tag": "MSE 271",
+        "course_name": "Adv Calc & Numerical Methods"
+      },
+      {
+        "course_tag": "MSE 300B",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "MSE 302",
+        "course_name": "Engineering Design Methods"
+      },
+      {
+        "course_tag": "MSE 302",
+        "course_name": "Engineering Design Methods"
+      },
+      {
+        "course_tag": "MSE 311",
+        "course_name": "Organizational Design & Tech"
+      },
+      {
+        "course_tag": "MSE 331",
+        "course_name": "Intro Optimization"
+      },
+      {
+        "course_tag": "MSE 332",
+        "course_name": "Deterministic Optimization"
+      },
+      {
+        "course_tag": "MSE 333",
+        "course_name": "Simulation Analysis & Design"
+      },
+      {
+        "course_tag": "MSE 343",
+        "course_name": "Human-Computer Interaction"
+      },
+      {
+        "course_tag": "MSE 391",
+        "course_name": "Work-Term Report"
+      },
+      {
+        "course_tag": "MSE 392",
+        "course_name": "Work-Term Report"
+      },
+      {
+        "course_tag": "MSE 422",
+        "course_name": "Econ Impact of Tech Change"
+      },
+      {
+        "course_tag": "MSE 432",
+        "course_name": "Prod & Svc Ops Mgmt"
+      },
+      {
+        "course_tag": "MSE 446",
+        "course_name": "Introduction Machine Learning"
+      },
+      {
+        "course_tag": "MSE 491",
+        "course_name": "Work-Term Report"
+      },
+      {
+        "course_tag": "MSE 541",
+        "course_name": "Search Engines"
+      },
+      {
+        "course_tag": "MSE 551",
+        "course_name": "Quality Management & Control"
+      }
+    ],
+    "MTE": [
+      {
+        "course_tag": "MTE 100",
+        "course_name": "Mechatronics Engineering"
+      },
+      {
+        "course_tag": "MTE 121",
+        "course_name": "Digital Computation"
+      },
+      {
+        "course_tag": "MTE 182",
+        "course_name": "Physics 2: Dynamics"
+      },
+      {
+        "course_tag": "MTE 200A",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "MTE 200B",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "MTE 201",
+        "course_name": "Exp Measure & Stat Analysis"
+      },
+      {
+        "course_tag": "MTE 202",
+        "course_name": "Ordinary Differential Equation"
+      },
+      {
+        "course_tag": "MTE 203",
+        "course_name": "Advanced Calculus"
+      },
+      {
+        "course_tag": "MTE 204",
+        "course_name": "Numerical Methods"
+      },
+      {
+        "course_tag": "MTE 219",
+        "course_name": "Mechanics of Deformable Solids"
+      },
+      {
+        "course_tag": "MTE 220",
+        "course_name": "Sensors & Instrumentation"
+      },
+      {
+        "course_tag": "MTE 241",
+        "course_name": "Comp Struct & Real-Time Sys"
+      },
+      {
+        "course_tag": "MTE 252",
+        "course_name": "Linear Systems & Signals"
+      },
+      {
+        "course_tag": "MTE 262",
+        "course_name": "Intro to Digital Logic"
+      },
+      {
+        "course_tag": "MTE 300B",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "MTE 322",
+        "course_name": "Electromech Machine Design"
+      },
+      {
+        "course_tag": "MTE 352",
+        "course_name": "Fluid Mechanics 1"
+      },
+      {
+        "course_tag": "MTE 360",
+        "course_name": "Automatic Control Systems"
+      },
+      {
+        "course_tag": "MTE 380",
+        "course_name": "Design Workshop"
+      },
+      {
+        "course_tag": "MTE 400A",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "MTE 420",
+        "course_name": "Pwr Electronics & Motor Drives"
+      },
+      {
+        "course_tag": "MTE 421",
+        "course_name": "Intro Transistor-Level Design"
+      },
+      {
+        "course_tag": "MTE 481",
+        "course_name": "Design Project"
+      },
+      {
+        "course_tag": "MTE 484",
+        "course_name": "Digital Control Applications"
+      },
+      {
+        "course_tag": "MTE 544",
+        "course_name": "Autonomous Mobile Robots"
+      },
+      {
+        "course_tag": "MTE 545",
+        "course_name": "Intro MEMS Fabrication"
+      },
+      {
+        "course_tag": "MTE 599",
+        "course_name": "Topics: Mechanical Systems"
+      }
+    ],
+    "MTHEL": [
+      {
+        "course_tag": "MTHEL 99",
+        "course_name": "First-Year Math Readiness"
+      },
+      {
+        "course_tag": "MTHEL 131",
+        "course_name": "Intro Actuarial Practice"
+      },
+      {
+        "course_tag": "MTHEL 398",
+        "course_name": "Topics 3"
+      }
+    ],
+    "MUSIC": [
+      {
+        "course_tag": "MUSIC 100",
+        "course_name": "Understanding Music"
+      },
+      {
+        "course_tag": "MUSIC 110",
+        "course_name": "How Music Matters"
+      },
+      {
+        "course_tag": "MUSIC 111",
+        "course_name": "Fundamentals of Music Theory"
+      },
+      {
+        "course_tag": "MUSIC 116",
+        "course_name": "Music Ensemble"
+      },
+      {
+        "course_tag": "MUSIC 117",
+        "course_name": "Music Ensemble"
+      },
+      {
+        "course_tag": "MUSIC 140",
+        "course_name": "Popular Music & Culture"
+      },
+      {
+        "course_tag": "MUSIC 216",
+        "course_name": "Music Ensemble"
+      },
+      {
+        "course_tag": "MUSIC 217",
+        "course_name": "Music Ensemble"
+      },
+      {
+        "course_tag": "MUSIC 222",
+        "course_name": "Conducting 1"
+      },
+      {
+        "course_tag": "MUSIC 226",
+        "course_name": "Music Studio"
+      },
+      {
+        "course_tag": "MUSIC 227",
+        "course_name": "Music Studio"
+      },
+      {
+        "course_tag": "MUSIC 232",
+        "course_name": "Music as a Global Phenomenon"
+      },
+      {
+        "course_tag": "MUSIC 246",
+        "course_name": "Soundtracks: Music in Film"
+      },
+      {
+        "course_tag": "MUSIC 250",
+        "course_name": "European Music History 1"
+      },
+      {
+        "course_tag": "MUSIC 261",
+        "course_name": "Opera & Musical Theatre"
+      },
+      {
+        "course_tag": "MUSIC 270",
+        "course_name": "Music Theory 1"
+      },
+      {
+        "course_tag": "MUSIC 271",
+        "course_name": "Music Theory 2"
+      },
+      {
+        "course_tag": "MUSIC 275",
+        "course_name": "Music & Technology"
+      },
+      {
+        "course_tag": "MUSIC 316",
+        "course_name": "Music Ensemble"
+      },
+      {
+        "course_tag": "MUSIC 317",
+        "course_name": "Music Ensemble"
+      },
+      {
+        "course_tag": "MUSIC 326",
+        "course_name": "Music Studio"
+      },
+      {
+        "course_tag": "MUSIC 327",
+        "course_name": "Music Studio"
+      },
+      {
+        "course_tag": "MUSIC 376",
+        "course_name": "Composition Seminar"
+      },
+      {
+        "course_tag": "MUSIC 380",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "MUSIC 381",
+        "course_name": "Directed Study"
+      },
+      {
+        "course_tag": "MUSIC 390",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "MUSIC 416",
+        "course_name": "Music Ensemble"
+      },
+      {
+        "course_tag": "MUSIC 417",
+        "course_name": "Music Ensemble"
+      },
+      {
+        "course_tag": "MUSIC 426",
+        "course_name": "Music Studio"
+      },
+      {
+        "course_tag": "MUSIC 427",
+        "course_name": "Music Studio"
+      },
+      {
+        "course_tag": "MUSIC 428",
+        "course_name": "Music Studio"
+      },
+      {
+        "course_tag": "MUSIC 491",
+        "course_name": "Senior Research Project"
+      },
+      {
+        "course_tag": "MUSIC 492",
+        "course_name": "Senior Honours Thesis"
+      }
+    ],
+    "NE": [
+      {
+        "course_tag": "NE 100",
+        "course_name": "Intro Nanotech Eng"
+      },
+      {
+        "course_tag": "NE 109",
+        "course_name": "Nanotech Impact Society & Env"
+      },
+      {
+        "course_tag": "NE 111",
+        "course_name": "Intro Programming for Eng"
+      },
+      {
+        "course_tag": "NE 112",
+        "course_name": "Linear Algebra"
+      },
+      {
+        "course_tag": "NE 121",
+        "course_name": "Chemical Principles"
+      },
+      {
+        "course_tag": "NE 215",
+        "course_name": "Probability & Statistics"
+      },
+      {
+        "course_tag": "NE 216",
+        "course_name": "Adv Calculus & Num Methods 1"
+      },
+      {
+        "course_tag": "NE 220L",
+        "course_name": "Materials Sci & Eng Lab"
+      },
+      {
+        "course_tag": "NE 222",
+        "course_name": "Organic Chemistry"
+      },
+      {
+        "course_tag": "NE 241",
+        "course_name": "Electromagnetism"
+      },
+      {
+        "course_tag": "NE 307",
+        "course_name": "Intro Nanosystems"
+      },
+      {
+        "course_tag": "NE 330L",
+        "course_name": "Macromolecular Science Lab"
+      },
+      {
+        "course_tag": "NE 334",
+        "course_name": "Statistical Thermodynamics"
+      },
+      {
+        "course_tag": "NE 335",
+        "course_name": "Soft Nanomaterials"
+      },
+      {
+        "course_tag": "NE 336",
+        "course_name": "Micro & Nanosys Comp-Aid-Dsgn"
+      },
+      {
+        "course_tag": "NE 344",
+        "course_name": "Electronic Circuits"
+      },
+      {
+        "course_tag": "NE 345",
+        "course_name": "Photonic Materials & Devices"
+      },
+      {
+        "course_tag": "NE 352",
+        "course_name": "Surfaces & Interfaces"
+      },
+      {
+        "course_tag": "NE 353",
+        "course_name": "Nanoprobing & Lithography"
+      },
+      {
+        "course_tag": "NE 381",
+        "course_name": "Intro Nanoscale Biosystems"
+      },
+      {
+        "course_tag": "NE 408",
+        "course_name": "Nanosystems Design Project"
+      },
+      {
+        "course_tag": "NE 451",
+        "course_name": "Simulation Methods"
+      },
+      {
+        "course_tag": "NE 454A",
+        "course_name": "Nano-Electronics Lab 1"
+      },
+      {
+        "course_tag": "NE 454B",
+        "course_name": "Nano-Instrumentation Lab 1"
+      },
+      {
+        "course_tag": "NE 454C",
+        "course_name": "Nanobiosystems Lab 1"
+      },
+      {
+        "course_tag": "NE 454D",
+        "course_name": "Nanostructured Materials Lab 1"
+      },
+      {
+        "course_tag": "NE 461",
+        "course_name": "Micro and Nano-Instrumentation"
+      },
+      {
+        "course_tag": "NE 471",
+        "course_name": "Nano-Electronics"
+      },
+      {
+        "course_tag": "NE 481",
+        "course_name": "Nanomed & Nanobiotech"
+      },
+      {
+        "course_tag": "NE 486",
+        "course_name": "Biosensors"
+      },
+      {
+        "course_tag": "NE 491",
+        "course_name": "Nanostructured Materials"
+      }
+    ],
+    "PACS": [
+      {
+        "course_tag": "PACS 101",
+        "course_name": "Peace is Everybody's Business"
+      },
+      {
+        "course_tag": "PACS 201",
+        "course_name": "Roots of Conflict/Viol/Peace"
+      },
+      {
+        "course_tag": "PACS 202",
+        "course_name": "Conflict Resolution"
+      },
+      {
+        "course_tag": "PACS 202",
+        "course_name": "Conflict Resolution"
+      },
+      {
+        "course_tag": "PACS 203",
+        "course_name": "A History of Peace Movements"
+      },
+      {
+        "course_tag": "PACS 302",
+        "course_name": "Special Topics 2 in PACS"
+      },
+      {
+        "course_tag": "PACS 315",
+        "course_name": "Engineering & Peace"
+      },
+      {
+        "course_tag": "PACS 323",
+        "course_name": "Negotiation: Theory & Strat"
+      },
+      {
+        "course_tag": "PACS 325",
+        "course_name": "Refugees & Forced Migration"
+      },
+      {
+        "course_tag": "PACS 329",
+        "course_name": "Restorative Justice"
+      },
+      {
+        "course_tag": "PACS 331",
+        "course_name": "Trauma, Healing, Soc Transform"
+      },
+      {
+        "course_tag": "PACS 390",
+        "course_name": "Internship"
+      },
+      {
+        "course_tag": "PACS 391",
+        "course_name": "Conflict Resolution Skills"
+      },
+      {
+        "course_tag": "PACS 391",
+        "course_name": "Conflict Resolution Skills"
+      },
+      {
+        "course_tag": "PACS 398",
+        "course_name": "Directed Readings"
+      },
+      {
+        "course_tag": "PACS 399",
+        "course_name": "Directed Readings"
+      },
+      {
+        "course_tag": "PACS 401",
+        "course_name": "Senior Research Seminar"
+      }
+    ],
+    "PD": [
+      {
+        "course_tag": "PD 1",
+        "course_name": "Career Fundamentals"
+      },
+      {
+        "course_tag": "PD 3",
+        "course_name": "Communication"
+      },
+      {
+        "course_tag": "PD 5",
+        "course_name": "Project Management"
+      },
+      {
+        "course_tag": "PD 7",
+        "course_name": "Conflict Resolution"
+      },
+      {
+        "course_tag": "PD 9",
+        "course_name": "Ethical Decision Making"
+      },
+      {
+        "course_tag": "PD 10",
+        "course_name": "Professional Resp in Computing"
+      },
+      {
+        "course_tag": "PD 11",
+        "course_name": "Technical Report Writing"
+      },
+      {
+        "course_tag": "PD 12",
+        "course_name": "Critical Reflection"
+      },
+      {
+        "course_tag": "PD 13",
+        "course_name": "Research in the Workplace"
+      },
+      {
+        "course_tag": "PD 14",
+        "course_name": "Technological Futures"
+      },
+      {
+        "course_tag": "PD 19",
+        "course_name": "Tactics for Workplace Success"
+      },
+      {
+        "course_tag": "PD 20",
+        "course_name": "Strategies for Career Success"
+      },
+      {
+        "course_tag": "PD 22",
+        "course_name": "Eng Professionalism & Ethics"
+      }
+    ],
+    "PDARCH": [
+      {
+        "course_tag": "PDARCH 2",
+        "course_name": "Co-op Fundamentals"
+      }
+    ],
+    "PHARM": [
+      {
+        "course_tag": "PHARM 150",
+        "course_name": "World of Pharmacy"
+      },
+      {
+        "course_tag": "PHARM 361",
+        "course_name": "Advanced Compounding"
+      },
+      {
+        "course_tag": "PHARM 366",
+        "course_name": "Nutritional Sciences Concepts"
+      },
+      {
+        "course_tag": "PHARM 375",
+        "course_name": "Substance Use & Misuse"
+      },
+      {
+        "course_tag": "PHARM 377",
+        "course_name": "Drug-Induced Disease"
+      },
+      {
+        "course_tag": "PHARM 380",
+        "course_name": "Landmark Clinical Trials"
+      },
+      {
+        "course_tag": "PHARM 464",
+        "course_name": "Adv Therapeutics in Oncology"
+      },
+      {
+        "course_tag": "PHARM 466",
+        "course_name": "Advanced Geriatric Care"
+      },
+      {
+        "course_tag": "PHARM 473",
+        "course_name": "Advanced Infectious Disease"
+      }
+    ],
+    "PHIL": [
+      {
+        "course_tag": "PHIL 100J",
+        "course_name": "Intro Philosophy"
+      },
+      {
+        "course_tag": "PHIL 101",
+        "course_name": "Challenging Ideas: Intro Phil"
+      },
+      {
+        "course_tag": "PHIL 110B",
+        "course_name": "Intro Phil: Ethics & Values"
+      },
+      {
+        "course_tag": "PHIL 118J",
+        "course_name": "Virtue & the Good Life"
+      },
+      {
+        "course_tag": "PHIL 120J",
+        "course_name": "The Meaning of Life"
+      },
+      {
+        "course_tag": "PHIL 121",
+        "course_name": "Moral Issues"
+      },
+      {
+        "course_tag": "PHIL 145",
+        "course_name": "Critical Thinking"
+      },
+      {
+        "course_tag": "PHIL 145",
+        "course_name": "Critical Thinking"
+      },
+      {
+        "course_tag": "PHIL 201",
+        "course_name": "Philosophy of Sex & Love"
+      },
+      {
+        "course_tag": "PHIL 204J",
+        "course_name": "Philosophy & Culture"
+      },
+      {
+        "course_tag": "PHIL 215",
+        "course_name": "Professional & Business Ethics"
+      },
+      {
+        "course_tag": "PHIL 215",
+        "course_name": "Professional & Business Ethics"
+      },
+      {
+        "course_tag": "PHIL 220J",
+        "course_name": "Philosophy of Friendship"
+      },
+      {
+        "course_tag": "PHIL 221",
+        "course_name": "Ethics"
+      },
+      {
+        "course_tag": "PHIL 226",
+        "course_name": "Biomedical Ethics"
+      },
+      {
+        "course_tag": "PHIL 228",
+        "course_name": "Ethics & AI"
+      },
+      {
+        "course_tag": "PHIL 240",
+        "course_name": "Intro Formal Logic"
+      },
+      {
+        "course_tag": "PHIL 251",
+        "course_name": "Metaphysics & Epistemology"
+      },
+      {
+        "course_tag": "PHIL 256",
+        "course_name": "Intro Cognitive Science"
+      },
+      {
+        "course_tag": "PHIL 284",
+        "course_name": "Great Works: Modern"
+      },
+      {
+        "course_tag": "PHIL 324",
+        "course_name": "Social & Political Philosophy"
+      },
+      {
+        "course_tag": "PHIL 327",
+        "course_name": "Philosophy of Law"
+      },
+      {
+        "course_tag": "PHIL 356",
+        "course_name": "Intelligence"
+      },
+      {
+        "course_tag": "PHIL 384",
+        "course_name": "History of Modern Philosophy"
+      },
+      {
+        "course_tag": "PHIL 420",
+        "course_name": "Studies: Ethics"
+      },
+      {
+        "course_tag": "PHIL 458",
+        "course_name": "Philosophy of Science"
+      },
+      {
+        "course_tag": "PHIL 471",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "PHIL 498",
+        "course_name": "Directed Reading"
+      }
+    ],
+    "PHYS": [
+      {
+        "course_tag": "PHYS 10",
+        "course_name": "Sem: Physics"
+      },
+      {
+        "course_tag": "PHYS 105",
+        "course_name": "Intro Phys for Health Care"
+      },
+      {
+        "course_tag": "PHYS 111",
+        "course_name": "Physics 1"
+      },
+      {
+        "course_tag": "PHYS 111L",
+        "course_name": "Physics 1 Lab"
+      },
+      {
+        "course_tag": "PHYS 115",
+        "course_name": "Mechanics"
+      },
+      {
+        "course_tag": "PHYS 121",
+        "course_name": "Mechanics"
+      },
+      {
+        "course_tag": "PHYS 121L",
+        "course_name": "Mechanics Lab"
+      },
+      {
+        "course_tag": "PHYS 225",
+        "course_name": "Modeling Biological Physics"
+      },
+      {
+        "course_tag": "PHYS 249",
+        "course_name": "Linear Alg for Phys & Astro"
+      },
+      {
+        "course_tag": "PHYS 256",
+        "course_name": "Geometrical & Physical Optics"
+      },
+      {
+        "course_tag": "PHYS 260A",
+        "course_name": "Intermediate Physics Lab 1"
+      },
+      {
+        "course_tag": "PHYS 275",
+        "course_name": "Planets"
+      },
+      {
+        "course_tag": "PHYS 342",
+        "course_name": "Electricity & Magnetism 2"
+      },
+      {
+        "course_tag": "PHYS 358",
+        "course_name": "Thermal Physics"
+      },
+      {
+        "course_tag": "PHYS 359",
+        "course_name": "Statistical Mechanics"
+      },
+      {
+        "course_tag": "PHYS 360A",
+        "course_name": "Modern Physics Lab 1"
+      },
+      {
+        "course_tag": "PHYS 360B",
+        "course_name": "Modern Physics Lab 2"
+      },
+      {
+        "course_tag": "PHYS 363",
+        "course_name": "Intmd Classical Mechanics"
+      },
+      {
+        "course_tag": "PHYS 364",
+        "course_name": "Mathematical Physics 1"
+      },
+      {
+        "course_tag": "PHYS 380",
+        "course_name": "Molecular & Cellular Biophys"
+      },
+      {
+        "course_tag": "PHYS 434",
+        "course_name": "Quantum Physics 3"
+      },
+      {
+        "course_tag": "PHYS 437A",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "PHYS 437B",
+        "course_name": "Research Project (Continued)"
+      },
+      {
+        "course_tag": "PHYS 442",
+        "course_name": "Electricity & Magnetism 3"
+      },
+      {
+        "course_tag": "PHYS 449",
+        "course_name": "Machine Learning in Physics"
+      },
+      {
+        "course_tag": "PHYS 454",
+        "course_name": "Quantum Theory 2"
+      },
+      {
+        "course_tag": "PHYS 460A",
+        "course_name": "Advanced Laboratory 1"
+      },
+      {
+        "course_tag": "PHYS 460B",
+        "course_name": "Advanced Lab 2"
+      },
+      {
+        "course_tag": "PHYS 468",
+        "course_name": "Intro Quantum Info Processing"
+      },
+      {
+        "course_tag": "PHYS 474",
+        "course_name": "Galaxies"
+      },
+      {
+        "course_tag": "PHYS 475",
+        "course_name": "Cosmology"
+      },
+      {
+        "course_tag": "PHYS 490",
+        "course_name": "Special Topics"
+      }
+    ],
+    "PLAN": [
+      {
+        "course_tag": "PLAN 100",
+        "course_name": "Intro to Cities and Regions"
+      },
+      {
+        "course_tag": "PLAN 107",
+        "course_name": "Plan Process-Stages-Strategy"
+      },
+      {
+        "course_tag": "PLAN 202",
+        "course_name": "Transport & Housing Systems"
+      },
+      {
+        "course_tag": "PLAN 205",
+        "course_name": "Spatial & Demographic Analysis"
+      },
+      {
+        "course_tag": "PLAN 210",
+        "course_name": "Community Design Fund"
+      },
+      {
+        "course_tag": "PLAN 267",
+        "course_name": "Technology in the City"
+      },
+      {
+        "course_tag": "PLAN 281",
+        "course_name": "Intro GIS"
+      },
+      {
+        "course_tag": "PLAN 300",
+        "course_name": "Planning Theory & Ethics"
+      },
+      {
+        "course_tag": "PLAN 309",
+        "course_name": "Site Planning & Design Studio"
+      },
+      {
+        "course_tag": "PLAN 320",
+        "course_name": "Economic Analyses for Reg Plan"
+      },
+      {
+        "course_tag": "PLAN 340",
+        "course_name": "Canadian Env Policy & Politics"
+      },
+      {
+        "course_tag": "PLAN 351",
+        "course_name": "Multivariate Statistics"
+      },
+      {
+        "course_tag": "PLAN 380",
+        "course_name": "Crime & the City"
+      },
+      {
+        "course_tag": "PLAN 387",
+        "course_name": "Spatial Databases"
+      },
+      {
+        "course_tag": "PLAN 417",
+        "course_name": "Aggregate Resources"
+      },
+      {
+        "course_tag": "PLAN 451",
+        "course_name": "Rural & Regional Env Planning"
+      },
+      {
+        "course_tag": "PLAN 453",
+        "course_name": "Urban Stormwater Management"
+      },
+      {
+        "course_tag": "PLAN 474",
+        "course_name": "Special Topics: Planning"
+      },
+      {
+        "course_tag": "PLAN 481",
+        "course_name": "GIS Project"
+      }
+    ],
+    "PMATH": [
+      {
+        "course_tag": "PMATH 330",
+        "course_name": "Intro Mathematical Logic"
+      },
+      {
+        "course_tag": "PMATH 331",
+        "course_name": "Applied Real Analysis"
+      },
+      {
+        "course_tag": "PMATH 333",
+        "course_name": "Intro Real Analysis"
+      },
+      {
+        "course_tag": "PMATH 336",
+        "course_name": "Intro Group Theory w/ Applic"
+      },
+      {
+        "course_tag": "PMATH 340",
+        "course_name": "Elementary Number Theory"
+      },
+      {
+        "course_tag": "PMATH 347",
+        "course_name": "Groups & Rings"
+      },
+      {
+        "course_tag": "PMATH 367",
+        "course_name": "Topology"
+      },
+      {
+        "course_tag": "PMATH 432",
+        "course_name": "Mathematical Logic"
+      },
+      {
+        "course_tag": "PMATH 440",
+        "course_name": "Analytic Number Theory"
+      },
+      {
+        "course_tag": "PMATH 446",
+        "course_name": "Intro Commutative Algebra"
+      },
+      {
+        "course_tag": "PMATH 450",
+        "course_name": "Measure Theory"
+      },
+      {
+        "course_tag": "PMATH 453",
+        "course_name": "Functional Analysis"
+      },
+      {
+        "course_tag": "PMATH 455",
+        "course_name": "Convex Analysis & Geometry"
+      },
+      {
+        "course_tag": "PMATH 465",
+        "course_name": "Smooth Manifolds"
+      }
+    ],
+    "PSCI": [
+      {
+        "course_tag": "PSCI 100",
+        "course_name": "Power, Politics & Policy"
+      },
+      {
+        "course_tag": "PSCI 224",
+        "course_name": "Research & Methods in Pol Sci"
+      },
+      {
+        "course_tag": "PSCI 231",
+        "course_name": "Government & Business"
+      },
+      {
+        "course_tag": "PSCI 252",
+        "course_name": "Global South"
+      },
+      {
+        "course_tag": "PSCI 253",
+        "course_name": "Religion & Politics"
+      },
+      {
+        "course_tag": "PSCI 281",
+        "course_name": "International Relations"
+      },
+      {
+        "course_tag": "PSCI 283",
+        "course_name": "International Political Econ"
+      },
+      {
+        "course_tag": "PSCI 302",
+        "course_name": "Local Government"
+      },
+      {
+        "course_tag": "PSCI 303",
+        "course_name": "Pol Econ of the Environment"
+      },
+      {
+        "course_tag": "PSCI 324",
+        "course_name": "Contemporary Political Theory"
+      },
+      {
+        "course_tag": "PSCI 331",
+        "course_name": "Public Administration"
+      },
+      {
+        "course_tag": "PSCI 360",
+        "course_name": "Issues in Canadian Politics"
+      },
+      {
+        "course_tag": "PSCI 365",
+        "course_name": "Politics of Free Speech"
+      },
+      {
+        "course_tag": "PSCI 387",
+        "course_name": "Globalization"
+      },
+      {
+        "course_tag": "PSCI 391",
+        "course_name": "Special Studies"
+      },
+      {
+        "course_tag": "PSCI 400",
+        "course_name": "Special Honours Essay"
+      },
+      {
+        "course_tag": "PSCI 423",
+        "course_name": "Democratic Theory & Practice"
+      },
+      {
+        "course_tag": "PSCI 463",
+        "course_name": "Rights & Public Policy"
+      },
+      {
+        "course_tag": "PSCI 486",
+        "course_name": "Topics: Intl Diplomacy"
+      },
+      {
+        "course_tag": "PSCI 488",
+        "course_name": "Global Food & Agric Politics"
+      },
+      {
+        "course_tag": "PSCI 499A",
+        "course_name": "Special Honours Essay"
+      }
+    ],
+    "PSYCH": [
+      {
+        "course_tag": "PSYCH 101",
+        "course_name": "Intro Psychology"
+      },
+      {
+        "course_tag": "PSYCH 101",
+        "course_name": "Intro Psychology"
+      },
+      {
+        "course_tag": "PSYCH 101",
+        "course_name": "Intro Psychology"
+      },
+      {
+        "course_tag": "PSYCH 101R",
+        "course_name": "Intro Psychology"
+      },
+      {
+        "course_tag": "PSYCH 207",
+        "course_name": "Cognitive Processes"
+      },
+      {
+        "course_tag": "PSYCH 211",
+        "course_name": "Developmental Psychology"
+      },
+      {
+        "course_tag": "PSYCH 212",
+        "course_name": "Educational Psychology"
+      },
+      {
+        "course_tag": "PSYCH 212R",
+        "course_name": "Educational Psychology"
+      },
+      {
+        "course_tag": "PSYCH 218",
+        "course_name": "Psychology of Death & Dying"
+      },
+      {
+        "course_tag": "PSYCH 230",
+        "course_name": "Psychology & Law"
+      },
+      {
+        "course_tag": "PSYCH 238",
+        "course_name": "Organizational Psychology"
+      },
+      {
+        "course_tag": "PSYCH 253",
+        "course_name": "Social Psychology"
+      },
+      {
+        "course_tag": "PSYCH 256",
+        "course_name": "Intro Cognitive Science"
+      },
+      {
+        "course_tag": "PSYCH 261",
+        "course_name": "Physiological Psychology"
+      },
+      {
+        "course_tag": "PSYCH 264",
+        "course_name": "Research Apprenticeship"
+      },
+      {
+        "course_tag": "PSYCH 291",
+        "course_name": "Basic Research Methods"
+      },
+      {
+        "course_tag": "PSYCH 306",
+        "course_name": "Perception"
+      },
+      {
+        "course_tag": "PSYCH 307",
+        "course_name": "Human Neuropsychology"
+      },
+      {
+        "course_tag": "PSYCH 312",
+        "course_name": "Learning Disabilities"
+      },
+      {
+        "course_tag": "PSYCH 317",
+        "course_name": "Child Psychopathology"
+      },
+      {
+        "course_tag": "PSYCH 320",
+        "course_name": "Language Development"
+      },
+      {
+        "course_tag": "PSYCH 334R",
+        "course_name": "Theories: Indv Counselling"
+      },
+      {
+        "course_tag": "PSYCH 336",
+        "course_name": "Intro Clinical Psychology"
+      },
+      {
+        "course_tag": "PSYCH 339",
+        "course_name": "Personnel Psychology"
+      },
+      {
+        "course_tag": "PSYCH 340",
+        "course_name": "Training & Development"
+      },
+      {
+        "course_tag": "PSYCH 352R",
+        "course_name": "Culture & Psychology"
+      },
+      {
+        "course_tag": "PSYCH 356",
+        "course_name": "Personality"
+      },
+      {
+        "course_tag": "PSYCH 363",
+        "course_name": "Special Subjects"
+      },
+      {
+        "course_tag": "PSYCH 363",
+        "course_name": "Special Subjects"
+      },
+      {
+        "course_tag": "PSYCH 389",
+        "course_name": "Topics: Soc Sci Adv Res Meth"
+      },
+      {
+        "course_tag": "PSYCH 389",
+        "course_name": "Topics: Soc Sci Adv Res Meth"
+      },
+      {
+        "course_tag": "PSYCH 389",
+        "course_name": "Topics: Soc Sci Adv Res Meth"
+      },
+      {
+        "course_tag": "PSYCH 389",
+        "course_name": "Topics: Soc Sci Adv Res Meth"
+      },
+      {
+        "course_tag": "PSYCH 390",
+        "course_name": "Topics: Nat Sci Adv Res Meth"
+      },
+      {
+        "course_tag": "PSYCH 391",
+        "course_name": "Advanced Data Analysis"
+      },
+      {
+        "course_tag": "PSYCH 447",
+        "course_name": "Seminar: Cognitive Science"
+      },
+      {
+        "course_tag": "PSYCH 457",
+        "course_name": "Hons Sem: Person & Clin Psych"
+      },
+      {
+        "course_tag": "PSYCH 461",
+        "course_name": "Hons Sem: Cognitive Neurosci"
+      },
+      {
+        "course_tag": "PSYCH 464",
+        "course_name": "Adv Research Apprenticeship"
+      },
+      {
+        "course_tag": "PSYCH 470",
+        "course_name": "Topics: Applied Psychology"
+      },
+      {
+        "course_tag": "PSYCH 470",
+        "course_name": "Topics: Applied Psychology"
+      },
+      {
+        "course_tag": "PSYCH 470",
+        "course_name": "Topics: Applied Psychology"
+      },
+      {
+        "course_tag": "PSYCH 480",
+        "course_name": "Directed Studies"
+      },
+      {
+        "course_tag": "PSYCH 481",
+        "course_name": "Directed Stud: Nat Sci"
+      },
+      {
+        "course_tag": "PSYCH 482",
+        "course_name": "Directed Stud: Soc Sci"
+      },
+      {
+        "course_tag": "PSYCH 483",
+        "course_name": "Directed Stud: Nat Sci Res"
+      },
+      {
+        "course_tag": "PSYCH 484",
+        "course_name": "Directed Stud: Soc Sci Res"
+      },
+      {
+        "course_tag": "PSYCH 485",
+        "course_name": "Directed Studies: Seminar"
+      },
+      {
+        "course_tag": "PSYCH 486",
+        "course_name": "Directed Studies: Adv Stats"
+      },
+      {
+        "course_tag": "PSYCH 492",
+        "course_name": "Psychological Measurement"
+      },
+      {
+        "course_tag": "PSYCH 499A",
+        "course_name": "Honours Thesis - Part 1"
+      },
+      {
+        "course_tag": "PSYCH 499B",
+        "course_name": "Honours Thesis - Part 2"
+      },
+      {
+        "course_tag": "PSYCH 499C",
+        "course_name": "Honours Thesis - Part 3"
+      }
+    ],
+    "RCS": [
+      {
+        "course_tag": "RCS 101",
+        "course_name": "Intro Ancient Greek 1"
+      },
+      {
+        "course_tag": "RCS 110",
+        "course_name": "Judaism, Christianity, Islam"
+      },
+      {
+        "course_tag": "RCS 121",
+        "course_name": "Evil"
+      },
+      {
+        "course_tag": "RCS 204",
+        "course_name": "Buddhism"
+      },
+      {
+        "course_tag": "RCS 211",
+        "course_name": "Holocaust: Jewish Responses"
+      },
+      {
+        "course_tag": "RCS 220",
+        "course_name": "Religion & Politics"
+      },
+      {
+        "course_tag": "RCS 223",
+        "course_name": "Intermediate Greek"
+      },
+      {
+        "course_tag": "RCS 228",
+        "course_name": "Big Ideas of the Bible"
+      },
+      {
+        "course_tag": "RCS 236",
+        "course_name": "Paul: Life & Letters"
+      },
+      {
+        "course_tag": "RCS 260",
+        "course_name": "Religion Matters"
+      },
+      {
+        "course_tag": "RCS 270",
+        "course_name": "Religion in Popular Film"
+      },
+      {
+        "course_tag": "RCS 272",
+        "course_name": "The Holocaust & Film"
+      },
+      {
+        "course_tag": "RCS 291",
+        "course_name": "Special Topics"
+      },
+      {
+        "course_tag": "RCS 315",
+        "course_name": "Greek & Roman Religion"
+      },
+      {
+        "course_tag": "RCS 327",
+        "course_name": "The Body, Dress & Religion"
+      },
+      {
+        "course_tag": "RCS 344",
+        "course_name": "The Radical Reformation"
+      },
+      {
+        "course_tag": "RCS 387",
+        "course_name": "Aging & the Spiritual Life"
+      },
+      {
+        "course_tag": "RCS 398",
+        "course_name": "Directed Readings"
+      },
+      {
+        "course_tag": "RCS 462",
+        "course_name": "Religion: Social & Legal World"
+      }
+    ],
+    "REC": [
+      {
+        "course_tag": "REC 100",
+        "course_name": "Intro Rec & Leisure Studies"
+      },
+      {
+        "course_tag": "REC 101",
+        "course_name": "Intro Leis, Sport, & Rec Mgmt"
+      },
+      {
+        "course_tag": "REC 120",
+        "course_name": "Experience Design & Delivery"
+      },
+      {
+        "course_tag": "REC 201",
+        "course_name": "Leisure, Equity & Diversity"
+      },
+      {
+        "course_tag": "REC 213",
+        "course_name": "Business of Pro Sport"
+      },
+      {
+        "course_tag": "REC 218",
+        "course_name": "Social Entrepreneurship"
+      },
+      {
+        "course_tag": "REC 219",
+        "course_name": "Intro Event Studies"
+      },
+      {
+        "course_tag": "REC 230",
+        "course_name": "Outdoor Rec & Land-Based Learn"
+      },
+      {
+        "course_tag": "REC 252",
+        "course_name": "Physical Disabilities"
+      },
+      {
+        "course_tag": "REC 253",
+        "course_name": "Therapeutic Rec Practicum"
+      },
+      {
+        "course_tag": "REC 256",
+        "course_name": "Community Engagement"
+      },
+      {
+        "course_tag": "REC 312",
+        "course_name": "Practicum: Rec/Sport/Tourism"
+      },
+      {
+        "course_tag": "REC 313",
+        "course_name": "Amateur Sport: Play to Podium"
+      },
+      {
+        "course_tag": "REC 356",
+        "course_name": "Lead Action: Community Change"
+      },
+      {
+        "course_tag": "REC 357",
+        "course_name": "Therapeutic Rec: Theory & Evid"
+      },
+      {
+        "course_tag": "REC 361",
+        "course_name": "Aging & Leisure"
+      },
+      {
+        "course_tag": "REC 371",
+        "course_name": "Qnt Data Anal & Mobilization"
+      },
+      {
+        "course_tag": "REC 405",
+        "course_name": "Leisure & Well-Being"
+      },
+      {
+        "course_tag": "REC 450",
+        "course_name": "Therapeutic Rec Internship"
+      },
+      {
+        "course_tag": "REC 471A",
+        "course_name": "Honours Thesis Proposal"
+      },
+      {
+        "course_tag": "REC 471B",
+        "course_name": "Honours Thesis"
+      },
+      {
+        "course_tag": "REC 475",
+        "course_name": "Ind Study: Tr Res for Pract"
+      },
+      {
+        "course_tag": "REC 475",
+        "course_name": "Ind Study: Tr Res for Pract"
+      },
+      {
+        "course_tag": "REC 475",
+        "course_name": "Ind Study: Tr Res for Pract"
+      },
+      {
+        "course_tag": "REC 475",
+        "course_name": "Ind Study: Tr Res for Pract"
+      },
+      {
+        "course_tag": "REC 475",
+        "course_name": "Ind Study: Tr Res for Pract"
+      },
+      {
+        "course_tag": "REC 475",
+        "course_name": "Ind Study: Tr Res for Pract"
+      },
+      {
+        "course_tag": "REC 475",
+        "course_name": "Ind Study: Tr Res for Pract"
+      },
+      {
+        "course_tag": "REC 475",
+        "course_name": "Ind Study: Tr Res for Pract"
+      },
+      {
+        "course_tag": "REC 475",
+        "course_name": "Ind Study: Tr Res for Pract"
+      }
+    ],
+    "REES": [
+      {
+        "course_tag": "REES 120",
+        "course_name": "Fairy Tales: Then & Now"
+      },
+      {
+        "course_tag": "REES 261",
+        "course_name": "Understanding Conversation"
+      }
+    ],
+    "RSCH": [
+      {
+        "course_tag": "RSCH 100",
+        "course_name": "Research"
+      }
+    ],
+    "RUSS": [
+      {
+        "course_tag": "RUSS 101",
+        "course_name": "Elementary Russian 1"
+      }
+    ],
+    "SCBUS": [
+      {
+        "course_tag": "SCBUS 123",
+        "course_name": "Science & Business"
+      },
+      {
+        "course_tag": "SCBUS 223",
+        "course_name": "Strat Behind Tech Innovation"
+      },
+      {
+        "course_tag": "SCBUS 323",
+        "course_name": "Technology Development"
+      },
+      {
+        "course_tag": "SCBUS 423",
+        "course_name": "Strategic Management"
+      }
+    ],
+    "SCI": [
+      {
+        "course_tag": "SCI 206",
+        "course_name": "Physics of How Things Work"
+      },
+      {
+        "course_tag": "SCI 238",
+        "course_name": "Intro Astronomy"
+      },
+      {
+        "course_tag": "SCI 300",
+        "course_name": "Special Topics in Science"
+      },
+      {
+        "course_tag": "SCI 300",
+        "course_name": "Special Topics in Science"
+      },
+      {
+        "course_tag": "SCI 395",
+        "course_name": "Science Study Abroad Program"
+      }
+    ],
+    "SDS": [
+      {
+        "course_tag": "SDS 131R",
+        "course_name": "Political Ideologies & Soc Dev"
+      },
+      {
+        "course_tag": "SDS 131R",
+        "course_name": "Political Ideologies & Soc Dev"
+      },
+      {
+        "course_tag": "SDS 150R",
+        "course_name": "Lifespan Processes"
+      },
+      {
+        "course_tag": "SDS 150R",
+        "course_name": "Lifespan Processes"
+      },
+      {
+        "course_tag": "SDS 205R",
+        "course_name": "History of Education in Canada"
+      },
+      {
+        "course_tag": "SDS 210R",
+        "course_name": "Children's Rights in Canada"
+      },
+      {
+        "course_tag": "SDS 220R",
+        "course_name": "Changing Concepts of Childhood"
+      },
+      {
+        "course_tag": "SDS 250R",
+        "course_name": "Social Statistics"
+      },
+      {
+        "course_tag": "SDS 251R",
+        "course_name": "Social Research"
+      },
+      {
+        "course_tag": "SDS 251R",
+        "course_name": "Social Research"
+      },
+      {
+        "course_tag": "SDS 260R",
+        "course_name": "Ecology, Society & Justice"
+      },
+      {
+        "course_tag": "SDS 331R",
+        "course_name": "Social Inequal/Justice/Action"
+      },
+      {
+        "course_tag": "SDS 350R",
+        "course_name": "Adult Life Crises & Events"
+      },
+      {
+        "course_tag": "SDS 353R",
+        "course_name": "Evolution of CDN Family Law"
+      },
+      {
+        "course_tag": "SDS 358R",
+        "course_name": "Child Maltreat: Ident/Prevent"
+      },
+      {
+        "course_tag": "SDS 400R",
+        "course_name": "Comparative Social Policy"
+      },
+      {
+        "course_tag": "SDS 410R",
+        "course_name": "Queer & Trans Studies"
+      },
+      {
+        "course_tag": "SDS 411R",
+        "course_name": "Decolonization & Social Action"
+      },
+      {
+        "course_tag": "SDS 425R",
+        "course_name": "Equity & Education"
+      },
+      {
+        "course_tag": "SDS 449R",
+        "course_name": "Prejudice & Discrimination"
+      }
+    ],
+    "SE": [
+      {
+        "course_tag": "SE 101",
+        "course_name": "Intro Methods"
+      },
+      {
+        "course_tag": "SE 201",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "SE 212",
+        "course_name": "Logic & Computation"
+      },
+      {
+        "course_tag": "SE 302",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "SE 380",
+        "course_name": "Intro Feedback Control"
+      },
+      {
+        "course_tag": "SE 390",
+        "course_name": "Design Project Planning"
+      },
+      {
+        "course_tag": "SE 401",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "SE 463",
+        "course_name": "Software PM, Req & Analysis"
+      },
+      {
+        "course_tag": "SE 464",
+        "course_name": "Software Dsgn & Architectures"
+      },
+      {
+        "course_tag": "SE 490",
+        "course_name": "Design Project 1"
+      },
+      {
+        "course_tag": "SE 499",
+        "course_name": "Project"
+      }
+    ],
+    "SFM": [
+      {
+        "course_tag": "SFM 101",
+        "course_name": "Intro Sust & Financial Mgmt"
+      },
+      {
+        "course_tag": "SFM 310",
+        "course_name": "Sustainability Capital Markets"
+      },
+      {
+        "course_tag": "SFM 328",
+        "course_name": "Sust Int Consulting: Jr"
+      },
+      {
+        "course_tag": "SFM 329",
+        "course_name": "Sust Int Consulting: Sr"
+      },
+      {
+        "course_tag": "SFM 403",
+        "course_name": "Plan, Report & Risk Mgmt"
+      },
+      {
+        "course_tag": "SFM 413",
+        "course_name": "Integrating Systems in Finance"
+      }
+    ],
+    "SI": [
+      {
+        "course_tag": "SI 131R",
+        "course_name": "Arab Culture"
+      }
+    ],
+    "SOC": [
+      {
+        "course_tag": "SOC 101",
+        "course_name": "Intro Sociology"
+      },
+      {
+        "course_tag": "SOC 101",
+        "course_name": "Intro Sociology"
+      },
+      {
+        "course_tag": "SOC 101",
+        "course_name": "Intro Sociology"
+      },
+      {
+        "course_tag": "SOC 101R",
+        "course_name": "Intro Sociology"
+      },
+      {
+        "course_tag": "SOC 202",
+        "course_name": "Classical Sociological Theory"
+      },
+      {
+        "course_tag": "SOC 207R",
+        "course_name": "Sociology of Education"
+      },
+      {
+        "course_tag": "SOC 221",
+        "course_name": "Research Methods"
+      },
+      {
+        "course_tag": "SOC 224R",
+        "course_name": "Poverty CND & Soc Consequences"
+      },
+      {
+        "course_tag": "SOC 227",
+        "course_name": "Criminology"
+      },
+      {
+        "course_tag": "SOC 229",
+        "course_name": "Topics: Criminology"
+      },
+      {
+        "course_tag": "SOC 232",
+        "course_name": "Technology & Social Change"
+      },
+      {
+        "course_tag": "SOC 241",
+        "course_name": "Sociology Work & Occupations"
+      },
+      {
+        "course_tag": "SOC 302",
+        "course_name": "Contemporary Sociol Theory"
+      },
+      {
+        "course_tag": "SOC 305",
+        "course_name": "Privacy in Socio-Legal Context"
+      },
+      {
+        "course_tag": "SOC 312",
+        "course_name": "Sociology of Science"
+      },
+      {
+        "course_tag": "SOC 322",
+        "course_name": "Field Research Methods"
+      },
+      {
+        "course_tag": "SOC 324",
+        "course_name": "Digital Cultures"
+      },
+      {
+        "course_tag": "SOC 327",
+        "course_name": "Policing in a Democratic Soc"
+      },
+      {
+        "course_tag": "SOC 329",
+        "course_name": "Security & Governance"
+      },
+      {
+        "course_tag": "SOC 342",
+        "course_name": "Migration & Legality"
+      },
+      {
+        "course_tag": "SOC 355J",
+        "course_name": "Power & Parenting"
+      },
+      {
+        "course_tag": "SOC 370",
+        "course_name": "Sociology of Law"
+      },
+      {
+        "course_tag": "SOC 385",
+        "course_name": "The Sociology of Street Gangs"
+      },
+      {
+        "course_tag": "SOC 388",
+        "course_name": "Refugees & Forced Migration"
+      },
+      {
+        "course_tag": "SOC 402",
+        "course_name": "Religion: Social & Legal World"
+      },
+      {
+        "course_tag": "SOC 423",
+        "course_name": "Peers & Crime"
+      },
+      {
+        "course_tag": "SOC 433",
+        "course_name": "Crime, Law & Technoscience"
+      },
+      {
+        "course_tag": "SOC 435",
+        "course_name": "Cybercrime & Digital Harm"
+      },
+      {
+        "course_tag": "SOC 436",
+        "course_name": "Alcohol & Well-Being"
+      },
+      {
+        "course_tag": "SOC 462",
+        "course_name": "Technology & Inequality"
+      },
+      {
+        "course_tag": "SOC 465",
+        "course_name": "Research Through Urban Arts"
+      },
+      {
+        "course_tag": "SOC 497",
+        "course_name": "Honours Research Practicum"
+      }
+    ],
+    "SOCWK": [
+      {
+        "course_tag": "SOCWK 120R",
+        "course_name": "Intro Social Work"
+      },
+      {
+        "course_tag": "SOCWK 120R",
+        "course_name": "Intro Social Work"
+      },
+      {
+        "course_tag": "SOCWK 220R",
+        "course_name": "Individuals: Theory & Pract 1"
+      },
+      {
+        "course_tag": "SOCWK 222R",
+        "course_name": "Community Organization"
+      },
+      {
+        "course_tag": "SOCWK 300R",
+        "course_name": "Canadian Social Welfare Policy"
+      },
+      {
+        "course_tag": "SOCWK 301R",
+        "course_name": "Understand Diversity in Canada"
+      },
+      {
+        "course_tag": "SOCWK 321R",
+        "course_name": "Social Work with Families"
+      },
+      {
+        "course_tag": "SOCWK 365R",
+        "course_name": "Social Work in Health Care"
+      }
+    ],
+    "SPAN": [
+      {
+        "course_tag": "SPAN 101",
+        "course_name": "Intro Spanish 1"
+      },
+      {
+        "course_tag": "SPAN 201A",
+        "course_name": "Intermediate Spanish 1"
+      },
+      {
+        "course_tag": "SPAN 345",
+        "course_name": "Directed Studies"
+      }
+    ],
+    "SRF": [
+      {
+        "course_tag": "SRF 101",
+        "course_name": "Relationships & Families"
+      },
+      {
+        "course_tag": "SRF 208",
+        "course_name": "Intro Systemic Therapies"
+      },
+      {
+        "course_tag": "SRF 220",
+        "course_name": "Intro Research Methods"
+      },
+      {
+        "course_tag": "SRF 301",
+        "course_name": "Comm & Counselling Skills"
+      },
+      {
+        "course_tag": "SRF 304",
+        "course_name": "Relationships: Human Sexuality"
+      },
+      {
+        "course_tag": "SRF 490",
+        "course_name": "Practicum & Prof Ethics"
+      }
+    ],
+    "STAT": [
+      {
+        "course_tag": "STAT 202",
+        "course_name": "Intro Stats (Sci)"
+      },
+      {
+        "course_tag": "STAT 206",
+        "course_name": "Statistics (Software Eng)"
+      },
+      {
+        "course_tag": "STAT 220",
+        "course_name": "Probability (Non-Spec)"
+      },
+      {
+        "course_tag": "STAT 221",
+        "course_name": "Statistics (Non-Spec)"
+      },
+      {
+        "course_tag": "STAT 230",
+        "course_name": "Probability"
+      },
+      {
+        "course_tag": "STAT 230",
+        "course_name": "Probability"
+      },
+      {
+        "course_tag": "STAT 231",
+        "course_name": "Statistics"
+      },
+      {
+        "course_tag": "STAT 231",
+        "course_name": "Statistics"
+      },
+      {
+        "course_tag": "STAT 240",
+        "course_name": "Probability (Adv)"
+      },
+      {
+        "course_tag": "STAT 316",
+        "course_name": "Intro Stat Problem Solving"
+      },
+      {
+        "course_tag": "STAT 322",
+        "course_name": "Sample & Exper Dsgn (Non-Spec)"
+      },
+      {
+        "course_tag": "STAT 330",
+        "course_name": "Mathematical Statistics"
+      },
+      {
+        "course_tag": "STAT 331",
+        "course_name": "Applied Linear Models"
+      },
+      {
+        "course_tag": "STAT 332",
+        "course_name": "Sampling & Experimental Design"
+      },
+      {
+        "course_tag": "STAT 333",
+        "course_name": "Stochastic Processes 1"
+      },
+      {
+        "course_tag": "STAT 334",
+        "course_name": "Prob Models (Bus & Acct)"
+      },
+      {
+        "course_tag": "STAT 337",
+        "course_name": "Intro Biostatistics"
+      },
+      {
+        "course_tag": "STAT 341",
+        "course_name": "Computational Stats & Analysis"
+      },
+      {
+        "course_tag": "STAT 371",
+        "course_name": "Lin Models & Process Improve"
+      },
+      {
+        "course_tag": "STAT 372",
+        "course_name": "Sample & Exp Dsgn (Bus)"
+      },
+      {
+        "course_tag": "STAT 373",
+        "course_name": "Fin: Regress & Forecast Meth"
+      },
+      {
+        "course_tag": "STAT 430",
+        "course_name": "Experimental Design"
+      },
+      {
+        "course_tag": "STAT 431",
+        "course_name": "Gen Linear Models & Applic"
+      },
+      {
+        "course_tag": "STAT 433",
+        "course_name": "Stochastic Processes 2"
+      },
+      {
+        "course_tag": "STAT 441",
+        "course_name": "Stat Learning: Classification"
+      },
+      {
+        "course_tag": "STAT 442",
+        "course_name": "Data Visualization"
+      },
+      {
+        "course_tag": "STAT 443",
+        "course_name": "Forecasting"
+      }
+    ],
+    "STV": [
+      {
+        "course_tag": "STV 100",
+        "course_name": "Intro Society, Tech & Values"
+      },
+      {
+        "course_tag": "STV 210",
+        "course_name": "The Computing Society"
+      },
+      {
+        "course_tag": "STV 305",
+        "course_name": "Tech, Society & Modern City"
+      }
+    ],
+    "SYDE": [
+      {
+        "course_tag": "SYDE 101",
+        "course_name": "Communications: Written & Oral"
+      },
+      {
+        "course_tag": "SYDE 101L",
+        "course_name": "Communications: Visualization"
+      },
+      {
+        "course_tag": "SYDE 111",
+        "course_name": "Calculus 1"
+      },
+      {
+        "course_tag": "SYDE 113",
+        "course_name": "Elementary Engineering Math"
+      },
+      {
+        "course_tag": "SYDE 121",
+        "course_name": "Digital Computation"
+      },
+      {
+        "course_tag": "SYDE 161",
+        "course_name": "Intro Design"
+      },
+      {
+        "course_tag": "SYDE 181",
+        "course_name": "Physics 1: Statics"
+      },
+      {
+        "course_tag": "SYDE 202",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "SYDE 211",
+        "course_name": "Calculus 3"
+      },
+      {
+        "course_tag": "SYDE 212",
+        "course_name": "Probability & Statistics"
+      },
+      {
+        "course_tag": "SYDE 252",
+        "course_name": "Linear Systems & Signals"
+      },
+      {
+        "course_tag": "SYDE 262",
+        "course_name": "Eng Economics of Design"
+      },
+      {
+        "course_tag": "SYDE 286",
+        "course_name": "Mechanics of Deformable Solids"
+      },
+      {
+        "course_tag": "SYDE 292",
+        "course_name": "Circuits/Instrument/Measure"
+      },
+      {
+        "course_tag": "SYDE 292L",
+        "course_name": "Circuit/Instrument/Measure Lab"
+      },
+      {
+        "course_tag": "SYDE 401",
+        "course_name": "Seminar"
+      },
+      {
+        "course_tag": "SYDE 411",
+        "course_name": "Optimization & Num Methods"
+      },
+      {
+        "course_tag": "SYDE 461",
+        "course_name": "Capstone Project 1"
+      },
+      {
+        "course_tag": "SYDE 499",
+        "course_name": "Elective Research Project"
+      },
+      {
+        "course_tag": "SYDE 522",
+        "course_name": "Foundations of AI"
+      },
+      {
+        "course_tag": "SYDE 534",
+        "course_name": "Electric Energy Systems"
+      },
+      {
+        "course_tag": "SYDE 542",
+        "course_name": "Interface Design"
+      },
+      {
+        "course_tag": "SYDE 543",
+        "course_name": "Cognitive Ergonomics"
+      },
+      {
+        "course_tag": "SYDE 572",
+        "course_name": "Intro Pattern Recognition"
+      },
+      {
+        "course_tag": "SYDE 575",
+        "course_name": "Image Processing"
+      },
+      {
+        "course_tag": "SYDE 577",
+        "course_name": "Deep Learning"
+      }
+    ],
+    "THPERF": [
+      {
+        "course_tag": "THPERF 102",
+        "course_name": "Intro Performance"
+      },
+      {
+        "course_tag": "THPERF 149",
+        "course_name": "Intro Critical Design Practice"
+      },
+      {
+        "course_tag": "THPERF 220",
+        "course_name": "Performance Studies"
+      },
+      {
+        "course_tag": "THPERF 243",
+        "course_name": "Technical Production 1"
+      },
+      {
+        "course_tag": "THPERF 246",
+        "course_name": "Design for Performance Media"
+      },
+      {
+        "course_tag": "THPERF 301",
+        "course_name": "Performance Creation"
+      },
+      {
+        "course_tag": "THPERF 306",
+        "course_name": "Production Participation 3"
+      },
+      {
+        "course_tag": "THPERF 387",
+        "course_name": "Shakespeare 2"
+      },
+      {
+        "course_tag": "THPERF 400",
+        "course_name": "Collaborative Performance Prj"
+      },
+      {
+        "course_tag": "THPERF 400",
+        "course_name": "Collaborative Performance Prj"
+      },
+      {
+        "course_tag": "THPERF 406",
+        "course_name": "Production Participation 7"
+      },
+      {
+        "course_tag": "THPERF 490",
+        "course_name": "Seminars: Drama & Theatre"
+      }
+    ],
+    "UNDC": [
+      {
+        "course_tag": "UNDC 100W",
+        "course_name": "Introduction to the UNODC(WLU)"
+      },
+      {
+        "course_tag": "UNDC 103W",
+        "course_name": "Trafficking in Persons (WLU)"
+      },
+      {
+        "course_tag": "UNDC 203W",
+        "course_name": "Digital Tech & Crime (WLU)"
+      }
+    ],
+    "UNIV": [
+      {
+        "course_tag": "UNIV 101",
+        "course_name": "Strategies for Acad Success"
+      }
+    ],
+    "VCULT": [
+      {
+        "course_tag": "VCULT 100",
+        "course_name": "World Cinema & Visual Culture"
+      },
+      {
+        "course_tag": "VCULT 208",
+        "course_name": "Global Modern Art: 1800-1940"
+      },
+      {
+        "course_tag": "VCULT 209",
+        "course_name": "Global Modernisms: 1940-1970"
+      },
+      {
+        "course_tag": "VCULT 241",
+        "course_name": "Greek Art & Architecture"
+      },
+      {
+        "course_tag": "VCULT 252",
+        "course_name": "Religion in Popular Film"
+      },
+      {
+        "course_tag": "VCULT 300",
+        "course_name": "Visual Culture in Theory"
+      },
+      {
+        "course_tag": "VCULT 400",
+        "course_name": "Visual Culture Seminar"
+      }
+    ],
+    "WKRPT": [
+      {
+        "course_tag": "WKRPT 100",
+        "course_name": "Work-term Report"
+      },
+      {
+        "course_tag": "WKRPT 200",
+        "course_name": "Work-term Report"
+      },
+      {
+        "course_tag": "WKRPT 200",
+        "course_name": "Work-term Report"
+      },
+      {
+        "course_tag": "WKRPT 300",
+        "course_name": "Work-term Report"
+      },
+      {
+        "course_tag": "WKRPT 300",
+        "course_name": "Work-term Report"
+      },
+      {
+        "course_tag": "WKRPT 400",
+        "course_name": "Work-term Report"
+      },
+      {
+        "course_tag": "WKRPT 400",
+        "course_name": "Work-term Report"
+      }
+    ],
+    "YC": [
+      {
+        "course_tag": "YC 230W",
+        "course_name": "Children & Music (WLU)"
+      }
+    ]
+  }
+}

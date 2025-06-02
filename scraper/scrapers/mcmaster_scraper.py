@@ -1,24 +1,11 @@
 from typing import Dict, List, Tuple, Optional, Any
 import time
-import random
-import re
 from .base_scraper import BaseScraper, logger
 
-# Additional imports based on what each scraper needs
-try:
-    import requests
-    from bs4 import BeautifulSoup
-except ImportError:
-    pass
-
-try:
-    from selenium.webdriver.common.by import By
-    from selenium.webdriver.support.ui import Select
-    from selenium.webdriver.support import expected_conditions as EC
-    from selenium.common.exceptions import TimeoutException, NoSuchElementException
-except ImportError:
-    pass
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 class McMasterScraper(BaseScraper):
     BASE_URL = "https://academiccalendars.romcmaster.ca/content.php?catoid=53&navoid=10775"
@@ -131,6 +118,9 @@ class McMasterScraper(BaseScraper):
                     self.driver.execute_script(script)
                     
                     self.scrape_department()
+                    
+                    courses_count = len(self.department_courses.get(value, []))
+                    logger.info(f"Scraped {courses_count} courses for {name}")
                     
                 except Exception as e:
                     logger.error(f"Error scraping department {name}: {e}")

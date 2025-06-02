@@ -1,0 +1,5129 @@
+{
+  "university_name": "Ontario Tech University",
+  "scraper_used": "OntarioTechScraper",
+  "scrape_timestamp": "2025-06-02 00:32:03",
+  "total_departments": 48,
+  "total_courses": 1256,
+  "departments": {
+    "ALSU": [
+      {
+        "course_tag": "ALSU 1101U",
+        "course_name": "Foundations for Academic Learning and Success"
+      }
+    ],
+    "AUTE": [
+      {
+        "course_tag": "AUTE 2010U",
+        "course_name": "Fundamentals of Automotive Engineering"
+      },
+      {
+        "course_tag": "AUTE 3170U",
+        "course_name": "Automotive Component Design"
+      },
+      {
+        "course_tag": "AUTE 3210U",
+        "course_name": "Automotive Vibrations"
+      },
+      {
+        "course_tag": "AUTE 3290U",
+        "course_name": "Powertrain Design"
+      },
+      {
+        "course_tag": "AUTE 3450U",
+        "course_name": "Combustion and Engines"
+      },
+      {
+        "course_tag": "AUTE 3500U",
+        "course_name": "Automotive Instrumentation and Controls"
+      },
+      {
+        "course_tag": "AUTE 4000U",
+        "course_name": "Special Topics in Automotive Engineering"
+      },
+      {
+        "course_tag": "AUTE 4010U",
+        "course_name": "Vehicle Dynamics and Control"
+      },
+      {
+        "course_tag": "AUTE 4060U",
+        "course_name": "Automotive Structural Design"
+      },
+      {
+        "course_tag": "AUTE 4070U",
+        "course_name": "Chassis Systems Design"
+      },
+      {
+        "course_tag": "AUTE 4080U",
+        "course_name": "Electric and Hybrid Vehicles"
+      },
+      {
+        "course_tag": "AUTE 4090U",
+        "course_name": "Autonomous Vehicles"
+      },
+      {
+        "course_tag": "AUTE 4100U",
+        "course_name": "Road Vehicle Aerodynamics"
+      }
+    ],
+    "BIOL": [
+      {
+        "course_tag": "BIOL 1000U",
+        "course_name": "Foundations in Bioscience"
+      },
+      {
+        "course_tag": "BIOL 1010U",
+        "course_name": "Biology I: Molecular and Cellular Systems"
+      },
+      {
+        "course_tag": "BIOL 1011U",
+        "course_name": "Introductory Cell and Molecular Biology"
+      },
+      {
+        "course_tag": "BIOL 1020U",
+        "course_name": "Biology II: Diversity of Life and Principles of Ecology"
+      },
+      {
+        "course_tag": "BIOL 1021U",
+        "course_name": "Introduction to Organismal Biology and Ecology"
+      },
+      {
+        "course_tag": "BIOL 1841U",
+        "course_name": "Essentials of Biology"
+      },
+      {
+        "course_tag": "BIOL 2010U",
+        "course_name": "Human Physiology"
+      },
+      {
+        "course_tag": "BIOL 2020U",
+        "course_name": "Genetics and Molecular Biology"
+      },
+      {
+        "course_tag": "BIOL 2030U",
+        "course_name": "Cell Biology"
+      },
+      {
+        "course_tag": "BIOL 2050U",
+        "course_name": "Human Anatomy"
+      },
+      {
+        "course_tag": "BIOL 2060U",
+        "course_name": "Fundamentals of Microbiology"
+      },
+      {
+        "course_tag": "BIOL 2080U",
+        "course_name": "Biochemistry I"
+      },
+      {
+        "course_tag": "BIOL 2090U",
+        "course_name": "Research in Biological Science I"
+      },
+      {
+        "course_tag": "BIOL 2830U",
+        "course_name": "Microbiology for Health Science"
+      },
+      {
+        "course_tag": "BIOL 3010U",
+        "course_name": "Laboratory Methods in Molecular Biology"
+      },
+      {
+        "course_tag": "BIOL 3020U",
+        "course_name": "Principles of Pharmacology and Toxicology"
+      },
+      {
+        "course_tag": "BIOL 3032U",
+        "course_name": "Advanced Microbiology"
+      },
+      {
+        "course_tag": "BIOL 3040U",
+        "course_name": "Animal Physiology"
+      },
+      {
+        "course_tag": "BIOL 3051U",
+        "course_name": "Developmental Biology"
+      },
+      {
+        "course_tag": "BIOL 3060U",
+        "course_name": "Fundamentals of Neuroscience"
+      },
+      {
+        "course_tag": "BIOL 3080U",
+        "course_name": "Biochemistry II"
+      },
+      {
+        "course_tag": "BIOL 3090U",
+        "course_name": "Research in Biological Science II"
+      },
+      {
+        "course_tag": "BIOL 3091U",
+        "course_name": "Research in Biological Science III"
+      },
+      {
+        "course_tag": "BIOL 3110U",
+        "course_name": "Population Genetics"
+      },
+      {
+        "course_tag": "BIOL 3610U",
+        "course_name": "Comparative Zoology"
+      },
+      {
+        "course_tag": "BIOL 3620U",
+        "course_name": "Conservation Biology"
+      },
+      {
+        "course_tag": "BIOL 3640U",
+        "course_name": "Plant Biology"
+      },
+      {
+        "course_tag": "BIOL 3650U",
+        "course_name": "Fundamentals of Nutrition"
+      },
+      {
+        "course_tag": "BIOL 3660U",
+        "course_name": "Ecology"
+      },
+      {
+        "course_tag": "BIOL 3810U",
+        "course_name": "Introduction to the World Ocean"
+      },
+      {
+        "course_tag": "BIOL 3820U",
+        "course_name": "Marine Ecology"
+      },
+      {
+        "course_tag": "BIOL 3830U",
+        "course_name": "Coral Reef Ecology"
+      },
+      {
+        "course_tag": "BIOL 3840U",
+        "course_name": "Marine Invertebrate Zoology"
+      },
+      {
+        "course_tag": "BIOL 4010U",
+        "course_name": "Introduction to Environmental Research Methods"
+      },
+      {
+        "course_tag": "BIOL 4020U",
+        "course_name": "Introduction to Environmental Toxicology"
+      },
+      {
+        "course_tag": "BIOL 4030U",
+        "course_name": "Advanced Topics in Environmental Toxicology"
+      },
+      {
+        "course_tag": "BIOL 4031U",
+        "course_name": "Infection and Immunity"
+      },
+      {
+        "course_tag": "BIOL 4040U",
+        "course_name": "Applied Molecular Biology"
+      },
+      {
+        "course_tag": "BIOL 4050U",
+        "course_name": "Advanced Topics in Pharmaceutical Biotechnology"
+      },
+      {
+        "course_tag": "BIOL 4052U",
+        "course_name": "Advanced Developmental Biology Laboratory"
+      },
+      {
+        "course_tag": "BIOL 4060U",
+        "course_name": "Functional Genomics and Proteomics"
+      },
+      {
+        "course_tag": "BIOL 4070U",
+        "course_name": "Advanced Biochemistry"
+      },
+      {
+        "course_tag": "BIOL 4080U",
+        "course_name": "Bioethics"
+      },
+      {
+        "course_tag": "BIOL 4410U",
+        "course_name": "Biology Thesis Project I"
+      },
+      {
+        "course_tag": "BIOL 4420U",
+        "course_name": "Biology Thesis Project II"
+      },
+      {
+        "course_tag": "BIOL 4430U",
+        "course_name": "Directed Studies in Biology"
+      },
+      {
+        "course_tag": "BIOL 4620U",
+        "course_name": "Animal Behaviour"
+      },
+      {
+        "course_tag": "BIOL 4660U",
+        "course_name": "Aquatic Ecology: Concepts and Environmental Applications"
+      },
+      {
+        "course_tag": "BIOL 4820U",
+        "course_name": "Neuropharmacology"
+      }
+    ],
+    "BUSI": [
+      {
+        "course_tag": "BUSI 1010U",
+        "course_name": "Critical Thinking and Ethics"
+      },
+      {
+        "course_tag": "BUSI 1020U",
+        "course_name": "Business Communications"
+      },
+      {
+        "course_tag": "BUSI 1030U",
+        "course_name": "Writing and Critical Thinking"
+      },
+      {
+        "course_tag": "BUSI 1130U",
+        "course_name": "Introduction to Financial Accounting"
+      },
+      {
+        "course_tag": "BUSI 1450U",
+        "course_name": "Statistics for Business"
+      },
+      {
+        "course_tag": "BUSI 1520U",
+        "course_name": "Introduction to Business Analytics"
+      },
+      {
+        "course_tag": "BUSI 1600U",
+        "course_name": "Management of the Enterprise"
+      },
+      {
+        "course_tag": "BUSI 1700U",
+        "course_name": "Introduction to Entrepreneurship"
+      },
+      {
+        "course_tag": "BUSI 1915U",
+        "course_name": "Fundamentals of Business Mathematics"
+      },
+      {
+        "course_tag": "BUSI 1916U",
+        "course_name": "Mathematical Analysis for Business"
+      },
+      {
+        "course_tag": "BUSI 1917U",
+        "course_name": "Mathematics of Dependent Relationships in Business"
+      },
+      {
+        "course_tag": "BUSI 2000U",
+        "course_name": "Collaborative Leadership"
+      },
+      {
+        "course_tag": "BUSI 2020U",
+        "course_name": "New Topics in Business"
+      },
+      {
+        "course_tag": "BUSI 2040U",
+        "course_name": "Information Systems"
+      },
+      {
+        "course_tag": "BUSI 2050U",
+        "course_name": "Managerial Economics"
+      },
+      {
+        "course_tag": "BUSI 2120U",
+        "course_name": "Accounting for IT"
+      },
+      {
+        "course_tag": "BUSI 2130U",
+        "course_name": "Intermediate Financial Accounting I"
+      },
+      {
+        "course_tag": "BUSI 2180U",
+        "course_name": "Introduction to Managerial Accounting"
+      },
+      {
+        "course_tag": "BUSI 2200U",
+        "course_name": "Marketing Management"
+      },
+      {
+        "course_tag": "BUSI 2205U",
+        "course_name": "Principles of Marketing"
+      },
+      {
+        "course_tag": "BUSI 2311U",
+        "course_name": "Organizational Behaviour"
+      },
+      {
+        "course_tag": "BUSI 2312U",
+        "course_name": "Human Resources Management"
+      },
+      {
+        "course_tag": "BUSI 2330U",
+        "course_name": "Managing Team Dynamics"
+      },
+      {
+        "course_tag": "BUSI 2350U",
+        "course_name": "Developing Management Skills"
+      },
+      {
+        "course_tag": "BUSI 2401U",
+        "course_name": "Principles of Finance"
+      },
+      {
+        "course_tag": "BUSI 2402U",
+        "course_name": "Corporate Finance"
+      },
+      {
+        "course_tag": "BUSI 2410U",
+        "course_name": "Managerial Finance"
+      },
+      {
+        "course_tag": "BUSI 2500U",
+        "course_name": "Business Simulation and Analytics"
+      },
+      {
+        "course_tag": "BUSI 2550U",
+        "course_name": "Introduction to Project Management"
+      },
+      {
+        "course_tag": "BUSI 2560U",
+        "course_name": "Buyer Beware: The Psychology of Buying and Selling"
+      },
+      {
+        "course_tag": "BUSI 2570U",
+        "course_name": "Cybercrime"
+      },
+      {
+        "course_tag": "BUSI 2603U",
+        "course_name": "Introduction to Operations Management"
+      },
+      {
+        "course_tag": "BUSI 2620U",
+        "course_name": "Business Ethics"
+      },
+      {
+        "course_tag": "BUSI 2700U",
+        "course_name": "Entrepreneurial Finance"
+      },
+      {
+        "course_tag": "BUSI 3000U",
+        "course_name": "Business and Sustainability"
+      },
+      {
+        "course_tag": "BUSI 3110U",
+        "course_name": "Introduction to Taxation"
+      },
+      {
+        "course_tag": "BUSI 3120U",
+        "course_name": "Advanced Taxation"
+      },
+      {
+        "course_tag": "BUSI 3130U",
+        "course_name": "Intermediate Financial Accounting II"
+      },
+      {
+        "course_tag": "BUSI 3131U",
+        "course_name": "Intermediate Financial Accounting III"
+      },
+      {
+        "course_tag": "BUSI 3142U",
+        "course_name": "Accounting Skills Workshop I"
+      },
+      {
+        "course_tag": "BUSI 3150U",
+        "course_name": "Financial Statement Analysis"
+      },
+      {
+        "course_tag": "BUSI 3170U",
+        "course_name": "Auditing Standards and Applications"
+      },
+      {
+        "course_tag": "BUSI 3171U",
+        "course_name": "Advanced Auditing"
+      },
+      {
+        "course_tag": "BUSI 3180U",
+        "course_name": "Intermediate Managerial Accounting"
+      },
+      {
+        "course_tag": "BUSI 3200U",
+        "course_name": "Marketing Communications"
+      },
+      {
+        "course_tag": "BUSI 3210U",
+        "course_name": "Consumer Behaviour"
+      },
+      {
+        "course_tag": "BUSI 3230U",
+        "course_name": "Marketing Channels"
+      },
+      {
+        "course_tag": "BUSI 3250U",
+        "course_name": "Service Marketing"
+      },
+      {
+        "course_tag": "BUSI 3260U",
+        "course_name": "Marketing Research"
+      },
+      {
+        "course_tag": "BUSI 3290U",
+        "course_name": "Marketing Management in Asia Pacific"
+      },
+      {
+        "course_tag": "BUSI 3305U",
+        "course_name": "Recruitment and Selection"
+      },
+      {
+        "course_tag": "BUSI 3312U",
+        "course_name": "Industrial and Labour Relations"
+      },
+      {
+        "course_tag": "BUSI 3315U",
+        "course_name": "Negotiation Theory and Behaviour"
+      },
+      {
+        "course_tag": "BUSI 3330U",
+        "course_name": "The Management of Change"
+      },
+      {
+        "course_tag": "BUSI 3340U",
+        "course_name": "Human Resources Planning"
+      },
+      {
+        "course_tag": "BUSI 3360U",
+        "course_name": "Occupational Health and Safety"
+      },
+      {
+        "course_tag": "BUSI 3370U",
+        "course_name": "Employment and Labour Laws"
+      },
+      {
+        "course_tag": "BUSI 3380U",
+        "course_name": "Compensation and Benefits"
+      },
+      {
+        "course_tag": "BUSI 3390U",
+        "course_name": "Training and Development"
+      },
+      {
+        "course_tag": "BUSI 3405U",
+        "course_name": "Equity Asset Analysis"
+      },
+      {
+        "course_tag": "BUSI 3410U",
+        "course_name": "Financial Institutions"
+      },
+      {
+        "course_tag": "BUSI 3420U",
+        "course_name": "Derivative Securities"
+      },
+      {
+        "course_tag": "BUSI 3430U",
+        "course_name": "Personal Finance"
+      },
+      {
+        "course_tag": "BUSI 3440U",
+        "course_name": "Financial Modelling"
+      },
+      {
+        "course_tag": "BUSI 3460U",
+        "course_name": "Fixed Income Strategies"
+      },
+      {
+        "course_tag": "BUSI 3470U",
+        "course_name": "Wealth Management Principles"
+      },
+      {
+        "course_tag": "BUSI 3480U",
+        "course_name": "International Finance"
+      },
+      {
+        "course_tag": "BUSI 3503U",
+        "course_name": "E-Marketing"
+      },
+      {
+        "course_tag": "BUSI 3504U",
+        "course_name": "Databases, Data Warehouses and Business Intelligence"
+      },
+      {
+        "course_tag": "BUSI 3550U",
+        "course_name": "Systems Analysis and Design"
+      },
+      {
+        "course_tag": "BUSI 3580U",
+        "course_name": "Network Systems"
+      },
+      {
+        "course_tag": "BUSI 3590U",
+        "course_name": "Design Thinking: A Human Centric Approach to Project Management"
+      },
+      {
+        "course_tag": "BUSI 3601U",
+        "course_name": "Operations Analysis using Spreadsheets"
+      },
+      {
+        "course_tag": "BUSI 3630U",
+        "course_name": "Logistics in the Supply Chain"
+      },
+      {
+        "course_tag": "BUSI 3650U",
+        "course_name": "Innovation Management"
+      },
+      {
+        "course_tag": "BUSI 3670U",
+        "course_name": "Risk Management Frameworks and Processes"
+      },
+      {
+        "course_tag": "BUSI 3700U",
+        "course_name": "Strategic Management for Professionals"
+      },
+      {
+        "course_tag": "BUSI 3705U",
+        "course_name": "Legal Environment of Business"
+      },
+      {
+        "course_tag": "BUSI 3710U",
+        "course_name": "Small Business Management"
+      },
+      {
+        "course_tag": "BUSI 3720U",
+        "course_name": "Family Business"
+      },
+      {
+        "course_tag": "BUSI 3730U",
+        "course_name": "Creative Problem Solving, Entrepreneurship and Imagination"
+      },
+      {
+        "course_tag": "BUSI 3750U",
+        "course_name": "Lean Start-up"
+      },
+      {
+        "course_tag": "BUSI 3800U",
+        "course_name": "International Business"
+      },
+      {
+        "course_tag": "BUSI 3810U",
+        "course_name": "International Management"
+      },
+      {
+        "course_tag": "BUSI 4040U",
+        "course_name": "Emerging Trends in Technology Management"
+      },
+      {
+        "course_tag": "BUSI 4101U",
+        "course_name": "Advanced Financial Accounting"
+      },
+      {
+        "course_tag": "BUSI 4130U",
+        "course_name": "Advanced Financial Accounting"
+      },
+      {
+        "course_tag": "BUSI 4142U",
+        "course_name": "Accounting Skills Workshop II"
+      },
+      {
+        "course_tag": "BUSI 4180U",
+        "course_name": "Advanced Managerial Accounting"
+      },
+      {
+        "course_tag": "BUSI 4190U",
+        "course_name": "Special Topics in Accounting"
+      },
+      {
+        "course_tag": "BUSI 4210U",
+        "course_name": "High-Tech Marketing"
+      },
+      {
+        "course_tag": "BUSI 4220U",
+        "course_name": "Marketing Strategy"
+      },
+      {
+        "course_tag": "BUSI 4230U",
+        "course_name": "Marketing Analytics"
+      },
+      {
+        "course_tag": "BUSI 4250U",
+        "course_name": "International Marketing"
+      },
+      {
+        "course_tag": "BUSI 4280U",
+        "course_name": "Social Media Marketing"
+      },
+      {
+        "course_tag": "BUSI 4290U",
+        "course_name": "Special Topics in Marketing"
+      },
+      {
+        "course_tag": "BUSI 4299U",
+        "course_name": "Directed Independent Studies in Marketing"
+      },
+      {
+        "course_tag": "BUSI 4340U",
+        "course_name": "Business of Gaming"
+      },
+      {
+        "course_tag": "BUSI 4390U",
+        "course_name": "Special Topics in Organizational Behaviour and Human Resources Management"
+      },
+      {
+        "course_tag": "BUSI 4399U",
+        "course_name": "Directed Independent Study in Organizational Behaviour and Human Resources Management"
+      },
+      {
+        "course_tag": "BUSI 4405U",
+        "course_name": "Portfolio and Investment Strategies"
+      },
+      {
+        "course_tag": "BUSI 4410U",
+        "course_name": "Advanced Corporate Finance Applications"
+      },
+      {
+        "course_tag": "BUSI 4440U",
+        "course_name": "Financial Econometrics"
+      },
+      {
+        "course_tag": "BUSI 4450U",
+        "course_name": "Business Applications of Blockchain and Cryptocurrencies"
+      },
+      {
+        "course_tag": "BUSI 4455U",
+        "course_name": "Student Managed Investment Fund"
+      },
+      {
+        "course_tag": "BUSI 4456U",
+        "course_name": "Student Managed Investment Fund II"
+      },
+      {
+        "course_tag": "BUSI 4490U",
+        "course_name": "Special Topics in Finance"
+      },
+      {
+        "course_tag": "BUSI 4504U",
+        "course_name": "Advanced Business Intelligence"
+      },
+      {
+        "course_tag": "BUSI 4570U",
+        "course_name": "Strategic Information Technology Management"
+      },
+      {
+        "course_tag": "BUSI 4590U",
+        "course_name": "Special Topics in Technology Management"
+      },
+      {
+        "course_tag": "BUSI 4599U",
+        "course_name": "Directed Independent Studies in E-Business and E-Commerce"
+      },
+      {
+        "course_tag": "BUSI 4650U",
+        "course_name": "Global Operations and Supply Chain Management"
+      },
+      {
+        "course_tag": "BUSI 4701U",
+        "course_name": "Strategic Management"
+      },
+      {
+        "course_tag": "BUSI 4710U",
+        "course_name": "Information Privacy Law and New Technologies"
+      }
+    ],
+    "CHEM": [
+      {
+        "course_tag": "CHEM 1010U",
+        "course_name": "Chemistry I"
+      },
+      {
+        "course_tag": "CHEM 1020U",
+        "course_name": "Chemistry II"
+      },
+      {
+        "course_tag": "CHEM 1110U",
+        "course_name": "Chemical Fundamentals"
+      },
+      {
+        "course_tag": "CHEM 1800U",
+        "course_name": "Chemistry for Engineers"
+      },
+      {
+        "course_tag": "CHEM 2010U",
+        "course_name": "Structure and Bonding"
+      },
+      {
+        "course_tag": "CHEM 2020U",
+        "course_name": "Introduction to Organic Chemistry"
+      },
+      {
+        "course_tag": "CHEM 2030U",
+        "course_name": "Analytical Chemistry"
+      },
+      {
+        "course_tag": "CHEM 2040U",
+        "course_name": "Thermodynamics and Kinetics"
+      },
+      {
+        "course_tag": "CHEM 2120U",
+        "course_name": "Organic Chemistry"
+      },
+      {
+        "course_tag": "CHEM 2130U",
+        "course_name": "Analytical Chemistry for Biosciences"
+      },
+      {
+        "course_tag": "CHEM 2220U",
+        "course_name": "Molecular Structure Determination from Spectroscopic Data"
+      },
+      {
+        "course_tag": "CHEM 3040U",
+        "course_name": "Fundamentals of Physical Chemistry"
+      },
+      {
+        "course_tag": "CHEM 3050U",
+        "course_name": "Environmental Chemistry"
+      },
+      {
+        "course_tag": "CHEM 3120U",
+        "course_name": "Advanced Organic Chemistry"
+      },
+      {
+        "course_tag": "CHEM 3140U",
+        "course_name": "Physical Chemistry for Biosciences"
+      },
+      {
+        "course_tag": "CHEM 3250U",
+        "course_name": "Introductory Medicinal Chemistry"
+      },
+      {
+        "course_tag": "CHEM 3410U",
+        "course_name": "Chemistry Laboratory Techniques"
+      },
+      {
+        "course_tag": "CHEM 3510U",
+        "course_name": "Inorganic Chemistry I: Transition Metals and Main Group Elements"
+      },
+      {
+        "course_tag": "CHEM 3520U",
+        "course_name": "Inorganic Chemistry II: Organometallics"
+      },
+      {
+        "course_tag": "CHEM 3530U",
+        "course_name": "Instrumental Analytical Chemistry I"
+      },
+      {
+        "course_tag": "CHEM 3540U",
+        "course_name": "Instrumental Analytical Chemistry II"
+      },
+      {
+        "course_tag": "CHEM 3830U",
+        "course_name": "Instrumental Analytical Chemistry"
+      },
+      {
+        "course_tag": "CHEM 4040U",
+        "course_name": "Physical Chemistry: Surfaces and Colloids"
+      },
+      {
+        "course_tag": "CHEM 4041U",
+        "course_name": "Advanced Topics in Chemistry I"
+      },
+      {
+        "course_tag": "CHEM 4042U",
+        "course_name": "Advanced Topics in Chemistry II"
+      },
+      {
+        "course_tag": "CHEM 4060U",
+        "course_name": "Quantum Chemistry and Spectroscopy"
+      },
+      {
+        "course_tag": "CHEM 4110U",
+        "course_name": "Bio-Organic Chemistry and Chemical Biology"
+      },
+      {
+        "course_tag": "CHEM 4120U",
+        "course_name": "Advanced Topics in Chemical Biology"
+      },
+      {
+        "course_tag": "CHEM 4140U",
+        "course_name": "Surface and Colloidal Chemistry"
+      },
+      {
+        "course_tag": "CHEM 4410U",
+        "course_name": "Chemistry Thesis Project I"
+      },
+      {
+        "course_tag": "CHEM 4420U",
+        "course_name": "Chemistry Thesis Project II"
+      },
+      {
+        "course_tag": "CHEM 4510U",
+        "course_name": "Pharmaceutical Discovery"
+      },
+      {
+        "course_tag": "CHEM 4520U",
+        "course_name": "Advanced Topics in Pharmaceutical Chemistry"
+      },
+      {
+        "course_tag": "CHEM 4610U",
+        "course_name": "Advances in Inorganic Chemistry"
+      }
+    ],
+    "COMM": [
+      {
+        "course_tag": "COMM 1050U",
+        "course_name": "Technical Communications"
+      },
+      {
+        "course_tag": "COMM 1100U",
+        "course_name": "Introduction to Communication and Digital Media Studies"
+      },
+      {
+        "course_tag": "COMM 1320U",
+        "course_name": "Public Speaking and Multimedia Presentation for Web 3.0"
+      },
+      {
+        "course_tag": "COMM 1420U",
+        "course_name": "Living Digitally: Social Media, Culture & Society"
+      },
+      {
+        "course_tag": "COMM 2110U",
+        "course_name": "Communication and Digital Media Theory: Keyworks"
+      },
+      {
+        "course_tag": "COMM 2210U",
+        "course_name": "Researching Communication and Digital Culture"
+      },
+      {
+        "course_tag": "COMM 2220U",
+        "course_name": "The Media, Creativity and Culture in Canada"
+      },
+      {
+        "course_tag": "COMM 2240U",
+        "course_name": "Television"
+      },
+      {
+        "course_tag": "COMM 2270U",
+        "course_name": "Entertainment Goes Global: from Hollywood to the World"
+      },
+      {
+        "course_tag": "COMM 2311U",
+        "course_name": "The Creative Industries: Ideas, Art, Tech, Money, Power"
+      },
+      {
+        "course_tag": "COMM 2410U",
+        "course_name": "Social History of Communication and Media Technologies"
+      },
+      {
+        "course_tag": "COMM 2411U",
+        "course_name": "Governing Communication and Digital Creativity: Policy for an era of Digital Disruption"
+      },
+      {
+        "course_tag": "COMM 2530U",
+        "course_name": "Advertising as Social Communication"
+      },
+      {
+        "course_tag": "COMM 2620U",
+        "course_name": "Professional Communication"
+      },
+      {
+        "course_tag": "COMM 3110U",
+        "course_name": "Communication Ethics: Making Media for the Social Good"
+      },
+      {
+        "course_tag": "COMM 3250U",
+        "course_name": "Pop Culture and Entertainment"
+      },
+      {
+        "course_tag": "COMM 3310U",
+        "course_name": "Communication for Social Change, Community and Development"
+      },
+      {
+        "course_tag": "COMM 3350U",
+        "course_name": "Environmental Communication: Media and Tech for Sustainability"
+      },
+      {
+        "course_tag": "COMM 3410U",
+        "course_name": "Designing Hits: Storytelling in the Digital Age"
+      },
+      {
+        "course_tag": "COMM 3510U",
+        "course_name": "Work in the Creative and Tech Industries"
+      },
+      {
+        "course_tag": "COMM 3610U",
+        "course_name": "Strategic Communications for Influence: Rhetoric, Persuasion and Propaganda"
+      },
+      {
+        "course_tag": "COMM 3710U",
+        "course_name": "Media, Identity and Intercultural Communication"
+      },
+      {
+        "course_tag": "COMM 3720U",
+        "course_name": "Knowing Your Audience: Audience Studies for Media Professionals and Creators"
+      },
+      {
+        "course_tag": "COMM 3740U",
+        "course_name": "Video Games, Media and Culture"
+      },
+      {
+        "course_tag": "COMM 4120U",
+        "course_name": "AI, Ethics and Communication"
+      },
+      {
+        "course_tag": "COMM 4130U",
+        "course_name": "Capstone Creator Project"
+      },
+      {
+        "course_tag": "COMM 4140U",
+        "course_name": "Ways of Seeing: Visual Communication Arts and New Media"
+      },
+      {
+        "course_tag": "COMM 4210U",
+        "course_name": "Special Topics in Communication and Digital Media Studies"
+      },
+      {
+        "course_tag": "COMM 4261U",
+        "course_name": "Online Creator-Entrepreneurs: YouTubers, Influencers, and Streamers"
+      },
+      {
+        "course_tag": "COMM 4420U",
+        "course_name": "Political Communication, Digital Media and Democracy"
+      },
+      {
+        "course_tag": "COMM 4510U",
+        "course_name": "Public Relations: Social Power, Social Media Platforms, and Social Responsibility"
+      },
+      {
+        "course_tag": "COMM 4530U",
+        "course_name": "Media Activism and Protest Cultures"
+      },
+      {
+        "course_tag": "COMM 4610U",
+        "course_name": "The Struggle is Real: Transformation for Communication, Conflict, and Peace"
+      },
+      {
+        "course_tag": "COMM 4710U",
+        "course_name": "Global Media, the Internet and International Relations"
+      }
+    ],
+    "CRMN": [
+      {
+        "course_tag": "CRMN 1000U",
+        "course_name": "Introduction to Criminology and Justice"
+      },
+      {
+        "course_tag": "CRMN 2010U",
+        "course_name": "Criminal Law"
+      },
+      {
+        "course_tag": "CRMN 2021U",
+        "course_name": "Families and the Justice System"
+      },
+      {
+        "course_tag": "CRMN 2030U",
+        "course_name": "Social Control"
+      },
+      {
+        "course_tag": "CRMN 2031U",
+        "course_name": "Rethinking Justice: Alternative Approaches"
+      },
+      {
+        "course_tag": "CRMN 2040U",
+        "course_name": "Decolonizing Criminology"
+      },
+      {
+        "course_tag": "CRMN 2050U",
+        "course_name": "Rights and Wrongs in the Justice System"
+      },
+      {
+        "course_tag": "CRMN 2830U",
+        "course_name": "Theories of Justice"
+      },
+      {
+        "course_tag": "CRMN 2831U",
+        "course_name": "Critical Race Theory"
+      },
+      {
+        "course_tag": "CRMN 2840U",
+        "course_name": "Gender, Sex, and (In)Justice"
+      },
+      {
+        "course_tag": "CRMN 2850U",
+        "course_name": "Classical Theories of Crime"
+      },
+      {
+        "course_tag": "CRMN 3010U",
+        "course_name": "Social Justice/Criminal Justice"
+      },
+      {
+        "course_tag": "CRMN 3023U",
+        "course_name": "Family Violence"
+      },
+      {
+        "course_tag": "CRMN 3024U",
+        "course_name": "Criminal Gangs"
+      },
+      {
+        "course_tag": "CRMN 3025U",
+        "course_name": "Victimology"
+      },
+      {
+        "course_tag": "CRMN 3026U",
+        "course_name": "Organized Crime"
+      },
+      {
+        "course_tag": "CRMN 3027U",
+        "course_name": "Delinquency, Deviance, and Youth Crime"
+      },
+      {
+        "course_tag": "CRMN 3028U",
+        "course_name": "Women in the Criminal Justice System"
+      },
+      {
+        "course_tag": "CRMN 3029U",
+        "course_name": "Crime and the Elderly"
+      },
+      {
+        "course_tag": "CRMN 3035U",
+        "course_name": "Crime and Media"
+      },
+      {
+        "course_tag": "CRMN 3038U",
+        "course_name": "Serial and Mass Homicide"
+      },
+      {
+        "course_tag": "CRMN 3040U",
+        "course_name": "Restorative Justice"
+      },
+      {
+        "course_tag": "CRMN 3045U",
+        "course_name": "Terrorism"
+      },
+      {
+        "course_tag": "CRMN 3050U",
+        "course_name": "Police and Society"
+      },
+      {
+        "course_tag": "CRMN 3056U",
+        "course_name": "Race-ing Justice"
+      },
+      {
+        "course_tag": "CRMN 3060U",
+        "course_name": "Punishment and Society"
+      },
+      {
+        "course_tag": "CRMN 3301U",
+        "course_name": "Green Criminology and Eco-Justice"
+      },
+      {
+        "course_tag": "CRMN 3401U",
+        "course_name": "Indigenous Peoples and Justice"
+      },
+      {
+        "course_tag": "CRMN 3850U",
+        "course_name": "Contemporary Theories of Crime"
+      },
+      {
+        "course_tag": "CRMN 4000U",
+        "course_name": "Advanced Justice Studies"
+      },
+      {
+        "course_tag": "CRMN 4001U",
+        "course_name": "Special Topics in Criminology and Justice"
+      },
+      {
+        "course_tag": "CRMN 4020U",
+        "course_name": "Corporate Crime"
+      },
+      {
+        "course_tag": "CRMN 4021U",
+        "course_name": "Cybercrime"
+      },
+      {
+        "course_tag": "CRMN 4022U",
+        "course_name": "Hate Crime"
+      },
+      {
+        "course_tag": "CRMN 4023U",
+        "course_name": "Intimate Partner Violence"
+      },
+      {
+        "course_tag": "CRMN 4032U",
+        "course_name": "Mediation and Conflict Resolution"
+      },
+      {
+        "course_tag": "CRMN 4037U",
+        "course_name": "Youth Justice Policy"
+      },
+      {
+        "course_tag": "CRMN 4052U",
+        "course_name": "Policing Diverse Communities"
+      },
+      {
+        "course_tag": "CRMN 4062U",
+        "course_name": "The Prison Experience"
+      },
+      {
+        "course_tag": "CRMN 4065U",
+        "course_name": "Criminal Justice Ethics and Misconduct"
+      },
+      {
+        "course_tag": "CRMN 4075U",
+        "course_name": "International Perspectives on Criminal Justice"
+      },
+      {
+        "course_tag": "CRMN 4079U",
+        "course_name": "Alternative Sanctions"
+      },
+      {
+        "course_tag": "CRMN 4085U",
+        "course_name": "Emerging Patterns of Policing"
+      },
+      {
+        "course_tag": "CRMN 4099U",
+        "course_name": "Criminology and Justice Integrating Project"
+      },
+      {
+        "course_tag": "CRMN 4100U",
+        "course_name": "Doing Criminology"
+      }
+    ],
+    "CSCI": [
+      {
+        "course_tag": "CSCI 1030U",
+        "course_name": "Introduction to Computer Science"
+      },
+      {
+        "course_tag": "CSCI 1040U",
+        "course_name": "Introduction to Programming for Scientists"
+      },
+      {
+        "course_tag": "CSCI 1060U",
+        "course_name": "Programming Workshop I"
+      },
+      {
+        "course_tag": "CSCI 1061U",
+        "course_name": "Programming Workshop II"
+      },
+      {
+        "course_tag": "CSCI 1062U",
+        "course_name": "Accelerated Programming Workshop"
+      },
+      {
+        "course_tag": "CSCI 1063U",
+        "course_name": "Computer Programming Project"
+      },
+      {
+        "course_tag": "CSCI 2000U",
+        "course_name": "Scientific Data Analysis"
+      },
+      {
+        "course_tag": "CSCI 2010U",
+        "course_name": "Data Structures"
+      },
+      {
+        "course_tag": "CSCI 2020U",
+        "course_name": "Software Systems Development and Integration"
+      },
+      {
+        "course_tag": "CSCI 2040U",
+        "course_name": "Software Design and Analysis"
+      },
+      {
+        "course_tag": "CSCI 2050U",
+        "course_name": "Computer Architecture I"
+      },
+      {
+        "course_tag": "CSCI 2072U",
+        "course_name": "Computational Science I"
+      },
+      {
+        "course_tag": "CSCI 2110U",
+        "course_name": "Discrete Mathematics for Computer Scientists"
+      },
+      {
+        "course_tag": "CSCI 2160U",
+        "course_name": "Digital Media"
+      },
+      {
+        "course_tag": "CSCI 3010U",
+        "course_name": "Simulation and Modelling"
+      },
+      {
+        "course_tag": "CSCI 3030U",
+        "course_name": "Database Systems and Concepts"
+      },
+      {
+        "course_tag": "CSCI 3055U",
+        "course_name": "Programming Languages"
+      },
+      {
+        "course_tag": "CSCI 3060U",
+        "course_name": "Software Quality Assurance"
+      },
+      {
+        "course_tag": "CSCI 3070U",
+        "course_name": "Analysis and Design of Algorithms"
+      },
+      {
+        "course_tag": "CSCI 3090U",
+        "course_name": "Computer Graphics and Visualization"
+      },
+      {
+        "course_tag": "CSCI 3230U",
+        "course_name": "Web Application Development"
+      },
+      {
+        "course_tag": "CSCI 3240U",
+        "course_name": "Computational Photography"
+      },
+      {
+        "course_tag": "CSCI 3310U",
+        "course_name": "Systems Programming"
+      },
+      {
+        "course_tag": "CSCI 3540U",
+        "course_name": "Software Security"
+      },
+      {
+        "course_tag": "CSCI 4020U",
+        "course_name": "Compilers"
+      },
+      {
+        "course_tag": "CSCI 4030U",
+        "course_name": "Big Data Analytics"
+      },
+      {
+        "course_tag": "CSCI 4040U",
+        "course_name": "Ethics, Law and the Social Impacts of Computing"
+      },
+      {
+        "course_tag": "CSCI 4050U",
+        "course_name": "Machine Learning, Theory and Application"
+      },
+      {
+        "course_tag": "CSCI 4052U",
+        "course_name": "Machine Learning II"
+      },
+      {
+        "course_tag": "CSCI 4055U",
+        "course_name": "Natural Language Processing"
+      },
+      {
+        "course_tag": "CSCI 4060U",
+        "course_name": "Massively Parallel Programming"
+      },
+      {
+        "course_tag": "CSCI 4080U",
+        "course_name": "Design for Educational Applications"
+      },
+      {
+        "course_tag": "CSCI 4100U",
+        "course_name": "Mobile Devices"
+      },
+      {
+        "course_tag": "CSCI 4110U",
+        "course_name": "Advanced Computer Graphics"
+      },
+      {
+        "course_tag": "CSCI 4140U",
+        "course_name": "Quantum Computing Software and Applications"
+      },
+      {
+        "course_tag": "CSCI 4150U",
+        "course_name": "Data Mining"
+      },
+      {
+        "course_tag": "CSCI 4160U",
+        "course_name": "Interactive Media"
+      },
+      {
+        "course_tag": "CSCI 4210U",
+        "course_name": "Information Visualization"
+      },
+      {
+        "course_tag": "CSCI 4220U",
+        "course_name": "Computer Vision"
+      },
+      {
+        "course_tag": "CSCI 4230U",
+        "course_name": "Advanced Web Development"
+      },
+      {
+        "course_tag": "CSCI 4410U",
+        "course_name": "Computer Science Thesis Project I"
+      },
+      {
+        "course_tag": "CSCI 4420U",
+        "course_name": "Computer Science Thesis Project II"
+      },
+      {
+        "course_tag": "CSCI 4430U",
+        "course_name": "Directed Studies in Computer Science"
+      },
+      {
+        "course_tag": "CSCI 4440U",
+        "course_name": "Topics in Computer Science I"
+      },
+      {
+        "course_tag": "CSCI 4460U",
+        "course_name": "Topics in Computer Science II"
+      },
+      {
+        "course_tag": "CSCI 4610U",
+        "course_name": "Artificial Intelligence"
+      },
+      {
+        "course_tag": "CSCI 4620U",
+        "course_name": "Human-Computer Interaction"
+      }
+    ],
+    "CURS": [
+      {
+        "course_tag": "CURS 4100U",
+        "course_name": "Curriculum Studies I: I/S Biology"
+      },
+      {
+        "course_tag": "CURS 4101U",
+        "course_name": "Curriculum Studies II: I/S Biology"
+      },
+      {
+        "course_tag": "CURS 4110U",
+        "course_name": "Curriculum Studies I: I/S English"
+      },
+      {
+        "course_tag": "CURS 4111U",
+        "course_name": "Curriculum Studies II: I/S English"
+      },
+      {
+        "course_tag": "CURS 4140U",
+        "course_name": "Curriculum Studies I: I/S Mathematics"
+      },
+      {
+        "course_tag": "CURS 4141U",
+        "course_name": "Curriculum Studies II: I/S Mathematics"
+      },
+      {
+        "course_tag": "CURS 4180U",
+        "course_name": "Curriculum Studies I: I/S General Science"
+      },
+      {
+        "course_tag": "CURS 4181U",
+        "course_name": "Curriculum Studies II: I/S General Science"
+      },
+      {
+        "course_tag": "CURS 4301U",
+        "course_name": "Curriculum Studies I: I/S Chemistry/Physics"
+      },
+      {
+        "course_tag": "CURS 4302U",
+        "course_name": "Curriculum Studies II: I/S Chemistry/Physics"
+      },
+      {
+        "course_tag": "CURS 4501U",
+        "course_name": "Curriculum Studies I: I/S History"
+      },
+      {
+        "course_tag": "CURS 4502U",
+        "course_name": "Curriculum Studies II: I/S History"
+      },
+      {
+        "course_tag": "CURS 4503U",
+        "course_name": "Curriculum Studies I: I/S Health and Physical Education"
+      },
+      {
+        "course_tag": "CURS 4504U",
+        "course_name": "Curriculum Studies II: I/S Health and Physical Education"
+      }
+    ],
+    "ECON": [
+      {
+        "course_tag": "ECON 2010U",
+        "course_name": "Microeconomics"
+      },
+      {
+        "course_tag": "ECON 2020U",
+        "course_name": "Macroeconomics"
+      }
+    ],
+    "EDST": [
+      {
+        "course_tag": "EDST 1000U",
+        "course_name": "Foundations of Learning"
+      },
+      {
+        "course_tag": "EDST 1100U",
+        "course_name": "Problem and Inquiry Based Learning"
+      },
+      {
+        "course_tag": "EDST 1130U",
+        "course_name": "Writing and Information Literacy in the Digital Age"
+      },
+      {
+        "course_tag": "EDST 1230U",
+        "course_name": "Design Thinking and Visual Design for Educational Contexts"
+      },
+      {
+        "course_tag": "EDST 2110U",
+        "course_name": "Assessment and Evaluation"
+      },
+      {
+        "course_tag": "EDST 2120U",
+        "course_name": "Culture and Digital Technologies"
+      },
+      {
+        "course_tag": "EDST 2140U",
+        "course_name": "Creating Digital Tools"
+      },
+      {
+        "course_tag": "EDST 2150U",
+        "course_name": "Teaching to Facilitate Learning"
+      },
+      {
+        "course_tag": "EDST 2160U",
+        "course_name": "Online Learning"
+      },
+      {
+        "course_tag": "EDST 2170U",
+        "course_name": "Designing Inclusive Learning Environments"
+      },
+      {
+        "course_tag": "EDST 2200U",
+        "course_name": "Literature and Pedagogy: Exploring Human Experience"
+      },
+      {
+        "course_tag": "EDST 2410U",
+        "course_name": "Foundations of Adult Learning"
+      },
+      {
+        "course_tag": "EDST 2500U",
+        "course_name": "Foundations of Equity, Diversity and Inclusion in Education"
+      },
+      {
+        "course_tag": "EDST 2700U",
+        "course_name": "Foundations of Special Education"
+      },
+      {
+        "course_tag": "EDST 3000U",
+        "course_name": "Instructional Design"
+      },
+      {
+        "course_tag": "EDST 3110U",
+        "course_name": "Critical Digital Literacies"
+      },
+      {
+        "course_tag": "EDST 3120U",
+        "course_name": "Workplace Learning"
+      },
+      {
+        "course_tag": "EDST 3140U",
+        "course_name": "Digital Communication Technologies"
+      },
+      {
+        "course_tag": "EDST 3160U",
+        "course_name": "Developing Literacy"
+      },
+      {
+        "course_tag": "EDST 3170U",
+        "course_name": "Developing Numeracy"
+      },
+      {
+        "course_tag": "EDST 3440U",
+        "course_name": "Managing and Developing eLearning Projects"
+      },
+      {
+        "course_tag": "EDST 3460U",
+        "course_name": "Working with Clients and Partners"
+      },
+      {
+        "course_tag": "EDST 3500U",
+        "course_name": "Unlearning and The Inclusive Curriculum"
+      },
+      {
+        "course_tag": "EDST 3610U",
+        "course_name": "Child Development and Health"
+      },
+      {
+        "course_tag": "EDST 3700U",
+        "course_name": "Models of Inclusion"
+      },
+      {
+        "course_tag": "EDST 3710U",
+        "course_name": "Understanding the Diversity of Educational Needs"
+      },
+      {
+        "course_tag": "EDST 3999U",
+        "course_name": "Special Topics in Educational Studies"
+      },
+      {
+        "course_tag": "EDST 4000U",
+        "course_name": "Inquiry and Professional Practice"
+      },
+      {
+        "course_tag": "EDST 4120U",
+        "course_name": "Games and Simulations for Learning"
+      },
+      {
+        "course_tag": "EDST 4150U",
+        "course_name": "Holistic Learning in Early Childhood Education"
+      },
+      {
+        "course_tag": "EDST 4300U",
+        "course_name": "Engaged Educator Project I"
+      },
+      {
+        "course_tag": "EDST 4301U",
+        "course_name": "Engaged Educator Project II"
+      },
+      {
+        "course_tag": "EDST 4470U",
+        "course_name": "Trends and Issues in Educational Technology"
+      },
+      {
+        "course_tag": "EDST 4500U",
+        "course_name": "Enabling Learning through Technology"
+      },
+      {
+        "course_tag": "EDST 4530U",
+        "course_name": "Social Justice Issues in Education"
+      },
+      {
+        "course_tag": "EDST 4610U",
+        "course_name": "Coding and Maker Pedagogies for Young Children"
+      },
+      {
+        "course_tag": "EDST 4700U",
+        "course_name": "Technology and Assistive Tools for Special Education"
+      },
+      {
+        "course_tag": "EDST 4900U",
+        "course_name": "Research Literacy for Education"
+      },
+      {
+        "course_tag": "EDST 4901U",
+        "course_name": "Research Project"
+      },
+      {
+        "course_tag": "EDST 4980U",
+        "course_name": "Work Integrated Learning I"
+      },
+      {
+        "course_tag": "EDST 4981U",
+        "course_name": "Work Integrated Learning II"
+      },
+      {
+        "course_tag": "EDST 4999U",
+        "course_name": "Directed Studies in Educational Studies"
+      }
+    ],
+    "EDUC": [
+      {
+        "course_tag": "EDUC 1300U",
+        "course_name": "Foundations I: Planning and Preparation"
+      },
+      {
+        "course_tag": "EDUC 1301U",
+        "course_name": "Learning and Development"
+      },
+      {
+        "course_tag": "EDUC 1302U",
+        "course_name": "P/J Digital Literacies I (Language Arts and Digital Technology)"
+      },
+      {
+        "course_tag": "EDUC 1305U",
+        "course_name": "Foundations II: Curriculum Theory and Practice"
+      },
+      {
+        "course_tag": "EDUC 1306U",
+        "course_name": "P/J Digital Literacies/Social Studies II (Language Arts and Social Studies)"
+      },
+      {
+        "course_tag": "EDUC 1308U",
+        "course_name": "P/J Mathematical Thinking and Doing"
+      },
+      {
+        "course_tag": "EDUC 1309U",
+        "course_name": "I/S Digital Literacies and Information and Communication Technology"
+      },
+      {
+        "course_tag": "EDUC 1310U",
+        "course_name": "I/S Mathematical Thinking and Doing"
+      },
+      {
+        "course_tag": "EDUC 1311U",
+        "course_name": "I/S Coding and Communication"
+      },
+      {
+        "course_tag": "EDUC 1314U",
+        "course_name": "P/J Health & Physical Education"
+      },
+      {
+        "course_tag": "EDUC 1315U",
+        "course_name": "The Arts Primary/Junior"
+      },
+      {
+        "course_tag": "EDUC 1330U",
+        "course_name": "P/J Mathematics Methods I"
+      },
+      {
+        "course_tag": "EDUC 1340U",
+        "course_name": "P/J Mathematics Methods II"
+      },
+      {
+        "course_tag": "EDUC 1370U",
+        "course_name": "P/J Science & Technology Methods I"
+      },
+      {
+        "course_tag": "EDUC 1380U",
+        "course_name": "P/J Science & Technology Methods II"
+      },
+      {
+        "course_tag": "EDUC 2400U",
+        "course_name": "Equity and Diversity"
+      },
+      {
+        "course_tag": "EDUC 2401U",
+        "course_name": "Learning in Digital Contexts"
+      },
+      {
+        "course_tag": "EDUC 2402U",
+        "course_name": "Teaching for Inclusion: Special Needs and Individualized Education"
+      },
+      {
+        "course_tag": "EDUC 2403U",
+        "course_name": "Independent Inquiry"
+      },
+      {
+        "course_tag": "EDUC 2404U",
+        "course_name": "Education Law, Policy and Ethics"
+      },
+      {
+        "course_tag": "EDUC 2405U",
+        "course_name": "Foundations III: Long Range Planning and Assessment"
+      },
+      {
+        "course_tag": "EDUC 2406U",
+        "course_name": "Reflective Practice/Action Research"
+      },
+      {
+        "course_tag": "EDUC 2407U",
+        "course_name": "Mental Health Issues in Schools"
+      },
+      {
+        "course_tag": "EDUC 2408U",
+        "course_name": "P/J Coding and Communication"
+      },
+      {
+        "course_tag": "EDUC 3200U",
+        "course_name": "Introduction to Indigenous Pedagogy"
+      },
+      {
+        "course_tag": "EDUC 3201U",
+        "course_name": "Environmental Education"
+      },
+      {
+        "course_tag": "EDUC 3205U",
+        "course_name": "Visual Arts: An Introduction to Indigenous Art"
+      },
+      {
+        "course_tag": "EDUC 3206U",
+        "course_name": "Teaching the Catholic Religion in Schools"
+      },
+      {
+        "course_tag": "EDUC 3207U",
+        "course_name": "Teacher as Coach"
+      },
+      {
+        "course_tag": "EDUC 3208U",
+        "course_name": "Teaching Kindergarten"
+      },
+      {
+        "course_tag": "EDUC 3209U",
+        "course_name": "Outdoor Education"
+      },
+      {
+        "course_tag": "EDUC 3210U",
+        "course_name": "Teaching French in Schools"
+      },
+      {
+        "course_tag": "EDUC 3216U",
+        "course_name": "Teaching English Language Learners"
+      },
+      {
+        "course_tag": "EDUC 3299U",
+        "course_name": "Special Topics in Education"
+      },
+      {
+        "course_tag": "EDUC 4700U",
+        "course_name": "Models of Teaching"
+      },
+      {
+        "course_tag": "EDUC 4704U",
+        "course_name": "Teaching and Learning: Curriculum Design"
+      }
+    ],
+    "ELEE": [
+      {
+        "course_tag": "ELEE 2110U",
+        "course_name": "Discrete Mathematics for Engineers"
+      },
+      {
+        "course_tag": "ELEE 2200U",
+        "course_name": "Electrical Engineering Fundamentals"
+      },
+      {
+        "course_tag": "ELEE 2210U",
+        "course_name": "Circuit Analysis"
+      },
+      {
+        "course_tag": "ELEE 2250U",
+        "course_name": "Introductory Electronics"
+      },
+      {
+        "course_tag": "ELEE 2450U",
+        "course_name": "Digital Systems"
+      },
+      {
+        "course_tag": "ELEE 2520U",
+        "course_name": "Fundamentals of Electromagnetics"
+      },
+      {
+        "course_tag": "ELEE 2530U",
+        "course_name": "Complex Analysis for Engineers"
+      },
+      {
+        "course_tag": "ELEE 2790U",
+        "course_name": "Electric Circuits"
+      },
+      {
+        "course_tag": "ELEE 3070U",
+        "course_name": "Probability and Random Signals"
+      },
+      {
+        "course_tag": "ELEE 3100U",
+        "course_name": "Introduction to Control Systems"
+      },
+      {
+        "course_tag": "ELEE 3110U",
+        "course_name": "Signals and Systems"
+      },
+      {
+        "course_tag": "ELEE 3130U",
+        "course_name": "Communication Systems"
+      },
+      {
+        "course_tag": "ELEE 3180U",
+        "course_name": "Design Principles and Project Management in Electrical Engineering"
+      },
+      {
+        "course_tag": "ELEE 3230U",
+        "course_name": "Electronic Circuit Design"
+      },
+      {
+        "course_tag": "ELEE 3240U",
+        "course_name": "Applications for Electromagnetics"
+      },
+      {
+        "course_tag": "ELEE 3250U",
+        "course_name": "Electric Machines"
+      },
+      {
+        "course_tag": "ELEE 3260U",
+        "course_name": "Power Systems"
+      },
+      {
+        "course_tag": "ELEE 3450U",
+        "course_name": "Microprocessors and Computer Architecture"
+      },
+      {
+        "course_tag": "ELEE 4115U",
+        "course_name": "Fundamentals of Smart Grid"
+      },
+      {
+        "course_tag": "ELEE 4120U",
+        "course_name": "Introduction to Power Electronics"
+      },
+      {
+        "course_tag": "ELEE 4125U",
+        "course_name": "Smart Grid Networking and Security"
+      },
+      {
+        "course_tag": "ELEE 4130U",
+        "course_name": "Digital Communications"
+      },
+      {
+        "course_tag": "ELEE 4140U",
+        "course_name": "Power System Protection Relaying"
+      },
+      {
+        "course_tag": "ELEE 4150U",
+        "course_name": "Advanced Control Systems"
+      },
+      {
+        "course_tag": "ELEE 4180U",
+        "course_name": "Special Topics in Electrical Engineering"
+      },
+      {
+        "course_tag": "ELEE 4310U",
+        "course_name": "Electronics"
+      },
+      {
+        "course_tag": "ELEE 4350U",
+        "course_name": "Microprocessors"
+      },
+      {
+        "course_tag": "ELEE 4420U",
+        "course_name": "Digital Signal Processing"
+      },
+      {
+        "course_tag": "ELEE 4500U",
+        "course_name": "Wireless Communications"
+      },
+      {
+        "course_tag": "ELEE 4750U",
+        "course_name": "Microwave and RF Circuits"
+      }
+    ],
+    "ENEE": [
+      {
+        "course_tag": "ENEE 2160U",
+        "course_name": "Energy and Environmental Impacts"
+      },
+      {
+        "course_tag": "ENEE 2210U",
+        "course_name": "Introduction to Alternative Fuels"
+      },
+      {
+        "course_tag": "ENEE 3030U",
+        "course_name": "Computer-Aided Design"
+      },
+      {
+        "course_tag": "ENEE 3265U",
+        "course_name": "Hydrogen and Fuel Cells"
+      },
+      {
+        "course_tag": "ENEE 4161U",
+        "course_name": "Solar Energy"
+      },
+      {
+        "course_tag": "ENEE 4163U",
+        "course_name": "Wind and Hydro Energy"
+      },
+      {
+        "course_tag": "ENEE 4260U",
+        "course_name": "Integrated Energy Systems"
+      },
+      {
+        "course_tag": "ENEE 4460U",
+        "course_name": "Sustainable Community Energy Systems"
+      }
+    ],
+    "ENGR": [
+      {
+        "course_tag": "ENGR 0998U",
+        "course_name": "Engineering Internship Program"
+      },
+      {
+        "course_tag": "ENGR 0999U",
+        "course_name": "Engineering Co-op Program"
+      },
+      {
+        "course_tag": "ENGR 1000W",
+        "course_name": "Professional Competencies for Engineers"
+      },
+      {
+        "course_tag": "ENGR 1015U",
+        "course_name": "Introduction to Engineering"
+      },
+      {
+        "course_tag": "ENGR 1025U",
+        "course_name": "Engineering Design"
+      },
+      {
+        "course_tag": "ENGR 1200U",
+        "course_name": "Introduction to Programming for Engineers"
+      },
+      {
+        "course_tag": "ENGR 2000W",
+        "course_name": "Engineering Co-op Work Term I"
+      },
+      {
+        "course_tag": "ENGR 2100U",
+        "course_name": "Computational Engineering Applications"
+      },
+      {
+        "course_tag": "ENGR 3000W",
+        "course_name": "Engineering Co-op Work Term II"
+      },
+      {
+        "course_tag": "ENGR 3150U",
+        "course_name": "Artificial Intelligence and Machine Learning"
+      },
+      {
+        "course_tag": "ENGR 3160U",
+        "course_name": "Engineering Operations and Project Management"
+      },
+      {
+        "course_tag": "ENGR 3215U",
+        "course_name": "Engineering Project Management"
+      },
+      {
+        "course_tag": "ENGR 3360U",
+        "course_name": "Engineering Economics"
+      },
+      {
+        "course_tag": "ENGR 3730U",
+        "course_name": "Solar Energy Technologies"
+      },
+      {
+        "course_tag": "ENGR 3840U",
+        "course_name": "Fuel Cell Design"
+      },
+      {
+        "course_tag": "ENGR 4000W",
+        "course_name": "Engineering Co-op Work Term III"
+      },
+      {
+        "course_tag": "ENGR 4001W",
+        "course_name": "Engineering Co-op Work Term IV"
+      },
+      {
+        "course_tag": "ENGR 4002W",
+        "course_name": "Engineering Co-op Work Term V"
+      },
+      {
+        "course_tag": "ENGR 4170U",
+        "course_name": "Deep Learning"
+      },
+      {
+        "course_tag": "ENGR 4270U",
+        "course_name": "Machine Learning Applications"
+      },
+      {
+        "course_tag": "ENGR 4470U",
+        "course_name": "Hydrogen Power Systems"
+      },
+      {
+        "course_tag": "ENGR 4530U",
+        "course_name": "Hydroelectric Power Systems"
+      },
+      {
+        "course_tag": "ENGR 4570U",
+        "course_name": "Indigenous Design and Technology"
+      },
+      {
+        "course_tag": "ENGR 4760U",
+        "course_name": "Ethics, Law and Professionalism for Engineers"
+      },
+      {
+        "course_tag": "ENGR 4940U",
+        "course_name": "Capstone Systems Design for Electrical, Computer and Software Engineering I"
+      },
+      {
+        "course_tag": "ENGR 4941U",
+        "course_name": "Capstone Systems Design for Electrical, Computer and Software Engineering II"
+      },
+      {
+        "course_tag": "ENGR 4950U",
+        "course_name": "Capstone Systems Design for Mechanical, Automotive, Mechatronics and Manufacturing Engineering I"
+      },
+      {
+        "course_tag": "ENGR 4951U",
+        "course_name": "Capstone Systems Design for Mechanical, Automotive, Mechatronics and Manufacturing Engineering II"
+      },
+      {
+        "course_tag": "ENGR 4960U",
+        "course_name": "Capstone Systems Design for Energy Engineering I"
+      },
+      {
+        "course_tag": "ENGR 4961U",
+        "course_name": "Capstone Systems Design for Energy Engineering II"
+      },
+      {
+        "course_tag": "ENGR 4970U",
+        "course_name": "Capstone System Design for Industrial Engineering I"
+      },
+      {
+        "course_tag": "ENGR 4971U",
+        "course_name": "Capstone System Design for Industrial Engineering II"
+      }
+    ],
+    "ENSY": [
+      {
+        "course_tag": "ENSY 0101U",
+        "course_name": "Calculus and Algebra for Energy Systems"
+      },
+      {
+        "course_tag": "ENSY 0102U",
+        "course_name": "Applied Heat Transfer"
+      },
+      {
+        "course_tag": "ENSY 0103U",
+        "course_name": "Materials for Energy Systems"
+      },
+      {
+        "course_tag": "ENSY 1000U",
+        "course_name": "Introduction to Energy Systems"
+      },
+      {
+        "course_tag": "ENSY 1110U",
+        "course_name": "Chemical Fundamentals"
+      },
+      {
+        "course_tag": "ENSY 2210U",
+        "course_name": "Principles of Electrical Systems"
+      },
+      {
+        "course_tag": "ENSY 2220U",
+        "course_name": "Fluid Mechanics for Energy Systems"
+      },
+      {
+        "course_tag": "ENSY 2330U",
+        "course_name": "Mechanical Equipment and Systems"
+      },
+      {
+        "course_tag": "ENSY 2410U",
+        "course_name": "Low Carbon Technologies"
+      },
+      {
+        "course_tag": "ENSY 3600U",
+        "course_name": "Sustainable Energy Thesis I"
+      },
+      {
+        "course_tag": "ENSY 3730U",
+        "course_name": "Solar Energy Technologies"
+      },
+      {
+        "course_tag": "ENSY 3830U",
+        "course_name": "Wind Energy Systems"
+      },
+      {
+        "course_tag": "ENSY 3840U",
+        "course_name": "Fuel Cell and Hydrogen Systems"
+      },
+      {
+        "course_tag": "ENSY 4300U",
+        "course_name": "Environmental Protection Systems"
+      },
+      {
+        "course_tag": "ENSY 4400U",
+        "course_name": "Electric Power Systems"
+      },
+      {
+        "course_tag": "ENSY 4500U",
+        "course_name": "Geo-Engineered Systems"
+      },
+      {
+        "course_tag": "ENSY 4530U",
+        "course_name": "Hydroelectric Power Systems"
+      },
+      {
+        "course_tag": "ENSY 4600U",
+        "course_name": "Sustainable Energy Thesis II"
+      },
+      {
+        "course_tag": "ENSY 4610U",
+        "course_name": "Community and Urban Design"
+      },
+      {
+        "course_tag": "ENSY 4620U",
+        "course_name": "Smart Grids"
+      },
+      {
+        "course_tag": "ENSY 4700U",
+        "course_name": "Energy Policy, Standards and Safety"
+      },
+      {
+        "course_tag": "ENSY 4800U",
+        "course_name": "Energy Systems Analysis"
+      }
+    ],
+    "ENVS": [
+      {
+        "course_tag": "ENVS 1000U",
+        "course_name": "Environmental Science"
+      },
+      {
+        "course_tag": "ENVS 2010U",
+        "course_name": "Introductory Environment Science"
+      },
+      {
+        "course_tag": "ENVS 3110U",
+        "course_name": "Economics and Politics of the Environment"
+      },
+      {
+        "course_tag": "ENVS 4010U",
+        "course_name": "Geographic Information Systems (GIS) & Spatial Analysis"
+      }
+    ],
+    "ESNS": [
+      {
+        "course_tag": "ESNS 1200U",
+        "course_name": "Engineering Graphics and Design"
+      },
+      {
+        "course_tag": "ESNS 2140U",
+        "course_name": "Problem Solving, Modelling and Simulation"
+      },
+      {
+        "course_tag": "ESNS 2200U",
+        "course_name": "Technical System Visualization"
+      },
+      {
+        "course_tag": "ESNS 3200U",
+        "course_name": "Technical Graphics and Design"
+      },
+      {
+        "course_tag": "ESNS 3380U",
+        "course_name": "Strength of Materials"
+      },
+      {
+        "course_tag": "ESNS 3385U",
+        "course_name": "Strength of Materials for Energy Systems"
+      },
+      {
+        "course_tag": "ESNS 3740U",
+        "course_name": "Scientific Instrumentation"
+      },
+      {
+        "course_tag": "ESNS 3750U",
+        "course_name": "Integrated Engineering Laboratory"
+      },
+      {
+        "course_tag": "ESNS 4660U",
+        "course_name": "Risk Analysis Methods"
+      }
+    ],
+    "FPSY": [
+      {
+        "course_tag": "FPSY 3039U",
+        "course_name": "Children, Psychology and the Law"
+      },
+      {
+        "course_tag": "FPSY 3055U",
+        "course_name": "Treatment in Forensic Settings"
+      },
+      {
+        "course_tag": "FPSY 3110U",
+        "course_name": "Directed Laboratory Research in Forensic Psychology"
+      },
+      {
+        "course_tag": "FPSY 3210U",
+        "course_name": "Forensic Psychology"
+      },
+      {
+        "course_tag": "FPSY 3310U",
+        "course_name": "Confessions and Interrogations"
+      },
+      {
+        "course_tag": "FPSY 3320U",
+        "course_name": "Eyewitness Psychology"
+      },
+      {
+        "course_tag": "FPSY 3400U",
+        "course_name": "Investigative Psychology"
+      },
+      {
+        "course_tag": "FPSY 3900U",
+        "course_name": "Special Topics in Forensic Psychology I"
+      },
+      {
+        "course_tag": "FPSY 4050U",
+        "course_name": "Forensic Assessment"
+      },
+      {
+        "course_tag": "FPSY 4060U",
+        "course_name": "Wrongful Conviction"
+      },
+      {
+        "course_tag": "FPSY 4070U",
+        "course_name": "Sexual Offenders"
+      },
+      {
+        "course_tag": "FPSY 4080U",
+        "course_name": "Psychopathic Behaviour"
+      },
+      {
+        "course_tag": "FPSY 4110U",
+        "course_name": "Honours Thesis in Forensic Psychology I"
+      },
+      {
+        "course_tag": "FPSY 4120U",
+        "course_name": "Honours Thesis in Forensic Psychology II"
+      },
+      {
+        "course_tag": "FPSY 4820U",
+        "course_name": "Selected Topics in Antisociality"
+      },
+      {
+        "course_tag": "FPSY 4900U",
+        "course_name": "Special Topics in Forensic Psychology II"
+      }
+    ],
+    "FSCI": [
+      {
+        "course_tag": "FSCI 1010U",
+        "course_name": "Introductory Forensic Science"
+      },
+      {
+        "course_tag": "FSCI 2010U",
+        "course_name": "Crime Scene Science"
+      },
+      {
+        "course_tag": "FSCI 2020U",
+        "course_name": "Essentials of Crime Scene Science"
+      },
+      {
+        "course_tag": "FSCI 3010U",
+        "course_name": "Criminalistics I"
+      },
+      {
+        "course_tag": "FSCI 3030U",
+        "course_name": "Criminalistics II"
+      },
+      {
+        "course_tag": "FSCI 3040U",
+        "course_name": "Forensic Chemistry"
+      },
+      {
+        "course_tag": "FSCI 3050U",
+        "course_name": "Assassinations, International Crimes and Disasters"
+      },
+      {
+        "course_tag": "FSCI 3110U",
+        "course_name": "Population Genetics"
+      },
+      {
+        "course_tag": "FSCI 3120U",
+        "course_name": "Forensic Biology"
+      },
+      {
+        "course_tag": "FSCI 4020U",
+        "course_name": "Interdisciplinary Topics in Forensic Science"
+      },
+      {
+        "course_tag": "FSCI 4030U",
+        "course_name": "Forensic Drug Chemistry and Toxicology"
+      },
+      {
+        "course_tag": "FSCI 4040U",
+        "course_name": "Fire Investigation"
+      },
+      {
+        "course_tag": "FSCI 4050U",
+        "course_name": "Law for Forensic Scientists"
+      },
+      {
+        "course_tag": "FSCI 4120U",
+        "course_name": "Advanced Forensic Biology"
+      },
+      {
+        "course_tag": "FSCI 4410U",
+        "course_name": "Forensic Science Thesis Project I"
+      },
+      {
+        "course_tag": "FSCI 4420U",
+        "course_name": "Forensic Science Thesis Project II"
+      },
+      {
+        "course_tag": "FSCI 4430U",
+        "course_name": "Directed Studies in Forensic Science"
+      },
+      {
+        "course_tag": "FSCI 4460U",
+        "course_name": "Mock Crime Scene Practicum"
+      }
+    ],
+    "HLSC": [
+      {
+        "course_tag": "HLSC 0880U",
+        "course_name": "Science Bridge"
+      },
+      {
+        "course_tag": "HLSC 1200U",
+        "course_name": "Human Anatomy & Physiology I"
+      },
+      {
+        "course_tag": "HLSC 1201U",
+        "course_name": "Human Anatomy & Physiology II"
+      },
+      {
+        "course_tag": "HLSC 1701U",
+        "course_name": "Information Literacy and Written Communication for the Health Sciences"
+      },
+      {
+        "course_tag": "HLSC 1810U",
+        "course_name": "Health Promotion and Healthy Active Living"
+      },
+      {
+        "course_tag": "HLSC 1811U",
+        "course_name": "Social Determinants of Health"
+      },
+      {
+        "course_tag": "HLSC 2030U",
+        "course_name": "Interpersonal and Interprofessional Communication"
+      },
+      {
+        "course_tag": "HLSC 2110U",
+        "course_name": "Foundations in Clinical Biochemistry"
+      },
+      {
+        "course_tag": "HLSC 2130U",
+        "course_name": "Public Health Microbiology"
+      },
+      {
+        "course_tag": "HLSC 2201U",
+        "course_name": "Introduction to Health Information Management"
+      },
+      {
+        "course_tag": "HLSC 2202U",
+        "course_name": "Comprehensive Anatomy and Physiology"
+      },
+      {
+        "course_tag": "HLSC 2460U",
+        "course_name": "Pathophysiology I"
+      },
+      {
+        "course_tag": "HLSC 2461U",
+        "course_name": "Pathophysiology II"
+      },
+      {
+        "course_tag": "HLSC 2462U",
+        "course_name": "Altered Physiology: Mechanisms of Disease I"
+      },
+      {
+        "course_tag": "HLSC 2463U",
+        "course_name": "Altered Physiology: Mechanisms of Disease II"
+      },
+      {
+        "course_tag": "HLSC 2465U",
+        "course_name": "Anatomy and Physiology III: Cells and Tissues"
+      },
+      {
+        "course_tag": "HLSC 2601U",
+        "course_name": "Introduction to Health Services Management"
+      },
+      {
+        "course_tag": "HLSC 2700U",
+        "course_name": "Mathematical Reasoning in Health Sciences"
+      },
+      {
+        "course_tag": "HLSC 2802U",
+        "course_name": "Introduction to the Canadian Healthcare System"
+      },
+      {
+        "course_tag": "HLSC 2810U",
+        "course_name": "Child and Adolescent Health"
+      },
+      {
+        "course_tag": "HLSC 2820U",
+        "course_name": "Nutrition for Nursing Practice"
+      },
+      {
+        "course_tag": "HLSC 2825U",
+        "course_name": "Nutrition and Health"
+      },
+      {
+        "course_tag": "HLSC 3000U",
+        "course_name": "Disability, Rehabilitation and Society"
+      },
+      {
+        "course_tag": "HLSC 3203U",
+        "course_name": "Health Data Analytics in Canadian Health Care"
+      },
+      {
+        "course_tag": "HLSC 3230U",
+        "course_name": "Organizational Behaviour in Health Care"
+      },
+      {
+        "course_tag": "HLSC 3421U",
+        "course_name": "Issues in Women’s Health"
+      },
+      {
+        "course_tag": "HLSC 3462U",
+        "course_name": "Advanced Pathophysiology"
+      },
+      {
+        "course_tag": "HLSC 3463U",
+        "course_name": "Human Genetics in Society"
+      },
+      {
+        "course_tag": "HLSC 3464U",
+        "course_name": "Altered Physiology III: Cancer Biology"
+      },
+      {
+        "course_tag": "HLSC 3473U",
+        "course_name": "Prevention and Rehabilitation of Complex Chronic Conditions"
+      },
+      {
+        "course_tag": "HLSC 3501U",
+        "course_name": "Health Law"
+      },
+      {
+        "course_tag": "HLSC 3601U",
+        "course_name": "Interprofessional Health Care Teams"
+      },
+      {
+        "course_tag": "HLSC 3630U",
+        "course_name": "Health Finance"
+      },
+      {
+        "course_tag": "HLSC 3631U",
+        "course_name": "Health Policy and Process"
+      },
+      {
+        "course_tag": "HLSC 3632U",
+        "course_name": "Health Economics"
+      },
+      {
+        "course_tag": "HLSC 3710U",
+        "course_name": "Ethics"
+      },
+      {
+        "course_tag": "HLSC 3712U",
+        "course_name": "Professional Ethics in Nursing"
+      },
+      {
+        "course_tag": "HLSC 3800U",
+        "course_name": "Introduction to Statistics for Health Sciences"
+      },
+      {
+        "course_tag": "HLSC 3805U",
+        "course_name": "Introduction to Epidemiology"
+      },
+      {
+        "course_tag": "HLSC 3820U",
+        "course_name": "Public Health I"
+      },
+      {
+        "course_tag": "HLSC 3821U",
+        "course_name": "Public Health II"
+      },
+      {
+        "course_tag": "HLSC 3823U",
+        "course_name": "Health and Indigenous People in Canada"
+      },
+      {
+        "course_tag": "HLSC 3824U",
+        "course_name": "Plagues, Pandemics, and People"
+      },
+      {
+        "course_tag": "HLSC 3910U",
+        "course_name": "Research Methods for Public Health and Health Care Professionals"
+      },
+      {
+        "course_tag": "HLSC 4310U",
+        "course_name": "Altered Physiology IV: Pharmacological Interactions"
+      },
+      {
+        "course_tag": "HLSC 4620U",
+        "course_name": "Quality and Performance Management in Health Care"
+      },
+      {
+        "course_tag": "HLSC 4621U",
+        "course_name": "Program Planning, Implementation and Evaluation in Public Health"
+      },
+      {
+        "course_tag": "HLSC 4670U",
+        "course_name": "Studies in Work Disability Prevention"
+      },
+      {
+        "course_tag": "HLSC 4672U",
+        "course_name": "Making A Work Disability Diagnosis"
+      },
+      {
+        "course_tag": "HLSC 4674U",
+        "course_name": "Coordinating Return to Work"
+      },
+      {
+        "course_tag": "HLSC 4676U",
+        "course_name": "Occupational Ergonomics and Work Disability"
+      },
+      {
+        "course_tag": "HLSC 4678U",
+        "course_name": "Practicum in Return to Work Management"
+      },
+      {
+        "course_tag": "HLSC 4700U",
+        "course_name": "Intermediate Statistics for Health Sciences"
+      },
+      {
+        "course_tag": "HLSC 4803U",
+        "course_name": "Global Health"
+      },
+      {
+        "course_tag": "HLSC 4804U",
+        "course_name": "Global Dimensions of Communicable Diseases"
+      },
+      {
+        "course_tag": "HLSC 4805U",
+        "course_name": "Non-communicable Diseases: Current Issues and Emerging Trends"
+      },
+      {
+        "course_tag": "HLSC 4807U",
+        "course_name": "Perspectives in Aging"
+      },
+      {
+        "course_tag": "HLSC 4808U",
+        "course_name": "Exploring Mental Health and Developmental Disabilities"
+      },
+      {
+        "course_tag": "HLSC 4809U",
+        "course_name": "Environmental and Occupational Health"
+      },
+      {
+        "course_tag": "HLSC 4810U",
+        "course_name": "Human Sexuality and Health Across the Lifespan"
+      },
+      {
+        "course_tag": "HLSC 4820U",
+        "course_name": "Interdisciplinary Collaboration"
+      },
+      {
+        "course_tag": "HLSC 4821U",
+        "course_name": "Exploring the Mind Body Connection: Wellness Promotion Strategies for Life"
+      },
+      {
+        "course_tag": "HLSC 4822U",
+        "course_name": "Social Marketing for Public Health"
+      },
+      {
+        "course_tag": "HLSC 4823U",
+        "course_name": "Small Business Practice and Entrepreneurship for Health Professionals"
+      },
+      {
+        "course_tag": "HLSC 4824U",
+        "course_name": "Physical Activity and Public Health"
+      },
+      {
+        "course_tag": "HLSC 4825U",
+        "course_name": "Population Health Risk and Needs Assessment"
+      },
+      {
+        "course_tag": "HLSC 4850U",
+        "course_name": "Current Issues in Health Care"
+      },
+      {
+        "course_tag": "HLSC 4851U",
+        "course_name": "Critical Perspectives on Health, Illness, and Healthcare"
+      },
+      {
+        "course_tag": "HLSC 4990U",
+        "course_name": "Practicum Placement"
+      },
+      {
+        "course_tag": "HLSC 4991U",
+        "course_name": "Case Study Analysis and Application for Bachelor of Health Administration Students"
+      },
+      {
+        "course_tag": "HLSC 4996U",
+        "course_name": "Research Applications I"
+      },
+      {
+        "course_tag": "HLSC 4997U",
+        "course_name": "Research Applications II"
+      },
+      {
+        "course_tag": "HLSC 4998U",
+        "course_name": "Research Practicum I"
+      },
+      {
+        "course_tag": "HLSC 4999U",
+        "course_name": "Research Practicum II"
+      }
+    ],
+    "IMCS": [
+      {
+        "course_tag": "IMCS 3010U",
+        "course_name": "Integrated Application Project I"
+      },
+      {
+        "course_tag": "IMCS 3020U",
+        "course_name": "Integrated Application Project II"
+      },
+      {
+        "course_tag": "IMCS 4410U",
+        "course_name": "Integrated Mathematics and Computer Science Thesis Project I"
+      },
+      {
+        "course_tag": "IMCS 4420U",
+        "course_name": "Integrated Mathematics and Computer Science Thesis Project II"
+      }
+    ],
+    "INDG": [
+      {
+        "course_tag": "INDG 1000U",
+        "course_name": "Introduction to Indigenous Studies: Colonial History and its Impacts on Indigenous Peoples"
+      },
+      {
+        "course_tag": "INDG 2100U",
+        "course_name": "Endaayaang - Storying Home in Michi Saagiig Territory"
+      },
+      {
+        "course_tag": "INDG 2200U",
+        "course_name": "Indigenous Digital and Visual Media"
+      },
+      {
+        "course_tag": "INDG 2500U",
+        "course_name": "Two-Eyed Seeing in the Natural Sciences"
+      },
+      {
+        "course_tag": "INDG 3100U",
+        "course_name": "First Nations History in Michi Saagiig and Haudenosaunee Territories in Southern Ontario"
+      },
+      {
+        "course_tag": "INDG 3200U",
+        "course_name": "Contemporary Indigenous Literature"
+      },
+      {
+        "course_tag": "INDG 3310U",
+        "course_name": "Indigenous Peoples, Sustainability and Development: A Global Perspective"
+      },
+      {
+        "course_tag": "INDG 4100U",
+        "course_name": "(Re)Membering Reciprocal Relations"
+      },
+      {
+        "course_tag": "INDG 4300U",
+        "course_name": "Special Topics in Indigenous Studies"
+      },
+      {
+        "course_tag": "INDG 4310U",
+        "course_name": "The Politics of Indigenous Rights"
+      },
+      {
+        "course_tag": "INDG 4570U",
+        "course_name": "Indigenous Design and Technology"
+      }
+    ],
+    "INFR": [
+      {
+        "course_tag": "INFR 1010U",
+        "course_name": "Discrete Mathematics"
+      },
+      {
+        "course_tag": "INFR 1016U",
+        "course_name": "Introductory Calculus"
+      },
+      {
+        "course_tag": "INFR 1020U",
+        "course_name": "Essential Mathematics for Games I"
+      },
+      {
+        "course_tag": "INFR 1030U",
+        "course_name": "Essential Mathematics for Games II"
+      },
+      {
+        "course_tag": "INFR 1100U",
+        "course_name": "Programming for Games I"
+      },
+      {
+        "course_tag": "INFR 1101U",
+        "course_name": "Introduction to Programming for IT"
+      },
+      {
+        "course_tag": "INFR 1110U",
+        "course_name": "Programming for Games II"
+      },
+      {
+        "course_tag": "INFR 1300U",
+        "course_name": "Creative Writing and Narrative Concepts"
+      },
+      {
+        "course_tag": "INFR 1315U",
+        "course_name": "Visual Narrative Foundations"
+      },
+      {
+        "course_tag": "INFR 1325U",
+        "course_name": "Introduction to 2D Animation for Games"
+      },
+      {
+        "course_tag": "INFR 1330U",
+        "course_name": "Basic Introduction to Game Design"
+      },
+      {
+        "course_tag": "INFR 1335U",
+        "course_name": "Digital Game Design"
+      },
+      {
+        "course_tag": "INFR 1350U",
+        "course_name": "Introduction to Computer Graphics"
+      },
+      {
+        "course_tag": "INFR 1395U",
+        "course_name": "Game Development Workshop I"
+      },
+      {
+        "course_tag": "INFR 1396U",
+        "course_name": "Game Development Workshop II"
+      },
+      {
+        "course_tag": "INFR 1400U",
+        "course_name": "Statistics and Probability for IT"
+      },
+      {
+        "course_tag": "INFR 1411U",
+        "course_name": "Introduction to Networking I"
+      },
+      {
+        "course_tag": "INFR 1421U",
+        "course_name": "Introduction to Networking II"
+      },
+      {
+        "course_tag": "INFR 1550U",
+        "course_name": "Law and Ethics of IT"
+      },
+      {
+        "course_tag": "INFR 2020U",
+        "course_name": "Essential Math for Games III"
+      },
+      {
+        "course_tag": "INFR 2100U",
+        "course_name": "Programming in C/C++"
+      },
+      {
+        "course_tag": "INFR 2140U",
+        "course_name": "Object Oriented Programming"
+      },
+      {
+        "course_tag": "INFR 2141U",
+        "course_name": "Object Oriented Programming for IT"
+      },
+      {
+        "course_tag": "INFR 2310U",
+        "course_name": "Animation and A.I. for Games"
+      },
+      {
+        "course_tag": "INFR 2330U",
+        "course_name": "Intermediate Game Design"
+      },
+      {
+        "course_tag": "INFR 2345U",
+        "course_name": "Modelling and Animation Systems I"
+      },
+      {
+        "course_tag": "INFR 2350U",
+        "course_name": "Intermediate Computer Graphics"
+      },
+      {
+        "course_tag": "INFR 2370U",
+        "course_name": "Game Sound"
+      },
+      {
+        "course_tag": "INFR 2395U",
+        "course_name": "Game Development Workshop III"
+      },
+      {
+        "course_tag": "INFR 2396U",
+        "course_name": "Game Development Workshop IV"
+      },
+      {
+        "course_tag": "INFR 2411U",
+        "course_name": "Advanced Networking I"
+      },
+      {
+        "course_tag": "INFR 2421U",
+        "course_name": "Advanced Networking II"
+      },
+      {
+        "course_tag": "INFR 2431U",
+        "course_name": "Advanced Networking III"
+      },
+      {
+        "course_tag": "INFR 2495U",
+        "course_name": "IT Skills Workshop I"
+      },
+      {
+        "course_tag": "INFR 2496U",
+        "course_name": "IT Skills Workshop II"
+      },
+      {
+        "course_tag": "INFR 2600U",
+        "course_name": "Introduction to Computer Security"
+      },
+      {
+        "course_tag": "INFR 2670U",
+        "course_name": "Introduction to Cloud Services"
+      },
+      {
+        "course_tag": "INFR 2810U",
+        "course_name": "Computer Architecture"
+      },
+      {
+        "course_tag": "INFR 2820U",
+        "course_name": "Algorithms and Data Structures"
+      },
+      {
+        "course_tag": "INFR 2830U",
+        "course_name": "Operating Systems"
+      },
+      {
+        "course_tag": "INFR 3110U",
+        "course_name": "Game Engine Design and Implementation"
+      },
+      {
+        "course_tag": "INFR 3120U",
+        "course_name": "Web and Script Programming"
+      },
+      {
+        "course_tag": "INFR 3200U",
+        "course_name": "Introduction to DevOps and Infrastructure Automation"
+      },
+      {
+        "course_tag": "INFR 3250U",
+        "course_name": "User Experience Research"
+      },
+      {
+        "course_tag": "INFR 3315U",
+        "course_name": "Cinematic Systems Design"
+      },
+      {
+        "course_tag": "INFR 3322U",
+        "course_name": "Character Design"
+      },
+      {
+        "course_tag": "INFR 3325U",
+        "course_name": "Digital Painting and Composition for Games"
+      },
+      {
+        "course_tag": "INFR 3332U",
+        "course_name": "Advanced Narrative Design"
+      },
+      {
+        "course_tag": "INFR 3335U",
+        "course_name": "Social and Multiplayer Game Design"
+      },
+      {
+        "course_tag": "INFR 3342U",
+        "course_name": "Figure Studies"
+      },
+      {
+        "course_tag": "INFR 3345U",
+        "course_name": "Modelling and Animation Systems II"
+      },
+      {
+        "course_tag": "INFR 3350U",
+        "course_name": "Games User Research"
+      },
+      {
+        "course_tag": "INFR 3355U",
+        "course_name": "Portable Game Development"
+      },
+      {
+        "course_tag": "INFR 3365U",
+        "course_name": "Designing Tabletop Games"
+      },
+      {
+        "course_tag": "INFR 3370U",
+        "course_name": "Designing Games for Social and Emotional Impact"
+      },
+      {
+        "course_tag": "INFR 3375U",
+        "course_name": "Retro Game Design and Development"
+      },
+      {
+        "course_tag": "INFR 3380U",
+        "course_name": "Industrial Design for Game Hardware Development"
+      },
+      {
+        "course_tag": "INFR 3385U",
+        "course_name": "Hard Surface and Environment Modeling"
+      },
+      {
+        "course_tag": "INFR 3390U",
+        "course_name": "Intermediate Rigging"
+      },
+      {
+        "course_tag": "INFR 3395U",
+        "course_name": "Game Development Workshop V"
+      },
+      {
+        "course_tag": "INFR 3396U",
+        "course_name": "Game Development Workshop VI"
+      },
+      {
+        "course_tag": "INFR 3495U",
+        "course_name": "IT Skills Workshop III"
+      },
+      {
+        "course_tag": "INFR 3496U",
+        "course_name": "IT Skills Workshop IV"
+      },
+      {
+        "course_tag": "INFR 3500U",
+        "course_name": "Introduction to Live Streaming"
+      },
+      {
+        "course_tag": "INFR 3600U",
+        "course_name": "Cryptography and Network Security"
+      },
+      {
+        "course_tag": "INFR 3610U",
+        "course_name": "Operating System Security"
+      },
+      {
+        "course_tag": "INFR 3700U",
+        "course_name": "Machine Learning"
+      },
+      {
+        "course_tag": "INFR 3720U",
+        "course_name": "Basics of Digital Transmission"
+      },
+      {
+        "course_tag": "INFR 3810U",
+        "course_name": "Database Systems"
+      },
+      {
+        "course_tag": "INFR 3830U",
+        "course_name": "Game Networking Essentials"
+      },
+      {
+        "course_tag": "INFR 3850U",
+        "course_name": "System and Network Administration"
+      },
+      {
+        "course_tag": "INFR 4120U",
+        "course_name": "Serious Gaming and Virtual Simulation"
+      },
+      {
+        "course_tag": "INFR 4320U",
+        "course_name": "Artificial Intelligence for Gaming"
+      },
+      {
+        "course_tag": "INFR 4335U",
+        "course_name": "Visual Programming and Generative Systems"
+      },
+      {
+        "course_tag": "INFR 4336U",
+        "course_name": "Visual Programming for Game Development"
+      },
+      {
+        "course_tag": "INFR 4337U",
+        "course_name": "Generative Design"
+      },
+      {
+        "course_tag": "INFR 4338U",
+        "course_name": "Asset Pipelines and Procedural Workflows"
+      },
+      {
+        "course_tag": "INFR 4345U",
+        "course_name": "Game Analytics"
+      },
+      {
+        "course_tag": "INFR 4350U",
+        "course_name": "Human-Computer Interaction for Games"
+      },
+      {
+        "course_tag": "INFR 4351U",
+        "course_name": "Human-Computer Interaction and User Evaluation"
+      },
+      {
+        "course_tag": "INFR 4355U",
+        "course_name": "Empirical Evaluation of Interactive Systems"
+      },
+      {
+        "course_tag": "INFR 4365U",
+        "course_name": "Themed Entertainment Design"
+      },
+      {
+        "course_tag": "INFR 4370U",
+        "course_name": "Advanced Game Sound"
+      },
+      {
+        "course_tag": "INFR 4380U",
+        "course_name": "Trends in Game Development"
+      },
+      {
+        "course_tag": "INFR 4391U",
+        "course_name": "Special Topics in Game Development and Entrepreneurship"
+      },
+      {
+        "course_tag": "INFR 4395U",
+        "course_name": "Game Development Workshop VII"
+      },
+      {
+        "course_tag": "INFR 4396U",
+        "course_name": "Game Development Workshop VIII"
+      },
+      {
+        "course_tag": "INFR 4400U",
+        "course_name": "Gamification"
+      },
+      {
+        "course_tag": "INFR 4430U",
+        "course_name": "Voice"
+      },
+      {
+        "course_tag": "INFR 4440U",
+        "course_name": "Advanced Sculpting"
+      },
+      {
+        "course_tag": "INFR 4445U",
+        "course_name": "Advanced Rigging"
+      },
+      {
+        "course_tag": "INFR 4450U",
+        "course_name": "Advanced Computer Graphics for Games"
+      },
+      {
+        "course_tag": "INFR 4460U",
+        "course_name": "Emerging Technologies"
+      },
+      {
+        "course_tag": "INFR 4470U",
+        "course_name": "Games Accessibility"
+      },
+      {
+        "course_tag": "INFR 4560U",
+        "course_name": "Law and Ethics in Game Development"
+      },
+      {
+        "course_tag": "INFR 4590U",
+        "course_name": "Directed Independent Studies in Information Technology"
+      },
+      {
+        "course_tag": "INFR 4599U",
+        "course_name": "Special Topics in Information Technology"
+      },
+      {
+        "course_tag": "INFR 4601U",
+        "course_name": "Software-Defined and Programmable Networks"
+      },
+      {
+        "course_tag": "INFR 4611U",
+        "course_name": "Trust Systems"
+      },
+      {
+        "course_tag": "INFR 4621U",
+        "course_name": "Software-Defined Data Centers"
+      },
+      {
+        "course_tag": "INFR 4641U",
+        "course_name": "Advanced Network Security"
+      },
+      {
+        "course_tag": "INFR 4661U",
+        "course_name": "Introduction to Penetration Testing"
+      },
+      {
+        "course_tag": "INFR 4662U",
+        "course_name": "Web Penetration Testing"
+      },
+      {
+        "course_tag": "INFR 4680U",
+        "course_name": "IT Security Policies and Procedures"
+      },
+      {
+        "course_tag": "INFR 4690U",
+        "course_name": "IT Forensics"
+      },
+      {
+        "course_tag": "INFR 4710U",
+        "course_name": "Social, Information, and Technology Networks"
+      },
+      {
+        "course_tag": "INFR 4900U",
+        "course_name": "Introduction to Blockchain Technologies"
+      }
+    ],
+    "INSE": [
+      {
+        "course_tag": "INSE 2110U",
+        "course_name": "Health, Safety and Sustainability for Engineers"
+      },
+      {
+        "course_tag": "INSE 2210U",
+        "course_name": "Operations Research I (Deterministic)"
+      },
+      {
+        "course_tag": "INSE 3110U",
+        "course_name": "Operations Research II (Stochastic)"
+      },
+      {
+        "course_tag": "INSE 3115U",
+        "course_name": "Workplace and Facilities Design"
+      },
+      {
+        "course_tag": "INSE 3140U",
+        "course_name": "Lean Production Systems Engineering"
+      },
+      {
+        "course_tag": "INSE 3142U",
+        "course_name": "Industrial Internet of Things"
+      },
+      {
+        "course_tag": "INSE 3245U",
+        "course_name": "Industrial Data Analytics"
+      },
+      {
+        "course_tag": "INSE 4170U",
+        "course_name": "Human‐System Integration (Human Machine Interface)"
+      },
+      {
+        "course_tag": "INSE 4248U",
+        "course_name": "Industrial Cyber‐Physical Systems"
+      }
+    ],
+    "KINE": [
+      {
+        "course_tag": "KINE 1000U",
+        "course_name": "Foundations in Kinesiology"
+      },
+      {
+        "course_tag": "KINE 1010U",
+        "course_name": "Human Anatomy & Physiology I"
+      },
+      {
+        "course_tag": "KINE 1020U",
+        "course_name": "Information Literacy & Written Communications"
+      },
+      {
+        "course_tag": "KINE 1030U",
+        "course_name": "Quantitative Reasoning"
+      },
+      {
+        "course_tag": "KINE 1100U",
+        "course_name": "Human Anatomy & Physiology II"
+      },
+      {
+        "course_tag": "KINE 1110U",
+        "course_name": "Introduction to Movement Neuroscience"
+      },
+      {
+        "course_tag": "KINE 1120U",
+        "course_name": "Human Growth and Motor Development"
+      },
+      {
+        "course_tag": "KINE 1130U",
+        "course_name": "Sociocultural Perspectives"
+      },
+      {
+        "course_tag": "KINE 2000U",
+        "course_name": "Anatomy of Human Movement"
+      },
+      {
+        "course_tag": "KINE 2010U",
+        "course_name": "Health and Indigenous People in Canada"
+      },
+      {
+        "course_tag": "KINE 2020U",
+        "course_name": "Exercise Biochemistry"
+      },
+      {
+        "course_tag": "KINE 2030U",
+        "course_name": "Psychology of Sport and Exercise"
+      },
+      {
+        "course_tag": "KINE 2040U",
+        "course_name": "Biomechanics"
+      },
+      {
+        "course_tag": "KINE 2100U",
+        "course_name": "Introduction to Injury Management"
+      },
+      {
+        "course_tag": "KINE 2110U",
+        "course_name": "Motor Control and Learning"
+      },
+      {
+        "course_tag": "KINE 2120U",
+        "course_name": "Ethical Behaviour"
+      },
+      {
+        "course_tag": "KINE 2130U",
+        "course_name": "Exercise Physiology"
+      },
+      {
+        "course_tag": "KINE 2140U",
+        "course_name": "Research Methods"
+      },
+      {
+        "course_tag": "KINE 3000U",
+        "course_name": "Fitness Assessment and Exercise Prescription"
+      },
+      {
+        "course_tag": "KINE 3010U",
+        "course_name": "Critical Appraisal of Statistics"
+      },
+      {
+        "course_tag": "KINE 3100U",
+        "course_name": "Nutrition and Health"
+      },
+      {
+        "course_tag": "KINE 3200U",
+        "course_name": "Integrated Topics in Active Aging"
+      },
+      {
+        "course_tag": "KINE 3476U",
+        "course_name": "Advanced Sport Injury Management"
+      },
+      {
+        "course_tag": "KINE 3481U",
+        "course_name": "Physical Activity Pedagogy for Children and Youth"
+      },
+      {
+        "course_tag": "KINE 3482U",
+        "course_name": "Physical Activity and Indigenous Peoples in Canada"
+      },
+      {
+        "course_tag": "KINE 4100U",
+        "course_name": "Kinesiology Capstone"
+      },
+      {
+        "course_tag": "KINE 4401U",
+        "course_name": "Motor Behaviour and Developmental Disabilities"
+      },
+      {
+        "course_tag": "KINE 4404U",
+        "course_name": "Injury Prevention for Sport and Physical Activity"
+      },
+      {
+        "course_tag": "KINE 4405U",
+        "course_name": "Policy Development for Sport and Physical Activity"
+      },
+      {
+        "course_tag": "KINE 4410U",
+        "course_name": "Practical Skills for Kinesiology Professionals"
+      },
+      {
+        "course_tag": "KINE 4412U",
+        "course_name": "Exercise Rehabilitation I: Cardiac, Respiratory and Metabolic Conditions"
+      },
+      {
+        "course_tag": "KINE 4413U",
+        "course_name": "Exercise Rehabilitation II: Integrated Case Studies"
+      },
+      {
+        "course_tag": "KINE 4414U",
+        "course_name": "Advanced Topics in Neuromuscular Physiology and Pathophysiology"
+      },
+      {
+        "course_tag": "KINE 4460U",
+        "course_name": "Selected Topics in Physical Activity and Health"
+      },
+      {
+        "course_tag": "KINE 4461U",
+        "course_name": "Applied Topics in Sport and Exercise Psychology"
+      },
+      {
+        "course_tag": "KINE 4473U",
+        "course_name": "Practical Human Anatomy I: Back and Lower Limbs"
+      },
+      {
+        "course_tag": "KINE 4474U",
+        "course_name": "Practical Human Anatomy II: Head, Neck and Upper Limbs"
+      },
+      {
+        "course_tag": "KINE 4475U",
+        "course_name": "Occupational Ergonomics"
+      },
+      {
+        "course_tag": "KINE 4476U",
+        "course_name": "Clinical Biomechanics"
+      },
+      {
+        "course_tag": "KINE 4477U",
+        "course_name": "Applied Techniques in Neuromechanics"
+      },
+      {
+        "course_tag": "KINE 4478U",
+        "course_name": "Advanced Ergonomics and Human Factors"
+      },
+      {
+        "course_tag": "KINE 4482U",
+        "course_name": "Advanced Exercise Assessment and Prescription"
+      },
+      {
+        "course_tag": "KINE 4483U",
+        "course_name": "Advanced Exercise Physiology"
+      },
+      {
+        "course_tag": "KINE 4490U",
+        "course_name": "Kinesiology Internship I"
+      },
+      {
+        "course_tag": "KINE 4491U",
+        "course_name": "Kinternship II"
+      },
+      {
+        "course_tag": "KINE 4492U",
+        "course_name": "Athletic Therapy Internship I"
+      },
+      {
+        "course_tag": "KINE 4493U",
+        "course_name": "Athletic Therapy Internship II"
+      },
+      {
+        "course_tag": "KINE 4494U",
+        "course_name": "Extended Athletic Therapy Internship I"
+      },
+      {
+        "course_tag": "KINE 4495U",
+        "course_name": "Extended Athletic Therapy Internship II"
+      },
+      {
+        "course_tag": "KINE 4670U",
+        "course_name": "Studies in Work Disability Prevention"
+      },
+      {
+        "course_tag": "KINE 4672U",
+        "course_name": "Making a Work Disability Diagnosis"
+      },
+      {
+        "course_tag": "KINE 4823U",
+        "course_name": "Small Business and Entrepreneurship for Health Professionals"
+      },
+      {
+        "course_tag": "KINE 4940U",
+        "course_name": "Special Topics in Kinesiology"
+      },
+      {
+        "course_tag": "KINE 4998U",
+        "course_name": "Research Practicum I"
+      },
+      {
+        "course_tag": "KINE 4999U",
+        "course_name": "Research Practicum II"
+      }
+    ],
+    "LBAT": [
+      {
+        "course_tag": "LBAT 2000U",
+        "course_name": "Introduction to Liberal Studies"
+      },
+      {
+        "course_tag": "LBAT 2413U",
+        "course_name": "Science Communication: Media for creative, fun, and effective STEM communication"
+      },
+      {
+        "course_tag": "LBAT 2414U",
+        "course_name": "Science Fiction and Society"
+      },
+      {
+        "course_tag": "LBAT 3400U",
+        "course_name": "Modern Espionage"
+      },
+      {
+        "course_tag": "LBAT 3500U",
+        "course_name": "Canada at War"
+      },
+      {
+        "course_tag": "LBAT 3999U",
+        "course_name": "Special Topics in Liberal Studies"
+      },
+      {
+        "course_tag": "LBAT 4000U",
+        "course_name": "Liberal Studies Capstone"
+      }
+    ],
+    "LGLS": [
+      {
+        "course_tag": "LGLS 1000U",
+        "course_name": "Foundations of Legal Studies"
+      },
+      {
+        "course_tag": "LGLS 2011U",
+        "course_name": "Immigration and Refugee Law"
+      },
+      {
+        "course_tag": "LGLS 2100U",
+        "course_name": "Public Law"
+      },
+      {
+        "course_tag": "LGLS 2110U",
+        "course_name": "Private Law"
+      },
+      {
+        "course_tag": "LGLS 2120U",
+        "course_name": "International Law"
+      },
+      {
+        "course_tag": "LGLS 2200U",
+        "course_name": "Legal Theory"
+      },
+      {
+        "course_tag": "LGLS 2420U",
+        "course_name": "Canadian Human Rights Law"
+      },
+      {
+        "course_tag": "LGLS 2500U",
+        "course_name": "Information and Privacy Law"
+      },
+      {
+        "course_tag": "LGLS 2940U",
+        "course_name": "Legal Research Methods"
+      },
+      {
+        "course_tag": "LGLS 3053U",
+        "course_name": "Prosecution and Sentencing"
+      },
+      {
+        "course_tag": "LGLS 3100U",
+        "course_name": "Administrative Law"
+      },
+      {
+        "course_tag": "LGLS 3130U",
+        "course_name": "Family Law"
+      },
+      {
+        "course_tag": "LGLS 3200U",
+        "course_name": "Sociology of Law"
+      },
+      {
+        "course_tag": "LGLS 3220U",
+        "course_name": "Philosophy of Law"
+      },
+      {
+        "course_tag": "LGLS 3230U",
+        "course_name": "Law and Globalization"
+      },
+      {
+        "course_tag": "LGLS 3240U",
+        "course_name": "Cultural Studies of Law"
+      },
+      {
+        "course_tag": "LGLS 3300U",
+        "course_name": "Disability and the Law"
+      },
+      {
+        "course_tag": "LGLS 3310U",
+        "course_name": "Indigenous Peoples, Law and the State in Canada"
+      },
+      {
+        "course_tag": "LGLS 3320U",
+        "course_name": "Race, Ethnicity and the Law"
+      },
+      {
+        "course_tag": "LGLS 3330U",
+        "course_name": "Gender, Sexuality and the Law"
+      },
+      {
+        "course_tag": "LGLS 3410U",
+        "course_name": "Labour and Employment Law"
+      },
+      {
+        "course_tag": "LGLS 3430U",
+        "course_name": "International Human Rights"
+      },
+      {
+        "course_tag": "LGLS 3510U",
+        "course_name": "Censorship and Freedom of Expression"
+      },
+      {
+        "course_tag": "LGLS 3520U",
+        "course_name": "Law and Technology"
+      },
+      {
+        "course_tag": "LGLS 3530U",
+        "course_name": "Intellectual Property"
+      },
+      {
+        "course_tag": "LGLS 3600U",
+        "course_name": "Family Mediation"
+      },
+      {
+        "course_tag": "LGLS 3610U",
+        "course_name": "Employment and Mediation"
+      },
+      {
+        "course_tag": "LGLS 3620U",
+        "course_name": "Human Rights Mediation"
+      },
+      {
+        "course_tag": "LGLS 3700U",
+        "course_name": "Law and Power"
+      },
+      {
+        "course_tag": "LGLS 3800U",
+        "course_name": "Issues in Health Law and Biomedical Ethics"
+      },
+      {
+        "course_tag": "LGLS 4000U",
+        "course_name": "Advanced Topics in Legal Studies"
+      },
+      {
+        "course_tag": "LGLS 4010U",
+        "course_name": "Communication Law and Policy"
+      },
+      {
+        "course_tag": "LGLS 4020U",
+        "course_name": "Topics in Comparative Law"
+      },
+      {
+        "course_tag": "LGLS 4030U",
+        "course_name": "Law and the Body"
+      },
+      {
+        "course_tag": "LGLS 4040U",
+        "course_name": "Law and the Environment"
+      },
+      {
+        "course_tag": "LGLS 4050U",
+        "course_name": "Impartiality, Neutrality and Objectivity"
+      },
+      {
+        "course_tag": "LGLS 4060U",
+        "course_name": "Security and the Nation-State"
+      },
+      {
+        "course_tag": "LGLS 4070U",
+        "course_name": "Public Governance through Law"
+      },
+      {
+        "course_tag": "LGLS 4099U",
+        "course_name": "Legal Studies Integrating Project"
+      },
+      {
+        "course_tag": "LGLS 4100U",
+        "course_name": "Law, Justice and Education"
+      },
+      {
+        "course_tag": "LGLS 4200U",
+        "course_name": "Law and Social Change"
+      },
+      {
+        "course_tag": "LGLS 4800U",
+        "course_name": "Independent Study"
+      }
+    ],
+    "MANE": [
+      {
+        "course_tag": "MANE 2220U",
+        "course_name": "Structure and Properties of Materials"
+      },
+      {
+        "course_tag": "MANE 3120U",
+        "course_name": "Thermo-mechanical Processing of Materials"
+      },
+      {
+        "course_tag": "MANE 3190U",
+        "course_name": "Manufacturing and Production Processes"
+      },
+      {
+        "course_tag": "MANE 3300U",
+        "course_name": "Integrated Manufacturing Systems"
+      },
+      {
+        "course_tag": "MANE 3460U",
+        "course_name": "Industrial Ergonomics"
+      },
+      {
+        "course_tag": "MANE 4000U",
+        "course_name": "Special Topics in Manufacturing Engineering"
+      },
+      {
+        "course_tag": "MANE 4015U",
+        "course_name": "Reliability and Maintenance"
+      },
+      {
+        "course_tag": "MANE 4045U",
+        "course_name": "Quality Control"
+      },
+      {
+        "course_tag": "MANE 4110U",
+        "course_name": "Design for Manufacturing"
+      },
+      {
+        "course_tag": "MANE 4160U",
+        "course_name": "Artificial Intelligence in Engineering"
+      },
+      {
+        "course_tag": "MANE 4190U",
+        "course_name": "Principles of Material Removal Processes"
+      },
+      {
+        "course_tag": "MANE 4280U",
+        "course_name": "Robotics and Automation"
+      },
+      {
+        "course_tag": "MANE 4380U",
+        "course_name": "Life Cycle Engineering"
+      },
+      {
+        "course_tag": "MANE 4390U",
+        "course_name": "Modelling Manufacturing Systems"
+      },
+      {
+        "course_tag": "MANE 4600U",
+        "course_name": "Additive Manufacturing"
+      },
+      {
+        "course_tag": "MANE 4700U",
+        "course_name": "Introduction to Tribology: Friction, Wear and Lubrication"
+      }
+    ],
+    "MATH": [
+      {
+        "course_tag": "MATH 1000U",
+        "course_name": "Introductory Calculus"
+      },
+      {
+        "course_tag": "MATH 1010U",
+        "course_name": "Calculus I"
+      },
+      {
+        "course_tag": "MATH 1015U",
+        "course_name": "Mathematics for Bioscience"
+      },
+      {
+        "course_tag": "MATH 1020U",
+        "course_name": "Calculus II"
+      },
+      {
+        "course_tag": "MATH 1850U",
+        "course_name": "Linear Algebra for Engineers"
+      },
+      {
+        "course_tag": "MATH 1880U",
+        "course_name": "Mathematical Modelling for Health Science"
+      },
+      {
+        "course_tag": "MATH 2015U",
+        "course_name": "Calculus III"
+      },
+      {
+        "course_tag": "MATH 2050U",
+        "course_name": "Linear Algebra"
+      },
+      {
+        "course_tag": "MATH 2055U",
+        "course_name": "Advanced Linear Algebra and Applications"
+      },
+      {
+        "course_tag": "MATH 2060U",
+        "course_name": "Differential Equations"
+      },
+      {
+        "course_tag": "MATH 2070U",
+        "course_name": "Numerical Methods"
+      },
+      {
+        "course_tag": "MATH 2072U",
+        "course_name": "Computational Science I"
+      },
+      {
+        "course_tag": "MATH 2080U",
+        "course_name": "Discrete Mathematics"
+      },
+      {
+        "course_tag": "MATH 2810U",
+        "course_name": "Advanced Engineering Mathematics"
+      },
+      {
+        "course_tag": "MATH 2860U",
+        "course_name": "Differential Equations for Engineers"
+      },
+      {
+        "course_tag": "MATH 3010U",
+        "course_name": "Modern Applications in Mathematics"
+      },
+      {
+        "course_tag": "MATH 3020U",
+        "course_name": "Real Analysis"
+      },
+      {
+        "course_tag": "MATH 3030U",
+        "course_name": "Introduction to Probability Theory"
+      },
+      {
+        "course_tag": "MATH 3035U",
+        "course_name": "Mathematics of Machine Learning"
+      },
+      {
+        "course_tag": "MATH 3040U",
+        "course_name": "Optimization"
+      },
+      {
+        "course_tag": "MATH 3050U",
+        "course_name": "Mathematical Modelling"
+      },
+      {
+        "course_tag": "MATH 3060U",
+        "course_name": "Complex Analysis"
+      },
+      {
+        "course_tag": "MATH 3070U",
+        "course_name": "Algebraic Structures"
+      },
+      {
+        "course_tag": "MATH 3080U",
+        "course_name": "Applied Partial Differential Equations"
+      },
+      {
+        "course_tag": "MATH 3090U",
+        "course_name": "Network Science and Applications"
+      },
+      {
+        "course_tag": "MATH 4010U",
+        "course_name": "Dynamical Systems and Chaos"
+      },
+      {
+        "course_tag": "MATH 4020U",
+        "course_name": "Computational Science II"
+      },
+      {
+        "course_tag": "MATH 4041U",
+        "course_name": "Topics in Applied Mathematics I"
+      },
+      {
+        "course_tag": "MATH 4042U",
+        "course_name": "Topics in Applied Mathematics II"
+      },
+      {
+        "course_tag": "MATH 4050U",
+        "course_name": "Partial Differential Equations"
+      },
+      {
+        "course_tag": "MATH 4060U",
+        "course_name": "Industrial Mathematics"
+      },
+      {
+        "course_tag": "MATH 4070U",
+        "course_name": "Projects in Applied Mathematics"
+      },
+      {
+        "course_tag": "MATH 4410U",
+        "course_name": "Mathematics Thesis Project I"
+      },
+      {
+        "course_tag": "MATH 4420U",
+        "course_name": "Mathematics Thesis Project II"
+      },
+      {
+        "course_tag": "MATH 4430U",
+        "course_name": "Directed Studies in Mathematics"
+      }
+    ],
+    "MECE": [
+      {
+        "course_tag": "MECE 2230U",
+        "course_name": "Statics"
+      },
+      {
+        "course_tag": "MECE 2310U",
+        "course_name": "Concurrent Engineering and Design"
+      },
+      {
+        "course_tag": "MECE 2320U",
+        "course_name": "Thermodynamics"
+      },
+      {
+        "course_tag": "MECE 2420U",
+        "course_name": "Solid Mechanics I"
+      },
+      {
+        "course_tag": "MECE 2430U",
+        "course_name": "Dynamics"
+      },
+      {
+        "course_tag": "MECE 2640U",
+        "course_name": "Thermodynamic and Heat Transfer"
+      },
+      {
+        "course_tag": "MECE 2860U",
+        "course_name": "Fluid Mechanics"
+      },
+      {
+        "course_tag": "MECE 3030U",
+        "course_name": "Computer-Aided Design"
+      },
+      {
+        "course_tag": "MECE 3210U",
+        "course_name": "Mechanical Vibrations"
+      },
+      {
+        "course_tag": "MECE 3220U",
+        "course_name": "Machine Design"
+      },
+      {
+        "course_tag": "MECE 3230U",
+        "course_name": "Thermodynamic Applications"
+      },
+      {
+        "course_tag": "MECE 3260U",
+        "course_name": "Introduction to Energy Systems"
+      },
+      {
+        "course_tag": "MECE 3270U",
+        "course_name": "Kinematics and Dynamics of Machines"
+      },
+      {
+        "course_tag": "MECE 3350U",
+        "course_name": "Control Systems"
+      },
+      {
+        "course_tag": "MECE 3390U",
+        "course_name": "Mechatronics"
+      },
+      {
+        "course_tag": "MECE 3410U",
+        "course_name": "Electro-Mechanical Energy Conversion"
+      },
+      {
+        "course_tag": "MECE 3420U",
+        "course_name": "Solid Mechanics II"
+      },
+      {
+        "course_tag": "MECE 3930U",
+        "course_name": "Heat Transfer"
+      },
+      {
+        "course_tag": "MECE 4000U",
+        "course_name": "Special Topics in Mechanical Engineering"
+      },
+      {
+        "course_tag": "MECE 4151U",
+        "course_name": "Solar Energy"
+      },
+      {
+        "course_tag": "MECE 4153U",
+        "course_name": "Wind and Hydro Energy"
+      },
+      {
+        "course_tag": "MECE 4210U",
+        "course_name": "Advanced Solid Mechanics and Stress Analysis"
+      },
+      {
+        "course_tag": "MECE 4250U",
+        "course_name": "Advanced Materials Engineering"
+      },
+      {
+        "course_tag": "MECE 4290U",
+        "course_name": "Finite Element Methods"
+      },
+      {
+        "course_tag": "MECE 4320U",
+        "course_name": "Advanced Mechatronics"
+      },
+      {
+        "course_tag": "MECE 4450U",
+        "course_name": "Thermal Environmental Engineering"
+      }
+    ],
+    "METE": [
+      {
+        "course_tag": "METE 2010U",
+        "course_name": "Circuits and Electronics"
+      },
+      {
+        "course_tag": "METE 2020U",
+        "course_name": "Circuit Design for Mechatronics"
+      },
+      {
+        "course_tag": "METE 2030U",
+        "course_name": "Electronics Applications in Mechatronics"
+      },
+      {
+        "course_tag": "METE 3100U",
+        "course_name": "Actuators and Power Electronics"
+      },
+      {
+        "course_tag": "METE 3200U",
+        "course_name": "Sensors and Instrumentation"
+      },
+      {
+        "course_tag": "METE 3350U",
+        "course_name": "Microprocessors and Digital Systems"
+      },
+      {
+        "course_tag": "METE 4000U",
+        "course_name": "Special Topics in Mechatronics Engineering"
+      },
+      {
+        "course_tag": "METE 4100U",
+        "course_name": "Mechatronics Design"
+      },
+      {
+        "course_tag": "METE 4200U",
+        "course_name": "Industrial Automation"
+      },
+      {
+        "course_tag": "METE 4300U",
+        "course_name": "Introduction to Mobile Robotics"
+      },
+      {
+        "course_tag": "METE 4350U",
+        "course_name": "Linear State‐Space Control Systems"
+      },
+      {
+        "course_tag": "METE 4400U",
+        "course_name": "Introduction to Real-Time Embedded Systems"
+      },
+      {
+        "course_tag": "METE 4500U",
+        "course_name": "Machine Vision for Robotic Systems"
+      }
+    ],
+    "MLSC": [
+      {
+        "course_tag": "MLSC 1010U",
+        "course_name": "Introduction to Medical Laboratory Practice"
+      },
+      {
+        "course_tag": "MLSC 1110U",
+        "course_name": "Foundations in Clinical Biochemistry"
+      },
+      {
+        "course_tag": "MLSC 2111U",
+        "course_name": "Clinical Biochemistry I"
+      },
+      {
+        "course_tag": "MLSC 2121U",
+        "course_name": "Clinical Hematology I"
+      },
+      {
+        "course_tag": "MLSC 2130U",
+        "course_name": "Foundations in Clinical Microbiology and Immunology"
+      },
+      {
+        "course_tag": "MLSC 2131U",
+        "course_name": "Clinical Microbiology I"
+      },
+      {
+        "course_tag": "MLSC 2140U",
+        "course_name": "Medical Laboratory Science (MLS) Bridge Course"
+      },
+      {
+        "course_tag": "MLSC 3111U",
+        "course_name": "Clinical Biochemistry II"
+      },
+      {
+        "course_tag": "MLSC 3121U",
+        "course_name": "Clinical Hematology II"
+      },
+      {
+        "course_tag": "MLSC 3131U",
+        "course_name": "Clinical Microbiology II"
+      },
+      {
+        "course_tag": "MLSC 3141U",
+        "course_name": "Molecular Techniques and Complementary Technologies"
+      },
+      {
+        "course_tag": "MLSC 3200U",
+        "course_name": "Transfusion Science I"
+      },
+      {
+        "course_tag": "MLSC 3210U",
+        "course_name": "Effective Leadership and Quality Management in the Clinical Laboratory"
+      },
+      {
+        "course_tag": "MLSC 3220U",
+        "course_name": "Transfusion Science II"
+      },
+      {
+        "course_tag": "MLSC 3230U",
+        "course_name": "Microanatomy and Histotechnology"
+      },
+      {
+        "course_tag": "MLSC 3231U",
+        "course_name": "Advanced Histotechnology"
+      },
+      {
+        "course_tag": "MLSC 3300U",
+        "course_name": "Simulated Clinical Practicum"
+      },
+      {
+        "course_tag": "MLSC 4111U",
+        "course_name": "Clinical Biochemistry III"
+      },
+      {
+        "course_tag": "MLSC 4112U",
+        "course_name": "Clinical Biochemistry IV"
+      },
+      {
+        "course_tag": "MLSC 4121U",
+        "course_name": "Clinical Hematology III"
+      },
+      {
+        "course_tag": "MLSC 4122U",
+        "course_name": "Clinical Hematology IV"
+      },
+      {
+        "course_tag": "MLSC 4131U",
+        "course_name": "Clinical Microbiology III"
+      },
+      {
+        "course_tag": "MLSC 4132U",
+        "course_name": "Clinical Microbiology IV"
+      },
+      {
+        "course_tag": "MLSC 4210U",
+        "course_name": "Professional Practice in the Clinical Laboratory I"
+      },
+      {
+        "course_tag": "MLSC 4211U",
+        "course_name": "Professional Practice in the Clinical Laboratory II"
+      },
+      {
+        "course_tag": "MLSC 4220U",
+        "course_name": "Transfusion Science III"
+      },
+      {
+        "course_tag": "MLSC 4221U",
+        "course_name": "Transfusion Science IV"
+      },
+      {
+        "course_tag": "MLSC 4231U",
+        "course_name": "Histopathology I"
+      },
+      {
+        "course_tag": "MLSC 4232U",
+        "course_name": "Histopathology II"
+      },
+      {
+        "course_tag": "MLSC 4400U",
+        "course_name": "Clinical Project I"
+      },
+      {
+        "course_tag": "MLSC 4401U",
+        "course_name": "Clinical Project II"
+      }
+    ],
+    "NSCI": [
+      {
+        "course_tag": "NSCI 2400U",
+        "course_name": "Introduction to Movement Neuroscience"
+      },
+      {
+        "course_tag": "NSCI 3410U",
+        "course_name": "Motor Control and Learning"
+      },
+      {
+        "course_tag": "NSCI 3470U",
+        "course_name": "Anatomy of Human Movement"
+      },
+      {
+        "course_tag": "NSCI 4410U",
+        "course_name": "Neuroscience Thesis Project I"
+      },
+      {
+        "course_tag": "NSCI 4414U",
+        "course_name": "Advanced Topics in Neuromuscular Physiology and Pathophysiology"
+      },
+      {
+        "course_tag": "NSCI 4420U",
+        "course_name": "Neuroscience Thesis Project II"
+      },
+      {
+        "course_tag": "NSCI 4808U",
+        "course_name": "Exploring Mental Health and Developmental Disabilities"
+      },
+      {
+        "course_tag": "NSCI 4999U",
+        "course_name": "Advanced Topics in Integrative Neuroscience"
+      }
+    ],
+    "NUCL": [
+      {
+        "course_tag": "NUCL 1530U",
+        "course_name": "Radiation and Nuclear Technologies"
+      },
+      {
+        "course_tag": "NUCL 2010U",
+        "course_name": "Thermodynamic Cycles"
+      },
+      {
+        "course_tag": "NUCL 2240U",
+        "course_name": "Nuclear Engineering Fundamentals"
+      },
+      {
+        "course_tag": "NUCL 2500U",
+        "course_name": "Interaction of Radiation with Matter"
+      },
+      {
+        "course_tag": "NUCL 2860U",
+        "course_name": "Fluid Mechanics"
+      },
+      {
+        "course_tag": "NUCL 2950U",
+        "course_name": "Radiation Protection"
+      },
+      {
+        "course_tag": "NUCL 3740U",
+        "course_name": "Scientific Instrumentation"
+      },
+      {
+        "course_tag": "NUCL 3820U",
+        "course_name": "Nuclear Reactor Physics"
+      },
+      {
+        "course_tag": "NUCL 3860U",
+        "course_name": "Introduction to Nuclear Reactor Technology"
+      },
+      {
+        "course_tag": "NUCL 3930U",
+        "course_name": "Heat Transfer"
+      },
+      {
+        "course_tag": "NUCL 4000U",
+        "course_name": "Special Topics in Nuclear Engineering"
+      },
+      {
+        "course_tag": "NUCL 4360U",
+        "course_name": "Nuclear Plant Electric and Auxiliary Systems"
+      },
+      {
+        "course_tag": "NUCL 4460U",
+        "course_name": "Nuclear Power Systems"
+      },
+      {
+        "course_tag": "NUCL 4510U",
+        "course_name": "Nuclear Plant Chemistry"
+      },
+      {
+        "course_tag": "NUCL 4520U",
+        "course_name": "Nuclear Plant Safety"
+      },
+      {
+        "course_tag": "NUCL 4525U",
+        "course_name": "Nuclear Plant Safety Design"
+      },
+      {
+        "course_tag": "NUCL 4545U",
+        "course_name": "Nuclear Plant Steam Utilization Systems"
+      },
+      {
+        "course_tag": "NUCL 4550U",
+        "course_name": "Thesis Project I"
+      },
+      {
+        "course_tag": "NUCL 4560U",
+        "course_name": "Thesis Project II"
+      },
+      {
+        "course_tag": "NUCL 4610U",
+        "course_name": "Corrosion for Engineers"
+      },
+      {
+        "course_tag": "NUCL 4625U",
+        "course_name": "Radioactive Waste Management Design"
+      },
+      {
+        "course_tag": "NUCL 4640U",
+        "course_name": "Nuclear Plant Operation"
+      },
+      {
+        "course_tag": "NUCL 4670U",
+        "course_name": "Shielding Design"
+      },
+      {
+        "course_tag": "NUCL 4680U",
+        "course_name": "Nuclear Materials"
+      },
+      {
+        "course_tag": "NUCL 4700U",
+        "course_name": "Nuclear Plant Design and Simulation"
+      },
+      {
+        "course_tag": "NUCL 4730U",
+        "course_name": "Reactor Control"
+      },
+      {
+        "course_tag": "NUCL 4780U",
+        "course_name": "Nuclear Reactor Design"
+      },
+      {
+        "course_tag": "NUCL 4810U",
+        "course_name": "Nuclear Fuel Cycles"
+      },
+      {
+        "course_tag": "NUCL 4880U",
+        "course_name": "Principles of Fusion Energy"
+      },
+      {
+        "course_tag": "NUCL 4994U",
+        "course_name": "Capstone Design I"
+      },
+      {
+        "course_tag": "NUCL 4998U",
+        "course_name": "Capstone Design II"
+      }
+    ],
+    "NURS": [
+      {
+        "course_tag": "NURS 0420U",
+        "course_name": "Professional Nursing - Bridging"
+      },
+      {
+        "course_tag": "NURS 1003U",
+        "course_name": "Foundations for Nursing Practicum I"
+      },
+      {
+        "course_tag": "NURS 1100U",
+        "course_name": "Introduction to Health and Healing"
+      },
+      {
+        "course_tag": "NURS 1420U",
+        "course_name": "Development of Self as a Nurse I"
+      },
+      {
+        "course_tag": "NURS 1503U",
+        "course_name": "Foundations for Nursing Practicum II"
+      },
+      {
+        "course_tag": "NURS 1700U",
+        "course_name": "Health and Healing: Older Adult Nursing Theory and Practicum"
+      },
+      {
+        "course_tag": "NURS 2320U",
+        "course_name": "Health Assessment"
+      },
+      {
+        "course_tag": "NURS 2420U",
+        "course_name": "Knowing Through Inquiry"
+      },
+      {
+        "course_tag": "NURS 2421U",
+        "course_name": "Complementary and Alternative Healing Modalities for Nursing"
+      },
+      {
+        "course_tag": "NURS 2600U",
+        "course_name": "Child and Family Health Nursing"
+      },
+      {
+        "course_tag": "NURS 2605U",
+        "course_name": "Advancing Clinical Judgement: Caring for Adults with Complex Health Challenges"
+      },
+      {
+        "course_tag": "NURS 2700U",
+        "course_name": "Health and Healing: Child and Family Nursing Theory and Practicum"
+      },
+      {
+        "course_tag": "NURS 2701U",
+        "course_name": "Health and Healing: Adult Health Challenges Nursing Theory and Practicum"
+      },
+      {
+        "course_tag": "NURS 2810U",
+        "course_name": "Pharmacology for Nurses"
+      },
+      {
+        "course_tag": "NURS 2820U",
+        "course_name": "Integrated Health Assessment and Pharmacology"
+      },
+      {
+        "course_tag": "NURS 3150U",
+        "course_name": "Health and Healing: Mental Health"
+      },
+      {
+        "course_tag": "NURS 3401U",
+        "course_name": "Advanced Pediatric Nursing"
+      },
+      {
+        "course_tag": "NURS 3402U",
+        "course_name": "Community Based Primary Health Care and Nursing Practice"
+      },
+      {
+        "course_tag": "NURS 3403U",
+        "course_name": "High Acuity Nursing"
+      },
+      {
+        "course_tag": "NURS 3700U",
+        "course_name": "Health and Healing: Healthy Communities Nursing Theory and Practicum"
+      },
+      {
+        "course_tag": "NURS 3701U",
+        "course_name": "Health and Healing: Mental Health Nursing Theory and Practicum"
+      },
+      {
+        "course_tag": "NURS 4100U",
+        "course_name": "Nursing Leadership and Innovation"
+      },
+      {
+        "course_tag": "NURS 4700U",
+        "course_name": "Health and Healing: Synthesis Professional Practice"
+      },
+      {
+        "course_tag": "NURS 4701U",
+        "course_name": "Professional Nursing Integrated Practicum"
+      }
+    ],
+    "PHY": [
+      {
+        "course_tag": "PHY 1010U",
+        "course_name": "Physics I"
+      },
+      {
+        "course_tag": "PHY 1020U",
+        "course_name": "Physics II"
+      },
+      {
+        "course_tag": "PHY 1030U",
+        "course_name": "Introductory Physics"
+      },
+      {
+        "course_tag": "PHY 1040U",
+        "course_name": "Physics for Biosciences"
+      },
+      {
+        "course_tag": "PHY 2010U",
+        "course_name": "Electricity and Magnetism I"
+      },
+      {
+        "course_tag": "PHY 2030U",
+        "course_name": "Mechanics I"
+      },
+      {
+        "course_tag": "PHY 2040U",
+        "course_name": "Mechanics II"
+      },
+      {
+        "course_tag": "PHY 2050U",
+        "course_name": "Thermodynamics and Heat Transfer"
+      },
+      {
+        "course_tag": "PHY 2060U",
+        "course_name": "Modern Physics"
+      },
+      {
+        "course_tag": "PHY 2900U",
+        "course_name": "Astronomy I"
+      },
+      {
+        "course_tag": "PHY 3010U",
+        "course_name": "Statistical Mechanics"
+      },
+      {
+        "course_tag": "PHY 3020U",
+        "course_name": "Quantum Mechanics I"
+      },
+      {
+        "course_tag": "PHY 3030U",
+        "course_name": "Experimental Methods in Physics I"
+      },
+      {
+        "course_tag": "PHY 3040U",
+        "course_name": "Applied Partial Differential Equations"
+      },
+      {
+        "course_tag": "PHY 3050U",
+        "course_name": "Experimental Methods in Physics II"
+      },
+      {
+        "course_tag": "PHY 3060U",
+        "course_name": "Fluid Dynamics"
+      },
+      {
+        "course_tag": "PHY 3080U",
+        "course_name": "Electricity and Magnetism II"
+      },
+      {
+        "course_tag": "PHY 3510U",
+        "course_name": "Biophysics"
+      },
+      {
+        "course_tag": "PHY 3900U",
+        "course_name": "Astronomy II"
+      },
+      {
+        "course_tag": "PHY 4010U",
+        "course_name": "Condensed Matter"
+      },
+      {
+        "course_tag": "PHY 4020U",
+        "course_name": "Quantum Mechanics II"
+      },
+      {
+        "course_tag": "PHY 4030U",
+        "course_name": "Topics in Contemporary Physics I"
+      },
+      {
+        "course_tag": "PHY 4040U",
+        "course_name": "Solar Energy and Photovoltaics"
+      },
+      {
+        "course_tag": "PHY 4060U",
+        "course_name": "Topics in Contemporary Physics II"
+      },
+      {
+        "course_tag": "PHY 4100U",
+        "course_name": "Medical Imaging"
+      },
+      {
+        "course_tag": "PHY 4120U",
+        "course_name": "Forensic Physics Applications"
+      },
+      {
+        "course_tag": "PHY 4130U",
+        "course_name": "Particle Physics"
+      },
+      {
+        "course_tag": "PHY 4410U",
+        "course_name": "Physics Thesis Project I"
+      },
+      {
+        "course_tag": "PHY 4420U",
+        "course_name": "Physics Thesis Project II"
+      },
+      {
+        "course_tag": "PHY 4430U",
+        "course_name": "Directed Studies in Physics"
+      },
+      {
+        "course_tag": "PHY 4510U",
+        "course_name": "Physics of Nanotechnology"
+      },
+      {
+        "course_tag": "PHY 4910U",
+        "course_name": "Techniques of Modern Astrophysics"
+      },
+      {
+        "course_tag": "PHY 4920U",
+        "course_name": "Cosmology"
+      }
+    ],
+    "POSC": [
+      {
+        "course_tag": "POSC 1000U",
+        "course_name": "Introduction to Political Science"
+      },
+      {
+        "course_tag": "POSC 1200U",
+        "course_name": "Introduction to Democracy in Theory & Practice"
+      },
+      {
+        "course_tag": "POSC 2000U",
+        "course_name": "Canadian Politics"
+      },
+      {
+        "course_tag": "POSC 2100U",
+        "course_name": "Global Politics"
+      },
+      {
+        "course_tag": "POSC 2200U",
+        "course_name": "Fundamentals of Policy Theory"
+      },
+      {
+        "course_tag": "POSC 2300U",
+        "course_name": "Mobilizing for Change"
+      },
+      {
+        "course_tag": "POSC 2502U",
+        "course_name": "Community Development and Social Change"
+      },
+      {
+        "course_tag": "POSC 2800U",
+        "course_name": "Introduction to Business, Economy and Society"
+      },
+      {
+        "course_tag": "POSC 3000U",
+        "course_name": "Policy, Democracy and Governance"
+      },
+      {
+        "course_tag": "POSC 3100U",
+        "course_name": "Political Economy of Global Development"
+      },
+      {
+        "course_tag": "POSC 3101U",
+        "course_name": "Inequality, Environment and Development"
+      },
+      {
+        "course_tag": "POSC 3102U",
+        "course_name": "Race and Racism in Political Culture"
+      },
+      {
+        "course_tag": "POSC 3200U",
+        "course_name": "Rural-Urban Fringe"
+      },
+      {
+        "course_tag": "POSC 3201U",
+        "course_name": "Rural Communities"
+      },
+      {
+        "course_tag": "POSC 3203U",
+        "course_name": "Urban Development"
+      },
+      {
+        "course_tag": "POSC 3300U",
+        "course_name": "Building Sustainable Communities"
+      },
+      {
+        "course_tag": "POSC 3301U",
+        "course_name": "Eco-Justice"
+      },
+      {
+        "course_tag": "POSC 3302U",
+        "course_name": "Environment and Globalization"
+      },
+      {
+        "course_tag": "POSC 3303U",
+        "course_name": "Policies for Sustainability"
+      },
+      {
+        "course_tag": "POSC 3304U",
+        "course_name": "Planetary Health and Global Environmental Justice"
+      },
+      {
+        "course_tag": "POSC 3310U",
+        "course_name": "Indigenous Peoples, Sustainability and Development: A Global Perspective"
+      },
+      {
+        "course_tag": "POSC 3500U",
+        "course_name": "Equity Policy"
+      },
+      {
+        "course_tag": "POSC 3501U",
+        "course_name": "Politics and Poverty"
+      },
+      {
+        "course_tag": "POSC 3600U",
+        "course_name": "Politics of Education in Canada"
+      },
+      {
+        "course_tag": "POSC 3601U",
+        "course_name": "The Politics of Health"
+      },
+      {
+        "course_tag": "POSC 3602U",
+        "course_name": "Labour in the Global Economy"
+      },
+      {
+        "course_tag": "POSC 3603U",
+        "course_name": "The Politics of Housing"
+      },
+      {
+        "course_tag": "POSC 3700U",
+        "course_name": "Technology, Politics and Social Theory"
+      },
+      {
+        "course_tag": "POSC 3750U",
+        "course_name": "American Politics and Political Culture"
+      },
+      {
+        "course_tag": "POSC 3751U",
+        "course_name": "Media, War and Conflict"
+      },
+      {
+        "course_tag": "POSC 3800U",
+        "course_name": "Business, Politics and the Macroeconomy"
+      },
+      {
+        "course_tag": "POSC 4000U",
+        "course_name": "International Politics and Policy"
+      },
+      {
+        "course_tag": "POSC 4005U",
+        "course_name": "Independent Study"
+      },
+      {
+        "course_tag": "POSC 4010U",
+        "course_name": "Policy Development"
+      },
+      {
+        "course_tag": "POSC 4104U",
+        "course_name": "Directed Research"
+      },
+      {
+        "course_tag": "POSC 4300U",
+        "course_name": "Special Topics in Political Science"
+      },
+      {
+        "course_tag": "POSC 4310U",
+        "course_name": "The Politics of Indigenous Rights"
+      }
+    ],
+    "PSYC": [
+      {
+        "course_tag": "PSYC 1000U",
+        "course_name": "Introductory Psychology"
+      },
+      {
+        "course_tag": "PSYC 2010U",
+        "course_name": "Developmental Psychology"
+      },
+      {
+        "course_tag": "PSYC 2020U",
+        "course_name": "Social Psychology"
+      },
+      {
+        "course_tag": "PSYC 2030U",
+        "course_name": "Psychopathology"
+      },
+      {
+        "course_tag": "PSYC 2050U",
+        "course_name": "Brain and Behaviour"
+      },
+      {
+        "course_tag": "PSYC 2060U",
+        "course_name": "Cognitive Psychology"
+      },
+      {
+        "course_tag": "PSYC 2900U",
+        "course_name": "Research Methods in Psychology"
+      },
+      {
+        "course_tag": "PSYC 2910U",
+        "course_name": "Data Analysis in Psychology"
+      },
+      {
+        "course_tag": "PSYC 3035U",
+        "course_name": "Adolescence"
+      },
+      {
+        "course_tag": "PSYC 3045U",
+        "course_name": "Child Maltreatment"
+      },
+      {
+        "course_tag": "PSYC 3060U",
+        "course_name": "Personality Psychology"
+      },
+      {
+        "course_tag": "PSYC 3065U",
+        "course_name": "Emotion"
+      },
+      {
+        "course_tag": "PSYC 3070U",
+        "course_name": "Stress and Coping"
+      },
+      {
+        "course_tag": "PSYC 3075U",
+        "course_name": "Biopsychology of Sex"
+      },
+      {
+        "course_tag": "PSYC 3085U",
+        "course_name": "Drugs and Behaviour"
+      },
+      {
+        "course_tag": "PSYC 3090U",
+        "course_name": "Social Affective Neuroscience"
+      },
+      {
+        "course_tag": "PSYC 3110U",
+        "course_name": "Directed Laboratory Research in Psychology"
+      },
+      {
+        "course_tag": "PSYC 3150U",
+        "course_name": "Psychology of Aging"
+      },
+      {
+        "course_tag": "PSYC 3330U",
+        "course_name": "Developmental Psychopathology"
+      },
+      {
+        "course_tag": "PSYC 3500U",
+        "course_name": "Stereotypes and Prejudice"
+      },
+      {
+        "course_tag": "PSYC 3510U",
+        "course_name": "Research Methods in Neuroscience"
+      },
+      {
+        "course_tag": "PSYC 3520U",
+        "course_name": "Introduction to Cognitive Neuroscience"
+      },
+      {
+        "course_tag": "PSYC 3530U",
+        "course_name": "Developmental Neuroscience"
+      },
+      {
+        "course_tag": "PSYC 3550U",
+        "course_name": "Psychology of Gender"
+      },
+      {
+        "course_tag": "PSYC 3610U",
+        "course_name": "Thinking and Decision Making"
+      },
+      {
+        "course_tag": "PSYC 3620U",
+        "course_name": "Motivation and Emotion"
+      },
+      {
+        "course_tag": "PSYC 3630U",
+        "course_name": "Sleep and Consciousness"
+      },
+      {
+        "course_tag": "PSYC 3900U",
+        "course_name": "Special Topics in Psychology I"
+      },
+      {
+        "course_tag": "PSYC 3910U",
+        "course_name": "Advanced Data Analysis in Psychology"
+      },
+      {
+        "course_tag": "PSYC 4110U",
+        "course_name": "Honours Thesis in Psychology I"
+      },
+      {
+        "course_tag": "PSYC 4120U",
+        "course_name": "Honours Thesis in Psychology II"
+      },
+      {
+        "course_tag": "PSYC 4210U",
+        "course_name": "Social Cognition"
+      },
+      {
+        "course_tag": "PSYC 4900U",
+        "course_name": "Special Topics in Psychology II"
+      }
+    ],
+    "RADI": [
+      {
+        "course_tag": "RADI 2200U",
+        "course_name": "Reactors and Radiation Machines"
+      },
+      {
+        "course_tag": "RADI 3200U",
+        "course_name": "Medical Imaging"
+      },
+      {
+        "course_tag": "RADI 3570U",
+        "course_name": "Environmental Effects of Radiation"
+      },
+      {
+        "course_tag": "RADI 4220U",
+        "course_name": "Radiation Biophysics and Dosimetry"
+      },
+      {
+        "course_tag": "RADI 4320U",
+        "course_name": "Therapeutic Applications of Radiation Techniques"
+      },
+      {
+        "course_tag": "RADI 4430U",
+        "course_name": "Industrial Applications of Radiation Techniques"
+      },
+      {
+        "course_tag": "RADI 4440U",
+        "course_name": "Radioisotopes and Radiation Machines"
+      },
+      {
+        "course_tag": "RADI 4550U",
+        "course_name": "Radiation Detection and Measurement"
+      },
+      {
+        "course_tag": "RADI 4995U",
+        "course_name": "Thesis Project I"
+      },
+      {
+        "course_tag": "RADI 4999U",
+        "course_name": "Thesis Project II"
+      }
+    ],
+    "SCCO": [
+      {
+        "course_tag": "SCCO 0999U",
+        "course_name": "Science Co-op Success Program"
+      },
+      {
+        "course_tag": "SCCO 1000W",
+        "course_name": "Science Co-op Work Term I"
+      },
+      {
+        "course_tag": "SCCO 2000W",
+        "course_name": "Science Co-op Work Term II"
+      },
+      {
+        "course_tag": "SCCO 3000W",
+        "course_name": "Science Co-op Work Term III"
+      },
+      {
+        "course_tag": "SCCO 4000W",
+        "course_name": "Science Co-op Work Term IV"
+      },
+      {
+        "course_tag": "SCCO 5000W",
+        "course_name": "Science Co-op Work Term V"
+      }
+    ],
+    "SCIE": [
+      {
+        "course_tag": "SCIE 1920U",
+        "course_name": "Introduction to Astronomy"
+      },
+      {
+        "course_tag": "SCIE 2010U",
+        "course_name": "The Science of Pop Culture: Superheroes, Spaceships, and Dystopian Worlds"
+      },
+      {
+        "course_tag": "SCIE 2500U",
+        "course_name": "Two-Eyed Seeing in the Natural Sciences"
+      }
+    ],
+    "SOCI": [
+      {
+        "course_tag": "SOCI 1000U",
+        "course_name": "Introductory Sociology"
+      }
+    ],
+    "SOFE": [
+      {
+        "course_tag": "SOFE 2250U",
+        "course_name": "Digital Systems and Computer Architecture"
+      },
+      {
+        "course_tag": "SOFE 2710U",
+        "course_name": "Object Oriented Programming and Design"
+      },
+      {
+        "course_tag": "SOFE 2715U",
+        "course_name": "Data Structures"
+      },
+      {
+        "course_tag": "SOFE 2720U",
+        "course_name": "Principles of Software and Requirements Engineering"
+      },
+      {
+        "course_tag": "SOFE 2800U",
+        "course_name": "Web Programming"
+      },
+      {
+        "course_tag": "SOFE 2850U",
+        "course_name": "Natural Foundations for Information Technology"
+      },
+      {
+        "course_tag": "SOFE 3200U",
+        "course_name": "Systems Programming"
+      },
+      {
+        "course_tag": "SOFE 3290U",
+        "course_name": "Software Quality and Project Management"
+      },
+      {
+        "course_tag": "SOFE 3490U",
+        "course_name": "Software Project Management"
+      },
+      {
+        "course_tag": "SOFE 3650U",
+        "course_name": "Software Design and Architectures"
+      },
+      {
+        "course_tag": "SOFE 3700U",
+        "course_name": "Data Management Systems"
+      },
+      {
+        "course_tag": "SOFE 3720U",
+        "course_name": "Introduction to Artificial Intelligence"
+      },
+      {
+        "course_tag": "SOFE 3770U",
+        "course_name": "Design and Analysis of Algorithms"
+      },
+      {
+        "course_tag": "SOFE 3850U",
+        "course_name": "Computer Networks"
+      },
+      {
+        "course_tag": "SOFE 3950U",
+        "course_name": "Operating Systems"
+      },
+      {
+        "course_tag": "SOFE 3980U",
+        "course_name": "Software Quality"
+      },
+      {
+        "course_tag": "SOFE 4590U",
+        "course_name": "Embedded Systems"
+      },
+      {
+        "course_tag": "SOFE 4610U",
+        "course_name": "Design and Analysis of IoT Software Systems"
+      },
+      {
+        "course_tag": "SOFE 4620U",
+        "course_name": "Machine Learning and Data Mining"
+      },
+      {
+        "course_tag": "SOFE 4630U",
+        "course_name": "Cloud Computing"
+      },
+      {
+        "course_tag": "SOFE 4640U",
+        "course_name": "Mobile Application Development"
+      },
+      {
+        "course_tag": "SOFE 4790U",
+        "course_name": "Distributed Systems"
+      },
+      {
+        "course_tag": "SOFE 4820U",
+        "course_name": "Modelling and Simulation"
+      },
+      {
+        "course_tag": "SOFE 4840U",
+        "course_name": "Software and Computer Security"
+      },
+      {
+        "course_tag": "SOFE 4850U",
+        "course_name": "User Interface and Experience Design"
+      },
+      {
+        "course_tag": "SOFE 4870U",
+        "course_name": "Special Topics in Software Engineering"
+      },
+      {
+        "course_tag": "SOFE 4890U",
+        "course_name": "Advanced Computer Networks"
+      }
+    ],
+    "SSCI": [
+      {
+        "course_tag": "SSCI 1210U",
+        "course_name": "History of Science and Technology"
+      },
+      {
+        "course_tag": "SSCI 1300U",
+        "course_name": "Social Problems"
+      },
+      {
+        "course_tag": "SSCI 1470U",
+        "course_name": "Impact of Science and Technology on Society"
+      },
+      {
+        "course_tag": "SSCI 1700U",
+        "course_name": "Reading Our World"
+      },
+      {
+        "course_tag": "SSCI 1910U",
+        "course_name": "Writing for the Social Sciences"
+      },
+      {
+        "course_tag": "SSCI 2020U",
+        "course_name": "Issues in Diversity"
+      },
+      {
+        "course_tag": "SSCI 2025U",
+        "course_name": "Youth Cultures"
+      },
+      {
+        "course_tag": "SSCI 2101U",
+        "course_name": "Making a Difference: An Introduction to Social Entrepreneurship"
+      },
+      {
+        "course_tag": "SSCI 2700U",
+        "course_name": "Human Sexuality"
+      },
+      {
+        "course_tag": "SSCI 2720U",
+        "course_name": "Sports and Society"
+      },
+      {
+        "course_tag": "SSCI 2900U",
+        "course_name": "Research Methods"
+      },
+      {
+        "course_tag": "SSCI 2910U",
+        "course_name": "Data Analysis"
+      },
+      {
+        "course_tag": "SSCI 2920U",
+        "course_name": "Qualitative Research Methods"
+      },
+      {
+        "course_tag": "SSCI 3000U",
+        "course_name": "Disability, Rehabilitation and Society"
+      },
+      {
+        "course_tag": "SSCI 3300U",
+        "course_name": "Community Connections"
+      },
+      {
+        "course_tag": "SSCI 3910U",
+        "course_name": "Advanced Data Analysis"
+      },
+      {
+        "course_tag": "SSCI 3920U",
+        "course_name": "Advanced Qualitative Methods"
+      },
+      {
+        "course_tag": "SSCI 4005U",
+        "course_name": "Independent Study"
+      },
+      {
+        "course_tag": "SSCI 4010U",
+        "course_name": "Policy Development"
+      },
+      {
+        "course_tag": "SSCI 4020U",
+        "course_name": "Leadership and Administration"
+      },
+      {
+        "course_tag": "SSCI 4098U",
+        "course_name": "Practicum"
+      },
+      {
+        "course_tag": "SSCI 4101U",
+        "course_name": "Honours Thesis I"
+      },
+      {
+        "course_tag": "SSCI 4102U",
+        "course_name": "Honours Thesis II"
+      },
+      {
+        "course_tag": "SSCI 4103U",
+        "course_name": "Internship"
+      },
+      {
+        "course_tag": "SSCI 4104U",
+        "course_name": "Internship II"
+      }
+    ],
+    "STAT": [
+      {
+        "course_tag": "STAT 2010U",
+        "course_name": "Statistics and Probability for Physical Science"
+      },
+      {
+        "course_tag": "STAT 2020U",
+        "course_name": "Statistics and Probability for Biological Science"
+      },
+      {
+        "course_tag": "STAT 2800U",
+        "course_name": "Statistics and Probability for Engineers"
+      },
+      {
+        "course_tag": "STAT 3010U",
+        "course_name": "Biostatistics"
+      }
+    ],
+    "SUST": [
+      {
+        "course_tag": "SUST 1001U",
+        "course_name": "Fundamentals of Sustainability I: Science & Technology"
+      },
+      {
+        "course_tag": "SUST 1002U",
+        "course_name": "Fundamentals of Sustainability II: Health & Social Sciences"
+      }
+    ],
+    "XBIT": [
+      {
+        "course_tag": "XBIT 1000U",
+        "course_name": "Foundations for Success in Co-op"
+      },
+      {
+        "course_tag": "XBIT 1500U",
+        "course_name": "FBIT Student Success Workshop"
+      },
+      {
+        "course_tag": "XBIT 2000U",
+        "course_name": "FBIT Co-op Work Term I"
+      },
+      {
+        "course_tag": "XBIT 2500U",
+        "course_name": "FBIT Experience Workshop"
+      },
+      {
+        "course_tag": "XBIT 3000U",
+        "course_name": "FBIT Co-op Work Term II"
+      },
+      {
+        "course_tag": "XBIT 3500U",
+        "course_name": "FBIT Career Readiness Workshop"
+      },
+      {
+        "course_tag": "XBIT 4000U",
+        "course_name": "FBIT Co-op Work Term III"
+      },
+      {
+        "course_tag": "XBIT 4100U",
+        "course_name": "FBIT Co-op Work Term IV"
+      },
+      {
+        "course_tag": "XBIT 4200U",
+        "course_name": "FBIT Co-op Work Term V"
+      },
+      {
+        "course_tag": "XBIT 4500U",
+        "course_name": "Capstone Study Project"
+      },
+      {
+        "course_tag": "XBIT 4600U",
+        "course_name": "Internship"
+      },
+      {
+        "course_tag": "XBIT 4700U",
+        "course_name": "Venture Creation"
+      }
+    ]
+  }
+}

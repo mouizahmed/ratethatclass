@@ -2,11 +2,8 @@ from typing import Tuple
 from typing import Dict, List
 from .base_scraper import BaseScraper, logger
 
-try:
-    import requests
-    from bs4 import BeautifulSoup
-except ImportError:
-    pass
+import requests
+from bs4 import BeautifulSoup
 
 class QueensScraper(BaseScraper):
     BASE_URL = "https://www.queensu.ca/academic-calendar/course-search/"
@@ -16,6 +13,12 @@ class QueensScraper(BaseScraper):
         super().__init__(headless=headless, timeout=5)
         self.university_name = "Queen's University"
         self.session = requests.Session()
+        
+    def setup_driver(self):
+        pass
+        
+    def cleanup(self):
+        pass
         
     def get_department_options(self) -> List[Tuple[str, str]]:
         try:

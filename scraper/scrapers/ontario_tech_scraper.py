@@ -47,6 +47,7 @@ class OntarioTechScraper(BaseScraper):
                 if len(course_parts) >= 2:
                     course_tag = course_parts[0].strip()
                     course_name = course_parts[1].strip()
+
                     department_courses.append({
                         "course_tag": course_tag,
                         "course_name": course_name
@@ -132,11 +133,13 @@ class OntarioTechScraper(BaseScraper):
                     
                     self.scrape_department()
                     
+                    courses_count = len(self.department_courses.get(value, []))
+                    logger.info(f"Scraped {courses_count} courses for {name}")
+                    
                 except Exception as e:
                     logger.error(f"Error scraping department {name}: {e}")
                     continue
             
-            print(self.department_courses)
             return self.department_courses
         except Exception as e:
             logger.error(f"Error in run: {e}")

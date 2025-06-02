@@ -1,21 +1,8 @@
 from typing import Dict, List
 from .base_scraper import BaseScraper, logger
 
-# Additional imports based on what each scraper needs
-try:
-    import requests
-    from bs4 import BeautifulSoup
-except ImportError:
-    pass
-
-try:
-    from selenium.webdriver.common.by import By
-    from selenium.webdriver.support.ui import Select
-    from selenium.webdriver.support import expected_conditions as EC
-    from selenium.common.exceptions import TimeoutException, NoSuchElementException
-except ImportError:
-    pass
-
+import requests
+from bs4 import BeautifulSoup
 
 class WaterlooScraper(BaseScraper):
     BASE_URL = "https://classes.uwaterloo.ca/uwpcshtm.html"
@@ -26,11 +13,9 @@ class WaterlooScraper(BaseScraper):
         self.university_name = "University of Waterloo"
         
     def setup_driver(self):
-        """Override to use requests instead of Selenium for this scraper."""
         pass
         
     def cleanup(self):
-        """Override to skip Selenium cleanup."""
         pass
 
     def run(self) -> Dict[str, List[Dict[str, str]]]:

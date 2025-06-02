@@ -5,6 +5,9 @@ from .base_scraper import BaseScraper, logger
 
 import requests
 
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
@@ -12,7 +15,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 
 
-class YorkUScraper(BaseScraper):
+class YorkScraper(BaseScraper):
     BASE_URL = "https://w2prod.sis.yorku.ca/Apps/WebObjects/cdm"
 
     def __init__(self, headless: bool = True):
@@ -210,7 +213,6 @@ class YorkUScraper(BaseScraper):
                                 else:
                                     course_code = ""
                                 
-                                print(course_code)
                                 if course_code and course_title:
                                     self.add_course(department_code, course_code, course_title)
                         except Exception as e:
