@@ -25,7 +25,7 @@ class UofTScraper(BaseScraper):
         super().__init__(headless=headless, timeout=10)
         self.university_name = "University of Toronto"
         
-    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
+    def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             logger.info("Getting department options...")
             
@@ -70,7 +70,7 @@ class UofTScraper(BaseScraper):
             logger.error(f"Error getting department options: {e}")
             return []
 
-    def scrapeCourses(self, course_elements: List) -> List[Dict[str, str]]:
+    def scrape_courses(self, course_elements: List) -> List[Dict[str, str]]:
         department_courses = []
         for course_container in course_elements:
             try:
@@ -111,8 +111,8 @@ class UofTScraper(BaseScraper):
                 
                 if course_name:
                     department_courses.append({
-                        "courseTag": course_tag,
-                        "courseName": course_name
+                        "course_tag": course_tag,
+                        "course_name": course_name
                     })
                 else:
                     logger.debug(f"Skipping course {course_tag}: Empty course name")
@@ -123,7 +123,7 @@ class UofTScraper(BaseScraper):
                 
         return department_courses
 
-    def scrapeDepartment(self, department_element: Any, department_name: str, max_retries: int = 2) -> None:
+    def scrape_department(self, department_element: Any, department_name: str, max_retries: int = 2) -> None:
         retry_count = 0
         
         while retry_count < max_retries:
@@ -174,15 +174,15 @@ class UofTScraper(BaseScraper):
                         logger.warning(f"No courses found on page {page_number} for {department_name}")
                         break
                     
-                    page_courses = self.scrapeCourses(course_elements)
-                    all_courses.extend(page_courses)
-                    logger.info(f"Found {len(page_courses)} courses on page {page_number}")
+                    courses = self.scrape_courses(course_elements)
+                    all_courses.extend(courses)
+                    logger.info(f"Found {len(courses)} courses on page {page_number}")
               
-                    next_page_button = self.findNextPage()
-                    if next_page_button:
+                    next_page = self.find_next_page()
+                    if next_page:
                         logger.info(f"Found next page button, navigating to page {page_number + 1}")
                         try:
-                            self.driver.execute_script("arguments[0].click();", next_page_button)
+                            self.driver.execute_script("arguments[0].click();", next_page)
                             time.sleep(2)
                             page_number += 1
                         except Exception as e:
@@ -209,10 +209,10 @@ class UofTScraper(BaseScraper):
                 logger.warning(f"Timeout occurred, retrying... ({retry_count}/{max_retries})")
                 time.sleep(2)
             except Exception as e:
-                logger.error(f"Error in scrapeDepartment for {department_name}: {e}")
+                logger.error(f"Error in scrape_department for {department_name}: {e}")
                 break
 
-    def findNextPage(self) -> Optional[Any]:
+    def find_next_page(self) -> Optional[Any]:
         try:
             # Try multiple pagination selectors
             selectors = [
@@ -248,7 +248,7 @@ class UofTScraper(BaseScraper):
         try:
             self.driver.get(self.BASE_URL)
             
-            departments = self.getDepartmentOptions()
+            departments = self.get_department_options()
             
             if not departments:
                 logger.warning("No departments found")
@@ -270,7 +270,7 @@ class UofTScraper(BaseScraper):
                         except Exception as e:
                             logger.warning(f"Could not unselect previous department: {e}")
                     
-                    self.scrapeDepartment(department_element, department_name)
+                    self.scrape_department(department_element, department_name)
                     
                     # Store this department as the previous one for next iteration
                     previous_department_element = department_element

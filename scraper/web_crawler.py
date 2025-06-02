@@ -62,8 +62,8 @@ class BaseScraper(ABC):
             self.department_courses[department] = []
             
         self.department_courses[department].append({
-            "courseTag": course_tag.strip(),
-            "courseName": course_name.strip()
+            "course_tag": course_tag.strip(),
+            "course_name": course_name.strip()
         })
     
     @abstractmethod
@@ -95,7 +95,7 @@ class CarletonUScraper(BaseScraper):
         """Override to skip Selenium cleanup."""
         pass
 
-    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
+    def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             response = self.session.get(self.BASE_URL)
             soup = BeautifulSoup(response.text, 'html.parser')
@@ -125,7 +125,7 @@ class CarletonUScraper(BaseScraper):
             logger.error(f"Error getting department options: {e}")
             return []
     
-    def scrapeDepartment(self, department_code: str) -> None:
+    def scrape_department(self, department_code: str) -> None:
         max_retries = 3
         retry_delay = 2
         
@@ -191,7 +191,7 @@ class CarletonUScraper(BaseScraper):
 
     def run(self) -> Dict[str, List[Dict[str, str]]]:
         try:
-            departments = self.getDepartmentOptions()
+            departments = self.get_department_options()
             logger.info(f"Found {len(departments)} departments")
             
             total = len(departments)
@@ -206,7 +206,7 @@ class CarletonUScraper(BaseScraper):
                         value = value.replace("//undergrad/courses/", "/")
                     
                     initial_course_count = len(self.department_courses.get(value, []))
-                    self.scrapeDepartment(value)
+                    self.scrape_department(value)
                     
                     # Check if any courses were added for this department
                     new_course_count = len(self.department_courses.get(value, []))
@@ -239,7 +239,7 @@ class OttawaUScraper(BaseScraper):
         self.university_name = "University of Ottawa"
         self.session = requests.Session()
     
-    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
+    def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             response = self.session.get(self.BASE_URL)
             soup = BeautifulSoup(response.text, 'html.parser')
@@ -263,7 +263,7 @@ class OttawaUScraper(BaseScraper):
             logger.error(f"Error getting department options: {e}")
             return []
 
-    def scrapeDepartment(self, department_code: str) -> None:
+    def scrape_department(self, department_code: str) -> None:
         max_retries = 3
         retry_delay = 2
         
@@ -336,7 +336,7 @@ class OttawaUScraper(BaseScraper):
 
     def run(self) -> Dict[str, List[Dict[str, str]]]:
         try:
-            departments = self.getDepartmentOptions()
+            departments = self.get_department_options()
             logger.info(f"Found {len(departments)} departments")
             print(departments)
             
@@ -347,7 +347,7 @@ class OttawaUScraper(BaseScraper):
                     logger.info(f"Scraping department: {name} ({i}/{total})")
                     
                     initial_course_count = len(self.department_courses.get(value, []))
-                    self.scrapeDepartment(value)
+                    self.scrape_department(value)
                     
                     # Check if any courses were added for this department
                     new_course_count = len(self.department_courses.get(value, []))
@@ -437,7 +437,7 @@ class YorkUScraper(BaseScraper):
         delay = random.uniform(self.min_delay, self.max_delay)
         time.sleep(delay)
 
-    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
+    def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             self.driver.get(self.BASE_URL)
             self.random_delay()
@@ -499,7 +499,7 @@ class YorkUScraper(BaseScraper):
             logger.error(f"Error getting department options: {e}")
             return []
 
-    def scrapeDepartment(self, department_code: str) -> None:
+    def scrape_department(self, department_code: str) -> None:
         max_retries = 3
         retry_delay = 2
         
@@ -589,7 +589,7 @@ class YorkUScraper(BaseScraper):
                 else:
                     logger.error(f"Timeout waiting for courses to load for department {department_code} after {max_retries} attempts")
             except Exception as e:
-                logger.error(f"Error scraping department {department_code}: {e}")
+                logger.error(f"Error in scrape_department: {e}")
             finally:
                 try:
                     self.driver.get(self.BASE_URL)
@@ -616,7 +616,7 @@ class YorkUScraper(BaseScraper):
             # # Wait for initial page load
             # time.sleep(2)  # Reduced initial wait time
             
-            departments = self.getDepartmentOptions()
+            departments = self.get_department_options()
             logger.info(f"Found {len(departments)} departments")
             
             total = len(departments)
@@ -625,7 +625,7 @@ class YorkUScraper(BaseScraper):
                 try:
                     logger.info(f"Scraping department: {name} ({i}/{total})")
                     
-                    self.scrapeDepartment(value)
+                    self.scrape_department(value)
                     
                     if value in self.department_courses:
                         successful_departments += 1
@@ -653,7 +653,7 @@ class OntarioTechScraper(BaseScraper):
         super().__init__(headless=headless, timeout=5)
         self.university_name = "Ontario Tech University"
         
-    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
+    def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             checkbox = self.driver.find_element(By.ID, "exact_match")
             checkbox.click()
@@ -665,7 +665,7 @@ class OntarioTechScraper(BaseScraper):
             logger.error(f"Error getting department options: {e}")
             return []
 
-    def scrapeCourses(self, course_elements: List) -> List[Dict[str, str]]:
+    def scrape_courses(self, course_elements: List) -> List[Dict[str, str]]:
         department_courses = []
         for course in course_elements:
             try:
@@ -674,14 +674,14 @@ class OntarioTechScraper(BaseScraper):
                     course_tag = course_parts[0].strip()
                     course_name = course_parts[1].strip()
                     department_courses.append({
-                        "courseTag": course_tag,
-                        "courseName": course_name
+                        "course_tag": course_tag,
+                        "course_name": course_name
                     })
             except Exception as e:
                 logger.error(f"Error scraping course: {e}")
         return department_courses
 
-    def scrapeDepartment(self, max_retries: int = 2) -> None:
+    def scrape_department(self, max_retries: int = 2) -> None:
         retry_count = 0
         
         while retry_count < max_retries:
@@ -695,7 +695,7 @@ class OntarioTechScraper(BaseScraper):
                 if not course_elements:
                     break
                 
-                courses = self.scrapeCourses(course_elements)
+                courses = self.scrape_courses(course_elements)
 
                 if courses:
                     current_dept = self.driver.find_element(By.ID, "courseprefix").get_attribute("value")
@@ -704,7 +704,7 @@ class OntarioTechScraper(BaseScraper):
                     else:
                         self.department_courses[current_dept] = courses
 
-                next_page = self.findNextPage()
+                next_page = self.find_next_page()
                 if not next_page:
                     break
 
@@ -718,10 +718,10 @@ class OntarioTechScraper(BaseScraper):
                     break
                 self.driver.refresh()
             except Exception as e:
-                logger.error(f"Error in scrapeDepartment: {e}")
+                logger.error(f"Error in scrape_department: {e}")
                 break
 
-    def findNextPage(self) -> Optional[Any]:
+    def find_next_page(self) -> Optional[Any]:
         try:
             current_page_element = self.driver.find_element(
                 By.XPATH, '//td[contains(., "Page:")]//span[@aria-current="page"]//strong'
@@ -743,7 +743,7 @@ class OntarioTechScraper(BaseScraper):
     def run(self) -> Dict[str, List[Dict[str, str]]]:
         try:
             self.driver.get(self.BASE_URL)
-            departments = self.getDepartmentOptions()
+            departments = self.get_department_options()
             
             total = len(departments)
             for i, (value, name) in enumerate(departments, 1):
@@ -756,7 +756,7 @@ class OntarioTechScraper(BaseScraper):
                     """
                     self.driver.execute_script(script)
                     
-                    self.scrapeDepartment()
+                    self.scrape_department()
                     
                 except Exception as e:
                     logger.error(f"Error scraping department {name}: {e}")
@@ -775,7 +775,7 @@ class McMasterScraper(BaseScraper):
         super().__init__(headless=headless, timeout=5)
         self.university_name = "McMaster University"
         
-    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
+    def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             checkbox = self.driver.find_element(By.ID, "exact_match")
             checkbox.click()
@@ -787,7 +787,7 @@ class McMasterScraper(BaseScraper):
             logger.error(f"Error getting department options: {e}")
             return []
 
-    def scrapeCourses(self, course_elements: List) -> List[Dict[str, str]]:
+    def scrape_courses(self, course_elements: List) -> List[Dict[str, str]]:
         department_courses = []
         for course in course_elements:
             try:
@@ -796,14 +796,14 @@ class McMasterScraper(BaseScraper):
                     course_tag = course_parts[0].strip()
                     course_name = course_parts[1].strip()
                     department_courses.append({
-                        "courseTag": course_tag,
-                        "courseName": course_name
+                        "course_tag": course_tag,
+                        "course_name": course_name
                     })
             except Exception as e:
                 logger.error(f"Error scraping course: {e}")
         return department_courses
 
-    def scrapeDepartment(self, max_retries: int = 2) -> None:
+    def scrape_department(self, max_retries: int = 2) -> None:
         retry_count = 0
         
         while retry_count < max_retries:
@@ -817,7 +817,7 @@ class McMasterScraper(BaseScraper):
                 if not course_elements:
                     break
                 
-                courses = self.scrapeCourses(course_elements)
+                courses = self.scrape_courses(course_elements)
                 
                 if courses:
                     current_dept = self.driver.find_element(By.ID, "courseprefix").get_attribute("value")
@@ -826,7 +826,7 @@ class McMasterScraper(BaseScraper):
                     else:
                         self.department_courses[current_dept] = courses
 
-                next_page = self.findNextPage()
+                next_page = self.find_next_page()
                 if not next_page:
                     break
 
@@ -840,10 +840,10 @@ class McMasterScraper(BaseScraper):
                     break
                 self.driver.refresh()
             except Exception as e:
-                logger.error(f"Error in scrapeDepartment: {e}")
+                logger.error(f"Error in scrape_department: {e}")
                 break
 
-    def findNextPage(self) -> Optional[Any]:
+    def find_next_page(self) -> Optional[Any]:
         try:
             current_page_element = self.driver.find_element(
                 By.XPATH, '//td[contains(., "Page:")]//span[@aria-current="page"]//strong'
@@ -865,7 +865,7 @@ class McMasterScraper(BaseScraper):
     def run(self) -> Dict[str, List[Dict[str, str]]]:
         try:
             self.driver.get(self.BASE_URL)
-            departments = self.getDepartmentOptions()
+            departments = self.get_department_options()
             
             total = len(departments)
             for i, (value, name) in enumerate(departments, 1):
@@ -878,7 +878,7 @@ class McMasterScraper(BaseScraper):
                     """
                     self.driver.execute_script(script)
                     
-                    self.scrapeDepartment()
+                    self.scrape_department()
                     
                 except Exception as e:
                     logger.error(f"Error scraping department {name}: {e}")
@@ -896,35 +896,35 @@ class UWOScraper(BaseScraper):
         super().__init__(headless=headless)
         self.university_name = "University of Western Ontario"
 
-    def getDepartmentLinks(self, departments) -> Dict[str, str]:
-        departmentLinks = {}
+    def get_department_links(self, departments) -> Dict[str, str]:
+        department_links = {}
         
         for department in departments:
             try:
-                departmentName = department.text
-                departmentLink = department.find_element(By.TAG_NAME, "a").get_attribute("href")
-                departmentLinks[departmentName] = departmentLink
+                department_name = department.text
+                department_link = department.find_element(By.TAG_NAME, "a").get_attribute("href")
+                department_links[department_name] = department_link
             except Exception as e:
                 logger.error(f"Error getting department link: {e}")
                 
-        return departmentLinks
+        return department_links
     
-    def scrapeCourses(self, departmentName: str) -> None:
+    def scrape_courses(self, department_name: str) -> None:
         try:
             courses = self.driver.find_elements(By.CSS_SELECTOR, "h4.courseTitleNoBlueLink")
 
             for course in courses:
-                courseHeading = course.text
-                pattern = rf"({departmentName}\s+\d{{4}}(?:[A-Z](?:\/[A-Z])*)?)\s+(.+)"
-                match = re.search(pattern, courseHeading)
+                course_heading = course.text
+                pattern = rf"({department_name}\s+\d{{4}}(?:[A-Z](?:\/[A-Z])*)?)\s+(.+)"
+                match = re.search(pattern, course_heading)
                 if match:
-                    courseTag = match.group(1)
-                    courseName = match.group(2)
-                    self.add_course(departmentName, courseTag, courseName)
+                    course_tag = match.group(1)
+                    course_name = match.group(2)
+                    self.add_course(department_name, course_tag, course_name)
                 else:
-                    logger.error(f"Failed to parse course: {courseHeading}")
+                    logger.error(f"Failed to parse course: {course_heading}")
         except Exception as e:
-            logger.error(f"Error scraping courses for {departmentName}: {e}")
+            logger.error(f"Error scraping courses for {department_name}: {e}")
     
     def run(self) -> Dict[str, List[Dict[str, str]]]:
         try:
@@ -932,14 +932,14 @@ class UWOScraper(BaseScraper):
             departments = self.driver.find_elements(By.CSS_SELECTOR, "td.sorting_1")
 
             # get links
-            departmentLinks = self.getDepartmentLinks(departments)
+            department_links = self.get_department_links(departments)
             
-            total = len(departmentLinks)
-            for i, (name, link) in enumerate(departmentLinks.items(), 1):
+            total = len(department_links)
+            for i, (name, link) in enumerate(department_links.items(), 1):
                 try:
                     logger.info(f"Scraping department: {name} ({i}/{total})")
                     self.driver.get(link)
-                    self.scrapeCourses(name)
+                    self.scrape_courses(name)
                 except Exception as e:
                     logger.error(f"Error processing department {name}: {e}")
                     continue
@@ -956,31 +956,31 @@ class TMUScraper(BaseScraper):
         super().__init__(headless=headless)
         self.university_name = "Toronto Metropolitan University"
         
-    def getDepartmentLinks(self, departments) -> Dict[str, str]:
-        departmentLinks = {}
+    def get_department_links(self, departments) -> Dict[str, str]:
+        department_links = {}
         
         for department in departments:
             try:
-                departmentName = department.text
-                departmentLink = department.find_element(By.TAG_NAME, "a").get_attribute("href")
-                departmentLinks[departmentName] = departmentLink
+                department_name = department.text
+                department_link = department.find_element(By.TAG_NAME, "a").get_attribute("href")
+                department_links[department_name] = department_link
             except Exception as e:
                 logger.error(f"Error getting department link: {e}")
                 
-        return departmentLinks
+        return department_links
             
-    def scrapeCourses(self, departmentName: str) -> None:
+    def scrape_courses(self, department_name: str) -> None:
         try:
             courses = self.driver.find_elements(By.CSS_SELECTOR, "a.courseCode")
             for course in courses:
                 course_text = course.text
                 if ' - ' in course_text:
                     course_parts = course_text.split(' - ', 1)
-                    courseTag = course_parts[0]
-                    courseName = course_parts[1]
-                    self.add_course(departmentName, courseTag, courseName)
+                    course_tag = course_parts[0]
+                    course_name = course_parts[1]
+                    self.add_course(department_name, course_tag, course_name)
         except Exception as e:
-            logger.error(f"Error scraping courses for {departmentName}: {e}")
+            logger.error(f"Error scraping courses for {department_name}: {e}")
     
     def run(self) -> Dict[str, List[Dict[str, str]]]:
         try:
@@ -988,14 +988,14 @@ class TMUScraper(BaseScraper):
             departments = self.driver.find_elements(By.CSS_SELECTOR, "td.sorting_1")
 
             # get links
-            departmentLinks = self.getDepartmentLinks(departments)
+            department_links = self.get_department_links(departments)
 
-            total = len(departmentLinks)
-            for i, (name, link) in enumerate(departmentLinks.items(), 1):
+            total = len(department_links)
+            for i, (name, link) in enumerate(department_links.items(), 1):
                 try:
                     logger.info(f"Scraping department: {name} ({i}/{total})")
                     self.driver.get(link)
-                    self.scrapeCourses(name)
+                    self.scrape_courses(name)
                 except Exception as e:
                     logger.error(f"Error processing department {name}: {e}")
                     continue
@@ -1057,17 +1057,17 @@ class WaterlooScraper(BaseScraper):
                     if not department or not code or not title:
                         continue
                         
-                    courseTag = f"{department} {code}"
+                    course_tag = f"{department} {code}"
                     
                     if department in department_courses:
                         department_courses[department].append({
-                            "courseTag": courseTag,
-                            "courseName": title
+                            "course_tag": course_tag,
+                            "course_name": title
                         })
                     else:
                         department_courses[department] = [{
-                            "courseTag": courseTag,
-                            "courseName": title
+                            "course_tag": course_tag,
+                            "course_name": title
                         }]
                 except Exception as e:
                     logger.error(f"Error processing course row: {e}")

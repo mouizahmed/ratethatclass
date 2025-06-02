@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-"""
-Main runner for university course scrapers.
-"""
 
 from scrapers import (
     CarletonUScraper,
@@ -24,7 +21,6 @@ def main():
     scrapers = [
         # WaterlooScraper,
         # CarletonUScraper,
-        # Add other scrapers as needed:
         # OttawaUScraper,
         # YorkUScraper,
         # OntarioTechScraper,
@@ -33,7 +29,7 @@ def main():
         # TMUScraper,
         # QueensScraper, 
         # GuelphScraper,
-        UofTScraper
+        # UofTScraper
     ]
     
     results = {}

@@ -1,23 +1,15 @@
-from typing import Dict, List, Tuple, Optional, Any
+from typing import Dict, List, Tuple
 import time
 import random
-import re
 from .base_scraper import BaseScraper, logger
 
-# Additional imports based on what each scraper needs
-try:
-    import requests
-    from bs4 import BeautifulSoup
-except ImportError:
-    pass
+import requests
 
-try:
-    from selenium.webdriver.common.by import By
-    from selenium.webdriver.support.ui import Select
-    from selenium.webdriver.support import expected_conditions as EC
-    from selenium.common.exceptions import TimeoutException, NoSuchElementException
-except ImportError:
-    pass
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
+
 
 
 class YorkUScraper(BaseScraper):
@@ -87,7 +79,7 @@ class YorkUScraper(BaseScraper):
         delay = random.uniform(self.min_delay, self.max_delay)
         time.sleep(delay)
 
-    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
+    def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             self.driver.get(self.BASE_URL)
             self.random_delay()
@@ -149,7 +141,7 @@ class YorkUScraper(BaseScraper):
             logger.error(f"Error getting department options: {e}")
             return []
 
-    def scrapeDepartment(self, department_code: str) -> None:
+    def scrape_department(self, department_code: str) -> None:
         max_retries = 3
         retry_delay = 2
         
@@ -266,7 +258,7 @@ class YorkUScraper(BaseScraper):
             # # Wait for initial page load
             # time.sleep(2)  # Reduced initial wait time
             
-            departments = self.getDepartmentOptions()
+            departments = self.get_department_options()
             logger.info(f"Found {len(departments)} departments")
             
             total = len(departments)
@@ -275,7 +267,7 @@ class YorkUScraper(BaseScraper):
                 try:
                     logger.info(f"Scraping department: {name} ({i}/{total})")
                     
-                    self.scrapeDepartment(value)
+                    self.scrape_department(value)
                     
                     if value in self.department_courses:
                         successful_departments += 1

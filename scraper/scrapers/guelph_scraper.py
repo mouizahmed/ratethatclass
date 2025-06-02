@@ -27,7 +27,7 @@ class GuelphScraper(BaseScraper):
         super().__init__(headless=headless, timeout=10)
         self.university_name = "University of Guelph"
         
-    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
+    def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             logger.info("Getting department options...")
             
@@ -58,7 +58,7 @@ class GuelphScraper(BaseScraper):
             logger.error(f"Error getting department options: {e}")
             return []
 
-    def scrapeCourses(self, course_elements: List) -> List[Dict[str, str]]:
+    def scrape_courses(self, course_elements: List) -> List[Dict[str, str]]:
         department_courses = []
         for course in course_elements:
             try:
@@ -79,15 +79,15 @@ class GuelphScraper(BaseScraper):
                         course_name = parts[1].strip()
                         
                         department_courses.append({
-                            "courseTag": course_tag,
-                            "courseName": course_name
+                            "course_tag": course_tag,
+                            "course_name": course_name
                         })
                         
             except Exception as e:
                 logger.error(f"Error scraping course: {e}")
         return department_courses
 
-    def scrapeDepartment(self, department_link: str, department_name: str, max_retries: int = 2) -> None:
+    def scrape_department(self, department_link: str, department_name: str, max_retries: int = 2) -> None:
         retry_count = 0
         
         while retry_count < max_retries:
@@ -110,7 +110,7 @@ class GuelphScraper(BaseScraper):
                     break
                 
                 h3_elements = [elem.find_element(By.XPATH, './..') for elem in course_elements]
-                courses = self.scrapeCourses(h3_elements)
+                courses = self.scrape_courses(h3_elements)
                 
                 if courses:
                     if department_name in self.department_courses:
@@ -120,7 +120,7 @@ class GuelphScraper(BaseScraper):
                 
                 logger.info(f"Found {len(courses)} courses on current page for {department_name}")
 
-                next_page = self.findNextPage()
+                next_page = self.find_next_page()
                 if not next_page:
                     break
 
@@ -135,10 +135,10 @@ class GuelphScraper(BaseScraper):
                 logger.warning(f"Timeout occurred, retrying... ({retry_count}/{max_retries})")
                 time.sleep(2)
             except Exception as e:
-                logger.error(f"Error in scrapeDepartment for {department_name}: {e}")
+                logger.error(f"Error in scrape_department for {department_name}: {e}")
                 break
 
-    def findNextPage(self) -> Optional[Any]:
+    def find_next_page(self) -> Optional[Any]:
         try:
             # Check if pagination exists
             total_pages_element = self.driver.find_element(By.ID, "course-results-total-pages")
@@ -170,7 +170,7 @@ class GuelphScraper(BaseScraper):
         try:
             self.driver.get(self.BASE_URL)
             
-            departments = self.getDepartmentOptions()
+            departments = self.get_department_options()
             
             if not departments:
                 logger.warning("No departments found")
@@ -181,7 +181,7 @@ class GuelphScraper(BaseScraper):
                 try:
                     logger.info(f"Scraping department: {name} ({i}/{total})")
                     
-                    self.scrapeDepartment(link, name)
+                    self.scrape_department(link, name)
                     
                     time.sleep(random.uniform(1, 3))
                     

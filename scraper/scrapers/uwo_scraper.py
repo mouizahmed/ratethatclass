@@ -27,35 +27,35 @@ class UWOScraper(BaseScraper):
         super().__init__(headless=headless)
         self.university_name = "University of Western Ontario"
 
-    def getDepartmentLinks(self, departments) -> Dict[str, str]:
-        departmentLinks = {}
+    def get_department_links(self, departments) -> Dict[str, str]:
+        department_links = {}
         
         for department in departments:
             try:
-                departmentName = department.text
-                departmentLink = department.find_element(By.TAG_NAME, "a").get_attribute("href")
-                departmentLinks[departmentName] = departmentLink
+                department_name = department.text
+                department_link = department.find_element(By.TAG_NAME, "a").get_attribute("href")
+                department_links[department_name] = department_link
             except Exception as e:
                 logger.error(f"Error getting department link: {e}")
                 
-        return departmentLinks
+        return department_links
     
-    def scrapeCourses(self, departmentName: str) -> None:
+    def scrape_courses(self, department_name: str) -> None:
         try:
             courses = self.driver.find_elements(By.CSS_SELECTOR, "h4.courseTitleNoBlueLink")
 
             for course in courses:
-                courseHeading = course.text
-                pattern = rf"({departmentName}\s+\d{{4}}(?:[A-Z](?:\/[A-Z])*)?)\s+(.+)"
-                match = re.search(pattern, courseHeading)
+                course_heading = course.text
+                pattern = rf"({department_name}\s+\d{{4}}(?:[A-Z](?:\/[A-Z])*)?)\s+(.+)"
+                match = re.search(pattern, course_heading)
                 if match:
-                    courseTag = match.group(1)
-                    courseName = match.group(2)
-                    self.add_course(departmentName, courseTag, courseName)
+                    course_tag = match.group(1)
+                    course_name = match.group(2)
+                    self.add_course(department_name, course_tag, course_name)
                 else:
-                    logger.error(f"Failed to parse course: {courseHeading}")
+                    logger.error(f"Failed to parse course: {course_heading}")
         except Exception as e:
-            logger.error(f"Error scraping courses for {departmentName}: {e}")
+            logger.error(f"Error scraping courses for {department_name}: {e}")
     
     def run(self) -> Dict[str, List[Dict[str, str]]]:
         try:
@@ -63,14 +63,14 @@ class UWOScraper(BaseScraper):
             departments = self.driver.find_elements(By.CSS_SELECTOR, "td.sorting_1")
 
             # get links
-            departmentLinks = self.getDepartmentLinks(departments)
+            department_links = self.get_department_links(departments)
             
-            total = len(departmentLinks)
-            for i, (name, link) in enumerate(departmentLinks.items(), 1):
+            total = len(department_links)
+            for i, (name, link) in enumerate(department_links.items(), 1):
                 try:
                     logger.info(f"Scraping department: {name} ({i}/{total})")
                     self.driver.get(link)
-                    self.scrapeCourses(name)
+                    self.scrape_courses(name)
                 except Exception as e:
                     logger.error(f"Error processing department {name}: {e}")
                     continue

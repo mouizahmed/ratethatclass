@@ -69,17 +69,17 @@ class WaterlooScraper(BaseScraper):
                     if not department or not code or not title:
                         continue
                         
-                    courseTag = f"{department} {code}"
+                    course_tag = f"{department} {code}"
                     
                     if department in department_courses:
                         department_courses[department].append({
-                            "courseTag": courseTag,
-                            "courseName": title
+                            "course_tag": course_tag,
+                            "course_name": title
                         })
                     else:
                         department_courses[department] = [{
-                            "courseTag": courseTag,
-                            "courseName": title
+                            "course_tag": course_tag,
+                            "course_name": title
                         }]
                 except Exception as e:
                     logger.error(f"Error processing course row: {e}")

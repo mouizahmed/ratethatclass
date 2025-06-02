@@ -17,7 +17,7 @@ class QueensScraper(BaseScraper):
         self.university_name = "Queen's University"
         self.session = requests.Session()
         
-    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
+    def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             response = self.session.get(self.BASE_URL, timeout=self.timeout)
             response.raise_for_status()
@@ -40,7 +40,7 @@ class QueensScraper(BaseScraper):
             logger.error(f"Error getting subjects: {e}")
             return []
     
-    def searchCoursesForSubject(self, subject_code: str) -> List[Dict[str, str]]:
+    def search_courses_for_subject(self, subject_code: str) -> List[Dict[str, str]]:
         try:
             # Make API request to search for courses
             params = {
@@ -86,8 +86,8 @@ class QueensScraper(BaseScraper):
                             
                             if course_code and course_title:
                                 courses.append({
-                                    'courseTag': course_code.strip(),
-                                    'courseName': course_title.strip()
+                                    'course_tag': course_code.strip(),
+                                    'course_name': course_title.strip()
                                 })
                     
                     return courses
@@ -108,17 +108,17 @@ class QueensScraper(BaseScraper):
         logger.info(f"Starting scraping for {self.university_name}")
         
         try:
-            subjects = self.getDepartmentOptions()
+            departments = self.get_department_options()
             
-            if not subjects:
+            if not departments:
                 logger.error("No subjects found, cannot proceed with scraping")
                 return {}
             
-            for subject_code, subject_name in subjects:
+            for subject_code, subject_name in departments:
                 logger.info(f"Processing subject: {subject_name} ({subject_code})")
                 
                 # Use API to get courses
-                courses = self.searchCoursesForSubject(subject_code)
+                courses = self.search_courses_for_subject(subject_code)
                 
                 if courses:
                     self.department_courses[subject_name] = courses

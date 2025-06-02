@@ -164,8 +164,8 @@ class DatabaseManager:
                     courses_processed += 1
                     success = self.insert_course(
                         department_id,
-                        course["courseTag"],
-                        course["courseName"]
+                        course["course_tag"],
+                        course["course_name"]
                     )
                     if success:
                         courses_successful += 1

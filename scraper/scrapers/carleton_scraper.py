@@ -14,14 +14,12 @@ class CarletonUScraper(BaseScraper):
         self.session = requests.Session()
     
     def setup_driver(self):
-        """Override to use requests instead of Selenium for this scraper."""
         pass
         
     def cleanup(self):
-        """Override to skip Selenium cleanup."""
         pass
 
-    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
+    def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             response = self.session.get(self.BASE_URL)
             soup = BeautifulSoup(response.text, 'html.parser')
@@ -51,7 +49,7 @@ class CarletonUScraper(BaseScraper):
             logger.error(f"Error getting department options: {e}")
             return []
     
-    def scrapeDepartment(self, department_code: str) -> None:
+    def scrape_department(self, department_code: str) -> None:
         max_retries = 3
         retry_delay = 2
         
@@ -117,7 +115,7 @@ class CarletonUScraper(BaseScraper):
 
     def run(self) -> Dict[str, List[Dict[str, str]]]:
         try:
-            departments = self.getDepartmentOptions()
+            departments = self.get_department_options()
             logger.info(f"Found {len(departments)} departments")
             
             total = len(departments)
@@ -132,7 +130,7 @@ class CarletonUScraper(BaseScraper):
                         value = value.replace("//undergrad/courses/", "/")
                     
                     initial_course_count = len(self.department_courses.get(value, []))
-                    self.scrapeDepartment(value)
+                    self.scrape_department(value)
                     
                     # Check if any courses were added for this department
                     new_course_count = len(self.department_courses.get(value, []))

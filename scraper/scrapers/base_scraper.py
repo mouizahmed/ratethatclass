@@ -1,21 +1,8 @@
 from abc import ABC, abstractmethod
-import requests
-from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
-from typing import Dict, List, Tuple, Optional, Any
-import re
-import time
-import json
-import os
-from concurrent.futures import ThreadPoolExecutor, as_completed
-import traceback
-import random
+from typing import Dict, List
 
 # Import centralized logger
 from logger import setup_logger
@@ -62,8 +49,8 @@ class BaseScraper(ABC):
             self.department_courses[department] = []
             
         self.department_courses[department].append({
-            "courseTag": course_tag.strip(),
-            "courseName": course_name.strip()
+            "course_tag": course_tag.strip(),
+            "course_name": course_name.strip()
         })
     
     @abstractmethod

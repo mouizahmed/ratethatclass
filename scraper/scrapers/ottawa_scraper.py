@@ -28,7 +28,7 @@ class OttawaUScraper(BaseScraper):
         self.university_name = "University of Ottawa"
         self.session = requests.Session()
     
-    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
+    def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             response = self.session.get(self.BASE_URL)
             soup = BeautifulSoup(response.text, 'html.parser')
@@ -52,7 +52,7 @@ class OttawaUScraper(BaseScraper):
             logger.error(f"Error getting department options: {e}")
             return []
 
-    def scrapeDepartment(self, department_code: str) -> None:
+    def scrape_department(self, department_code: str) -> None:
         max_retries = 3
         retry_delay = 2
         
@@ -125,7 +125,7 @@ class OttawaUScraper(BaseScraper):
 
     def run(self) -> Dict[str, List[Dict[str, str]]]:
         try:
-            departments = self.getDepartmentOptions()
+            departments = self.get_department_options()
             logger.info(f"Found {len(departments)} departments")
             print(departments)
             
@@ -136,7 +136,7 @@ class OttawaUScraper(BaseScraper):
                     logger.info(f"Scraping department: {name} ({i}/{total})")
                     
                     initial_course_count = len(self.department_courses.get(value, []))
-                    self.scrapeDepartment(value)
+                    self.scrape_department(value)
                     
                     # Check if any courses were added for this department
                     new_course_count = len(self.department_courses.get(value, []))

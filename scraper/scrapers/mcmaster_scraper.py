@@ -27,7 +27,7 @@ class McMasterScraper(BaseScraper):
         super().__init__(headless=headless, timeout=5)
         self.university_name = "McMaster University"
         
-    def getDepartmentOptions(self) -> List[Tuple[str, str]]:
+    def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             checkbox = self.driver.find_element(By.ID, "exact_match")
             checkbox.click()
@@ -39,7 +39,7 @@ class McMasterScraper(BaseScraper):
             logger.error(f"Error getting department options: {e}")
             return []
 
-    def scrapeCourses(self, course_elements: List) -> List[Dict[str, str]]:
+    def scrape_courses(self, course_elements: List) -> List[Dict[str, str]]:
         department_courses = []
         for course in course_elements:
             try:
@@ -48,14 +48,14 @@ class McMasterScraper(BaseScraper):
                     course_tag = course_parts[0].strip()
                     course_name = course_parts[1].strip()
                     department_courses.append({
-                        "courseTag": course_tag,
-                        "courseName": course_name
+                        "course_tag": course_tag,
+                        "course_name": course_name
                     })
             except Exception as e:
                 logger.error(f"Error scraping course: {e}")
         return department_courses
 
-    def scrapeDepartment(self, max_retries: int = 2) -> None:
+    def scrape_department(self, max_retries: int = 2) -> None:
         retry_count = 0
         
         while retry_count < max_retries:
@@ -69,7 +69,7 @@ class McMasterScraper(BaseScraper):
                 if not course_elements:
                     break
                 
-                courses = self.scrapeCourses(course_elements)
+                courses = self.scrape_courses(course_elements)
                 
                 if courses:
                     current_dept = self.driver.find_element(By.ID, "courseprefix").get_attribute("value")
@@ -78,11 +78,11 @@ class McMasterScraper(BaseScraper):
                     else:
                         self.department_courses[current_dept] = courses
 
-                next_page = self.findNextPage()
-                if not next_page:
+                next_page_element = self.find_next_page()
+                if not next_page_element:
                     break
 
-                self.driver.execute_script("arguments[0].click();", next_page)
+                self.driver.execute_script("arguments[0].click();", next_page_element)
                 time.sleep(0.5)
                 
             except TimeoutException:
@@ -92,10 +92,10 @@ class McMasterScraper(BaseScraper):
                     break
                 self.driver.refresh()
             except Exception as e:
-                logger.error(f"Error in scrapeDepartment: {e}")
+                logger.error(f"Error in scrape_department: {e}")
                 break
 
-    def findNextPage(self) -> Optional[Any]:
+    def find_next_page(self) -> Optional[Any]:
         try:
             current_page_element = self.driver.find_element(
                 By.XPATH, '//td[contains(., "Page:")]//span[@aria-current="page"]//strong'
@@ -117,7 +117,7 @@ class McMasterScraper(BaseScraper):
     def run(self) -> Dict[str, List[Dict[str, str]]]:
         try:
             self.driver.get(self.BASE_URL)
-            departments = self.getDepartmentOptions()
+            departments = self.get_department_options()
             
             total = len(departments)
             for i, (value, name) in enumerate(departments, 1):
@@ -130,7 +130,7 @@ class McMasterScraper(BaseScraper):
                     """
                     self.driver.execute_script(script)
                     
-                    self.scrapeDepartment()
+                    self.scrape_department()
                     
                 except Exception as e:
                     logger.error(f"Error scraping department {name}: {e}")
