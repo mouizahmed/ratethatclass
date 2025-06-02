@@ -62,7 +62,7 @@ class GuelphScraper(BaseScraper):
                     # Split to get course tag and course name
                     parts = course_info.split(' ', 1)
                     if len(parts) >= 2:
-                        course_tag = parts[0].strip()
+                        course_tag = parts[0].strip().replace('*', ' ')
                         course_name = parts[1].strip()
                         
                         department_courses.append({

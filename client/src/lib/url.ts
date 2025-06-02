@@ -1,11 +1,16 @@
 export function encodeCourseId(courseId: string): string {
   const normalized = courseId.trim().toLowerCase();
 
-  return normalized.replace(/[^a-z0-9_]/g, '_');
+  // Replace special characters with URL-safe versions
+  return normalized
+    .replace(/\//g, '-') // Replace / with -
+    .replace(/[^a-z0-9\-_]/g, '_'); // Replace other special chars with _
 }
 
 export function decodeCourseId(encodedCourseId: string): string {
-  return encodedCourseId.replace(/_/g, ' ');
+  return encodedCourseId
+    .replace(/(?<=\w)-(?=\w)/g, '/') // Restore / from - only between word characters
+    .replace(/_/g, ' '); // Replace remaining _ with spaces
 }
 
 export function createDepartmentSlug(departmentName: string): string {
