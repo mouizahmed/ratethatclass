@@ -116,16 +116,14 @@ function CourseListContent({
       debouncedOrder === 'desc' &&
       (debouncedOrderBy === '' || debouncedOrderBy === Object.keys(courseSortingOptions)[0]);
 
-    if (isInitialState) {
+    if (isInitialState && !debouncedSearchValue) {
       setCourseList(initialCourses);
       setHasMore(initialHasMore);
       setCurrentPage(1);
       return;
     }
 
-    if (!initialDepartment || debouncedDepartment !== initialDepartment) {
-      fetchCourses(1, false);
-    }
+    fetchCourses(1, false);
   }, [
     debouncedSearchValue,
     debouncedDepartment,
