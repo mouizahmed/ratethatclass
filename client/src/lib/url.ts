@@ -25,5 +25,7 @@ export function createDepartmentSlug(departmentName: string): string {
       .replace(/^-+|-+$/g, '')
       // Replace multiple dashes with single dash
       .replace(/-+/g, '-')
+      // Ensure final result is lowercase
+      .toLowerCase()
   );
 }

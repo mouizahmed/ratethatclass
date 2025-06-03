@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const departments = await getDepartmentsByUniversityID(university.university_id);
-  const department = departments.find((d) => createDepartmentSlug(d.department_name) === resolvedParams.departmentName);
+  const department = departments.find((d) => createDepartmentSlug(d.department_name).toLowerCase() === resolvedParams.departmentName.toLowerCase());
 
   if (!department) {
     return {
@@ -59,7 +59,7 @@ export default async function Page({ params }: PageProps) {
   }
 
   const departments = await getDepartmentsByUniversityID(university.university_id);
-  const department = departments.find((d) => createDepartmentSlug(d.department_name) === resolvedParams.departmentName);
+  const department = departments.find((d) => createDepartmentSlug(d.department_name).toLowerCase() === resolvedParams.departmentName.toLowerCase());
 
   if (!department) {
     notFound();
