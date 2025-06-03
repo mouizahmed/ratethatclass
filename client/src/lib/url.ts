@@ -17,8 +17,8 @@ export function createDepartmentSlug(departmentName: string): string {
   return (
     departmentName
       .toLowerCase()
-      // Remove text in parentheses
-      .replace(/\([^)]*\)/g, '')
+      // Remove just the parentheses but keep the text inside
+      .replace(/[()]/g, ' ')
       // Replace special characters and spaces with dashes
       .replace(/[^a-z0-9]+/g, '-')
       // Remove leading/trailing dashes
