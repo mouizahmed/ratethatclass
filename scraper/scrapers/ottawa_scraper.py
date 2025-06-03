@@ -36,7 +36,7 @@ class OttawaScraper(BaseScraper):
                 # Extract the department code from the URL - format is "/en/courses/lcm/"
                 match = re.search(r'/en/courses/([^/]+)/', href)
                 if match:
-                    dept_code = match.group(1)
+                    dept_code = match.group(1).upper()
                     result.append((dept_code, name))
                 
             return result
@@ -75,6 +75,9 @@ class OttawaScraper(BaseScraper):
                             if match:
                                 course_tag = clean_text(match.group(1))
                                 course_name = clean_text(match.group(2).strip())
+                                
+                                # Remove anything in brackets at the end
+                                course_name = re.sub(r'\s*\([^)]*\)\s*$', '', course_name)
                                 
                                 if course_name and course_tag:
                                     self.add_course(department_code, course_tag, course_name)

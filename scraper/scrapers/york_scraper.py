@@ -144,7 +144,7 @@ class YorkScraper(BaseScraper):
             logger.error(f"Error getting department options: {e}")
             return []
 
-    def scrape_department(self, department_code: str) -> None:
+    def scrape_department(self, value: str, department_code: str) -> None:
         max_retries = 3
         retry_delay = 2
         
@@ -153,7 +153,7 @@ class YorkScraper(BaseScraper):
                 select = self.wait.until(
                     EC.presence_of_element_located((By.ID, "subjectSelect"))
                 )
-                Select(select).select_by_value(department_code)
+                Select(select).select_by_value(value)
                 self.random_delay()
                 
                 search_button = self.wait.until(
@@ -265,22 +265,22 @@ class YorkScraper(BaseScraper):
             
             total = len(departments)
             successful_departments = 0
-            for i, (value, name) in enumerate(departments, 1):
+            for i, (value, department_code) in enumerate(departments, 1):
                 try:
-                    logger.info(f"Scraping department: {name} ({i}/{total})")
+                    logger.info(f"Scraping department: {department_code} ({i}/{total})")
                     
-                    self.scrape_department(value)
+                    self.scrape_department(value, department_code)
                     
-                    if value in self.department_courses:
+                    if department_code in self.department_courses:
                         successful_departments += 1
-                        logger.info(f"Found {len(self.department_courses[value])} courses for department {name}")
+                        logger.info(f"Found {len(self.department_courses[department_code])} courses for department {department_code}")
                     else:
-                        logger.warning(f"No courses found for department {name}")
+                        logger.warning(f"No courses found for department {department_code}")
                     
                     self.random_delay()
                     
                 except Exception as e:
-                    logger.error(f"Error processing department {name}: {e}")
+                    logger.error(f"Error processing department {department_code}: {e}")
                     continue
             
             logger.info(f"Successfully scraped {successful_departments}/{total} departments")

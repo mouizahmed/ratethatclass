@@ -4,6 +4,7 @@ import time
 import traceback
 from typing import Dict, List, Any
 from .base_scraper import logger
+from unidecode import unidecode
 
 def save_to_json(university_name: str, departments: Dict[str, List[Dict[str, str]]], scraper_name: str) -> None:
     """Save scraped data to a JSON file."""
@@ -58,11 +59,8 @@ def run_scraper(scraper_class: Any, headless: bool = True) -> tuple[str | None, 
         return None, {}
 
 def clean_text(text: str) -> str:
-    """
-    Clean text by replacing non-ASCII characters with spaces and removing extra whitespace.
-    """
-    # Convert to list of characters, replacing non-ASCII with space
-    cleaned_chars = [char if ord(char) < 128 else ' ' for char in text]
-    # Join and normalize spaces
-    cleaned_text = ' '.join(''.join(cleaned_chars).split())
+    # Convert accented characters to their ASCII equivalents
+    cleaned_text = unidecode(text)
+    # Normalize spaces
+    cleaned_text = ' '.join(cleaned_text.split())
     return cleaned_text.strip() 

@@ -1,11 +1,11 @@
 {
   "university_name": "York University",
   "scraper_used": "YorkScraper",
-  "scrape_timestamp": "2025-06-01 23:22:59",
+  "scrape_timestamp": "2025-06-03 12:19:31",
   "total_departments": 155,
   "total_courses": 1325,
   "departments": {
-    "0": [
+    "ACTG": [
       {
         "course_tag": "ACTG 2010",
         "course_name": "Introduction To Financial Accounting I"
@@ -76,14 +76,14 @@
       },
       {
         "course_tag": "ACTG 6900",
-        "course_name": "Individual Study - Accounting"
+        "course_name": "Individual Study: Accounting"
       },
       {
         "course_tag": "ACTG 6900",
-        "course_name": "Individual Study: Accounting"
+        "course_name": "Individual Study - Accounting"
       }
     ],
-    "1": [
+    "ADLW": [
       {
         "course_tag": "ADLW 6764",
         "course_name": "The New Administrative Law"
@@ -93,13 +93,13 @@
         "course_name": "The Law of Police Oversight"
       }
     ],
-    "2": [
+    "ADMB": [
       {
         "course_tag": "ADMB 4799",
         "course_name": "Essentials of Emergency Management"
       }
     ],
-    "3": [
+    "ADMS": [
       {
         "course_tag": "ADMS 1000",
         "course_name": "Introduction to Business"
@@ -313,7 +313,7 @@
         "course_name": "Managing for Sustainability in Costa Rica"
       }
     ],
-    "4": [
+    "ALDR": [
       {
         "course_tag": "ALDR 6299",
         "course_name": "Teaching, Training and Coaching in Conflict Analysis and Dispute Resolution"
@@ -323,7 +323,7 @@
         "course_name": "Dispute Resolution in the Digital Age"
       }
     ],
-    "5": [
+    "ANTH": [
       {
         "course_tag": "ANTH 1120",
         "course_name": "Making Sense of a Changing World: Anthropology Today"
@@ -381,7 +381,7 @@
         "course_name": "Independent Directed Reading"
       }
     ],
-    "6": [
+    "ARB": [
       {
         "course_tag": "ARB 1000",
         "course_name": "Introduction to Modern Standard Arabic"
@@ -391,7 +391,7 @@
         "course_name": "Introduction to Modern Standard Arabic for Advanced Beginners"
       }
     ],
-    "7": [
+    "ARTH": [
       {
         "course_tag": "ARTH 4100",
         "course_name": "Independent Studies: Art History"
@@ -417,25 +417,25 @@
         "course_name": "Art History and Visual Culture Summer Institute"
       }
     ],
-    "8": [
+    "ARTM": [
       {
         "course_tag": "ARTM 6900",
         "course_name": "Individual Study: Selected Problems in Arts and Cultural Management"
       }
     ],
-    "9": [
+    "ASL": [
       {
         "course_tag": "ASL 1000",
         "course_name": "American Sign Language, Level I: Introduction to Sign Language Studies"
       }
     ],
-    "10": [
+    "AUCO": [
       {
         "course_tag": "AUCO 3565",
         "course_name": "Classroom Amplification for Deaf/Hard of Hearing Learners"
       }
     ],
-    "11": [
+    "BCHM": [
       {
         "course_tag": "BCHM 2020",
         "course_name": "Biochemistry"
@@ -453,13 +453,13 @@
         "course_name": "Molecular Biology II: Regulation of Gene Expression"
       }
     ],
-    "12": [
+    "BFSL": [
       {
         "course_tag": "BFSL 6809",
         "course_name": "Compliance in the Financial Services Sector"
       }
     ],
-    "13": [
+    "BIOL": [
       {
         "course_tag": "BIOL 1000",
         "course_name": "Biology I - Cells, Molecular Biology and Genetics"
@@ -585,7 +585,7 @@
         "course_name": "Professional Work Placement / Placement en milieu de travail"
       }
     ],
-    "14": [
+    "BLIS": [
       {
         "course_tag": "BLIS 6298",
         "course_name": "International Commercial Arbitration for Business Law"
@@ -611,7 +611,7 @@
         "course_name": "Business and Human Rights"
       }
     ],
-    "15": [
+    "BPHS": [
       {
         "course_tag": "BPHS 3900",
         "course_name": "Biophysics Internship Work Term"
@@ -621,7 +621,7 @@
         "course_name": "Biophysics Research Project"
       }
     ],
-    "16": [
+    "BUEC": [
       {
         "course_tag": "BUEC 4500",
         "course_name": "Internship"
@@ -631,7 +631,7 @@
         "course_name": "Stage professionnel"
       }
     ],
-    "17": [
+    "CCLW": [
       {
         "course_tag": "CCLW 6443",
         "course_name": "The Online Course in Canadian Criminal Law"
@@ -697,7 +697,7 @@
         "course_name": "Fundamentals of Family Law"
       }
     ],
-    "18": [
+    "CCY": [
       {
         "course_tag": "CCY 3690",
         "course_name": "Children's Literature & Film Adaptations"
@@ -723,7 +723,7 @@
         "course_name": "Research with Children and Young People: Honours Research Project"
       }
     ],
-    "19": [
+    "CDIS": [
       {
         "course_tag": "CDIS 5000",
         "course_name": "Directed Reading in Critical Disability Studies"
@@ -737,13 +737,13 @@
         "course_name": "MA Major Research Paper"
       }
     ],
-    "20": [
+    "CDNS": [
       {
         "course_tag": "CDNS 4975",
         "course_name": "Professional Work Placement / Placement en milieu de travail"
       }
     ],
-    "21": [
+    "CHEM": [
       {
         "course_tag": "CHEM 1000",
         "course_name": "Chemical Structure"
@@ -821,7 +821,7 @@
         "course_name": "PhD Research Evaluation"
       }
     ],
-    "22": [
+    "CIVL": [
       {
         "course_tag": "CIVL 3110",
         "course_name": "Soil Mechanics"
@@ -867,19 +867,19 @@
         "course_name": "Directed Reading in Water Resources Engineering"
       }
     ],
-    "23": [
+    "CLST": [
       {
         "course_tag": "CLST 1105",
         "course_name": "Myth and Imagination in Ancient Greece and Rome"
       }
     ],
-    "24": [
+    "CLTC": [
       {
         "course_tag": "CLTC 6810",
         "course_name": "Political Law"
       }
     ],
-    "25": [
+    "CLTR": [
       {
         "course_tag": "CLTR 2420",
         "course_name": "Communication, Presentation Skills and Voice"
@@ -901,7 +901,7 @@
         "course_name": "Propaganda and Culture"
       }
     ],
-    "26": [
+    "CLWP": [
       {
         "course_tag": "CLWP 6788",
         "course_name": "Topics in Advanced Criminal Law"
@@ -911,7 +911,7 @@
         "course_name": "Mental Health and the Criminal Law"
       }
     ],
-    "27": [
+    "CMA": [
       {
         "course_tag": "CMA 3255",
         "course_name": "Imagining Indigeneity: Indigenous Cinema Studies"
@@ -949,7 +949,7 @@
         "course_name": "Independent Studies in Film/Television"
       }
     ],
-    "28": [
+    "CMCT": [
       {
         "course_tag": "CMCT 6005",
         "course_name": "Masters Research Specialization and Practice"
@@ -979,7 +979,7 @@
         "course_name": "Directed Readings (Ph.D. Level)"
       }
     ],
-    "29": [
+    "CMDS": [
       {
         "course_tag": "CMDS 1000",
         "course_name": "Introduction to Communication & Media"
@@ -1009,7 +1009,7 @@
         "course_name": "Surveillance, media, and society"
       }
     ],
-    "30": [
+    "CNLW": [
       {
         "course_tag": "CNLW 6503",
         "course_name": "Delay & Disruption in Construction Law"
@@ -1019,7 +1019,7 @@
         "course_name": "Sureties and Insurance Law in Construction"
       }
     ],
-    "31": [
+    "COGS": [
       {
         "course_tag": "COGS 2800",
         "course_name": "Language and Mind"
@@ -1029,7 +1029,7 @@
         "course_name": "Philosophy of Artificial Intelligence"
       }
     ],
-    "32": [
+    "COMS": [
       {
         "course_tag": "COMS 2000",
         "course_name": "Les médias sociaux, la publicité et le marketing"
@@ -1063,7 +1063,7 @@
         "course_name": "De la carte au territoire - From map to territory: Work placement/placement en milieu de travail III"
       }
     ],
-    "33": [
+    "COOP": [
       {
         "course_tag": "COOP 2001",
         "course_name": "Co-op Work Term"
@@ -1109,7 +1109,7 @@
         "course_name": "EUC Co-op Work Term"
       }
     ],
-    "34": [
+    "CORE": [
       {
         "course_tag": "CORE 1711",
         "course_name": "Critical Thinking"
@@ -1119,7 +1119,7 @@
         "course_name": "Creative Writing and the Environment"
       }
     ],
-    "35": [
+    "CRIM": [
       {
         "course_tag": "CRIM 1650",
         "course_name": "Introduction to Criminology"
@@ -1137,25 +1137,25 @@
         "course_name": "Representing Crime"
       }
     ],
-    "36": [
+    "CRTE": [
       {
         "course_tag": "CRTE 2400",
         "course_name": "Land-based Art and Technology"
       }
     ],
-    "37": [
+    "CSSD": [
       {
         "course_tag": "CSSD 1201",
         "course_name": "Coding with Objects (CS2)"
       }
     ],
-    "38": [
+    "CWR": [
       {
         "course_tag": "CWR 2600",
         "course_name": "Introduction to Creative Writing"
       }
     ],
-    "39": [
+    "DANC": [
       {
         "course_tag": "DANC 4401",
         "course_name": "Independent Studies"
@@ -1173,13 +1173,13 @@
         "course_name": "Independent Studies"
       }
     ],
-    "40": [
+    "DATT": [
       {
         "course_tag": "DATT 3929",
         "course_name": "Internship Work Term"
       }
     ],
-    "41": [
+    "DEMS": [
       {
         "course_tag": "DEMS 2700",
         "course_name": "Fundamentals of Emergency Management"
@@ -1201,7 +1201,7 @@
         "course_name": "Major Research Paper"
       }
     ],
-    "42": [
+    "DESN": [
       {
         "course_tag": "DESN 3122",
         "course_name": "Design Advocacy"
@@ -1211,13 +1211,13 @@
         "course_name": "Publication Design"
       }
     ],
-    "43": [
+    "DIGM": [
       {
         "course_tag": "DIGM 5990",
         "course_name": "Directed Reading"
       }
     ],
-    "44": [
+    "DIGT": [
       {
         "course_tag": "DIGT 1302",
         "course_name": "Web Development Basics"
@@ -1231,13 +1231,13 @@
         "course_name": "Principles of Operating Systems"
       }
     ],
-    "45": [
+    "DRCA": [
       {
         "course_tag": "DRCA 4975",
         "course_name": "Professional Work Placement / Placement en milieu de travail"
       }
     ],
-    "46": [
+    "ECON": [
       {
         "course_tag": "ECON 1000",
         "course_name": "Introduction to Microeconomics"
@@ -1379,7 +1379,7 @@
         "course_name": "Reading & Research"
       }
     ],
-    "47": [
+    "EDFE": [
       {
         "course_tag": "EDFE 1102",
         "course_name": "Representations of Childhood in Literature and Media"
@@ -1401,7 +1401,7 @@
         "course_name": "Research Into Practice"
       }
     ],
-    "48": [
+    "EDPJ": [
       {
         "course_tag": "EDPJ 1000",
         "course_name": "Language & Literacy in the Primary-Junior Divisions"
@@ -1411,13 +1411,13 @@
         "course_name": "Mathematics in the Primary-Junior Divisions"
       }
     ],
-    "49": [
+    "EDPR": [
       {
         "course_tag": "EDPR 4000",
         "course_name": "Practicum"
       }
     ],
-    "50": [
+    "EDST": [
       {
         "course_tag": "EDST 2700",
         "course_name": "Non-Western Perspectives on Education and Learning"
@@ -1431,7 +1431,7 @@
         "course_name": "Philosophical & Critical Inquiry into Education"
       }
     ],
-    "51": [
+    "EDUC": [
       {
         "course_tag": "EDUC 2591",
         "course_name": "Thinking Mathematically"
@@ -1529,7 +1529,7 @@
         "course_name": "MRP/Thesis/Dissertation Research"
       }
     ],
-    "52": [
+    "EECS": [
       {
         "course_tag": "EECS 1012",
         "course_name": "Introduction to Computing: A Net-centric Approach"
@@ -1655,7 +1655,7 @@
         "course_name": "Directed Reading"
       }
     ],
-    "53": [
+    "EIL": [
       {
         "course_tag": "EIL 6573",
         "course_name": "Energy and Infrastructure Innovation: Law and Policy"
@@ -1665,7 +1665,7 @@
         "course_name": "The Law and Economics of Electricity Markets"
       }
     ],
-    "54": [
+    "EMBA": [
       {
         "course_tag": "EMBA 5220",
         "course_name": "Financial Management"
@@ -1723,7 +1723,7 @@
         "course_name": "Entrepreneurial Finance"
       }
     ],
-    "55": [
+    "EN": [
       {
         "course_tag": "EN 1001",
         "course_name": "An Introduction to Literary Study"
@@ -1837,7 +1837,7 @@
         "course_name": "The American Campus Novel"
       }
     ],
-    "56": [
+    "ENG": [
       {
         "course_tag": "ENG 1102",
         "course_name": "Renaissance Engineer 2: Engineering Design Principles"
@@ -1859,7 +1859,7 @@
         "course_name": "Interdisciplinary Project Launchpad"
       }
     ],
-    "57": [
+    "ENTR": [
       {
         "course_tag": "ENTR 6605",
         "course_name": "Entrepreneurship and New Firm Creation"
@@ -1885,7 +1885,7 @@
         "course_name": "Venture Capital & Private Equity"
       }
     ],
-    "58": [
+    "ENVB": [
       {
         "course_tag": "ENVB 1603",
         "course_name": "Research Practicum"
@@ -1927,7 +1927,7 @@
         "course_name": "Research Practicum"
       }
     ],
-    "59": [
+    "ENVS": [
       {
         "course_tag": "ENVS 1010",
         "course_name": "Introduction to Environmental Documentaries"
@@ -2077,7 +2077,7 @@
         "course_name": "MES Thesis Research"
       }
     ],
-    "60": [
+    "ESL": [
       {
         "course_tag": "ESL 1000",
         "course_name": "Canadian Language and Culture"
@@ -2095,7 +2095,7 @@
         "course_name": "Thinking about Contemporary Canada"
       }
     ],
-    "61": [
+    "ESS": [
       {
         "course_tag": "ESS 5010",
         "course_name": "Directed Reading"
@@ -2133,7 +2133,7 @@
         "course_name": "Ph.D. Research Evaluation"
       }
     ],
-    "62": [
+    "ESSE": [
       {
         "course_tag": "ESSE 1012",
         "course_name": "The Earth Environment"
@@ -2143,7 +2143,7 @@
         "course_name": "Land Surveying for Civil Engineers"
       }
     ],
-    "63": [
+    "EXCH": [
       {
         "course_tag": "EXCH 4901",
         "course_name": "Exchange - Schulich Business Elective"
@@ -2249,7 +2249,7 @@
         "course_name": "Exchange - Schulich Business Elective"
       }
     ],
-    "64": [
+    "FACC": [
       {
         "course_tag": "FACC 6000",
         "course_name": "Introduction to Governance and Accountability"
@@ -2311,7 +2311,7 @@
         "course_name": "Major Research Paper Option"
       }
     ],
-    "65": [
+    "FILM": [
       {
         "course_tag": "FILM 5600",
         "course_name": "Field Placement"
@@ -2341,7 +2341,7 @@
         "course_name": "Emergent Media in the City: On-Site and on the Margins"
       }
     ],
-    "66": [
+    "FINE": [
       {
         "course_tag": "FINE 5200",
         "course_name": "Managerial Finance"
@@ -2371,7 +2371,7 @@
         "course_name": "Individual Study: Selected Problems in Finance"
       }
     ],
-    "67": [
+    "FNEN": [
       {
         "course_tag": "FNEN 6820",
         "course_name": "Advanced Derivative Securities"
@@ -2385,7 +2385,7 @@
         "course_name": "Individual Study: Financial Engineering"
       }
     ],
-    "68": [
+    "FR": [
       {
         "course_tag": "FR 0120",
         "course_name": "Basic French (CEFR A1)"
@@ -2407,7 +2407,7 @@
         "course_name": "Comedy in the 18th Century"
       }
     ],
-    "69": [
+    "FRAN": [
       {
         "course_tag": "FRAN 2250",
         "course_name": "Dérives et délices. La littérature à la carte."
@@ -2437,7 +2437,7 @@
         "course_name": "Professional Work Placement / Placement en milieu de travail"
       }
     ],
-    "70": [
+    "FREN": [
       {
         "course_tag": "FREN 5248",
         "course_name": "Fondements didactiques de l'enseignement de la littérature"
@@ -2451,7 +2451,7 @@
         "course_name": "Cours de lecture dirigée / Cours individuel (Directed reading)"
       }
     ],
-    "71": [
+    "FSL": [
       {
         "course_tag": "FSL 1110",
         "course_name": "Français élémentaire 1 : Portraits"
@@ -2477,19 +2477,19 @@
         "course_name": "Français avancé 2 : L'essai"
       }
     ],
-    "72": [
+    "GCIN": [
       {
         "course_tag": "GCIN 3000",
         "course_name": "Liberal Arts & Professional Studies Internship Work Term"
       }
     ],
-    "73": [
+    "GDFC": [
       {
         "course_tag": "GDFC 6204",
         "course_name": "Introduction to Canadian Private Law"
       }
     ],
-    "74": [
+    "GEOG": [
       {
         "course_tag": "GEOG 3280",
         "course_name": "On Location: Urban Placemaking and the Spatial Politics of Difference"
@@ -2531,7 +2531,7 @@
         "course_name": "Ph.D. Directed Reading Course"
       }
     ],
-    "75": [
+    "GH": [
       {
         "course_tag": "GH 4000",
         "course_name": "Independent Study"
@@ -2557,7 +2557,7 @@
         "course_name": "Selected Topics in Social Determinants of Global Health"
       }
     ],
-    "76": [
+    "GLBL": [
       {
         "course_tag": "GLBL 2400",
         "course_name": "Introduction to Comparative Politics"
@@ -2595,13 +2595,13 @@
         "course_name": "The Politics of Southern Africa"
       }
     ],
-    "77": [
+    "GMMM": [
       {
         "course_tag": "GMMM 5100",
         "course_name": "Metals and Minerals in the Global Economy"
       }
     ],
-    "78": [
+    "GNRL": [
       {
         "course_tag": "GNRL 6101",
         "course_name": "Advanced Legal Research and Writing Skills"
@@ -2627,7 +2627,7 @@
         "course_name": "Independent Significant Research Paper"
       }
     ],
-    "79": [
+    "GWST": [
       {
         "course_tag": "GWST 1501",
         "course_name": "Introduction to Gender and Women's Studies"
@@ -2697,7 +2697,7 @@
         "course_name": "Professional Work Placement / Placement en milieu de travail"
       }
     ],
-    "80": [
+    "HIMP": [
       {
         "course_tag": "HIMP 6900",
         "course_name": "Individual Study - Health Industry Management Program"
@@ -2707,7 +2707,7 @@
         "course_name": "Individual Study - Health Industry Management Program"
       }
     ],
-    "81": [
+    "HIST": [
       {
         "course_tag": "HIST 1791",
         "course_name": "Migration, Immigration and Beyond: Italians in North America"
@@ -2773,7 +2773,7 @@
         "course_name": "Directed Readings"
       }
     ],
-    "82": [
+    "HLST": [
       {
         "course_tag": "HLST 2302",
         "course_name": "Statistical Methods in Health Studies II"
@@ -2791,13 +2791,13 @@
         "course_name": "Health Policy & Management Community Partner Field Project"
       }
     ],
-    "83": [
+    "HLTH": [
       {
         "course_tag": "HLTH 5000",
         "course_name": "Directed Studies in Health Studies"
       }
     ],
-    "84": [
+    "HREQ": [
       {
         "course_tag": "HREQ 1700",
         "course_name": "Women and Human Rights"
@@ -2839,7 +2839,7 @@
         "course_name": "Atrocity, Genocide and Crimes against Humanity"
       }
     ],
-    "85": [
+    "HRM": [
       {
         "course_tag": "HRM 2600",
         "course_name": "Human Resources Management"
@@ -2929,7 +2929,7 @@
         "course_name": "Workplace Citizenship: Lessons from Labour Relations"
       }
     ],
-    "86": [
+    "HUMA": [
       {
         "course_tag": "HUMA 1010",
         "course_name": "Word Power: Building Essential English Vocabulary Using Latin and Greek Roots"
@@ -3079,13 +3079,13 @@
         "course_name": "Directed Reading"
       }
     ],
-    "87": [
+    "IBUS": [
       {
         "course_tag": "IBUS 4100",
         "course_name": "Work Placement in the Global Context"
       }
     ],
-    "88": [
+    "ILST": [
       {
         "course_tag": "ILST 4300",
         "course_name": "Stage pratique professionnel"
@@ -3095,13 +3095,13 @@
         "course_name": "Professional Internship"
       }
     ],
-    "89": [
+    "INDG": [
       {
         "course_tag": "INDG 1050",
         "course_name": "Introduction to Indigenous Studies"
       }
     ],
-    "90": [
+    "INST": [
       {
         "course_tag": "INST 5010",
         "course_name": "Directed Readings"
@@ -3115,13 +3115,13 @@
         "course_name": "Practicum"
       }
     ],
-    "91": [
+    "INTE": [
       {
         "course_tag": "INTE 5790",
         "course_name": "Mentoring Practicum in Interpreting : Fostering Autonomy and Self-Directed Learning Among Trainee Interpreters"
       }
     ],
-    "92": [
+    "IT": [
       {
         "course_tag": "IT 1000",
         "course_name": "Elementary Italian"
@@ -3131,7 +3131,7 @@
         "course_name": "Migration, Immigration and Beyond: Italians in North America"
       }
     ],
-    "93": [
+    "ITEC": [
       {
         "course_tag": "ITEC 1000",
         "course_name": "Introduction to Information Technologies"
@@ -3213,7 +3213,7 @@
         "course_name": "Cyber Threat Intelligence and Adversarial Risk Analysis"
       }
     ],
-    "94": [
+    "JWST": [
       {
         "course_tag": "JWST 3825",
         "course_name": "The Holocaust in Cross-Cultural Context: Canada, Germany, Poland, (Study Abroad)"
@@ -3235,7 +3235,7 @@
         "course_name": "Directed Reading"
       }
     ],
-    "95": [
+    "KAHS": [
       {
         "course_tag": "KAHS 5400",
         "course_name": "Master's Practica"
@@ -3253,7 +3253,7 @@
         "course_name": "Readings in Special Topics"
       }
     ],
-    "96": [
+    "KINE": [
       {
         "course_tag": "KINE 1900",
         "course_name": "Integrated Physical Activity for Life I: Physical Fitness, Mental Health, Physical Literacy"
@@ -3335,19 +3335,19 @@
         "course_name": "Secondary Prevention of Heart Disease: Cardiac Rehabilitation in a Global Context"
       }
     ],
-    "97": [
+    "KOR": [
       {
         "course_tag": "KOR 1000",
         "course_name": "Elementary Modern Standard Korean"
       }
     ],
-    "98": [
+    "LA": [
       {
         "course_tag": "LA 1010",
         "course_name": "Word Power: Building Essential English Vocabulary Using Latin and Greek Roots"
       }
     ],
-    "99": [
+    "LAL": [
       {
         "course_tag": "LAL 6220",
         "course_name": "Advanced Topics in Applied Linguistics"
@@ -3365,13 +3365,13 @@
         "course_name": "Independent Study"
       }
     ],
-    "100": [
+    "LAW": [
       {
         "course_tag": "LAW 6040",
         "course_name": "Directed Reading"
       }
     ],
-    "101": [
+    "LAWB": [
       {
         "course_tag": "LAWB 6701",
         "course_name": "Selected Topics in Business Law"
@@ -3385,7 +3385,7 @@
         "course_name": "Corporate Remedies"
       }
     ],
-    "102": [
+    "LAWH": [
       {
         "course_tag": "LAWH 6856",
         "course_name": "Information Technology and Privacy in Health Law"
@@ -3395,13 +3395,13 @@
         "course_name": "Biotechnology and Issues in Health Law"
       }
     ],
-    "103": [
+    "LAWL": [
       {
         "course_tag": "LAWL 6754",
         "course_name": "Patent Law"
       }
     ],
-    "104": [
+    "LIN": [
       {
         "course_tag": "LIN 1603",
         "course_name": "Introduction to Linguistics"
@@ -3415,7 +3415,7 @@
         "course_name": "Introduction to Language and the Law"
       }
     ],
-    "105": [
+    "LING": [
       {
         "course_tag": "LING 1000",
         "course_name": "Introduction to Linguistics"
@@ -3429,7 +3429,7 @@
         "course_name": "Psycholinguistics"
       }
     ],
-    "106": [
+    "LREL": [
       {
         "course_tag": "LREL 6027",
         "course_name": "Public Sector Labour and Employment Law"
@@ -3439,7 +3439,7 @@
         "course_name": "Special Topics in the Law of Work"
       }
     ],
-    "107": [
+    "MATH": [
       {
         "course_tag": "MATH 1013",
         "course_name": "Applied Calculus I"
@@ -3605,7 +3605,7 @@
         "course_name": "Practicum in Industrial & Applied Mathematics"
       }
     ],
-    "108": [
+    "MBAN": [
       {
         "course_tag": "MBAN 6110",
         "course_name": "Data Science I"
@@ -3615,7 +3615,7 @@
         "course_name": "Realizing Value from AI and Analytics in Organizations"
       }
     ],
-    "109": [
+    "MECH": [
       {
         "course_tag": "MECH 2201",
         "course_name": "Thermodynamics"
@@ -3665,7 +3665,7 @@
         "course_name": "Ph.D. Dissertation"
       }
     ],
-    "110": [
+    "MFIN": [
       {
         "course_tag": "MFIN 5500",
         "course_name": "Analysis of Structured Products using Excel"
@@ -3687,7 +3687,7 @@
         "course_name": "Ethical Decision Making for Finance Professionals"
       }
     ],
-    "111": [
+    "MGMT": [
       {
         "course_tag": "MGMT 4850",
         "course_name": "Work Placement"
@@ -3745,7 +3745,7 @@
         "course_name": "Management Consulting"
       }
     ],
-    "112": [
+    "MHIA": [
       {
         "course_tag": "MHIA 6000",
         "course_name": "Summer Workshop: in Healthcare Systems and Public Policy"
@@ -3767,7 +3767,7 @@
         "course_name": "Public Policy for Healthcare"
       }
     ],
-    "113": [
+    "MKTG": [
       {
         "course_tag": "MKTG 4900",
         "course_name": "Guided Study - Selected Problems in Marketing"
@@ -3833,7 +3833,7 @@
         "course_name": "Research Paper Formation"
       }
     ],
-    "114": [
+    "MMAI": [
       {
         "course_tag": "MMAI 5000",
         "course_name": "Artificial Intelligence Fundamentals"
@@ -3843,7 +3843,7 @@
         "course_name": "Database Fundamentals"
       }
     ],
-    "115": [
+    "MODR": [
       {
         "course_tag": "MODR 1711",
         "course_name": "Critical Thinking"
@@ -3861,7 +3861,7 @@
         "course_name": "Modes of Reasoning: Techniques of Persuasion"
       }
     ],
-    "116": [
+    "MSTM- Master of Management": [
       {
         "course_tag": "MSTM 5000",
         "course_name": "Business Communication & Team Dynamics"
@@ -3879,7 +3879,7 @@
         "course_name": "Enterprise Consulting Project"
       }
     ],
-    "117": [
+    "MUSI": [
       {
         "course_tag": "MUSI 1012",
         "course_name": "Guitar for Non-Majors and Majors"
@@ -3937,7 +3937,7 @@
         "course_name": "West African Drum Ensemble: Ghanaian"
       }
     ],
-    "118": [
+    "NATS": [
       {
         "course_tag": "NATS 1506",
         "course_name": "Understanding Artificial Intelligence"
@@ -3995,7 +3995,7 @@
         "course_name": "Understanding Colour"
       }
     ],
-    "119": [
+    "NRSC": [
       {
         "course_tag": "NRSC 4000",
         "course_name": "Neuroscience Individual Research Project"
@@ -4005,7 +4005,7 @@
         "course_name": "Neuroscience Individual Research Project"
       }
     ],
-    "120": [
+    "NURS": [
       {
         "course_tag": "NURS 2536",
         "course_name": "Pathophysiology, Pharmacology and Knowledge Integration II"
@@ -4131,7 +4131,7 @@
         "course_name": "Independent Directed Reading"
       }
     ],
-    "121": [
+    "OMIS": [
       {
         "course_tag": "OMIS 5210",
         "course_name": "Operations Management"
@@ -4161,7 +4161,7 @@
         "course_name": "Research Methods in Operations Management and Information Systems"
       }
     ],
-    "122": [
+    "ORGS": [
       {
         "course_tag": "ORGS 6350",
         "course_name": "Managing Change"
@@ -4179,7 +4179,7 @@
         "course_name": "Individual Study: Selected Problems in Organization Studies"
       }
     ],
-    "123": [
+    "OVGS": [
       {
         "course_tag": "OVGS 8000",
         "course_name": "University of Toronto"
@@ -4261,7 +4261,7 @@
         "course_name": "University of Windsor"
       }
     ],
-    "124": [
+    "PACC": [
       {
         "course_tag": "PACC 5530",
         "course_name": "Financial Statement Analysis and Valuation"
@@ -4283,7 +4283,7 @@
         "course_name": "Integrative Analysis in Accounting"
       }
     ],
-    "125": [
+    "PANF": [
       {
         "course_tag": "PANF 3030",
         "course_name": "Global Eco-Arts Residency"
@@ -4305,13 +4305,13 @@
         "course_name": "Advanced Methods & Research in the Arts"
       }
     ],
-    "126": [
+    "PCS": [
       {
         "course_tag": "PCS 6162",
         "course_name": "Privacy Law in Canada"
       }
     ],
-    "127": [
+    "PHIL": [
       {
         "course_tag": "PHIL 1002",
         "course_name": "Justice, Law and Morality"
@@ -4373,7 +4373,7 @@
         "course_name": "Topics in Moral Psychology"
       }
     ],
-    "128": [
+    "PHYS": [
       {
         "course_tag": "PHYS 1421",
         "course_name": "Physics with Life Science Applications 1"
@@ -4419,7 +4419,7 @@
         "course_name": "Selected Topics in Applied Optical Physics"
       }
     ],
-    "129": [
+    "PKIN": [
       {
         "course_tag": "PKIN 0200",
         "course_name": "Swimming I"
@@ -4525,7 +4525,7 @@
         "course_name": "Elementary and Recreational Games"
       }
     ],
-    "130": [
+    "POLS": [
       {
         "course_tag": "POLS 1000",
         "course_name": "Introduction to Politics: Exploring the Democratic Experience"
@@ -4647,7 +4647,7 @@
         "course_name": "M.A. Major Research Paper"
       }
     ],
-    "131": [
+    "PPAL": [
       {
         "course_tag": "PPAL 6000",
         "course_name": "Public Management"
@@ -4669,7 +4669,7 @@
         "course_name": "Independent Readings and Research"
       }
     ],
-    "132": [
+    "PPAS": [
       {
         "course_tag": "PPAS 1000",
         "course_name": "Introduction to Politics: Exploring the Democratic Experience"
@@ -4715,7 +4715,7 @@
         "course_name": "Politics, Law and the Courts"
       }
     ],
-    "133": [
+    "PROP": [
       {
         "course_tag": "PROP 6003",
         "course_name": "Leadership in Real Estate and Infrastructure III"
@@ -4741,7 +4741,7 @@
         "course_name": "Individual Study: Selected Problems in Real Property"
       }
     ],
-    "134": [
+    "PSYC": [
       {
         "course_tag": "PSYC 1010",
         "course_name": "Introduction to Psychology"
@@ -4963,7 +4963,7 @@
         "course_name": "Diversity Issues in Children, Youth and Adults in Clinical Practice"
       }
     ],
-    "135": [
+    "RLST": [
       {
         "course_tag": "RLST 1105",
         "course_name": "Myth and Imagination in Ancient Greece and Rome"
@@ -4997,7 +4997,7 @@
         "course_name": "The Arabian Nights: Morality, Sexuality and Strategies of Interpretation"
       }
     ],
-    "136": [
+    "SELA": [
       {
         "course_tag": "SELA 6129",
         "course_name": "Securities Law - Financial Advisory Services"
@@ -5007,7 +5007,7 @@
         "course_name": "Continuous Disclosure"
       }
     ],
-    "137": [
+    "SGMT": [
       {
         "course_tag": "SGMT 6000",
         "course_name": "Strategic Management"
@@ -5025,13 +5025,13 @@
         "course_name": "Strategic Management: Individual Study"
       }
     ],
-    "138": [
+    "SLST": [
       {
         "course_tag": "SLST 5900",
         "course_name": "Directed Reading"
       }
     ],
-    "139": [
+    "SOCI": [
       {
         "course_tag": "SOCI 1010",
         "course_name": "Introduction to Sociology"
@@ -5101,7 +5101,7 @@
         "course_name": "Independent Reading Course"
       }
     ],
-    "140": [
+    "SOSC": [
       {
         "course_tag": "SOSC 1000",
         "course_name": "Introduction to Social Science"
@@ -5247,7 +5247,7 @@
         "course_name": "Professional Work Placement / Placement en milieu de travail"
       }
     ],
-    "141": [
+    "SOWK": [
       {
         "course_tag": "SOWK 2020",
         "course_name": "Addiction in Contemporary Society"
@@ -5329,7 +5329,7 @@
         "course_name": "Violence in Families"
       }
     ],
-    "142": [
+    "SP": [
       {
         "course_tag": "SP 1000",
         "course_name": "Elementary Spanish"
@@ -5343,13 +5343,13 @@
         "course_name": "Foreign Language and Digital Media: Developing Skills for Online, Spanish-English Publications"
       }
     ],
-    "143": [
+    "SPTH": [
       {
         "course_tag": "SPTH 6001",
         "course_name": "Directed Readings"
       }
     ],
-    "144": [
+    "STS": [
       {
         "course_tag": "STS 1411",
         "course_name": "Introduction to Science, Technology and Society"
@@ -5375,7 +5375,7 @@
         "course_name": "Independent Research in Science and Technology Studies"
       }
     ],
-    "145": [
+    "SUST": [
       {
         "course_tag": "SUST 5200",
         "course_name": "Business and Sustainability"
@@ -5393,7 +5393,7 @@
         "course_name": "Ethics and Finance"
       }
     ],
-    "146": [
+    "SXST": [
       {
         "course_tag": "SXST 1600",
         "course_name": "Introduction to Sexuality Studies"
@@ -5431,7 +5431,7 @@
         "course_name": "Directed Readings/Travaux Individuels"
       }
     ],
-    "147": [
+    "TECL": [
       {
         "course_tag": "TECL 1000",
         "course_name": "Disruptive Technology Innovation & Entrepreneurship"
@@ -5445,7 +5445,7 @@
         "course_name": "Management of Interdisciplinary Projects"
       }
     ],
-    "148": [
+    "THEA": [
       {
         "course_tag": "THEA 1900",
         "course_name": "Sex, Drugs, and Theatre"
@@ -5507,7 +5507,7 @@
         "course_name": "Independent Study II"
       }
     ],
-    "149": [
+    "THST": [
       {
         "course_tag": "THST 5051",
         "course_name": "Theatre & Performance Studies Internship"
@@ -5525,7 +5525,7 @@
         "course_name": "Independent Studies [rubric]"
       }
     ],
-    "150": [
+    "TRAN": [
       {
         "course_tag": "TRAN 3900",
         "course_name": "Onsite Professional Internship/Stage professionnel en entreprise"
@@ -5539,7 +5539,7 @@
         "course_name": "Online Professional Internship/Stage professionnel à distance"
       }
     ],
-    "151": [
+    "TRAS": [
       {
         "course_tag": "TRAS 5151",
         "course_name": "The City in Translation: Negotiating Linguistic Plurality in Urban Spaces"
@@ -5553,7 +5553,7 @@
         "course_name": "Reading Course/Travail Individuel"
       }
     ],
-    "152": [
+    "TXLW": [
       {
         "course_tag": "TXLW 6702",
         "course_name": "Selected Topics in Tax Policy"
@@ -5567,7 +5567,7 @@
         "course_name": "Tax Administration and Litigation"
       }
     ],
-    "153": [
+    "VISA": [
       {
         "course_tag": "VISA 1006",
         "course_name": "The Photographic Experience"
@@ -5601,7 +5601,7 @@
         "course_name": "Directed Reading"
       }
     ],
-    "154": [
+    "WRIT": [
       {
         "course_tag": "WRIT 1006",
         "course_name": "A Writer's Introduction to Literary Forms"
