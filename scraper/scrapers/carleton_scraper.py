@@ -35,8 +35,8 @@ class CarletonUScraper(BaseScraper):
             
             result = []
             for link in filtered_links:
-                href = link.get('href')
-                name = link.text.strip().replace(')', '')
+                href = link.get('href').rstrip('/')
+                name = link.text.strip().replace(')', '').rstrip('/')
                 
                 # Clean up the href - remove /undergrad/courses/ prefix if it exists
                 if href.startswith('/undergrad/courses/'):

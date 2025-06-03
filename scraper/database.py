@@ -1,26 +1,31 @@
 import psycopg2
 from psycopg2 import Error
 from typing import Dict, List, Optional
-import logging
-from datetime import datetime
 from logger import setup_logger
+import json
+import os
+import glob
+from dotenv import load_dotenv
 
-# Get configured logger
 logger = setup_logger(__name__)
 
 class DatabaseManager:
-    def __init__(self, dbname: str, user: str, password: str, host: str = "localhost", port: str = "5432"):
-        """Initialize database connection parameters."""
-        self.dbname = dbname
-        self.user = user
-        self.password = password
-        self.host = host
-        self.port = port
+    def __init__(self):
+        load_dotenv()
+        
+        self.dbname = os.getenv('DB_NAME')
+        self.user = os.getenv('DB_USER')
+        self.password = os.getenv('DB_PASSWORD')
+        self.host = os.getenv('DB_HOST', 'localhost')
+        self.port = os.getenv('DB_PORT', '5432')
+        
+        if not all([self.dbname, self.user, self.password]):
+            raise ValueError("Missing required database configuration. Check your .env file for DB_NAME, DB_USER, and DB_PASSWORD")
+            
         self.connection = None
         self.cursor = None
 
     def connect(self) -> bool:
-        """Establish connection to the PostgreSQL database."""
         try:
             self.connection = psycopg2.connect(
                 dbname=self.dbname,
@@ -37,18 +42,13 @@ class DatabaseManager:
             return False
 
     def disconnect(self):
-        """Close database connection."""
         if self.cursor:
             self.cursor.close()
         if self.connection:
             self.connection.close()
             logger.info("Database connection closed")
 
-    def get_university_id(self, university_name: str) -> Optional[int]:
-        """
-        Get the university ID by name.
-        Returns the university ID if found, None otherwise.
-        """
+    def get_university_id(self, university_name: str) -> Optional[str]:
         try:
             query = """
                 SELECT university_id FROM universities 
@@ -66,11 +66,7 @@ class DatabaseManager:
             logger.error(f"Error getting university ID: {e}")
             return None
 
-    def insert_department(self, department_name: str, university_id: int) -> Optional[int]:
-        """
-        Insert a new department into the database.
-        Returns the department_id regardless if it's a new insert or already exists.
-        """
+    def insert_department(self, department_name: str, university_id: str) -> Optional[str]:
         try:
             # First check if the department already exists
             query = """
@@ -102,7 +98,6 @@ class DatabaseManager:
             return None
 
     def insert_course(self, department_id: str, course_tag: str, course_name: str) -> bool:
-        """Insert a new course into the database."""
         try:
             # Check if course already exists
             query = """
@@ -178,11 +173,56 @@ class DatabaseManager:
             self.connection.rollback()
             return False
 
+    def load_and_insert_from_json(self) -> bool:
+        try:
+            # Always use the scraper's directory as base path
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            json_dir = os.path.join(base_dir, "scraped_data")
+            
+            json_pattern = os.path.join(json_dir, "*.json")
+            json_files = glob.glob(json_pattern)
+            
+            if not json_files:
+                logger.error(f"No JSON files found in directory: {json_dir}")
+                return False
+                
+            logger.info(f"Found {len(json_files)} JSON files to process")
+            successful_imports = 0
+            
+            for json_file in json_files:
+                try:
+                    with open(json_file, 'r', encoding='utf-8') as f:
+                        json_data = json.load(f)
+                    
+                    university_name = json_data.get("university_name")
+                    departments = json_data.get("departments")
+                    
+                    if not university_name or not departments:
+                        logger.error(f"Invalid JSON format in {json_file}. Missing university_name or departments.")
+                        continue
+                    
+                    logger.info(f"Processing {university_name} from {json_file}")
+                    
+                    if self.insert_courses_batch(university_name, departments):
+                        successful_imports += 1
+                        logger.info(f"Successfully imported data for {university_name}")
+                    else:
+                        logger.error(f"Failed to import data for {university_name}")
+                        
+                except (json.JSONDecodeError, FileNotFoundError) as e:
+                    logger.error(f"Error reading JSON file {json_file}: {e}")
+                    continue
+            
+            logger.info(f"JSON import complete. Successfully imported {successful_imports}/{len(json_files)} files")
+            return successful_imports > 0
+            
+        except Exception as e:
+            logger.error(f"Error in load_and_insert_from_json: {e}")
+            return False
+
     def __enter__(self):
-        """Context manager entry."""
         self.connect()
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        """Context manager exit."""
         self.disconnect()

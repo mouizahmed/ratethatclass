@@ -1,11 +1,11 @@
 {
   "university_name": "Carleton University",
   "scraper_used": "CarletonUScraper",
-  "scrape_timestamp": "2025-06-01 22:22:47",
+  "scrape_timestamp": "2025-06-02 22:15:32",
   "total_departments": 109,
   "total_courses": 3810,
   "departments": {
-    "AERO/": [
+    "AERO": [
       {
         "course_tag": "AERO 2001",
         "course_name": "Aerospace Engineering Graphical Design"
@@ -99,7 +99,7 @@
         "course_name": "Spacecraft Design II"
       }
     ],
-    "AFRI/": [
+    "AFRI": [
       {
         "course_tag": "AFRI 1001",
         "course_name": "Introduction to African Studies I"
@@ -197,7 +197,7 @@
         "course_name": "Tutorial in African Studies"
       }
     ],
-    "ASLA/": [
+    "ASLA": [
       {
         "course_tag": "ASLA 1010",
         "course_name": "First-Year American Sign Language I"
@@ -247,7 +247,7 @@
         "course_name": "Independent Study"
       }
     ],
-    "ANTH/": [
+    "ANTH": [
       {
         "course_tag": "ANTH 1001",
         "course_name": "Introduction to Socio-Cultural Anthropology"
@@ -569,7 +569,7 @@
         "course_name": "Tutorial in Anthropology"
       }
     ],
-    "ALDS/": [
+    "ALDS": [
       {
         "course_tag": "ALDS 1001",
         "course_name": "Language Matters: Introduction to ALDS"
@@ -751,7 +751,7 @@
         "course_name": "Honours Project in Applied Linguistics and Discourse Studies"
       }
     ],
-    "ARAB/": [
+    "ARAB": [
       {
         "course_tag": "ARAB 1010",
         "course_name": "First-Year Arabic I"
@@ -781,7 +781,7 @@
         "course_name": "Third-Year Arabic II"
       }
     ],
-    "ARCY/": [
+    "ARCY": [
       {
         "course_tag": "ARCY 1008",
         "course_name": "Introduction to Archaeology I"
@@ -807,7 +807,7 @@
         "course_name": "Archaeological Field Work II"
       }
     ],
-    "acse/": [
+    "acse": [
       {
         "course_tag": "ACSE 2001",
         "course_name": "Architecture and the Environment"
@@ -861,7 +861,7 @@
         "course_name": "Design Project"
       }
     ],
-    "ARCH/": [
+    "ARCH": [
       {
         "course_tag": "ARCS 2105",
         "course_name": "Studio 2"
@@ -1203,7 +1203,7 @@
         "course_name": "Topics in Urbanism"
       }
     ],
-    "ARTH/": [
+    "ARTH": [
       {
         "course_tag": "ARTH 1100",
         "course_name": "Art and Society: Prehistory to 1300"
@@ -1445,7 +1445,7 @@
         "course_name": "Honours Research Project"
       }
     ],
-    "BIOC/": [
+    "BIOC": [
       {
         "course_tag": "BIOC 1500",
         "course_name": "Biochemistry in a Modern Society"
@@ -1563,7 +1563,7 @@
         "course_name": "Research Project"
       }
     ],
-    "BIOL/": [
+    "BIOL": [
       {
         "course_tag": "BIOL 1010",
         "course_name": "Biotechnology and Society"
@@ -1917,7 +1917,7 @@
         "course_name": "Honours Research Thesis"
       }
     ],
-    "BUSI/": [
+    "BUSI": [
       {
         "course_tag": "BUSI 1001",
         "course_name": "Principles of Financial Accounting"
@@ -2535,7 +2535,7 @@
         "course_name": "Research Project for Business"
       }
     ],
-    "CDNS/": [
+    "CDNS": [
       {
         "course_tag": "CDNS 1001",
         "course_name": "Introduction to the Study of Canada"
@@ -2685,7 +2685,7 @@
         "course_name": "Directed Studies III"
       }
     ],
-    "CIED/": [
+    "CIED": [
       {
         "course_tag": "CIED 0999",
         "course_name": "Academic Prep"
@@ -2703,7 +2703,7 @@
         "course_name": "Academic Discourse: Theory and Practice"
       }
     ],
-    "CHEM/": [
+    "CHEM": [
       {
         "course_tag": "CHEM 1001",
         "course_name": "General Chemistry I"
@@ -2957,7 +2957,7 @@
         "course_name": "Research Project and Seminar"
       }
     ],
-    "CHST/": [
+    "CHST": [
       {
         "course_tag": "CHST 1101",
         "course_name": "Introduction to Childhood and Youth Studies"
@@ -3067,7 +3067,7 @@
         "course_name": "Independent Study"
       }
     ],
-    "CHIN/": [
+    "CHIN": [
       {
         "course_tag": "CHIN 1010",
         "course_name": "First-Year Mandarin Chinese I"
@@ -3133,7 +3133,7 @@
         "course_name": "Independent Study"
       }
     ],
-    "CIVE/": [
+    "CIVE": [
       {
         "course_tag": "CIVE 2004",
         "course_name": "GIS, Surveying, CAD and BIM"
@@ -3291,7 +3291,7 @@
         "course_name": "Design Project"
       }
     ],
-    "CLCV/": [
+    "CLCV": [
       {
         "course_tag": "CLCV 1002",
         "course_name": "Survey of Greek Civilization"
@@ -3457,13 +3457,13 @@
         "course_name": "Directed Readings and Research"
       }
     ],
-    "COOP/": [
+    "COOP": [
       {
         "course_tag": "COOP 1000",
         "course_name": "Co-op Preparation"
       }
     ],
-    "CGSC/": [
+    "CGSC": [
       {
         "course_tag": "CGSC 1001",
         "course_name": "Mysteries of the Mind"
@@ -3545,7 +3545,7 @@
         "course_name": "Honours Project"
       }
     ],
-    "COMS/": [
+    "COMS": [
       {
         "course_tag": "COMS 1001",
         "course_name": "Foundations: Media History"
@@ -3855,7 +3855,7 @@
         "course_name": "Honours Research Essay"
       }
     ],
-    "CCDP/": [
+    "CCDP": [
       {
         "course_tag": "CCDP 2004",
         "course_name": "Communication Skills for NET"
@@ -3877,7 +3877,7 @@
         "course_name": "Communication Skills for OSS"
       }
     ],
-    "COMP/": [
+    "COMP": [
       {
         "course_tag": "COMP 1001",
         "course_name": "Introduction to Computational Thinking for Arts and Social Science Students"
@@ -4191,7 +4191,7 @@
         "course_name": "Internship"
       }
     ],
-    "CRCJ/": [
+    "CRCJ": [
       {
         "course_tag": "CRCJ 1000",
         "course_name": "Introduction to Criminology and Criminal Justice"
@@ -4309,7 +4309,7 @@
         "course_name": "Independent Study in Criminology and Criminal Justice"
       }
     ],
-    "CRST/": [
+    "CRST": [
       {
         "course_tag": "CRST 2001",
         "course_name": "Introduction to Critical Race Studies"
@@ -4323,7 +4323,7 @@
         "course_name": "Advanced Critical Race Studies"
       }
     ],
-    "CSEC/": [
+    "CSEC": [
       {
         "course_tag": "CSEC 2108",
         "course_name": "Cryptographic Algorithms and Protocols"
@@ -4361,7 +4361,7 @@
         "course_name": "Selected Topics in Security II"
       }
     ],
-    "DATA/": [
+    "DATA": [
       {
         "course_tag": "DATA 1517",
         "course_name": "Data Modelling I"
@@ -4391,7 +4391,7 @@
         "course_name": "Consulting Project"
       }
     ],
-    "DIGH/": [
+    "DIGH": [
       {
         "course_tag": "DIGH 2001",
         "course_name": "Introduction to Digital Humanities"
@@ -4461,7 +4461,7 @@
         "course_name": "Digital Humanities Practicum"
       }
     ],
-    "DBST/": [
+    "DBST": [
       {
         "course_tag": "DBST 1001",
         "course_name": "Introduction to Disability Studies"
@@ -4503,7 +4503,7 @@
         "course_name": "Interdisciplinary Topics in Disability Studies"
       }
     ],
-    "ERTH/": [
+    "ERTH": [
       {
         "course_tag": "ERTH 1002",
         "course_name": "The Earth and Life Odyssey: A Journey Through Billions of Years"
@@ -4705,7 +4705,7 @@
         "course_name": "Research in Earth Sciences"
       }
     ],
-    "ECON/": [
+    "ECON": [
       {
         "course_tag": "ECON 0005",
         "course_name": "Preparatory Mathematics for Economics"
@@ -5063,7 +5063,7 @@
         "course_name": "Research and Writing in Economics"
       }
     ],
-    "ELEC/": [
+    "ELEC": [
       {
         "course_tag": "ELEC 2501",
         "course_name": "Circuits and Signals"
@@ -5209,7 +5209,7 @@
         "course_name": "Engineering Physics Project"
       }
     ],
-    "ECOR/": [
+    "ECOR": [
       {
         "course_tag": "ECOR 1010",
         "course_name": "Introduction to Engineering"
@@ -5323,7 +5323,7 @@
         "course_name": "Professional Practice"
       }
     ],
-    "ENGL/": [
+    "ENGL": [
       {
         "course_tag": "ENGL 1002",
         "course_name": "Writing and Language I"
@@ -5901,7 +5901,7 @@
         "course_name": "Issues in Postcolonial Literature"
       }
     ],
-    "ESLA/": [
+    "ESLA": [
       {
         "course_tag": "ESLA 1300",
         "course_name": "Introductory English as a Second Language for Academic Purposes"
@@ -5923,7 +5923,7 @@
         "course_name": "English Language Development for Specific Purposes II"
       }
     ],
-    "EACH/": [
+    "EACH": [
       {
         "course_tag": "EACH 2000",
         "course_name": "Introduction to the Environmental and Climate Humanities"
@@ -5933,7 +5933,7 @@
         "course_name": "Seminar in the Environmental and Climate Humanities"
       }
     ],
-    "ENVE/": [
+    "ENVE": [
       {
         "course_tag": "ENVE 1001",
         "course_name": "Architecture and the Environment"
@@ -6019,7 +6019,7 @@
         "course_name": "Design Project"
       }
     ],
-    "ENSC/": [
+    "ENSC": [
       {
         "course_tag": "ENSC 1500",
         "course_name": "Environmental Science Seminar"
@@ -6097,7 +6097,7 @@
         "course_name": "Translational Approach to Indigenous Community Wellness"
       }
     ],
-    "ENST/": [
+    "ENST": [
       {
         "course_tag": "ENST 1000",
         "course_name": "Introduction to Environmental and Climate Change Studies"
@@ -6199,7 +6199,7 @@
         "course_name": "Honours Research Essay"
       }
     ],
-    "EURR/": [
+    "EURR": [
       {
         "course_tag": "EURR 1001",
         "course_name": "Introduction to European and Russian Studies"
@@ -6317,7 +6317,7 @@
         "course_name": "Honours Essay"
       }
     ],
-    "FILM/": [
+    "FILM": [
       {
         "course_tag": "FILM 1101",
         "course_name": "Introduction to Film Studies"
@@ -6495,7 +6495,7 @@
         "course_name": "Independent Study"
       }
     ],
-    "FYSM/": [
+    "FYSM": [
       {
         "course_tag": "FYSM 1000",
         "course_name": "Special Topics in Arts and Social Sciences"
@@ -6709,7 +6709,7 @@
         "course_name": "One-Term Seminar in Economics"
       }
     ],
-    "FOOD/": [
+    "FOOD": [
       {
         "course_tag": "FOOD 1001",
         "course_name": "Introduction to Food Science"
@@ -6795,7 +6795,7 @@
         "course_name": "Food Science  Research Project"
       }
     ],
-    "FREN/": [
+    "FREN": [
       {
         "course_tag": "FREN 1001",
         "course_name": "French 1"
@@ -7001,7 +7001,7 @@
         "course_name": "Thème choisi en apprentissage et enseignement du français langue seconde"
       }
     ],
-    "FINS/": [
+    "FINS": [
       {
         "course_tag": "FINS 2105",
         "course_name": "French Reading I"
@@ -7047,7 +7047,7 @@
         "course_name": "Selected Topics in French B"
       }
     ],
-    "GEOG/": [
+    "GEOG": [
       {
         "course_tag": "GEOG 1010",
         "course_name": "Global Environmental Systems"
@@ -7289,7 +7289,7 @@
         "course_name": "Honours Research Thesis"
       }
     ],
-    "GEOM/": [
+    "GEOM": [
       {
         "course_tag": "GEOM 1004",
         "course_name": "Maps, Satellites and the Geospatial Revolution"
@@ -7359,7 +7359,7 @@
         "course_name": "Honours Research Thesis"
       }
     ],
-    "GERM/": [
+    "GERM": [
       {
         "course_tag": "GERM 1010",
         "course_name": "First-Year German I"
@@ -7433,7 +7433,7 @@
         "course_name": "Independent Study"
       }
     ],
-    "GINS/": [
+    "GINS": [
       {
         "course_tag": "GINS 1000",
         "course_name": "Global History"
@@ -7515,7 +7515,7 @@
         "course_name": "Honours Research Essay"
       }
     ],
-    "GREK/": [
+    "GREK": [
       {
         "course_tag": "GREK 1005",
         "course_name": "Introduction to Greek I"
@@ -7549,7 +7549,7 @@
         "course_name": "Directed Study"
       }
     ],
-    "HLTH/": [
+    "HLTH": [
       {
         "course_tag": "HLTH 1000",
         "course_name": "Fundamentals of Health"
@@ -7735,7 +7735,7 @@
         "course_name": "Honours Individual Research Thesis"
       }
     ],
-    "HIST/": [
+    "HIST": [
       {
         "course_tag": "HIST 1003",
         "course_name": "Empire, War, and Revolution in Europe, 1850-1939"
@@ -8349,7 +8349,7 @@
         "course_name": "Seminar in Public History"
       }
     ],
-    "HRSJ/": [
+    "HRSJ": [
       {
         "course_tag": "HRSJ 1101",
         "course_name": "Introduction to Human Rights & Social Justice"
@@ -8495,7 +8495,7 @@
         "course_name": "Independent Study"
       }
     ],
-    "HUMS/": [
+    "HUMS": [
       {
         "course_tag": "HUMS 1000",
         "course_name": "Foundational Myths and Histories"
@@ -8589,7 +8589,7 @@
         "course_name": "Research Seminar: Non-Western Traditions"
       }
     ],
-    "INDG/": [
+    "INDG": [
       {
         "course_tag": "INDG 1000",
         "course_name": "Introduction to Indigenous Studies"
@@ -8699,7 +8699,7 @@
         "course_name": "Directed Studies I"
       }
     ],
-    "IDES/": [
+    "IDES": [
       {
         "course_tag": "IDES 1000",
         "course_name": "Theory and History of Design"
@@ -8833,7 +8833,7 @@
         "course_name": "Internship Field Report"
       }
     ],
-    "IRM/": [
+    "IRM": [
       {
         "course_tag": "IRM 1002",
         "course_name": "Reference and Information Services"
@@ -8931,7 +8931,7 @@
         "course_name": "IRM Capstone Project"
       }
     ],
-    "BIT/": [
+    "BIT": [
       {
         "course_tag": "BIT 1000",
         "course_name": "Mathematics I for NET"
@@ -9025,7 +9025,7 @@
         "course_name": "Special Topics in Information Technology"
       }
     ],
-    "IMD/": [
+    "IMD": [
       {
         "course_tag": "IMD 1000",
         "course_name": "Introduction to Interactive Multimedia Design"
@@ -9107,7 +9107,7 @@
         "course_name": "IMD Capstone Project"
       }
     ],
-    "NET/": [
+    "NET": [
       {
         "course_tag": "NET 1001",
         "course_name": "Computer Technology Basics"
@@ -9225,7 +9225,7 @@
         "course_name": "NET Capstone Project"
       }
     ],
-    "OSS/": [
+    "OSS": [
       {
         "course_tag": "OSS 1002",
         "course_name": "Photonics and Optoelectronics Applications"
@@ -9339,7 +9339,7 @@
         "course_name": "OSS Capstone Project"
       }
     ],
-    "ITEC/": [
+    "ITEC": [
       {
         "course_tag": "ITEC 1005",
         "course_name": "Web Development"
@@ -9429,7 +9429,7 @@
         "course_name": "Empirical Research Methods in HCI"
       }
     ],
-    "INSC/": [
+    "INSC": [
       {
         "course_tag": "INSC 3907",
         "course_name": "Topics in Integrated Science"
@@ -9447,7 +9447,7 @@
         "course_name": "Honours Project"
       }
     ],
-    "IPAF/": [
+    "IPAF": [
       {
         "course_tag": "IPAF 1001",
         "course_name": "Investigations in Public Affairs"
@@ -9473,7 +9473,7 @@
         "course_name": "Research Experience Course"
       }
     ],
-    "ISCI/": [
+    "ISCI": [
       {
         "course_tag": "ISCI 1001",
         "course_name": "Introduction to the Environment"
@@ -9569,7 +9569,7 @@
         "course_name": "Science Communication Certificate Professional Development Workshop"
       }
     ],
-    "DIST/": [
+    "DIST": [
       {
         "course_tag": "DIST 3901",
         "course_name": "Themes in Interdisciplinary Inquiry"
@@ -9607,7 +9607,7 @@
         "course_name": "Honours Project"
       }
     ],
-    "INAF/": [
+    "INAF": [
       {
         "course_tag": "INAF 3001",
         "course_name": "Understanding Policy in a Global Context"
@@ -9633,7 +9633,7 @@
         "course_name": "Topics in Global Economic Relations"
       }
     ],
-    "ITAL/": [
+    "ITAL": [
       {
         "course_tag": "ITAL 1010",
         "course_name": "First-Year Italian I"
@@ -9691,7 +9691,7 @@
         "course_name": "Independent Study"
       }
     ],
-    "JAPA/": [
+    "JAPA": [
       {
         "course_tag": "JAPA 1010",
         "course_name": "First-Year Japanese I"
@@ -9757,7 +9757,7 @@
         "course_name": "Independent Study"
       }
     ],
-    "JOUR/": [
+    "JOUR": [
       {
         "course_tag": "JOUR 1001",
         "course_name": "Foundations: Journalism in Context"
@@ -9995,7 +9995,7 @@
         "course_name": "Science Communication Certificate Professional Development Workshop"
       }
     ],
-    "KORE/": [
+    "KORE": [
       {
         "course_tag": "KORE 1010",
         "course_name": "First-Year Korean I"
@@ -10029,7 +10029,7 @@
         "course_name": "Fourth-Year Korean II"
       }
     ],
-    "LANG/": [
+    "LANG": [
       {
         "course_tag": "LANG 1010",
         "course_name": "Introduction to a Language I"
@@ -10059,7 +10059,7 @@
         "course_name": "Supervised Autonomous Language Learning"
       }
     ],
-    "LATN/": [
+    "LATN": [
       {
         "course_tag": "LATN 1005",
         "course_name": "Introduction to Latin I"
@@ -10093,7 +10093,7 @@
         "course_name": "Directed Study"
       }
     ],
-    "LACS/": [
+    "LACS": [
       {
         "course_tag": "LACS 1001",
         "course_name": "Introduction to Latin American and Caribbean Studies I"
@@ -10111,7 +10111,7 @@
         "course_name": "Latin America and the World"
       }
     ],
-    "LAWS/": [
+    "LAWS": [
       {
         "course_tag": "LAWS 1001",
         "course_name": "Introduction to Legal Studies 1"
@@ -10485,7 +10485,7 @@
         "course_name": "Honours Paper"
       }
     ],
-    "LING/": [
+    "LING": [
       {
         "course_tag": "LING 1001",
         "course_name": "Introduction to Linguistics I"
@@ -10671,7 +10671,7 @@
         "course_name": "Honours Thesis in Linguistics"
       }
     ],
-    "MATH/": [
+    "MATH": [
       {
         "course_tag": "MATH 0005",
         "course_name": "Precalculus: Functions and Graphs"
@@ -11057,7 +11057,7 @@
         "course_name": "Directed Studies (Honours)"
       }
     ],
-    "MECH/": [
+    "MECH": [
       {
         "course_tag": "MECH 3002",
         "course_name": "Machine Design and Practice"
@@ -11175,7 +11175,7 @@
         "course_name": "Mechatronics"
       }
     ],
-    "MAAE/": [
+    "MAAE": [
       {
         "course_tag": "MAAE 2001",
         "course_name": "Engineering Graphical Design"
@@ -11269,7 +11269,7 @@
         "course_name": "Undergraduate Directed Study"
       }
     ],
-    "MECT/": [
+    "MECT": [
       {
         "course_tag": "MECT 3999",
         "course_name": "Co-operative Work Term"
@@ -11279,7 +11279,7 @@
         "course_name": "Engineering Project"
       }
     ],
-    "MPAD/": [
+    "MPAD": [
       {
         "course_tag": "MPAD 1001",
         "course_name": "Introduction to Storytelling: The Context"
@@ -11389,7 +11389,7 @@
         "course_name": "Capstone Projects: Translational Approach to Indigenous Community Wellness"
       }
     ],
-    "MEMS/": [
+    "MEMS": [
       {
         "course_tag": "MEMS 2001",
         "course_name": "Discovering the Medieval and Early Modern Past"
@@ -11399,7 +11399,7 @@
         "course_name": "Researching the Medieval and Early Modern Past"
       }
     ],
-    "MGDS/": [
+    "MGDS": [
       {
         "course_tag": "MGDS 2000",
         "course_name": "Global Migration and Transnationalism"
@@ -11409,7 +11409,7 @@
         "course_name": "Special Topics in Migration and Diaspora Studies"
       }
     ],
-    "MUSI/": [
+    "MUSI": [
       {
         "course_tag": "MUSI 1003",
         "course_name": "Understanding Music"
@@ -11815,13 +11815,13 @@
         "course_name": "Ensemble VIII"
       }
     ],
-    "NSCI/": [
+    "NSCI": [
       {
         "course_tag": "NSCI 4901",
         "course_name": "Science Journalism Independent Project"
       }
     ],
-    "NEUR/": [
+    "NEUR": [
       {
         "course_tag": "NEUR 1202",
         "course_name": "Neuroscience of Mental Health and Psychiatric Disease"
@@ -11999,7 +11999,7 @@
         "course_name": "Honours Research Thesis"
       }
     ],
-    "NURS/": [
+    "NURS": [
       {
         "course_tag": "NURS 1000",
         "course_name": "Indigenous Health"
@@ -12177,7 +12177,7 @@
         "course_name": "Clinical Practicum - Consolidated Practicum II"
       }
     ],
-    "PHIL/": [
+    "PHIL": [
       {
         "course_tag": "PHIL 1000",
         "course_name": "Introductory Philosophy: Fields, Figures and Problems"
@@ -12615,7 +12615,7 @@
         "course_name": "Tutorial"
       }
     ],
-    "PHYS/": [
+    "PHYS": [
       {
         "course_tag": "PHYS 1001",
         "course_name": "Foundations of Physics I"
@@ -12853,7 +12853,7 @@
         "course_name": "Fourth-Year Project"
       }
     ],
-    "POLM/": [
+    "POLM": [
       {
         "course_tag": "POLM 3000",
         "course_name": "Introduction to Political Management"
@@ -12867,7 +12867,7 @@
         "course_name": "Advocacy and Government Relations in Canada"
       }
     ],
-    "PSCI/": [
+    "PSCI": [
       {
         "course_tag": "PSCI 1100",
         "course_name": "Democracy in Theory and Practice"
@@ -13441,7 +13441,7 @@
         "course_name": "Honours  Research Essay"
       }
     ],
-    "PORT/": [
+    "PORT": [
       {
         "course_tag": "PORT 1010",
         "course_name": "First-Year Portuguese I"
@@ -13467,7 +13467,7 @@
         "course_name": "Intensive Fourth-Year Portuguese"
       }
     ],
-    "PSYC/": [
+    "PSYC": [
       {
         "course_tag": "PSYC 1001",
         "course_name": "Introduction to Psychology I"
@@ -13749,7 +13749,7 @@
         "course_name": "Project for B.A. with Honours in Psychology"
       }
     ],
-    "PAPM/": [
+    "PAPM": [
       {
         "course_tag": "PAPM 1001",
         "course_name": "Policy: Analysis, Implementation, and Evaluation"
@@ -13787,7 +13787,7 @@
         "course_name": "Honours Research Essay"
       }
     ],
-    "PADM/": [
+    "PADM": [
       {
         "course_tag": "PADM 1501",
         "course_name": "Public Administration in Nunavut"
@@ -13861,7 +13861,7 @@
         "course_name": "Health Policy in Developing Countries"
       }
     ],
-    "RELI/": [
+    "RELI": [
       {
         "course_tag": "RELI 1010",
         "course_name": "Elementary Language Tutorial"
@@ -14115,7 +14115,7 @@
         "course_name": "Honours Research Essay"
       }
     ],
-    "RUSS/": [
+    "RUSS": [
       {
         "course_tag": "RUSS 1010",
         "course_name": "First-Year Russian I"
@@ -14177,7 +14177,7 @@
         "course_name": "Independent Study"
       }
     ],
-    "SXST/": [
+    "SXST": [
       {
         "course_tag": "SXST 2101",
         "course_name": "Sexuality Studies: A Critical Introduction"
@@ -14231,7 +14231,7 @@
         "course_name": "Queer Aesthetics: Affect, Cultural Production, Sexuality"
       }
     ],
-    "SOWK/": [
+    "SOWK": [
       {
         "course_tag": "SOWK 1001",
         "course_name": "Introduction to Social Welfare"
@@ -14385,7 +14385,7 @@
         "course_name": "Honours Essay"
       }
     ],
-    "SOCI/": [
+    "SOCI": [
       {
         "course_tag": "SOCI 1001",
         "course_name": "Introduction to Sociology I"
@@ -14735,7 +14735,7 @@
         "course_name": "Tutorial in Sociology"
       }
     ],
-    "SPAN/": [
+    "SPAN": [
       {
         "course_tag": "SPAN 1010",
         "course_name": "First-Year Spanish I"
@@ -14817,7 +14817,7 @@
         "course_name": "Independent Study"
       }
     ],
-    "STAT/": [
+    "STAT": [
       {
         "course_tag": "STAT 1500",
         "course_name": "Introduction to Statistical Computing"
@@ -14999,7 +14999,7 @@
         "course_name": "Directed Studies (Honours)"
       }
     ],
-    "SREE/": [
+    "SREE": [
       {
         "course_tag": "SREE 1000",
         "course_name": "Introduction to Sustainable Energy"
@@ -15029,7 +15029,7 @@
         "course_name": "Energy Engineering Project"
       }
     ],
-    "SYSC/": [
+    "SYSC": [
       {
         "course_tag": "SYSC 1005",
         "course_name": "Introduction to Software Development"
@@ -15307,7 +15307,7 @@
         "course_name": "Undergraduate Directed Study"
       }
     ],
-    "TSES/": [
+    "TSES": [
       {
         "course_tag": "TSES 2006",
         "course_name": "Ecology and Culture"
@@ -15377,7 +15377,7 @@
         "course_name": "Technology-Society: Time"
       }
     ],
-    "WGST/": [
+    "WGST": [
       {
         "course_tag": "WGST 1808",
         "course_name": "Introduction to Feminist Social Transformation"

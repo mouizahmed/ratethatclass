@@ -141,9 +141,7 @@ export async function getCoursesByUniversityID(
   }
 
   try {
-    const response = await fetch(url, {
-      next: { revalidate: 3600 }, // Cache for 1 hour
-    });
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error('Error retrieving course list.');
