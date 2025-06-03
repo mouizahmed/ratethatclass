@@ -22,8 +22,8 @@ def run_scraping():
     """Run the web scraping process"""
     scrapers = [
         # WaterlooScraper,
-        CarletonUScraper,
-        # OttawaScraper,
+        # CarletonUScraper,
+        OttawaScraper,
         # YorkScraper,
         # OntarioTechScraper,
         # McMasterScraper,

@@ -55,4 +55,14 @@ def run_scraper(scraper_class: Any, headless: bool = True) -> tuple[str | None, 
     except Exception as e:
         logger.error(f"Error running {scraper_name}: {e}")
         logger.error(traceback.format_exc())
-        return None, {} 
+        return None, {}
+
+def clean_text(text: str) -> str:
+    """
+    Clean text by replacing non-ASCII characters with spaces and removing extra whitespace.
+    """
+    # Convert to list of characters, replacing non-ASCII with space
+    cleaned_chars = [char if ord(char) < 128 else ' ' for char in text]
+    # Join and normalize spaces
+    cleaned_text = ' '.join(''.join(cleaned_chars).split())
+    return cleaned_text.strip() 

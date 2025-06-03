@@ -178,9 +178,7 @@ export async function getCoursesByUniversityID(
 
 export async function getProfessorsByCourseID(courseID: string): Promise<Professor[]> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/professor/courseID/${courseID}`, {
-      next: { revalidate: 3600 }, // Cache for 1 hour
-    });
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/professor/courseID/${courseID}`);
 
     if (!response.ok) {
       console.log('Failed to get professors');
@@ -204,10 +202,7 @@ export async function getProfessorsByCourseID(courseID: string): Promise<Profess
 export async function getCourseByCourseTag(universityID: string, courseTag: string): Promise<Course> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_URL}/course/universityID/${universityID}/courseTag/${courseTag}`,
-      {
-        next: { revalidate: 3600 }, // Cache for 1 hour
-      }
+      `${process.env.NEXT_PUBLIC_URL}/course/universityID/${universityID}/courseTag/${courseTag}`
     );
 
     const data: ApiResponse<Course> = await response.json();

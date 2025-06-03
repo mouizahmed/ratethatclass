@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from typing import Dict, List, Tuple
 import time
 from .base_scraper import BaseScraper, logger
+from .utils import clean_text
 
 class CarletonUScraper(BaseScraper):
     BASE_URL = "https://calendar.carleton.ca/undergrad/courses/"
@@ -22,6 +23,7 @@ class CarletonUScraper(BaseScraper):
     def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             response = self.session.get(self.BASE_URL)
+            response.encoding = 'utf-8'  # Explicitly set response encoding
             soup = BeautifulSoup(response.text, 'html.parser')
             
             department_div = soup.find('div', {'id': 'textcontainer'})
@@ -67,6 +69,7 @@ class CarletonUScraper(BaseScraper):
                 }
                 
                 response = self.session.get(url, headers=headers, timeout=10)
+                response.encoding = 'utf-8'  # Explicitly set response encoding
                 soup = BeautifulSoup(response.text, 'html.parser')
                 
                 # Find all course blocks
@@ -78,13 +81,13 @@ class CarletonUScraper(BaseScraper):
                         title_span = block.find('span', class_='courseblocktitle')
                         
                         if tag_span and title_span:
-                            course_tag = tag_span.text.strip()
+                            course_tag = clean_text(tag_span.text.strip())
                             
                             br_tag = title_span.find('br')
                             course_name = ""
                             
                             if br_tag and br_tag.next_sibling:
-                                course_name = br_tag.next_sibling.strip()
+                                course_name = clean_text(br_tag.next_sibling.strip())
                             
                             if course_name and course_tag:
                                 self.add_course(department_code, course_tag, course_name)

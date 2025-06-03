@@ -5,6 +5,7 @@ from typing import List, Tuple, Dict
 from bs4 import BeautifulSoup
 
 from .base_scraper import BaseScraper, logger
+from .utils import clean_text
 
 
 class OttawaScraper(BaseScraper):
@@ -72,8 +73,8 @@ class OttawaScraper(BaseScraper):
                             match = re.search(pattern, full_text)
                             
                             if match:
-                                course_tag = match.group(1)
-                                course_name = match.group(2).strip()
+                                course_tag = clean_text(match.group(1))
+                                course_name = clean_text(match.group(2).strip())
                                 
                                 if course_name and course_tag:
                                     self.add_course(department_code, course_tag, course_name)
