@@ -36,7 +36,7 @@ class OttawaScraper(BaseScraper):
                 # Extract the department code from the URL - format is "/en/courses/lcm/"
                 match = re.search(r'/en/courses/([^/]+)/', href)
                 if match:
-                    dept_code = match.group(1).upper()
+                    dept_code = match.group(1)
                     result.append((dept_code, name))
                 
             return result
@@ -80,7 +80,7 @@ class OttawaScraper(BaseScraper):
                                 course_name = re.sub(r'\s*\([^)]*\)\s*$', '', course_name)
                                 
                                 if course_name and course_tag:
-                                    self.add_course(department_code, course_tag, course_name)
+                                    self.add_course(department_code.upper(), course_tag, course_name)
                     except Exception as e:
                         logger.error(f"Error parsing course: {e}")
                         continue
@@ -118,7 +118,7 @@ class OttawaScraper(BaseScraper):
                     self.scrapeDepartment(value)
                     
                     # Check if any courses were added for this department
-                    new_course_count = len(self.department_courses.get(value, []))
+                    new_course_count = len(self.department_courses.get(value.upper(), []))
                     if new_course_count == 0 or new_course_count == initial_course_count:
                         logger.warning(f"No courses found for department {name} ({value})")
                     else:
