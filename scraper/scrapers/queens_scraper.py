@@ -11,7 +11,7 @@ class QueensScraper(BaseScraper):
     
     def __init__(self, headless: bool = True):
         super().__init__(headless=headless, timeout=5)
-        self.university_name = "Queen's University"
+        self.university_name = "Queens University"
         self.session = requests.Session()
         
     def setup_driver(self):

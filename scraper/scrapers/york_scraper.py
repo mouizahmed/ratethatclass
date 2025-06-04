@@ -82,6 +82,17 @@ class YorkScraper(BaseScraper):
         delay = random.uniform(self.min_delay, self.max_delay)
         time.sleep(delay)
 
+    def select_fall_winter_session(self):
+        try:
+            session_select = self.wait.until(
+                EC.presence_of_element_located((By.ID, "sessionSelect"))
+            )
+            Select(session_select).select_by_value("1")  # Value 1 corresponds to Fall/Winter
+            self.random_delay()
+        except Exception as e:
+            logger.error(f"Error selecting Fall/Winter session: {e}")
+            raise
+
     def get_department_options(self) -> List[Tuple[str, str]]:
         try:
             self.driver.get(self.BASE_URL)
@@ -93,6 +104,9 @@ class YorkScraper(BaseScraper):
             
             subject_link.click()
             self.random_delay()
+
+            # Select Fall/Winter session
+            self.select_fall_winter_session()
             
             self.wait.until(
                 EC.presence_of_element_located((By.ID, "subjectSelect"))
@@ -245,6 +259,9 @@ class YorkScraper(BaseScraper):
                     
                     subject_link.click()
                     self.random_delay()
+
+                    # Select Fall/Winter session
+                    self.select_fall_winter_session()
                     
                     self.wait.until(
                         EC.presence_of_element_located((By.ID, "subjectSelect"))

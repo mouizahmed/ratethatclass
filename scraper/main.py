@@ -19,19 +19,18 @@ from scrapers.base_scraper import logger
 from database import DatabaseManager
 
 def run_scraping():
-    """Run the web scraping process"""
     scrapers = [
-        # WaterlooScraper,
-        # CarletonUScraper,
+        WaterlooScraper,
+        CarletonUScraper,
         OttawaScraper,
-        # YorkScraper,
-        # OntarioTechScraper,
-        # McMasterScraper,
-        # UWOScraper,
-        # TMUScraper,
-        # QueensScraper, 
-        # GuelphScraper,
-        # UofTScraper
+        YorkScraper,
+        OntarioTechScraper,
+        McMasterScraper,
+        UWOScraper,
+        TMUScraper,
+        QueensScraper, 
+        GuelphScraper,
+        UofTScraper
     ]
     
     results = {}
@@ -55,7 +54,6 @@ def run_scraping():
     return results
 
 def run_database_import():
-    """Run the database import process"""
     try:
         with DatabaseManager() as db:
             logger.info("Starting database import from JSON files")

@@ -9,7 +9,7 @@ class UWOScraper(BaseScraper):
     
     def __init__(self, headless: bool = True):
         super().__init__(headless=headless)
-        self.university_name = "University of Western"
+        self.university_name = "Western University"
 
     def get_department_links(self, departments) -> Dict[str, str]:
         department_links = {}
