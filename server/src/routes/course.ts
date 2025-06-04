@@ -195,8 +195,35 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
 
   try {
     const { courseData, reviewData }: { courseData: Course; reviewData: Review } = req.body;
-    const user = req.user;
 
+    // Validate request data
+    if (
+      !courseData ||
+      !courseData.department_name ||
+      !courseData.university_id ||
+      !courseData.course_tag ||
+      !courseData.course_name
+    ) {
+      res.status(400).json({
+        success: false,
+        message: 'Missing required course data',
+        data: {},
+        meta: {},
+      });
+      return;
+    }
+
+    if (!reviewData || !reviewData.professor_name) {
+      res.status(400).json({
+        success: false,
+        message: 'Missing required review data',
+        data: {},
+        meta: {},
+      });
+      return;
+    }
+
+    const user = req.user;
     isEmailVerified(user);
 
     client = await pool.connect();
@@ -238,9 +265,9 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
       reviewData.useful_score,
       reviewData.term_taken,
       reviewData.year_taken,
-      reviewData.course_comments.trim(),
-      reviewData.professor_comments.trim(),
-      reviewData.advice_comments.trim(),
+      reviewData.course_comments?.trim() || '',
+      reviewData.professor_comments?.trim() || '',
+      reviewData.advice_comments?.trim() || '',
     ]);
 
     await client.query(addUpvote, [user.uid, review.rows[0].review_id]);
@@ -269,14 +296,6 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
   } finally {
     if (client) {
       client.release();
-    } else {
-      console.log('Failed to acquire a database client.');
-      res.status(500).json({
-        success: false,
-        message: 'Failed to acquire a database client',
-        data: {},
-        meta: {},
-      });
     }
   }
 });

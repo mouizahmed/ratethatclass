@@ -176,11 +176,18 @@ router.post('/downvote', validateToken, async (req: AuthenticatedRequest, res: R
   const { review_id } = req.body;
   let client;
 
-  try {
-    if (!review_id) {
-      throw new Error('review_id must be provided to perform this action.');
-    }
+  if (!review_id) {
+    res.status(400).json({
+      success: false,
+      message: 'review_id must be provided to perform this action.',
+      data: {},
+      meta: {},
+    });
+    return;
+  }
 
+  try {
+    // Check email verification before acquiring client
     isEmailVerified(user);
 
     client = await pool.connect();
@@ -219,14 +226,6 @@ router.post('/downvote', validateToken, async (req: AuthenticatedRequest, res: R
   } finally {
     if (client) {
       client.release();
-    } else {
-      console.log('Failed to acquire a database client.');
-      res.status(500).json({
-        success: false,
-        message: 'Failed to acquire a database client',
-        data: {},
-        meta: {},
-      });
     }
   }
 });
@@ -236,16 +235,22 @@ router.post('/upvote', validateToken, async (req: AuthenticatedRequest, res: Res
   const { review_id } = req.body;
   let client;
 
-  try {
-    if (!review_id) {
-      throw new Error('review_id must be provided to perform this action.');
-    }
+  if (!review_id) {
+    res.status(400).json({
+      success: false,
+      message: 'review_id must be provided to perform this action.',
+      data: {},
+      meta: {},
+    });
+    return;
+  }
 
+  try {
+    // Check email verification before acquiring client
     isEmailVerified(user);
 
     client = await pool.connect();
     await client.query('BEGIN');
-
     const existingVote = await client.query(getExistingVote, [user.uid, review_id]);
 
     if (!existingVote.rows.length) {
@@ -280,14 +285,6 @@ router.post('/upvote', validateToken, async (req: AuthenticatedRequest, res: Res
   } finally {
     if (client) {
       client.release();
-    } else {
-      console.log('Failed to acquire a database client.');
-      res.status(500).json({
-        success: false,
-        message: 'Failed to acquire a database client',
-        data: {},
-        meta: {},
-      });
     }
   }
 });
@@ -297,6 +294,18 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
 
   try {
     const { reviewData }: { reviewData: Review } = req.body;
+
+    // Validate request body
+    if (!reviewData || !reviewData.course_id || !reviewData.professor_name) {
+      res.status(400).json({
+        success: false,
+        message: 'Missing required review data',
+        data: {},
+        meta: {},
+      });
+      return;
+    }
+
     const user = req.user;
     isEmailVerified(user);
 
@@ -334,9 +343,9 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
       reviewData.useful_score,
       reviewData.term_taken,
       reviewData.year_taken,
-      reviewData.course_comments.trim(),
-      reviewData.professor_comments.trim(),
-      reviewData.advice_comments.trim(),
+      reviewData.course_comments?.trim() || '',
+      reviewData.professor_comments?.trim() || '',
+      reviewData.advice_comments?.trim() || '',
     ]);
 
     await client.query(addUpvote, [user.uid, review.rows[0].review_id]);
@@ -361,15 +370,7 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
     });
   } finally {
     if (client) {
-      client.release(); // Release the client if it was acquired
-    } else {
-      console.log('Failed to acquire a database client.');
-      res.status(500).json({
-        success: false,
-        message: 'Failed to acquire a database client',
-        data: {},
-        meta: {},
-      });
+      client.release();
     }
   }
 });

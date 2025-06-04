@@ -171,13 +171,14 @@ router.get('/request-university-list', async (req: Request, res: Response) => {
 
 router.put('/vote-university/id/:universityID', async (req: Request, res: Response) => {
   let client: PoolClient;
+  let token = req.cookies.token;
 
   try {
-    client = await pool.connect();
-    await client.query('BEGIN');
-    let token = req.cookies.token;
     const universityID = req.params.universityID;
     validateUUID(universityID);
+
+    client = await pool.connect();
+    await client.query('BEGIN');
 
     if (!token) {
       token = crypto.randomBytes(16).toString('hex');
@@ -211,38 +212,43 @@ router.put('/vote-university/id/:universityID', async (req: Request, res: Respon
   } finally {
     if (client) {
       client.release();
-    } else {
-      console.log('Failed to acquire a database client.');
-      res.status(500).json({
-        success: false,
-        message: 'Failed to acquire a database client',
-        data: {},
-        meta: {},
-      });
     }
   }
 });
 
 router.post('/request-university', async (req: Request, res: Response) => {
   let client: PoolClient;
+  let token = req.cookies.token;
 
   try {
+    const { universityName }: { universityName: string } = req.body;
+
+    if (!universityName?.trim()) {
+      res.status(400).json({
+        success: false,
+        message: 'University name is required',
+        data: {},
+        meta: {},
+      });
+      return;
+    }
+
     client = await pool.connect();
     await client.query('BEGIN');
-    const { universityName }: { universityName: string } = req.body;
+
     const universityRequest = await client.query(requestUniversity, [universityName.trim()]);
 
-    if (req.cookies.token) {
-      await client.query(upvoteRequestedUniversity, [universityRequest.rows[0].university_id, req.cookies.token]);
-    } else {
-      const token = crypto.randomBytes(16).toString('hex');
+    if (!token) {
+      token = crypto.randomBytes(16).toString('hex');
       res.cookie('token', token, {
         maxAge: 60 * 60 * 24 * 365 * 1000,
         httpOnly: true,
       });
-      await client.query(upvoteRequestedUniversity, [universityRequest.rows[0].university_id, token]);
     }
+
+    await client.query(upvoteRequestedUniversity, [universityRequest.rows[0].university_id, token]);
     await client.query('COMMIT');
+
     res.json({
       success: true,
       message: `University request successfully added`,
@@ -263,13 +269,6 @@ router.post('/request-university', async (req: Request, res: Response) => {
   } finally {
     if (client) {
       client.release();
-    } else {
-      res.status(500).json({
-        success: false,
-        message: 'Failed to acquire a database client',
-        data: {},
-        meta: {},
-      });
     }
   }
 });

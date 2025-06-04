@@ -37,8 +37,11 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
 
   const handleVote = useCallback(
     async (voteType: 'up' | 'down') => {
-      if (!currentUser) {
+      if (userLoggedIn === false) {
         toastUtils.auth.notLoggedIn();
+        return;
+      } else if (currentUser?.emailVerified === false) {
+        toastUtils.auth.notVerified();
         return;
       }
 
