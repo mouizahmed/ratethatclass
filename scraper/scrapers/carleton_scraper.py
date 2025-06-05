@@ -2,8 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 from typing import Dict, List, Tuple
 import time
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from .base_scraper import BaseScraper, logger
-from .utils import clean_text
+from utils import clean_text
 
 class CarletonUScraper(BaseScraper):
     BASE_URL = "https://calendar.carleton.ca/undergrad/courses/"

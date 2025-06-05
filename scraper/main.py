@@ -14,9 +14,11 @@ from scrapers import (
     GuelphScraper,
     UofTScraper
 )
-from scrapers.utils import run_scraper
-from scrapers.base_scraper import logger
+from utils import run_scraper
+from logger import setup_logger
 from database import DatabaseManager
+
+logger = setup_logger(__name__)
 
 def run_scraping():
     scrapers = [

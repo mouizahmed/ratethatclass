@@ -3,15 +3,16 @@ import os
 import time
 import traceback
 from typing import Dict, List, Any
-from .base_scraper import logger
+from logger import setup_logger
+
+logger = setup_logger(__name__)
 from unidecode import unidecode
 
 def save_to_json(university_name: str, departments: Dict[str, List[Dict[str, str]]], scraper_name: str) -> None:
     """Save scraped data to a JSON file."""
     try:
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        scraper_dir = os.path.dirname(current_dir)
-        data_dir = os.path.join(scraper_dir, "scraped_data")
+        data_dir = os.path.join(current_dir, "scraped_data")
         
         if not os.path.exists(data_dir):
             os.makedirs(data_dir)

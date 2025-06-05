@@ -96,6 +96,18 @@ rate-that-class/
 ├── init-db/               # PostgreSQL database setup
 │   └── init-db.sql        # Database schema and initial data
 ├── scraper/               # University data collection tools
+│   ├── scrapers/          # Individual university scrapers
+│   │   ├── base_scraper.py    # Base scraper class
+│   │   └── *_scraper.py       # University-specific scrapers
+│   ├── scraped_data/      # Storage for scraped university data
+│   │   └── *_data.json        # University-specific scraped data
+│   ├── logs/              # Scraper execution logs
+│   │   └── scraper_YYYYMMDD_HHMMSS.log  # e.g. scraper_20250604_200750.log
+│   ├── database.py        # Database operations and models
+│   ├── logger.py          # Logging configuration
+│   ├── utils.py           # Shared utility functions
+│   ├── main.py           # Scraper orchestration
+│   └── web_crawler.py    # Web crawling functionality
 ├── docker-compose.yml     # Multi-container Docker setup
 └── README.md              # Project documentation
 ```

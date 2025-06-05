@@ -3,9 +3,11 @@ import time
 import re
 from typing import List, Tuple, Dict
 from bs4 import BeautifulSoup
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 from .base_scraper import BaseScraper, logger
-from .utils import clean_text
+from utils import clean_text
 
 
 class OttawaScraper(BaseScraper):
