@@ -6,9 +6,7 @@ import { ApiResponse, PaginatedResponse } from '@/types/api';
 
 export async function getUniversities(): Promise<University[]> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/university`, {
-      next: { revalidate: 3600 }, // Cache for 1 hour
-    });
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/university`);
 
     if (!response.ok) {
       throw new Error('Could not retrieve universities');
