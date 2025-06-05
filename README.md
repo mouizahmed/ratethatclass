@@ -128,6 +128,15 @@ rate-that-class/
 - **Authentication**: Firebase Admin SDK
 - **Language**: TypeScript
 
+## Scraper
+
+- **Language**: Python
+- **Web Scraping**: Selenium WebDriver + BeautifulSoup4
+- **Data Storage**: JSON + PostgreSQL with ThreadedConnectionPool
+- **Logging**: Thread-safe Python Logger with context-managed locks
+- **Browser Automation**: Chrome WebDriver
+- **Concurrency**: Multi-threading with ThreadPoolExecutor + Lock-based synchronization
+
 ## Infrastructure
 
 - **Frontend Hosting**: [Vercel](https://vercel.com/)
