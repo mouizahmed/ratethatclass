@@ -143,7 +143,8 @@ rate-that-class/
 - **Backend Hosting**: [Render](https://render.com/)
 - **Database Hosting**: [Supabase](https://supabase.com/)
 - **Image Hosting**: [Cloudinary](https://cloudinary.com/)
-- **Containerization**: Docker & Docker Compose
+- **Authentication**: [Firebase Auth](https://firebase.google.com/docs/auth)
+- **Containerization**: [Docker](https://www.docker.com/)
 
 # Getting Started
 

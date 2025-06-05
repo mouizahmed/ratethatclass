@@ -3,19 +3,20 @@ import { auth } from '../firebase/firebase';
 import { AuthenticatedRequest } from 'types';
 
 export const validateToken = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
-  const { id_token } = req.headers;
+  const idToken = req.headers['id_token'];
+
+  if (!idToken || typeof idToken !== 'string' || idToken.trim() === '') {
+    res.status(401).send('Missing or invalid ID token.');
+    return;
+  }
+
   try {
-    if (!id_token || typeof id_token !== 'string' || id_token.trim() === '') {
-      throw new Error('Please enter a valid id_token to perform this action.');
-    }
-
-    const user = await auth.verifyIdToken(id_token);
-
-    req.user = user;
+    const decodedToken = await auth.verifyIdToken(idToken);
+    req.user = decodedToken;
     next();
   } catch (error) {
-    console.log(error);
-    res.status(500).send(error.message);
+    console.log('Token verification error:', error);
+    res.status(401).send('Unauthorized. Invalid or expired token.');
   }
 };
 
@@ -24,18 +25,42 @@ export const validateTokenOptional = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { id_token } = req.headers;
+  const idToken = req.headers['id_token'];
 
-  if (!id_token || typeof id_token !== 'string' || id_token.trim() === '') {
+  if (!idToken || typeof idToken !== 'string' || idToken.trim() === '') {
     return next();
   }
 
   try {
-    const user = await auth.verifyIdToken(id_token);
+    const user = await auth.verifyIdToken(idToken);
     req.user = user;
     next();
   } catch (error) {
     console.log(error);
-    res.status(500).send(error.message);
+    next();
+  }
+};
+
+export const validateAdmin = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
+  const idToken = req.headers['id_token'];
+
+  if (!idToken || typeof idToken !== 'string' || idToken.trim() === '') {
+    res.status(401).send('Missing or invalid ID token.');
+    return;
+  }
+
+  try {
+    const user = await auth.verifyIdToken(idToken);
+
+    if (user.admin !== true) {
+      res.status(403).send('Access denied. Admin privileges required.');
+      return;
+    }
+
+    req.user = user;
+    next();
+  } catch (error) {
+    console.log('Token verification failed:', error);
+    res.status(401).send('Unauthorized. Invalid or expired token.');
   }
 };

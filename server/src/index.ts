@@ -41,6 +41,9 @@ app.use('/user', userRouter);
 import reportRouter from './routes/report';
 app.use('/report', reportRouter);
 
+import adminRouter from './routes/admin';
+app.use('/admin', adminRouter);
+
 app.listen(3001, () => {
   console.log('Server running on port 3001');
 });
