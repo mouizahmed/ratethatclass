@@ -30,6 +30,7 @@ interface CourseListProps {
   initialCourses: Course[];
   initialHasMore: boolean;
   universityId: string;
+  universityName: string;
   departmentList: Record<string, string>;
   initialDepartment?: string;
 }
@@ -38,6 +39,7 @@ export function CourseList({
   initialCourses,
   initialHasMore,
   universityId,
+  universityName,
   departmentList,
   initialDepartment,
 }: CourseListProps) {
@@ -47,6 +49,7 @@ export function CourseList({
         initialCourses={initialCourses}
         initialHasMore={initialHasMore}
         universityId={universityId}
+        universityName={universityName}
         departmentList={departmentList}
         initialDepartment={initialDepartment}
       />
@@ -58,6 +61,7 @@ function CourseListContent({
   initialCourses,
   initialHasMore,
   universityId,
+  universityName,
   departmentList,
   initialDepartment,
 }: CourseListProps) {
@@ -236,7 +240,7 @@ function CourseListContent({
   }) => {
     const courseData: Course = {
       university_id: universityId,
-      university_name: '',
+      university_name: universityName,
       course_tag: data.courseStep.courseTag,
       course_name: data.courseStep.courseName,
       department_name: data.courseStep.departmentName,
@@ -264,8 +268,9 @@ function CourseListContent({
 
     await postCourse(courseData, reviewData);
 
+    const universityTag = universityName.replaceAll(' ', '_').toLowerCase();
     const courseLink = encodeCourseId(data.courseStep.courseTag);
-    router.push(`/${courseLink}`);
+    router.push(`/${universityTag}/${courseLink}`);
   };
 
   return (

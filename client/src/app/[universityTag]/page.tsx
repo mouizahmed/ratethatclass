@@ -88,6 +88,7 @@ export default async function Page({ params }: UniversityPageProps) {
         initialCourses={initialCourses}
         initialHasMore={meta.total_pages > 1}
         universityId={university.university_id}
+        universityName={university.university_name}
         departmentList={departmentMap}
       />
     </div>

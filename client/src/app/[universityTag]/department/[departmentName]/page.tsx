@@ -30,7 +30,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const departments = await getDepartmentsByUniversityID(university.university_id);
-  const department = departments.find((d) => createDepartmentSlug(d.department_name).toLowerCase() === resolvedParams.departmentName.toLowerCase());
+  const department = departments.find(
+    (d) => createDepartmentSlug(d.department_name).toLowerCase() === resolvedParams.departmentName.toLowerCase()
+  );
 
   if (!department) {
     return {
@@ -59,7 +61,9 @@ export default async function Page({ params }: PageProps) {
   }
 
   const departments = await getDepartmentsByUniversityID(university.university_id);
-  const department = departments.find((d) => createDepartmentSlug(d.department_name).toLowerCase() === resolvedParams.departmentName.toLowerCase());
+  const department = departments.find(
+    (d) => createDepartmentSlug(d.department_name).toLowerCase() === resolvedParams.departmentName.toLowerCase()
+  );
 
   if (!department) {
     notFound();
@@ -108,6 +112,7 @@ export default async function Page({ params }: PageProps) {
         initialCourses={initialCourses}
         initialHasMore={meta.total_pages > 1}
         universityId={university.university_id}
+        universityName={university.university_name}
         departmentList={departmentMap}
         initialDepartment={department.department_id}
       />
