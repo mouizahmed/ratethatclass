@@ -74,27 +74,27 @@ rate-that-class/
 │   │   ├── hooks/         # Custom React hooks
 │   │   ├── lib/           # Utility functions and constants
 │   │   ├── requests/      # API request functions
-│   │   └── types/         # TypeScript type definitions
-│   ├── public/            # Static assets (images, icons)
-│   └── package.json       # Frontend dependencies
-├── server/                # Express.js backend API
+│   │   └── types/
+│   ├── public/
+│   └── package.json
+├── server/                # Express.js backend API server
 │   ├── src/
 │   │   ├── routes/        # API endpoint handlers
-│   │   │   ├── course.ts      # Course-related endpoints
-│   │   │   ├── review.ts      # Review CRUD and voting
-│   │   │   ├── user.ts        # User management
-│   │   │   ├── university.ts  # University data
-│   │   │   ├── department.ts  # Department endpoints
-│   │   │   ├── professor.ts   # Professor management
-│   │   │   └── report.ts      # Content reporting
+│   │   │   ├── course.ts
+│   │   │   ├── review.ts
+│   │   │   ├── user.ts
+│   │   │   ├── university.ts
+│   │   │   ├── department.ts
+│   │   │   ├── professor.ts
+│   │   │   └── report.ts
 │   │   ├── db/            # Database queries and connection
-│   │   ├── types.ts       # Backend type definitions
+│   │   ├── types.ts
 │   │   └── index.ts       # Express server entry point
 │   ├── middleware/        # Authentication middleware
 │   ├── firebase/          # Firebase admin configuration
-│   └── package.json       # Backend dependencies
-├── init-db/               # PostgreSQL database setup
-│   └── init-db.sql        # Database schema and initial data
+│   └── package.json
+├── init-db/
+│   └── init-db.sql        # Database schema and initial data for Docker
 ├── scraper/               # University data collection tools
 │   ├── scrapers/          # Individual university scrapers
 │   │   ├── base_scraper.py    # Base scraper class
@@ -106,8 +106,7 @@ rate-that-class/
 │   ├── database.py        # Database operations and models
 │   ├── logger.py          # Logging configuration
 │   ├── utils.py           # Shared utility functions
-│   ├── main.py           # Scraper orchestration
-│   └── web_crawler.py    # Web crawling functionality
+│   └── main.py           # Scraper CLI entrypoint
 ├── docker-compose.yml     # Multi-container Docker setup
 └── README.md              # Project documentation
 ```
