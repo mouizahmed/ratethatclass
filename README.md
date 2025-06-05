@@ -11,8 +11,6 @@ Try it now: [https://ratethatclass.com/](https://ratethatclass.com/)
 
 # Current Development
 
-- Finish and optimize university python scraper.
-- Execute scraper to populate universities.
 - Cron job to run scraper on cloud every 4 months.
 - Create management account functionality
   - Handle reports.
