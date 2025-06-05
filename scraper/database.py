@@ -1,4 +1,3 @@
-import psycopg2
 from psycopg2 import Error
 from typing import Dict, List, Optional, Tuple
 from logger import setup_logger
@@ -35,7 +34,8 @@ class DatabaseManager:
             user=self.user,
             password=self.password,
             host=self.host,
-            port=self.port
+            port=self.port,
+            connect_timeout=3
         )
         self.lock = Lock()  # Add thread lock for synchronization
 
