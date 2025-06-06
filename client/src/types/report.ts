@@ -1,6 +1,3 @@
-// Re-export all types from the organized types directory
-export * from './types/index';
-
 export type ReportStatus = 'pending' | 'resolved' | 'dismissed';
 
 export interface Report {
@@ -16,10 +13,10 @@ export interface Report {
 }
 
 export interface CourseReportDetails {
-  department_id: ReactNode;
   course_name: string;
   course_tag: string;
   department_name: string;
+  department_id: string;
   university_name: string;
 }
 
@@ -29,9 +26,11 @@ export interface ReviewReportDetails {
   department_name: string;
   university_name: string;
   professor_name: string;
+  professor_id: string;
   course_comments: string;
   professor_comments: string;
   advice_comments: string;
   reviewer_display_name: string;
   reviewer_email: string;
+  reviewer_id: string;
 }

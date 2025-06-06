@@ -11,3 +11,6 @@ export * from './requests';
 export * from './review';
 export * from './ui';
 export * from './university';
+export * from './report';
+
+// Remove duplicate type definitions

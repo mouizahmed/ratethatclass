@@ -21,4 +21,19 @@ const app = admin.initializeApp({
 });
 const auth = getAuth(app);
 
+// export const setOwnerClaim = async () => {
+//   const email = 'mouizahmed1@gmail.com';
+//   console.log(`Attempting to set owner claim for ${email}...`);
+//   try {
+//     const user = await auth.getUserByEmail(email);
+//     await auth.setCustomUserClaims(user.uid, { owner: true });
+//     console.log(`Successfully set owner claim for ${email}`);
+//   } catch (error) {
+//     console.error(`Error setting custom claim for ${email}:`, error);
+//     if ((error as any).code === 'auth/user-not-found') {
+//       console.log('User does not exist. Please create the user in Firebase Authentication first.');
+//     }
+//   }
+// };
+
 export { app, auth };

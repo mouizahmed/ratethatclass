@@ -708,3 +708,62 @@ WHERE review_id = $1
 export const createReport = `
 INSERT INTO reports (user_id, entity_type, entity_id, report_reason) VALUES ($1, $2, $3, $4) RETURNING *
 `;
+
+export const getReportsPaginated = `
+SELECT 
+  reports.*,
+  users.display_name,
+  CASE 
+    WHEN reports.entity_type = 'course' THEN (
+      SELECT json_build_object(
+        'course_name', courses.course_name,
+        'course_tag', courses.course_tag,
+        'department_name', departments.department_name,
+        'department_id', departments.department_id,
+        'university_name', universities.university_name
+      )
+      FROM courses
+      JOIN departments ON departments.department_id = courses.department_id
+      JOIN universities ON universities.university_id = departments.university_id
+      WHERE courses.course_id = reports.entity_id::uuid
+    )
+    WHEN reports.entity_type = 'review' THEN (
+      SELECT json_build_object(
+        'course_name', courses.course_name,
+        'course_tag', courses.course_tag,
+        'department_name', departments.department_name,
+        'university_name', universities.university_name,
+        'professor_name', professors.professor_name,
+        'professor_id', professors.professor_id,
+        'course_comments', reviews.course_comments,
+        'professor_comments', reviews.professor_comments,
+        'advice_comments', reviews.advice_comments,
+        'reviewer_display_name', review_users.display_name,
+        'reviewer_email', review_users.email,
+        'reviewer_id', reviews.user_id
+      )
+      FROM reviews
+      JOIN courses ON courses.course_id = reviews.course_id
+      JOIN professors ON professors.professor_id = reviews.professor_id
+      JOIN departments ON departments.department_id = courses.department_id
+      JOIN universities ON universities.university_id = departments.university_id
+      JOIN users review_users ON review_users.user_id = reviews.user_id
+      WHERE reviews.review_id = reports.entity_id::uuid
+    )
+  END as entity_details
+FROM reports
+JOIN users ON users.user_id = reports.user_id
+WHERE ($3::reporttype IS NULL OR reports.entity_type = $3::reporttype)
+AND ($4::reportstatus IS NULL OR reports.status = $4::reportstatus)
+ORDER BY
+    CASE WHEN $5 = 'date_created' AND $6 = 'asc' THEN reports.report_date END ASC,
+    CASE WHEN $5 = 'date_created' AND $6 = 'desc' THEN reports.report_date END DESC,
+    reports.report_date DESC
+LIMIT $1 OFFSET $2
+`;
+
+export const getReportsCount = `
+SELECT COUNT(*) FROM reports
+WHERE ($1::reporttype IS NULL OR reports.entity_type = $1::reporttype)
+AND ($2::reportstatus IS NULL OR reports.status = $2::reportstatus)
+`;

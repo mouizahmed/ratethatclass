@@ -105,6 +105,13 @@ export const SEO_CONFIGS = {
     keywords: ['university course reviews', 'college class reviews', 'student feedback', 'course selection'],
     canonical: '/',
   },
+  admin: {
+    title: 'Admin Dashboard - Rate That Class',
+    description: 'Manage reports and moderate content on Rate That Class.',
+    keywords: ['admin', 'dashboard', 'reports', 'moderation'],
+    canonical: '/admin',
+    noIndex: true,
+  },
   about: {
     title: 'About Rate That Class',
     description:

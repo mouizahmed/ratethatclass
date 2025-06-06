@@ -1,6 +1,7 @@
 import { Course, Department, Professor, RequestedUniversity, University } from '@/types/university';
 import { Review } from '@/types/review';
 import { ApiResponse, PaginatedResponse } from '@/types/api';
+import { Report } from '@/types/report';
 
 // const API_TIMEOUT = 3000;
 
@@ -281,6 +282,58 @@ export async function getReviewsByCourseID(
       meta: {
         current_page: 1,
         page_size: limit || 10,
+        total_items: 0,
+        total_pages: 1,
+      },
+    };
+  }
+}
+
+export async function getReports(
+  page: number = 1,
+  limit: number = 10,
+  entityType: 'course' | 'review',
+  sortBy: string = 'report_date',
+  sortOrder: 'asc' | 'desc' = 'desc',
+  status?: ReportStatus
+): Promise<PaginatedResponse<Report>> {
+  try {
+    let url = `${process.env.NEXT_PUBLIC_URL}/report/get-all?page=${page}&limit=${limit}&entity_type=${entityType}&sort_by=${sortBy}&sort_order=${sortOrder}`;
+
+    if (status) {
+      url += `&status=${status}`;
+    }
+
+    const response = await fetch(url, {
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error('Could not retrieve reports');
+    }
+
+    const data: ApiResponse<Report[]> = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || 'Failed to retrieve reports');
+    }
+
+    return {
+      data: data.data,
+      meta: {
+        current_page: data.meta.current_page ?? 1,
+        page_size: data.meta.page_size ?? limit,
+        total_items: data.meta.total_items ?? data.data.length,
+        total_pages: data.meta.total_pages ?? 1,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      data: [],
+      meta: {
+        current_page: 1,
+        page_size: limit,
         total_items: 0,
         total_pages: 1,
       },

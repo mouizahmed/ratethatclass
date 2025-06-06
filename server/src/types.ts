@@ -40,12 +40,41 @@ export interface Course {
   department_name: string;
 }
 
+interface CourseReportDetails {
+  course_name: string;
+  course_tag: string;
+  department_name: string;
+  department_id: string;
+  university_name: string;
+}
+
+interface ReviewReportDetails {
+  course_name: string;
+  course_tag: string;
+  department_name: string;
+  university_name: string;
+  professor_name: string;
+  professor_id: string;
+  course_comments: string;
+  professor_comments: string;
+  advice_comments: string;
+  reviewer_display_name: string;
+  reviewer_email: string;
+  reviewer_id: string;
+}
+
+export type ReportStatus = 'pending' | 'resolved' | 'dismissed';
+
 export interface Report {
-  report_id?: string;
-  user_id?: string;
-  entity_type: 'course' | 'review';
+  report_id: string;
+  user_id: string;
+  entity_type: ValidReportEntityType;
   entity_id: string;
-  reason: string;
+  report_reason: string;
+  report_date: Date;
+  display_name: string;
+  status: ReportStatus;
+  entity_details: CourseReportDetails | ReviewReportDetails | null;
 }
 
 export interface Professor {
@@ -158,3 +187,6 @@ export interface VoteItem {
   review_id: string;
   vote: Vote;
 }
+
+export const VALID_REPORT_ENTITY_TYPES = ['course', 'review'] as const;
+export type ValidReportEntityType = (typeof VALID_REPORT_ENTITY_TYPES)[number];

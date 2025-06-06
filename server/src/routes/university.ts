@@ -2,7 +2,6 @@ import express, { Request, Response } from 'express';
 import { pool } from '../db/db';
 import { RequestedUniversity, University } from 'types';
 import {
-  getUniversities,
   getUniversitiesPaginated,
   getUniversitiesCount,
   getUniversityDomains,

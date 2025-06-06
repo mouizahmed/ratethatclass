@@ -9,6 +9,16 @@ import {
 import axios from 'axios';
 import { registerAccount } from '@/requests/postRequests';
 
+export const isUserAdmin = async (user: User) => {
+  const idTokenResult = await user.getIdTokenResult();
+  return idTokenResult.claims.admin;
+};
+
+export const isUserOwner = async (user: User) => {
+  const idTokenResult = await user.getIdTokenResult();
+  return idTokenResult.claims.owner;
+};
+
 export const doSignOut = async (): Promise<void> => {
   return await auth.signOut();
 };
