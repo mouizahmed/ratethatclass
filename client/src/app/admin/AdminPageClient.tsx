@@ -114,11 +114,6 @@ export default function AdminPageClient() {
                   <SelectItem value="dismissed">Dismissed</SelectItem>
                 </SelectContent>
               </Select>
-              <div className="flex flex-wrap gap-2">
-                <StatusBadge status="pending" />
-                <StatusBadge status="resolved" />
-                <StatusBadge status="dismissed" />
-              </div>
             </div>
 
             <Tabs
