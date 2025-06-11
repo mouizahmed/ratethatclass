@@ -6,7 +6,7 @@ import { createReport, getReportsPaginated, getReportsCount } from '../db/querie
 
 const router: Router = express.Router();
 
-router.get('/get-all', async (req: AuthenticatedRequest, res: Response) => {
+router.get('/', async (req: AuthenticatedRequest, res: Response) => {
   const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
   const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
   const offset = (page - 1) * limit;
@@ -65,10 +65,42 @@ router.get('/get-all', async (req: AuthenticatedRequest, res: Response) => {
   }
 });
 
-router.post('/create', validateToken, async (req: AuthenticatedRequest, res: express.Response) => {
+router.post('/', validateToken, async (req: AuthenticatedRequest, res: express.Response) => {
   try {
     const { reportDetails }: { reportDetails: Report } = req.body;
     const user = req.user;
+
+    // Validate entity type
+    if (!reportDetails.entity_type || !VALID_REPORT_ENTITY_TYPES.includes(reportDetails.entity_type)) {
+      res.status(400).json({
+        success: false,
+        message: `Invalid entity_type. Must be one of: ${VALID_REPORT_ENTITY_TYPES.join(', ')}`,
+        data: {},
+        meta: {},
+      });
+      return;
+    }
+
+    // Validate report reason
+    if (!reportDetails.report_reason || reportDetails.report_reason.trim().length === 0) {
+      res.status(400).json({
+        success: false,
+        message: 'Report reason is required',
+        data: {},
+        meta: {},
+      });
+      return;
+    }
+
+    if (reportDetails.report_reason.trim().length > 1000) {
+      res.status(400).json({
+        success: false,
+        message: 'Report reason must be less than 1000 characters',
+        data: {},
+        meta: {},
+      });
+      return;
+    }
 
     // Validate entity exists before creating report
     if (reportDetails.entity_type === 'course') {

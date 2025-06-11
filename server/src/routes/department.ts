@@ -1,12 +1,9 @@
 import express, { Request, Response } from 'express';
 import {
-  getDepartments,
   getDepartmentsPaginated,
   getDepartmentsCount,
-  getDepartmentByUniversityID,
-  getDepartmentByUniversityIDPaginated,
-  getDepartmentByUniversityIDCount,
-  getDepartmentByID,
+  getDepartmentByUniversityId,
+  getDepartmentById,
   addDepartment,
 } from '../db/queries';
 import { pool } from '../db/db';
@@ -52,16 +49,16 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/universityID/:universityID', async (req: Request, res: Response) => {
-  const { universityID } = req.params;
+router.get('/by-university-id/:universityId', async (req: Request, res: Response) => {
+  const { universityId } = req.params;
   const search = (req.query.search as string) || null;
   const sortBy = (req.query.sort_by as string) || 'total_reviews';
   const sortOrder = (req.query.sort_order as string) || 'desc';
 
   try {
-    validateUUID(universityID);
+    validateUUID(universityId);
 
-    const result = await pool.query(getDepartmentByUniversityID, [universityID, search, sortBy, sortOrder]);
+    const result = await pool.query(getDepartmentByUniversityId, [universityId, search, sortBy, sortOrder]);
 
     res.json({
       success: true,
@@ -82,14 +79,14 @@ router.get('/universityID/:universityID', async (req: Request, res: Response) =>
   }
 });
 
-router.get('/id/:departmentID', async (req: Request, res: Response) => {
-  const { departmentID } = req.params;
+router.get('/by-id/:id', async (req: Request, res: Response) => {
+  const { id } = req.params;
   try {
-    validateUUID(departmentID);
+    validateUUID(id);
 
-    const result = await pool.query(getDepartmentByID, [departmentID]);
+    const result = await pool.query(getDepartmentById, [id]);
     if (result.rows.length == 0) {
-      res.json({
+      res.status(404).json({
         success: false,
         message: 'Department not found',
         data: {},
@@ -114,17 +111,17 @@ router.get('/id/:departmentID', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/add', async (req: Request, res: Response) => {
-  const { departmentName, universityID } = req.body;
+router.post('/', async (req: Request, res: Response) => {
+  const { department_name, university_id } = req.body;
 
   try {
-    if (!departmentName || !universityID)
+    if (!department_name || !university_id)
       throw new Error('Please enter a department name the university ID it belongs to.');
-    await pool.query(addDepartment, [departmentName.trim(), universityID]);
+    await pool.query(addDepartment, [department_name.trim(), university_id]);
     res.json({
       success: true,
-      message: `Department '${departmentName}' successfully added`,
-      data: { department_name: departmentName, university_id: universityID },
+      message: `Department '${department_name}' successfully added`,
+      data: { department_name: department_name, university_id: university_id },
       meta: {},
     });
   } catch (error) {

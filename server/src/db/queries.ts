@@ -49,7 +49,7 @@ export const getUniversityDomains = `
 SELECT domain FROM universities;
 `;
 
-export const getUniversityByID = `
+export const getUniversityById = `
 SELECT * FROM universities WHERE university_id = $1
 `;
 
@@ -94,7 +94,7 @@ WHERE
      universities.university_name ILIKE '%' || $1 || '%')
 `;
 
-export const getDepartmentByUniversityID = `
+export const getDepartmentByUniversityId = `
 SELECT departments.*, universities.university_name
 FROM departments
 JOIN universities ON universities.university_id = departments.university_id
@@ -111,7 +111,7 @@ ORDER BY
     COUNT(reviews.review_id) DESC, departments.department_name ASC
 `;
 
-export const getDepartmentByID = `
+export const getDepartmentById = `
 SELECT * FROM departments WHERE department_id = $1
 `;
 
@@ -194,7 +194,7 @@ WHERE ($1::text IS NULL OR
     courses.course_tag ILIKE '%' || $1 || '%')
 `;
 
-export const getCoursesByUniversityIDCount = `
+export const getCoursesByUniversityIdCount = `
 SELECT COUNT(*) FROM courses
 JOIN departments ON departments.department_id = courses.department_id
 JOIN universities ON universities.university_id = departments.university_id
@@ -205,7 +205,7 @@ AND ($2::text IS NULL OR
 AND ($3::text IS NULL OR departments.department_id = $3::uuid)
 `;
 
-export const getCoursesByUniversityID = `
+export const getCoursesByUniversityId = `
 SELECT
     courses.*,
     ROUND(COALESCE(AVG(reviews.overall_score), 0), 1) AS overall_score,
@@ -250,7 +250,7 @@ ORDER BY
 LIMIT $2 OFFSET $3
 `;
 
-export const getCoursesByDepartmentID = `
+export const getCoursesByDepartmentId = `
 SELECT
     courses.*,
     ROUND(COALESCE(AVG(reviews.overall_score), 0), 0) AS overall_score,
@@ -270,7 +270,7 @@ GROUP BY
     courses.course_id
 `;
 
-export const getCoursesByCourseID = `
+export const getCoursesByCourseId = `
 SELECT
     courses.*,
     ROUND(COALESCE(AVG(reviews.overall_score), 0), 0) AS overall_score,
@@ -348,7 +348,7 @@ WHERE
      courses.course_tag ILIKE '%' || $1 || '%')
 `;
 
-export const getProfessorsByUniversityIDPaginated = `
+export const getProfessorsByUniversityIdPaginated = `
 SELECT professors.*, courses.course_name, courses.course_tag
 FROM professors
 JOIN courses ON courses.course_id = professors.course_id
@@ -367,7 +367,7 @@ ORDER BY
 LIMIT $1 OFFSET $2
 `;
 
-export const getProfessorsByUniversityIDCount = `
+export const getProfessorsByUniversityIdCount = `
 SELECT COUNT(*) FROM professors
 JOIN courses ON courses.course_id = professors.course_id
 JOIN departments ON departments.department_id = courses.department_id
@@ -376,7 +376,7 @@ WHERE universities.university_id = $1
 AND ($2::text IS NULL OR professors.professor_name ILIKE '%' || $2 || '%')
 `;
 
-export const getProfessorsByCourseIDPaginated = `
+export const getProfessorsByCourseIdPaginated = `
 SELECT professors.*
 FROM professors
 WHERE course_id = $3
@@ -388,7 +388,7 @@ ORDER BY
 LIMIT $1 OFFSET $2
 `;
 
-export const getProfessorsByCourseIDCount = `
+export const getProfessorsByCourseIdCount = `
 SELECT COUNT(*) FROM professors
 WHERE course_id = $1
 AND ($2::text IS NULL OR professors.professor_name ILIKE '%' || $2 || '%')

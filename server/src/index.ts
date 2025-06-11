@@ -17,7 +17,12 @@ app.use(
 app.use(bodyParser.json());
 
 app.get('/health', (req: Request, res: Response) => {
-  res.json({ message: 'Success' });
+  res.json({
+    success: true,
+    message: 'Server is healthy',
+    data: {},
+    meta: {},
+  });
 });
 
 import universityRouter from './routes/university';

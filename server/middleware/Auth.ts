@@ -7,8 +7,10 @@ export const validateToken = async (req: AuthenticatedRequest, res: Response, ne
 
   if (!idToken || typeof idToken !== 'string' || idToken.trim() === '') {
     res.status(401).json({
-      error: 'AUTH_ERROR',
+      success: false,
       message: 'User not logged in',
+      data: {},
+      meta: {},
     });
     return;
   }
@@ -19,24 +21,30 @@ export const validateToken = async (req: AuthenticatedRequest, res: Response, ne
 
     if (!user.emailVerified) {
       res.status(401).json({
-        error: 'AUTH_ERROR',
+        success: false,
         message: 'Email not verified',
+        data: {},
+        meta: {},
       });
       return;
     }
 
     if (decodedToken.banned) {
       res.status(401).json({
-        error: 'AUTH_ERROR',
+        success: false,
         message: `Account banned: ${decodedToken.ban_reason || 'No reason provided'}`,
+        data: {},
+        meta: {},
       });
       return;
     }
 
     if (decodedToken.admin === true || decodedToken.owner === true) {
       res.status(403).json({
-        error: 'AUTH_ERROR',
+        success: false,
         message: 'Admins and owners cannot perform regular user actions',
+        data: {},
+        meta: {},
       });
       return;
     }
@@ -46,8 +54,10 @@ export const validateToken = async (req: AuthenticatedRequest, res: Response, ne
   } catch (error) {
     console.log('Token verification error:', error);
     res.status(401).json({
-      error: 'AUTH_ERROR',
+      success: false,
       message: 'Unauthorized. Invalid or expired token.',
+      data: {},
+      meta: {},
     });
   }
 };
@@ -77,7 +87,12 @@ export const validateAdmin = async (req: AuthenticatedRequest, res: Response, ne
   const idToken = req.headers['id_token'];
 
   if (!idToken || typeof idToken !== 'string' || idToken.trim() === '') {
-    res.status(401).send('Missing or invalid ID token.');
+    res.status(401).json({
+      success: false,
+      message: 'Missing or invalid ID token',
+      data: {},
+      meta: {},
+    });
     return;
   }
 
@@ -87,7 +102,12 @@ export const validateAdmin = async (req: AuthenticatedRequest, res: Response, ne
     console.log(user.admin);
     if (user.admin !== true && user.owner !== true) {
       console.log('Admin or owner privileges required.');
-      res.status(403).send('Access denied. Admin or owner privileges required.');
+      res.status(403).json({
+        success: false,
+        message: 'Access denied. Admin or owner privileges required.',
+        data: {},
+        meta: {},
+      });
       return;
     }
 
@@ -95,6 +115,11 @@ export const validateAdmin = async (req: AuthenticatedRequest, res: Response, ne
     next();
   } catch (error) {
     console.log('Token verification failed:', error);
-    res.status(401).send('Unauthorized. Invalid or expired token.');
+    res.status(401).json({
+      success: false,
+      message: 'Unauthorized. Invalid or expired token.',
+      data: {},
+      meta: {},
+    });
   }
 };

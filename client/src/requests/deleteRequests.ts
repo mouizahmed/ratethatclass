@@ -13,7 +13,7 @@ export async function deleteReview(reviewID: string) {
     let idToken = '';
     if (currentUser) idToken = await currentUser.getIdToken(true);
 
-    const response = await axios.delete(`${process.env.NEXT_PUBLIC_URL}/review/delete/id/${reviewID}`, {
+    const response = await axios.delete(`${process.env.NEXT_PUBLIC_URL}/review/${reviewID}`, {
       withCredentials: true,
       headers: {
         id_token: idToken,

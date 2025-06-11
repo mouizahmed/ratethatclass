@@ -1,15 +1,12 @@
 import express, { Request, Response } from 'express';
 import { pool } from '../db/db';
 import {
-  getProfessors,
   getProfessorsPaginated,
   getProfessorsCount,
-  getProfessorsByUniversityID,
-  getProfessorsByUniversityIDPaginated,
-  getProfessorsByUniversityIDCount,
-  getProfessorsByCourseID,
-  getProfessorsByCourseIDPaginated,
-  getProfessorsByCourseIDCount,
+  getProfessorsByUniversityIdPaginated,
+  getProfessorsByUniversityIdCount,
+  getProfessorsByCourseIdPaginated,
+  getProfessorsByCourseIdCount,
 } from '../db/queries';
 import { Professor } from 'types';
 
@@ -52,8 +49,8 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/universityID/:universityID', async (req: Request, res: Response) => {
-  const { universityID } = req.params;
+router.get('/by-university-id/:universityId', async (req: Request, res: Response) => {
+  const { universityId } = req.params;
   const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
   const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
   const offset = (page - 1) * limit;
@@ -62,15 +59,15 @@ router.get('/universityID/:universityID', async (req: Request, res: Response) =>
   const sortOrder = (req.query.sort_order as string) || 'asc';
 
   try {
-    const result = await pool.query(getProfessorsByUniversityIDPaginated, [
+    const result = await pool.query(getProfessorsByUniversityIdPaginated, [
       limit,
       offset,
-      universityID,
+      universityId,
       search,
       sortBy,
       sortOrder,
     ]);
-    const countResult = await pool.query(getProfessorsByUniversityIDCount, [universityID, search]);
+    const countResult = await pool.query(getProfessorsByUniversityIdCount, [universityId, search]);
 
     const totalItems = parseInt(countResult.rows[0].count, 10);
     const totalPages = Math.ceil(totalItems / limit);
@@ -97,8 +94,8 @@ router.get('/universityID/:universityID', async (req: Request, res: Response) =>
   }
 });
 
-router.get('/courseID/:courseID', async (req: Request, res: Response) => {
-  const { courseID } = req.params;
+router.get('/by-course-id/:courseId', async (req: Request, res: Response) => {
+  const { courseId } = req.params;
   const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
   const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
   const offset = (page - 1) * limit;
@@ -107,15 +104,15 @@ router.get('/courseID/:courseID', async (req: Request, res: Response) => {
   const sortOrder = (req.query.sort_order as string) || 'asc';
 
   try {
-    const result = await pool.query(getProfessorsByCourseIDPaginated, [
+    const result = await pool.query(getProfessorsByCourseIdPaginated, [
       limit,
       offset,
-      courseID,
+      courseId,
       search,
       sortBy,
       sortOrder,
     ]);
-    const countResult = await pool.query(getProfessorsByCourseIDCount, [courseID, search]);
+    const countResult = await pool.query(getProfessorsByCourseIdCount, [courseId, search]);
 
     const totalItems = parseInt(countResult.rows[0].count, 10);
     const totalPages = Math.ceil(totalItems / limit);

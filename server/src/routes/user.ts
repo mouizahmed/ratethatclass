@@ -75,7 +75,7 @@ router.get('/reviews', validateToken, async (req: AuthenticatedRequest, res: Res
     res.status(500).json({
       success: false,
       message: error.message,
-      data: [],
+      data: {},
       meta: {},
     });
   }
@@ -120,7 +120,7 @@ router.get('/upvotes', validateToken, async (req: AuthenticatedRequest, res: Res
     res.status(500).json({
       success: false,
       message: error.message,
-      data: [],
+      data: {},
       meta: {},
     });
   }
@@ -165,12 +165,10 @@ router.get('/downvotes', validateToken, async (req: AuthenticatedRequest, res: R
     res.status(500).json({
       success: false,
       message: error.message,
-      data: [],
+      data: {},
       meta: {},
     });
   }
 });
-
-router.delete('/delete/reviewID/:review_id', validateToken, async (req: AuthenticatedRequest, res: Response) => {});
 
 export default router;

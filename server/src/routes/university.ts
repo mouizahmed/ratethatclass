@@ -5,7 +5,7 @@ import {
   getUniversitiesPaginated,
   getUniversitiesCount,
   getUniversityDomains,
-  getUniversityByID,
+  getUniversityById,
   getUniversityByName,
   requestUniversity,
   getRequestedUniversities,
@@ -55,12 +55,12 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/name/:universityName', async (req: Request, res: Response) => {
-  const universityName = req.params.universityName.replace('_', ' ');
+router.get('/by-name/:name', async (req: Request, res: Response) => {
+  const universityName = req.params.name.replace(/_/g, ' ');
   try {
     const result = await pool.query(getUniversityByName, [universityName]);
     if (result.rows.length == 0) {
-      res.json({
+      res.status(404).json({
         success: false,
         message: 'University not found',
         data: {},
@@ -85,13 +85,13 @@ router.get('/name/:universityName', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/id/:universityID', async (req: Request, res: Response) => {
-  const universityID = req.params.universityID;
+router.get('/by-id/:id', async (req: Request, res: Response) => {
+  const universityID = req.params.id;
   try {
     validateUUID(universityID);
-    const result = await pool.query(getUniversityByID, [universityID]);
+    const result = await pool.query(getUniversityById, [universityID]);
     if (result.rows.length == 0) {
-      res.json({
+      res.status(404).json({
         success: false,
         message: 'University not found',
         data: {},
@@ -137,7 +137,7 @@ router.get('/domains', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/request-university-list', async (req: Request, res: Response) => {
+router.get('/requests', async (req: Request, res: Response) => {
   try {
     let token = req.cookies.token;
 
@@ -168,12 +168,12 @@ router.get('/request-university-list', async (req: Request, res: Response) => {
   }
 });
 
-router.put('/vote-university/id/:universityID', async (req: Request, res: Response) => {
+router.put('/requests/:id/vote', async (req: Request, res: Response) => {
   let client: PoolClient;
   let token = req.cookies.token;
 
   try {
-    const universityID = req.params.universityID;
+    const universityID = req.params.id;
     validateUUID(universityID);
 
     client = await pool.connect();
@@ -215,14 +215,14 @@ router.put('/vote-university/id/:universityID', async (req: Request, res: Respon
   }
 });
 
-router.post('/request-university', async (req: Request, res: Response) => {
+router.post('/requests', async (req: Request, res: Response) => {
   let client: PoolClient;
   let token = req.cookies.token;
 
   try {
-    const { universityName }: { universityName: string } = req.body;
+    const { name }: { name: string } = req.body;
 
-    if (!universityName?.trim()) {
+    if (!name?.trim()) {
       res.status(400).json({
         success: false,
         message: 'University name is required',
@@ -235,7 +235,7 @@ router.post('/request-university', async (req: Request, res: Response) => {
     client = await pool.connect();
     await client.query('BEGIN');
 
-    const universityRequest = await client.query(requestUniversity, [universityName.trim()]);
+    const universityRequest = await client.query(requestUniversity, [name.trim()]);
 
     if (!token) {
       token = crypto.randomBytes(16).toString('hex');
@@ -251,7 +251,7 @@ router.post('/request-university', async (req: Request, res: Response) => {
     res.json({
       success: true,
       message: `University request successfully added`,
-      data: { university_name: universityName },
+      data: { university_name: name },
       meta: {},
     });
   } catch (error) {

@@ -31,7 +31,7 @@ export async function getUniversities(): Promise<University[]> {
 export async function getRequestedUniversities(): Promise<RequestedUniversity[]> {
   try {
     const response = await axios.get<ApiResponse<RequestedUniversity[]>>(
-      `${process.env.NEXT_PUBLIC_URL}/university/request-university-list`,
+      `${process.env.NEXT_PUBLIC_URL}/university/requests`,
       { withCredentials: true }
     );
 
@@ -49,7 +49,7 @@ export async function getRequestedUniversities(): Promise<RequestedUniversity[]>
 export async function getUniversity(universityName: string): Promise<University> {
   try {
     const response = await axios.get<ApiResponse<University>>(
-      `${process.env.NEXT_PUBLIC_URL}/university/name/${universityName}`
+      `${process.env.NEXT_PUBLIC_URL}/university/by-name/${universityName}`
     );
 
     if (!response.data.success || !response.data.data.university_id) {
@@ -69,7 +69,7 @@ export async function getDepartmentsByUniversityID(
   sortOrder?: 'asc' | 'desc'
 ): Promise<Department[]> {
   try {
-    let url = `${process.env.NEXT_PUBLIC_URL}/department/universityID/${universityID}`;
+    let url = `${process.env.NEXT_PUBLIC_URL}/department/by-university-id/${universityID}`;
 
     const params = new URLSearchParams();
     if (search) {
@@ -109,7 +109,7 @@ export async function getCoursesByUniversityID(
   sortBy?: string,
   sortOrder?: 'asc' | 'desc'
 ): Promise<PaginatedResponse<Course>> {
-  let url = `${process.env.NEXT_PUBLIC_URL}/course/universityID/${universityID}?page=${page}&limit=${limit}`;
+  let url = `${process.env.NEXT_PUBLIC_URL}/course/by-university-id/${universityID}?page=${page}&limit=${limit}`;
 
   if (search) {
     url += `&search=${encodeURIComponent(search)}`;
@@ -160,7 +160,7 @@ export async function getCoursesByUniversityID(
 export async function getProfessorsByCourseID(courseID: string): Promise<Professor[]> {
   try {
     const response = await axios.get<ApiResponse<Professor[]>>(
-      `${process.env.NEXT_PUBLIC_URL}/professor/courseID/${courseID}`
+      `${process.env.NEXT_PUBLIC_URL}/professor/by-course-id/${courseID}`
     );
 
     if (!response.data.success) {
@@ -178,7 +178,7 @@ export async function getProfessorsByCourseID(courseID: string): Promise<Profess
 export async function getCourseByCourseTag(universityID: string, courseTag: string): Promise<Course> {
   try {
     const response = await axios.get<ApiResponse<Course>>(
-      `${process.env.NEXT_PUBLIC_URL}/course/universityID/${universityID}/courseTag/${courseTag}`
+      `${process.env.NEXT_PUBLIC_URL}/course/by-university-id/${universityID}/by-tag/${courseTag}`
     );
 
     if (!response.data.success || !response.data.data.course_id) {
@@ -203,7 +203,7 @@ export async function getReviewsByCourseID(
   sortOrder?: 'asc' | 'desc'
 ): Promise<PaginatedResponse<Review>> {
   try {
-    let url = `${process.env.NEXT_PUBLIC_URL}/review/courseID/${courseID}`;
+    let url = `${process.env.NEXT_PUBLIC_URL}/review/by-course-id/${courseID}`;
 
     if (page !== undefined) {
       url += `?page=${page}&limit=${limit || 10}`;
@@ -267,7 +267,7 @@ export async function getReports(
   status?: ReportStatus
 ): Promise<PaginatedResponse<Report>> {
   try {
-    let url = `${process.env.NEXT_PUBLIC_URL}/report/get-all?page=${page}&limit=${limit}&entity_type=${entityType}&sort_by=${sortBy}&sort_order=${sortOrder}`;
+    let url = `${process.env.NEXT_PUBLIC_URL}/report?page=${page}&limit=${limit}&entity_type=${entityType}&sort_by=${sortBy}&sort_order=${sortOrder}`;
 
     if (status) {
       url += `&status=${status}`;

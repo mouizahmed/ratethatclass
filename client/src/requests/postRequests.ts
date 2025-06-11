@@ -33,7 +33,7 @@ export async function postReview(review: Review): Promise<void> {
 
   const response = await axios
     .post<ApiResponse<Record<string, never>>>(
-      `${process.env.NEXT_PUBLIC_URL}/review/add`,
+      `${process.env.NEXT_PUBLIC_URL}/review`,
       {
         reviewData: review,
       },
@@ -58,7 +58,7 @@ export async function postCourse(course: Course, review: Review): Promise<void> 
 
   const response = await axios
     .post<ApiResponse<Record<string, never>>>(
-      `${process.env.NEXT_PUBLIC_URL}/course/add`,
+      `${process.env.NEXT_PUBLIC_URL}/course`,
       {
         reviewData: review,
         courseData: course,
@@ -119,9 +119,9 @@ export async function postDownVote(review: Review): Promise<void> {
 export async function postUniversityRequest(universityName: string): Promise<void> {
   const response = await axios
     .post<ApiResponse<Record<string, never>>>(
-      `${process.env.NEXT_PUBLIC_URL}/university/request-university`,
+      `${process.env.NEXT_PUBLIC_URL}/university/requests`,
       {
-        universityName: universityName,
+        name: universityName,
       },
       {
         withCredentials: true,
@@ -142,7 +142,7 @@ export async function postReport(entityID: string, reason: string, type: string)
 
   const response = await axios
     .post<ApiResponse<Record<string, never>>>(
-      `${process.env.NEXT_PUBLIC_URL}/report/create`,
+      `${process.env.NEXT_PUBLIC_URL}/report`,
       {
         reportDetails: {
           entity_id: entityID,

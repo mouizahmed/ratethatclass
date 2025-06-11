@@ -3,7 +3,7 @@ import axios from 'axios';
 export async function voteUniversity(universityID: string) {
   try {
     await axios.put(
-      `${process.env.NEXT_PUBLIC_URL}/university/vote-university/id/${universityID}`,
+      `${process.env.NEXT_PUBLIC_URL}/university/requests/${universityID}/vote`,
       {},
       {
         withCredentials: true,

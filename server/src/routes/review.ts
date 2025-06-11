@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 import {
-  getReviews,
   getReviewsPaginated,
   getReviewsCount,
   getReviewsByCourseIDPaginated,
@@ -22,7 +21,6 @@ import { pool } from '../db/db';
 import { AuthenticatedRequest, Review } from 'types';
 import { validateToken, validateTokenOptional } from '../../middleware/Auth';
 import { PoolClient } from 'pg';
-import { isEmailVerified } from '../helpers';
 
 const router = express.Router();
 
@@ -98,8 +96,8 @@ router.get('/votes', validateToken, async (req: AuthenticatedRequest, res: Respo
   }
 });
 
-router.get('/courseID/:courseID', validateTokenOptional, async (req: AuthenticatedRequest, res: Response) => {
-  const { courseID } = req.params;
+router.get('/by-course-id/:courseId', validateTokenOptional, async (req: AuthenticatedRequest, res: Response) => {
+  const { courseId } = req.params;
   const user = req.user;
 
   const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
@@ -114,7 +112,7 @@ router.get('/courseID/:courseID', validateTokenOptional, async (req: Authenticat
   try {
     let queryText = getReviewsByCourseIDPaginated;
 
-    const queryParams = [user?.uid || '', courseID];
+    const queryParams = [user?.uid || '', courseId];
     let paramCounter = 3;
 
     if (professorID) {
@@ -187,9 +185,6 @@ router.post('/downvote', validateToken, async (req: AuthenticatedRequest, res: R
   }
 
   try {
-    // Check email verification before acquiring client
-    isEmailVerified(user);
-
     client = await pool.connect();
     await client.query('BEGIN');
     const existingVote = await client.query(getExistingVote, [user.uid, review_id]);
@@ -246,9 +241,6 @@ router.post('/upvote', validateToken, async (req: AuthenticatedRequest, res: Res
   }
 
   try {
-    // Check email verification before acquiring client
-    isEmailVerified(user);
-
     client = await pool.connect();
     await client.query('BEGIN');
     const existingVote = await client.query(getExistingVote, [user.uid, review_id]);
@@ -289,7 +281,7 @@ router.post('/upvote', validateToken, async (req: AuthenticatedRequest, res: Res
   }
 });
 
-router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Response) => {
+router.post('/', validateToken, async (req: AuthenticatedRequest, res: Response) => {
   let client: PoolClient;
 
   try {
@@ -307,7 +299,6 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
     }
 
     const user = req.user;
-    isEmailVerified(user);
 
     client = await pool.connect();
     await client.query('BEGIN');
@@ -375,12 +366,12 @@ router.post('/add', validateToken, async (req: AuthenticatedRequest, res: Respon
   }
 });
 
-router.delete('/delete/id/:reviewID', validateToken, async (req: AuthenticatedRequest, res: Response) => {
-  const { reviewID } = req.params;
+router.delete('/:reviewId', validateToken, async (req: AuthenticatedRequest, res: Response) => {
+  const { reviewId } = req.params;
   const user = req.user;
 
   try {
-    const result = await pool.query(deleteUserReview, [reviewID, user.uid]);
+    const result = await pool.query(deleteUserReview, [reviewId, user.uid]);
     res.json({
       success: true,
       message: 'Review successfully deleted',
