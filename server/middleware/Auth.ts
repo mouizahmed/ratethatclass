@@ -6,17 +6,49 @@ export const validateToken = async (req: AuthenticatedRequest, res: Response, ne
   const idToken = req.headers['id_token'];
 
   if (!idToken || typeof idToken !== 'string' || idToken.trim() === '') {
-    res.status(401).send('Missing or invalid ID token.');
+    res.status(401).json({
+      error: 'AUTH_ERROR',
+      message: 'User not logged in',
+    });
     return;
   }
 
   try {
     const decodedToken = await auth.verifyIdToken(idToken);
+    const user = await auth.getUser(decodedToken.uid);
+
+    if (!user.emailVerified) {
+      res.status(401).json({
+        error: 'AUTH_ERROR',
+        message: 'Email not verified',
+      });
+      return;
+    }
+
+    if (decodedToken.banned) {
+      res.status(401).json({
+        error: 'AUTH_ERROR',
+        message: `Account banned: ${decodedToken.ban_reason || 'No reason provided'}`,
+      });
+      return;
+    }
+
+    if (decodedToken.admin === true || decodedToken.owner === true) {
+      res.status(403).json({
+        error: 'AUTH_ERROR',
+        message: 'Admins and owners cannot perform regular user actions',
+      });
+      return;
+    }
+
     req.user = decodedToken;
     next();
   } catch (error) {
     console.log('Token verification error:', error);
-    res.status(401).send('Unauthorized. Invalid or expired token.');
+    res.status(401).json({
+      error: 'AUTH_ERROR',
+      message: 'Unauthorized. Invalid or expired token.',
+    });
   }
 };
 
@@ -51,9 +83,11 @@ export const validateAdmin = async (req: AuthenticatedRequest, res: Response, ne
 
   try {
     const user = await auth.verifyIdToken(idToken);
-
-    if (user.admin !== true) {
-      res.status(403).send('Access denied. Admin privileges required.');
+    // await auth.setCustomUserClaims(user.uid, { owner: true });
+    console.log(user.admin);
+    if (user.admin !== true && user.owner !== true) {
+      console.log('Admin or owner privileges required.');
+      res.status(403).send('Access denied. Admin or owner privileges required.');
       return;
     }
 

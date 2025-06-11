@@ -33,6 +33,24 @@ export const toastUtils = {
         description: 'Please verify your email to perform this action.',
       });
     },
+
+    banned: (banReason?: string) => {
+      toast({
+        variant: 'destructive',
+        title: 'Account banned',
+        description: banReason
+          ? `You are banned: ${banReason}. You will be logged out automatically.`
+          : 'You are banned from performing this action. You will be logged out automatically.',
+      });
+    },
+
+    adminOrOwner: () => {
+      toast({
+        variant: 'destructive',
+        title: 'Access Denied',
+        description: 'Admins and owners cannot perform regular user actions.',
+      });
+    },
   },
 
   // Loading/fetch error toasts

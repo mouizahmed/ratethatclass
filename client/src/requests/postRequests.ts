@@ -17,7 +17,6 @@ export async function registerAccount(displayName: string, email: string, passwo
       password: password,
     })
     .catch((error) => {
-      console.log('ASDASDAD');
       console.log(error);
       throw new Error(error.response.data.message || 'Registration failed. Please try again.');
     });
@@ -147,7 +146,7 @@ export async function postReport(entityID: string, reason: string, type: string)
       {
         reportDetails: {
           entity_id: entityID,
-          reason: reason,
+          report_reason: reason,
           entity_type: type.toLowerCase(),
         },
       },
@@ -160,5 +159,23 @@ export async function postReport(entityID: string, reason: string, type: string)
 
   if (!response.data.success) {
     throw new Error(response.data.message || 'Could not send report.');
+  }
+}
+
+export async function banUser(userId: string): Promise<void> {
+  const idToken = await getIdToken();
+  const response = await axios
+    .post<ApiResponse<Record<string, never>>>(
+      `${process.env.NEXT_PUBLIC_URL}/admin/users/ban`,
+      { user_id: userId },
+      { headers: { id_token: idToken } }
+    )
+    .catch((error) => {
+      console.error(error);
+      throw new Error('Could not ban user.');
+    });
+
+  if (!response.data.success) {
+    throw new Error(response.data.message || 'Could not ban user.');
   }
 }

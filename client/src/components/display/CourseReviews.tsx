@@ -155,18 +155,6 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
     await window.location.reload();
   };
 
-  const openDialog = (value: React.Dispatch<React.SetStateAction<boolean>>) => {
-    if (!userLoggedIn) {
-      toastUtils.auth.notLoggedIn();
-      return;
-    } else if (currentUser?.emailVerified === false) {
-      toastUtils.auth.notVerified();
-      return;
-    }
-
-    value(true);
-  };
-
   // Function to fetch reviews with current filter settings
   const fetchReviews = useCallback(
     async (page: number = 1, append: boolean = false) => {
@@ -322,7 +310,7 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
             <DropdownMenuGroup>
-              <DropdownMenuItem onClick={() => openDialog(setShowReportDialog)}>Report</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setShowReportDialog(true)}>Report</DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>

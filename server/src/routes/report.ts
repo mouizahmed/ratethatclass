@@ -1,5 +1,5 @@
-import express, { Request, Response, Router } from 'express';
-import { validateAdmin, validateToken } from '../../middleware/Auth';
+import express, { Response, Router } from 'express';
+import { validateToken } from '../../middleware/Auth';
 import { AuthenticatedRequest, Report, ReportStatus, VALID_REPORT_ENTITY_TYPES, ValidReportEntityType } from '../types';
 import { pool } from '../db/db';
 import { createReport, getReportsPaginated, getReportsCount } from '../db/queries';
@@ -69,6 +69,32 @@ router.post('/create', validateToken, async (req: AuthenticatedRequest, res: exp
   try {
     const { reportDetails }: { reportDetails: Report } = req.body;
     const user = req.user;
+
+    // Validate entity exists before creating report
+    if (reportDetails.entity_type === 'course') {
+      const courseExists = await pool.query('SELECT 1 FROM courses WHERE course_id = $1', [reportDetails.entity_id]);
+      if (!courseExists.rows.length) {
+        res.status(404).json({
+          success: false,
+          message: 'Course not found',
+          data: {},
+          meta: {},
+        });
+        return;
+      }
+    } else if (reportDetails.entity_type === 'review') {
+      const reviewExists = await pool.query('SELECT 1 FROM reviews WHERE review_id = $1', [reportDetails.entity_id]);
+      if (!reviewExists.rows.length) {
+        res.status(404).json({
+          success: false,
+          message: 'Review not found',
+          data: {},
+          meta: {},
+        });
+        return;
+      }
+    }
+
     const report = await pool.query(createReport, [
       user.uid,
       reportDetails.entity_type,

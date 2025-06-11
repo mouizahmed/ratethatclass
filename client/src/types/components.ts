@@ -1,5 +1,6 @@
 import { Review } from './review';
 import { Course, University } from './university';
+import { BannedUser } from './bannedUser';
 
 // Display Component Props
 export interface PreviewReviewCardProps {
@@ -54,6 +55,13 @@ export interface ReportDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
+export interface BanUserDialogProps {
+  userId: string;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onConfirm: (reason: string) => void;
+}
+
 export interface DeleteReviewConfirmationDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -71,4 +79,9 @@ export interface DialogFormStepProps {
 // AdSense Component Props
 export interface AdsenseProps {
   pId: string;
+}
+
+export interface BannedUserCardProps {
+  user: BannedUser;
+  onUnban: () => void;
 }

@@ -7,6 +7,7 @@ import DialogFormStep from './DialogFormStep';
 import { z, ZodObject } from 'zod';
 import { useAuth } from '@/contexts/authContext';
 import { toastUtils } from '@/lib/toast-utils';
+import { checkUserActionAllowed } from '@/lib/auth-guards';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface StepProps<T extends ZodObject<any>> {
@@ -31,7 +32,7 @@ export function DialogForm<T extends ZodObject<any>>({
   onSubmit,
   schema,
 }: SteppedFormDialogProps<T>) {
-  const { userLoggedIn, currentUser } = useAuth();
+  const { userLoggedIn, currentUser, banned, banReason, isAdmin, isOwner } = useAuth();
   const [open, setOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -69,11 +70,7 @@ export function DialogForm<T extends ZodObject<any>>({
 
   const toggleDialog = (open: boolean) => {
     if (open === true) {
-      if (userLoggedIn === false) {
-        toastUtils.auth.notLoggedIn();
-        return;
-      } else if (currentUser?.emailVerified === false) {
-        toastUtils.auth.notVerified();
+      if (!checkUserActionAllowed({ userLoggedIn, currentUser, banned, banReason, isAdmin, isOwner })) {
         return;
       }
     }

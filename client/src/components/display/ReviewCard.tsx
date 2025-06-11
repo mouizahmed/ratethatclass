@@ -21,12 +21,13 @@ import { ratingItem } from '@/lib/display';
 import { DeleteReviewConfirmationDialog } from '../dialogs/DeleteReviewConfirmationDialog';
 import { ReportDialog } from '../dialogs/ReportDialog';
 import { toastUtils } from '@/lib/toast-utils';
+import { checkUserActionAllowed } from '@/lib/auth-guards';
 
 export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
   const [vote, setVote] = useState<Vote>(review.vote || Vote.noVote);
   const [totalVotes, setTotalVotes] = useState<number>(review.votes || 0);
   const [isVoting, setIsVoting] = useState<boolean>(false);
-  const { userLoggedIn, currentUser } = useAuth();
+  const { userLoggedIn, currentUser, banned, banReason, isAdmin, isOwner } = useAuth();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showReportDialog, setShowReportDialog] = useState(false);
 
@@ -37,11 +38,7 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
 
   const handleVote = useCallback(
     async (voteType: 'up' | 'down') => {
-      if (userLoggedIn === false) {
-        toastUtils.auth.notLoggedIn();
-        return;
-      } else if (currentUser?.emailVerified === false) {
-        toastUtils.auth.notVerified();
+      if (!checkUserActionAllowed({ userLoggedIn, currentUser, banned, banReason, isAdmin, isOwner })) {
         return;
       }
 
@@ -97,17 +94,6 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
 
   const upVote = useCallback(() => handleVote('up'), [handleVote]);
   const downVote = useCallback(() => handleVote('down'), [handleVote]);
-
-  const openDialog = (value: React.Dispatch<React.SetStateAction<boolean>>) => {
-    if (!userLoggedIn) {
-      toastUtils.auth.notLoggedIn();
-      return;
-    } else if (currentUser?.emailVerified === false) {
-      toastUtils.auth.notVerified();
-      return;
-    }
-    value(true);
-  };
 
   return (
     <div className="flex items-center justify-center gap-4">
@@ -262,9 +248,9 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
               <DropdownMenuContent>
                 <DropdownMenuGroup>
                   {currentUser && currentUser.uid === review.user_id ? (
-                    <DropdownMenuItem onClick={() => openDialog(setShowDeleteDialog)}>Delete</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setShowDeleteDialog(true)}>Delete</DropdownMenuItem>
                   ) : (
-                    <DropdownMenuItem onClick={() => openDialog(setShowReportDialog)}>Report</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setShowReportDialog(true)}>Report</DropdownMenuItem>
                   )}
                 </DropdownMenuGroup>
               </DropdownMenuContent>

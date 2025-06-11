@@ -12,6 +12,10 @@ const initialState: AuthenticationContext = {
   currentUser: null,
   setCurrentUser: () => {},
   loading: true,
+  banned: false,
+  banReason: undefined,
+  isAdmin: false,
+  isOwner: false,
 };
 
 const AuthContext = createContext<AuthenticationContext>(initialState);
@@ -25,6 +29,10 @@ export function AuthProvider({ children }: ReactChildren) {
   const [userLoggedIn, setUserLoggedIn] = useState<boolean>(false);
   const [isEmailUser, setIsEmailUser] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [banned, setBanned] = useState<boolean>(false);
+  const [banReason, setBanReason] = useState<string | undefined>(undefined);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [isOwner, setIsOwner] = useState<boolean>(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, initializeUser);
@@ -37,10 +45,20 @@ export function AuthProvider({ children }: ReactChildren) {
       const isEmail = user.providerData.some((provider) => provider.providerId === 'password');
       setIsEmailUser(isEmail);
       setUserLoggedIn(true);
+      // Check for banned, admin, and owner claims
+      const idTokenResult = await user.getIdTokenResult();
+      setBanned(!!idTokenResult.claims.banned);
+      setBanReason((idTokenResult.claims as { ban_reason?: string }).ban_reason || undefined);
+      setIsAdmin(!!idTokenResult.claims.admin);
+      setIsOwner(!!idTokenResult.claims.owner);
     } else {
       setCurrentUser(null);
       setUserLoggedIn(false);
       setIsEmailUser(false);
+      setBanned(false);
+      setBanReason(undefined);
+      setIsAdmin(false);
+      setIsOwner(false);
     }
     setLoading(false);
   }
@@ -51,6 +69,10 @@ export function AuthProvider({ children }: ReactChildren) {
     currentUser,
     setCurrentUser,
     loading,
+    banned,
+    banReason,
+    isAdmin,
+    isOwner,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

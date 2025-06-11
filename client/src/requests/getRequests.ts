@@ -1,25 +1,27 @@
 import { Course, Department, Professor, RequestedUniversity, University } from '@/types/university';
 import { Review } from '@/types/review';
 import { ApiResponse, PaginatedResponse } from '@/types/api';
-import { Report } from '@/types/report';
+import { Report, ReportStatus } from '@/types/report';
+import { BannedUser } from '../types/bannedUser';
+import { auth } from '@/firebase/firebase';
+import axios from 'axios';
 
 // const API_TIMEOUT = 3000;
 
+async function getIdToken() {
+  const currentUser = auth.currentUser;
+  return currentUser ? await currentUser.getIdToken(true) : '';
+}
+
 export async function getUniversities(): Promise<University[]> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/university`);
+    const response = await axios.get<ApiResponse<University[]>>(`${process.env.NEXT_PUBLIC_URL}/university`);
 
-    if (!response.ok) {
-      throw new Error('Could not retrieve universities');
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Failed to retrieve universities');
     }
 
-    const data: ApiResponse<University[]> = await response.json();
-
-    if (!data.success) {
-      throw new Error(data.message || 'Failed to retrieve universities');
-    }
-
-    return data.data;
+    return response.data.data;
   } catch (error) {
     console.log(error);
     return [] as University[];
@@ -28,21 +30,16 @@ export async function getUniversities(): Promise<University[]> {
 
 export async function getRequestedUniversities(): Promise<RequestedUniversity[]> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/university/request-university-list`, {
-      credentials: 'include',
-    });
+    const response = await axios.get<ApiResponse<RequestedUniversity[]>>(
+      `${process.env.NEXT_PUBLIC_URL}/university/request-university-list`,
+      { withCredentials: true }
+    );
 
-    if (!response.ok) {
-      throw new Error('Could not retrieve requested universities.');
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Failed to retrieve requested universities');
     }
 
-    const data: ApiResponse<RequestedUniversity[]> = await response.json();
-
-    if (!data.success) {
-      throw new Error(data.message || 'Failed to retrieve requested universities');
-    }
-
-    return data.data;
+    return response.data.data;
   } catch (error) {
     console.log(error);
     throw new Error('Could not retrieve requested universities.');
@@ -51,16 +48,14 @@ export async function getRequestedUniversities(): Promise<RequestedUniversity[]>
 
 export async function getUniversity(universityName: string): Promise<University> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/university/name/${universityName}`, {
-      next: { revalidate: 3600 }, // Cache for 1 hour
-    });
+    const response = await axios.get<ApiResponse<University>>(
+      `${process.env.NEXT_PUBLIC_URL}/university/name/${universityName}`
+    );
 
-    const data: ApiResponse<University> = await response.json();
-
-    if (!data.success || !data.data.university_id) {
+    if (!response.data.success || !response.data.data.university_id) {
       return {} as University; // Return empty university object to trigger notFound()
     }
-    return data.data;
+    return response.data.data;
   } catch (error) {
     console.log(error);
     return {} as University; // Return empty university object to trigger notFound()
@@ -91,21 +86,14 @@ export async function getDepartmentsByUniversityID(
       url += `?${params.toString()}`;
     }
 
-    const response = await fetch(url);
+    const response = await axios.get<ApiResponse<Department[]>>(url);
 
-    if (!response.ok) {
-      console.log('Failed to get departments');
+    if (!response.data.success) {
+      console.log(`Failed to get departments: ${response.data.message}`);
       return [];
     }
 
-    const data: ApiResponse<Department[]> = await response.json();
-
-    if (!data.success) {
-      console.log(`Failed to get departments: ${data.message}`);
-      return [];
-    }
-
-    return data.data;
+    return response.data.data;
   } catch (error) {
     console.log(error);
     return [];
@@ -140,25 +128,19 @@ export async function getCoursesByUniversityID(
   }
 
   try {
-    const response = await fetch(url);
+    const response = await axios.get<ApiResponse<Course[]>>(url);
 
-    if (!response.ok) {
-      throw new Error('Error retrieving course list.');
-    }
-
-    const data: ApiResponse<Course[]> = await response.json();
-
-    if (!data.success) {
-      throw new Error(data.message || 'Failed to retrieve courses');
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Failed to retrieve courses');
     }
 
     return {
-      data: data.data,
+      data: response.data.data,
       meta: {
-        current_page: data.meta.current_page ?? 1,
-        page_size: data.meta.page_size ?? limit,
-        total_items: data.meta.total_items ?? data.data.length,
-        total_pages: data.meta.total_pages ?? 1,
+        current_page: response.data.meta.current_page ?? 1,
+        page_size: response.data.meta.page_size ?? limit,
+        total_items: response.data.meta.total_items ?? response.data.data.length,
+        total_pages: response.data.meta.total_pages ?? 1,
       },
     };
   } catch (error) {
@@ -177,21 +159,16 @@ export async function getCoursesByUniversityID(
 
 export async function getProfessorsByCourseID(courseID: string): Promise<Professor[]> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/professor/courseID/${courseID}`);
+    const response = await axios.get<ApiResponse<Professor[]>>(
+      `${process.env.NEXT_PUBLIC_URL}/professor/courseID/${courseID}`
+    );
 
-    if (!response.ok) {
-      console.log('Failed to get professors');
+    if (!response.data.success) {
+      console.log(`Failed to get professors: ${response.data.message}`);
       return [];
     }
 
-    const data: ApiResponse<Professor[]> = await response.json();
-
-    if (!data.success) {
-      console.log(`Failed to get professors: ${data.message}`);
-      return [];
-    }
-
-    return data.data;
+    return response.data.data;
   } catch (error) {
     console.log(error);
     return [];
@@ -200,17 +177,15 @@ export async function getProfessorsByCourseID(courseID: string): Promise<Profess
 
 export async function getCourseByCourseTag(universityID: string, courseTag: string): Promise<Course> {
   try {
-    const response = await fetch(
+    const response = await axios.get<ApiResponse<Course>>(
       `${process.env.NEXT_PUBLIC_URL}/course/universityID/${universityID}/courseTag/${courseTag}`
     );
 
-    const data: ApiResponse<Course> = await response.json();
-
-    if (!data.success || !data.data.course_id) {
+    if (!response.data.success || !response.data.data.course_id) {
       return {} as Course; // Return empty course object to trigger notFound()
     }
 
-    return data.data;
+    return response.data.data;
   } catch (error) {
     console.log(error);
     return {} as Course; // Return empty course object to trigger notFound()
@@ -254,25 +229,19 @@ export async function getReviewsByCourseID(
       }
     }
 
-    const response = await fetch(url);
+    const response = await axios.get<ApiResponse<Review[]>>(url);
 
-    if (!response.ok) {
-      throw new Error('Could not retrieve Reviews.');
-    }
-
-    const data: ApiResponse<Review[]> = await response.json();
-
-    if (!data.success) {
-      throw new Error(data.message || 'Failed to retrieve reviews');
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Failed to retrieve reviews');
     }
 
     return {
-      data: data.data,
+      data: response.data.data,
       meta: {
-        current_page: data.meta.current_page ?? 1,
-        page_size: data.meta.page_size ?? (limit || 10),
-        total_items: data.meta.total_items ?? data.data.length,
-        total_pages: data.meta.total_pages ?? 1,
+        current_page: response.data.meta.current_page ?? 1,
+        page_size: response.data.meta.page_size ?? (limit || 10),
+        total_items: response.data.meta.total_items ?? response.data.data.length,
+        total_pages: response.data.meta.total_pages ?? 1,
       },
     };
   } catch (error) {
@@ -304,27 +273,22 @@ export async function getReports(
       url += `&status=${status}`;
     }
 
-    const response = await fetch(url, {
-      credentials: 'include',
+    const idToken = await getIdToken();
+    const response = await axios.get<ApiResponse<Report[]>>(url, {
+      headers: { id_token: idToken },
     });
 
-    if (!response.ok) {
-      throw new Error('Could not retrieve reports');
-    }
-
-    const data: ApiResponse<Report[]> = await response.json();
-
-    if (!data.success) {
-      throw new Error(data.message || 'Failed to retrieve reports');
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Failed to retrieve reports');
     }
 
     return {
-      data: data.data,
+      data: response.data.data,
       meta: {
-        current_page: data.meta.current_page ?? 1,
-        page_size: data.meta.page_size ?? limit,
-        total_items: data.meta.total_items ?? data.data.length,
-        total_pages: data.meta.total_pages ?? 1,
+        current_page: response.data.meta.current_page ?? 1,
+        page_size: response.data.meta.page_size ?? limit,
+        total_items: response.data.meta.total_items ?? response.data.data.length,
+        total_pages: response.data.meta.total_pages ?? 1,
       },
     };
   } catch (error) {
@@ -334,6 +298,33 @@ export async function getReports(
       meta: {
         current_page: 1,
         page_size: limit,
+        total_items: 0,
+        total_pages: 1,
+      },
+    };
+  }
+}
+
+export async function getBannedUsers(page: number = 1, limit: number = 10): Promise<ApiResponse<BannedUser[]>> {
+  try {
+    const idToken = await getIdToken();
+    const response = await axios.get<ApiResponse<BannedUser[]>>(
+      `${process.env.NEXT_PUBLIC_URL}/admin/users/banned?page=${page}&limit=${limit}`,
+      {
+        headers: { id_token: idToken },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: 'Failed to retrieve banned users',
+      data: [],
+      meta: {
+        current_page: 1,
+        page_size: 10,
         total_items: 0,
         total_pages: 1,
       },

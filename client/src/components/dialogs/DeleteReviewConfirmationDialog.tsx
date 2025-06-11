@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -12,6 +12,7 @@ import { useAuth } from '@/contexts/authContext';
 import { toastUtils } from '@/lib/toast-utils';
 import { deleteReview } from '@/requests/deleteRequests';
 import { DeleteReviewConfirmationDialogProps } from '@/types/components';
+import { checkUserActionAllowed } from '@/lib/auth-guards';
 
 export function DeleteReviewConfirmationDialog({
   open,
@@ -19,7 +20,16 @@ export function DeleteReviewConfirmationDialog({
   review,
   onDelete,
 }: DeleteReviewConfirmationDialogProps) {
-  const { userLoggedIn, currentUser } = useAuth();
+  const { userLoggedIn, currentUser, banned, banReason, isAdmin, isOwner } = useAuth();
+
+  useEffect(() => {
+    if (open) {
+      const authorized = checkUserActionAllowed({ userLoggedIn, currentUser, banned, banReason, isAdmin, isOwner });
+      if (!authorized) {
+        onOpenChange(false);
+      }
+    }
+  }, [open, userLoggedIn, currentUser, banned, banReason, onOpenChange, isAdmin, isOwner]);
 
   const handleDelete = async () => {
     try {
@@ -36,21 +46,8 @@ export function DeleteReviewConfirmationDialog({
     }
   };
 
-  const handleOpenChange = (newOpen: boolean) => {
-    if (newOpen) {
-      if (!userLoggedIn) {
-        toastUtils.auth.notLoggedIn();
-        return;
-      } else if (currentUser?.emailVerified === false) {
-        toastUtils.auth.notVerified();
-        return;
-      }
-    }
-    onOpenChange(newOpen);
-  };
-
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl w-full">
         <DialogHeader>
           <DialogTitle>Delete Review</DialogTitle>

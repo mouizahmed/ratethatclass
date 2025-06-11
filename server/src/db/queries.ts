@@ -723,8 +723,8 @@ SELECT
         'university_name', universities.university_name
       )
       FROM courses
-      JOIN departments ON departments.department_id = courses.department_id
-      JOIN universities ON universities.university_id = departments.university_id
+      LEFT JOIN departments ON departments.department_id = courses.department_id
+      LEFT JOIN universities ON universities.university_id = departments.university_id
       WHERE courses.course_id = reports.entity_id::uuid
     )
     WHEN reports.entity_type = 'review' THEN (
@@ -743,16 +743,16 @@ SELECT
         'reviewer_id', reviews.user_id
       )
       FROM reviews
-      JOIN courses ON courses.course_id = reviews.course_id
-      JOIN professors ON professors.professor_id = reviews.professor_id
-      JOIN departments ON departments.department_id = courses.department_id
-      JOIN universities ON universities.university_id = departments.university_id
-      JOIN users review_users ON review_users.user_id = reviews.user_id
+      LEFT JOIN courses ON courses.course_id = reviews.course_id
+      LEFT JOIN professors ON professors.professor_id = reviews.professor_id
+      LEFT JOIN departments ON departments.department_id = courses.department_id
+      LEFT JOIN universities ON universities.university_id = departments.university_id
+      LEFT JOIN users review_users ON review_users.user_id = reviews.user_id
       WHERE reviews.review_id = reports.entity_id::uuid
     )
   END as entity_details
 FROM reports
-JOIN users ON users.user_id = reports.user_id
+LEFT JOIN users ON users.user_id = reports.user_id
 WHERE ($3::reporttype IS NULL OR reports.entity_type = $3::reporttype)
 AND ($4::reportstatus IS NULL OR reports.status = $4::reportstatus)
 ORDER BY
@@ -766,4 +766,21 @@ export const getReportsCount = `
 SELECT COUNT(*) FROM reports
 WHERE ($1::reporttype IS NULL OR reports.entity_type = $1::reporttype)
 AND ($2::reportstatus IS NULL OR reports.status = $2::reportstatus)
+`;
+
+export const insertBan = `
+INSERT INTO bans (user_id, ban_reason, banned_by, banned_at)
+VALUES ($1, $2, $3, NOW())
+RETURNING *;
+`;
+
+export const getBannedUsers = `
+SELECT u.user_id, u.email, u.display_name, b.ban_reason, b.banned_at, b.banned_by
+FROM users u
+JOIN bans b ON u.user_id = b.user_id
+WHERE b.unbanned_at IS NULL
+`;
+
+export const unbanUser = `
+UPDATE bans SET unbanned_at = NOW() WHERE user_id = $1 AND unbanned_at IS NULL RETURNING *;
 `;

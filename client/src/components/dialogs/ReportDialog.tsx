@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -14,9 +14,21 @@ import { Textarea } from '../ui/textarea';
 import { postReport } from '@/requests/postRequests';
 import { toastUtils } from '@/lib/toast-utils';
 import { ReportDialogProps } from '@/types/components';
+import { useAuth } from '@/contexts/authContext';
+import { checkUserActionAllowed } from '@/lib/auth-guards';
 
 export function ReportDialog({ id, type, open, onOpenChange }: ReportDialogProps) {
   const [reason, setReason] = useState<string>('');
+  const { userLoggedIn, currentUser, banned, banReason, isAdmin, isOwner } = useAuth();
+
+  useEffect(() => {
+    if (open) {
+      const authorized = checkUserActionAllowed({ userLoggedIn, currentUser, banned, banReason, isAdmin, isOwner });
+      if (!authorized) {
+        onOpenChange(false);
+      }
+    }
+  }, [open, userLoggedIn, currentUser, banned, banReason, onOpenChange, isAdmin, isOwner]);
 
   const handleReport = async () => {
     try {
@@ -30,17 +42,13 @@ export function ReportDialog({ id, type, open, onOpenChange }: ReportDialogProps
     }
   };
 
-  const handleOpenChange = (newOpen: boolean) => {
-    onOpenChange(newOpen);
-  };
-
   const handleChange = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setReason(value);
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl w-full">
         <DialogHeader>
           <DialogTitle>Report {type}</DialogTitle>
