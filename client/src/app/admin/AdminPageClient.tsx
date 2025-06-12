@@ -107,8 +107,8 @@ export default function AdminPageClient() {
       setGeneratedAdmin(res.data.data);
       setShowAdminDialog(true);
       await fetchAdmins();
-    } catch (error: any) {
-      toastUtils.error('Failed to create admin', error?.response?.data?.message || error.message);
+    } catch (error) {
+      toastUtils.error('Failed to create admin', (error as Error).message);
     } finally {
       setCreatingAdmin(false);
     }
@@ -213,8 +213,8 @@ export default function AdminPageClient() {
       await deleteAdmin(deletingAdminId);
       toastUtils.success('Admin deleted successfully');
       await fetchAdmins();
-    } catch (error: any) {
-      toastUtils.error('Failed to delete admin', error?.response?.data?.message || error.message);
+    } catch (error) {
+      toastUtils.error('Failed to delete admin', (error as Error).message);
     } finally {
       setShowDeleteDialog(false);
       setDeletingAdminId(null);
