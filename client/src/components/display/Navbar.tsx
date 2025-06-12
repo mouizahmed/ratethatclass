@@ -26,7 +26,7 @@ export default function Navbar() {
 }
 
 function NavbarInner() {
-  const { currentUser, userLoggedIn, loading } = useAuth();
+  const { currentUser, userLoggedIn, loading, isAdmin, isOwner } = useAuth();
 
   const signOut = async () => {
     await doSignOut();
@@ -46,24 +46,34 @@ function NavbarInner() {
     if (userLoggedIn && currentUser) {
       return (
         <div className="flex items-center gap-4">
-          {currentUser.emailVerified ? (
-            <Button variant="outline" className="flex items-center gap-2">
-              <BadgeCheck className="text-blue-500" />
-              <span className="hidden sm:inline">Verified</span>
-            </Button>
-          ) : (
-            <Link href="/profile">
+          {isAdmin || isOwner ? (
+            <Link href="/admin">
               <Button variant="outline" className="flex items-center gap-2">
-                <BadgeX className="text-red-500" />
-                <span className="hidden sm:inline">Not Verified</span>
+                Admin Dashboard
               </Button>
             </Link>
+          ) : (
+            <>
+              {currentUser.emailVerified ? (
+                <Button variant="outline" className="flex items-center gap-2">
+                  <BadgeCheck className="text-blue-500" />
+                  <span className="hidden sm:inline">Verified</span>
+                </Button>
+              ) : (
+                <Link href="/profile">
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <BadgeX className="text-red-500" />
+                    <span className="hidden sm:inline">Not Verified</span>
+                  </Button>
+                </Link>
+              )}
+              <Link href="/profile">
+                <Button variant="outline" className="max-w-[200px] truncate">
+                  {currentUser.email}
+                </Button>
+              </Link>
+            </>
           )}
-          <Link href="/profile">
-            <Button variant="outline" className="max-w-[200px] truncate">
-              {currentUser.email}
-            </Button>
-          </Link>
           <Button onClick={signOut} variant="destructive">
             Log Out
           </Button>
@@ -96,28 +106,40 @@ function NavbarInner() {
     if (userLoggedIn && currentUser) {
       return (
         <div className="flex flex-col gap-3 w-full">
-          {currentUser.emailVerified ? (
-            <Button variant="outline" className="flex items-center justify-center gap-2 w-full">
-              <BadgeCheck className="text-blue-500" />
-              <span>Verified</span>
-            </Button>
-          ) : (
+          {isAdmin || isOwner ? (
             <SheetClose asChild>
-              <Link href="/profile">
+              <Link href="/admin">
                 <Button variant="outline" className="flex items-center justify-center gap-2 w-full">
-                  <BadgeX className="text-red-500" />
-                  <span>Not Verified</span>
+                  Admin Dashboard
                 </Button>
               </Link>
             </SheetClose>
+          ) : (
+            <>
+              {currentUser.emailVerified ? (
+                <Button variant="outline" className="flex items-center justify-center gap-2 w-full">
+                  <BadgeCheck className="text-blue-500" />
+                  <span>Verified</span>
+                </Button>
+              ) : (
+                <SheetClose asChild>
+                  <Link href="/profile">
+                    <Button variant="outline" className="flex items-center justify-center gap-2 w-full">
+                      <BadgeX className="text-red-500" />
+                      <span>Not Verified</span>
+                    </Button>
+                  </Link>
+                </SheetClose>
+              )}
+              <SheetClose asChild>
+                <Link href="/profile">
+                  <Button variant="outline" className="w-full truncate">
+                    {currentUser.email}
+                  </Button>
+                </Link>
+              </SheetClose>
+            </>
           )}
-          <SheetClose asChild>
-            <Link href="/profile">
-              <Button variant="outline" className="w-full truncate">
-                {currentUser.email}
-              </Button>
-            </Link>
-          </SheetClose>
           <Button onClick={signOut} variant="destructive" className="w-full">
             Log Out
           </Button>

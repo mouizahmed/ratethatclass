@@ -13,7 +13,7 @@ import { Spinner } from '@/components/ui/Spinner';
 import { toastUtils } from '@/lib/toast-utils';
 
 export default function ProfilePageClient() {
-  const { userLoggedIn, currentUser, loading } = useAuth();
+  const { userLoggedIn, currentUser, loading, isAdmin, isOwner } = useAuth();
 
   const [userReviews, setUserReviews] = useState<Review[]>([]);
   const [upvotes, setUpvotes] = useState<Review[]>([]);
@@ -100,16 +100,16 @@ export default function ProfilePageClient() {
   }, [activeTab, currentPage, getPosts, hasMorePosts, hasMoreUpvotes, hasMoreDownvotes, isLoadingMore]);
 
   useEffect(() => {
-    if (!loading && userLoggedIn) {
-      getPosts('all');
-    }
-  }, [userLoggedIn, loading, getPosts]);
-
-  useEffect(() => {
     if (!loading && !userLoggedIn) {
       redirect('/login');
     }
-  }, [userLoggedIn, loading]);
+    if (!loading && userLoggedIn && (isAdmin || isOwner)) {
+      redirect('/admin');
+    }
+    if (!loading && userLoggedIn && !isAdmin && !isOwner) {
+      getPosts('all');
+    }
+  }, [userLoggedIn, loading, isAdmin, isOwner, getPosts]);
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);
@@ -123,7 +123,7 @@ export default function ProfilePageClient() {
     }
   };
 
-  if (loading) {
+  if (loading || (userLoggedIn && (isAdmin || isOwner))) {
     return (
       <div className="flex min-h-svh w-full items-center justify-center">
         <Spinner size="large" />
