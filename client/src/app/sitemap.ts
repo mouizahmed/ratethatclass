@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getUniversities, getCoursesByUniversityID, getDepartmentsByUniversityID } from '@/requests/getRequests';
+import { getUniversities, getCoursesByUniversityId, getDepartmentsByUniversityId } from '@/requests/getRequests';
 import { createDepartmentSlug, encodeCourseId } from '@/lib/url';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -87,7 +87,7 @@ async function generateDynamicPages(baseUrl: string): Promise<MetadataRoute.Site
     try {
       // Fetch departments for this university
       const departments = await Promise.race([
-        getDepartmentsByUniversityID(university.university_id.toString()),
+        getDepartmentsByUniversityId(university.university_id.toString()),
         new Promise<never>((_, reject) => setTimeout(() => reject(new Error('Departments timeout')), 5000)),
       ]);
 
@@ -104,7 +104,7 @@ async function generateDynamicPages(baseUrl: string): Promise<MetadataRoute.Site
 
       // Fetch courses for this university
       const coursesResponse = await Promise.race([
-        getCoursesByUniversityID(
+        getCoursesByUniversityId(
           university.university_id.toString(),
           1,
           maxCoursesPerUniversity,

@@ -118,7 +118,7 @@ export async function postUniversityRequest(universityName: string): Promise<voi
   }
 }
 
-export async function postReport(entityID: string, reason: string, type: string): Promise<void> {
+export async function postReport(entityId: string, reason: string, type: string): Promise<void> {
   const idToken = await getIdToken();
 
   const response = await axios
@@ -126,7 +126,7 @@ export async function postReport(entityID: string, reason: string, type: string)
       `${process.env.NEXT_PUBLIC_URL}/report`,
       {
         reportDetails: {
-          entity_id: entityID,
+          entity_id: entityId,
           report_reason: reason,
           entity_type: type.toLowerCase(),
         },

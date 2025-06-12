@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUniversity, getCoursesByUniversityID, getDepartmentsByUniversityID } from '@/requests/getRequests';
+import { getUniversity, getCoursesByUniversityId, getDepartmentsByUniversityId } from '@/requests/getRequests';
 import { UniversityHeader } from '@/components/display/UniversityHeader';
 import { BreadCrumb } from '@/components/display/BreadCrumb';
 import { CourseList } from '@/components/display/CourseList';
@@ -36,12 +36,12 @@ export default async function Page({ params }: UniversityPageProps) {
     notFound();
   }
 
-  const departments = await getDepartmentsByUniversityID(university.university_id);
+  const departments = await getDepartmentsByUniversityId(university.university_id);
 
   const initialOrderBy = Object.keys(courseSortingOptions)[0];
   const initialOrder = 'desc' as const;
 
-  const { data: initialCourses, meta } = await getCoursesByUniversityID(
+  const { data: initialCourses, meta } = await getCoursesByUniversityId(
     university.university_id,
     1,
     20,

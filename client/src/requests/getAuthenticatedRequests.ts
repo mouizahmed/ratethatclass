@@ -7,15 +7,15 @@ import { VoteState } from '@/types/requests';
 
 const API_TIMEOUT = 3000;
 
-export async function getVoteStates(review_ids: string[]): Promise<VoteState[]> {
+export async function getVoteStates(reviewIds: string[]): Promise<VoteState[]> {
   const currentUser = await getCurrentUser();
   let idToken = '';
   if (currentUser) idToken = await currentUser.getIdToken(true);
 
   let url = `${process.env.NEXT_PUBLIC_URL}/review/votes`;
 
-  if (review_ids.length > 0) {
-    url += `?review_ids=${review_ids.join(',')}`;
+  if (reviewIds.length > 0) {
+    url += `?review_ids=${reviewIds.join(',')}`;
   }
 
   const response = await axios.get<ApiResponse<VoteState[]>>(url, {

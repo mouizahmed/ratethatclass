@@ -148,23 +148,23 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
         <CardHeader className="border rounded-lg md:col-span-3 md:row-span-2">
           <CardDescription className="flex gap-2 flex-col justify-between h-full">
             <div className="grid">
-              <Label htmlFor="courseID">Comments on the Course:</Label>
-              <p id="courseID" className="leading-7 break-words overflow-auto">
+              <Label htmlFor="courseId">Comments on the Course:</Label>
+              <p id="courseId" className="leading-7 break-words overflow-auto">
                 {review?.course_comments}
               </p>
             </div>
             {review?.professor_comments && (
               <div className="grid">
-                <Label htmlFor="courseID">Comments on the Professor:</Label>
-                <p id="courseID" className="leading-7 break-words overflow-auto">
+                <Label htmlFor="courseId">Comments on the Professor:</Label>
+                <p id="courseId" className="leading-7 break-words overflow-auto">
                   {review?.professor_comments}
                 </p>
               </div>
             )}
             {review?.advice_comments && (
               <div className="grid">
-                <Label htmlFor="courseID">Advice:</Label>
-                <p id="courseID" className="leading-7 break-words overflow-auto">
+                <Label htmlFor="courseId">Advice:</Label>
+                <p id="courseId" className="leading-7 break-words overflow-auto">
                   {review?.advice_comments}
                 </p>
               </div>
@@ -173,25 +173,25 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
             <div className="flex items-center gap-2 flex-wrap">
               <div className="flex items-center gap-2">
                 <p>Grade: </p>
-                <Label id="courseID" className="leading-7 break-words overflow-auto">
+                <Label id="courseId" className="leading-7 break-words overflow-auto">
                   {review?.grade}
                 </Label>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
                 <p>Delivery: </p>
-                <Label id="courseID" className="leading-7 break-words overflow-auto">
+                <Label id="courseId" className="leading-7 break-words overflow-auto">
                   {review?.delivery_method}
                 </Label>
               </div>
               <div className="flex items-center gap-2">
                 <p>Workload: </p>
-                <Label id="courseID" className="leading-7 break-words overflow-auto">
+                <Label id="courseId" className="leading-7 break-words overflow-auto">
                   {review?.workload}
                 </Label>
               </div>
               <div className="flex items-center gap-2">
                 <p>Textbook Use: </p>
-                <Label id="courseID" className="leading-7 break-words overflow-auto">
+                <Label id="courseId" className="leading-7 break-words overflow-auto">
                   {review?.textbook_use}
                 </Label>
               </div>
@@ -199,7 +199,7 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
 
             <div className="flex flex-col gap-2">
               <p>Evaluation Methods: </p>
-              <Label id="courseID" className="leading-7 flex flex-wrap gap-1">
+              <Label id="courseId" className="leading-7 flex flex-wrap gap-1">
                 {Object.values(review.evaluation_methods).map((item, index) => (
                   <div key={index}>
                     {item}

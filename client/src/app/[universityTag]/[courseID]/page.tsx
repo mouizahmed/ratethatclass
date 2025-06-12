@@ -1,6 +1,6 @@
 import React from 'react';
-import { getUniversity, getCourseByCourseTag, getProfessorsByCourseID } from '@/requests/getRequests';
-import { getReviewsByCourseID } from '@/requests/getRequests';
+import { getUniversity, getCourseByCourseTag, getProfessorsByCourseId } from '@/requests/getRequests';
+import { getReviewsByCourseId } from '@/requests/getRequests';
 import { UniversityHeader } from '@/components/display/UniversityHeader';
 import { BreadCrumb } from '@/components/display/BreadCrumb';
 import { Metadata } from 'next';
@@ -9,19 +9,12 @@ import { CourseReviews } from '@/components/display/CourseReviews';
 import { decodeCourseId } from '@/lib/url';
 import { notFound } from 'next/navigation';
 import { generateCourseMetadata, generateViewport } from '@/lib/seo';
+import { CoursePageProps } from '@/types/pages';
 
-type PageProps = {
-  params: Promise<{
-    universityTag: string;
-    courseID: string;
-  }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: CoursePageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const university = await getUniversity(resolvedParams.universityTag);
-  const course = await getCourseByCourseTag(university.university_id, decodeCourseId(resolvedParams.courseID));
+  const course = await getCourseByCourseTag(university.university_id, decodeCourseId(resolvedParams.courseId));
 
   if (!course.course_id) {
     return {
@@ -36,27 +29,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     course.course_name || '',
     university.university_name,
     resolvedParams.universityTag,
-    resolvedParams.courseID
+    resolvedParams.courseId
   );
 }
 
 export const viewport = generateViewport();
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params }: CoursePageProps) {
   const resolvedParams = await params;
   const university = await getUniversity(resolvedParams.universityTag);
-  const course = await getCourseByCourseTag(university.university_id, decodeCourseId(resolvedParams.courseID));
+  const course = await getCourseByCourseTag(university.university_id, decodeCourseId(resolvedParams.courseId));
 
   if (!course.course_id) {
     notFound();
   }
 
-  const professors = await getProfessorsByCourseID(course.course_id);
+  const professors = await getProfessorsByCourseId(course.course_id);
 
   const initialOrderBy = Object.keys(sortingOptions)[0];
   const initialOrder = 'desc' as const;
 
-  const { data: initialReviews, meta } = await getReviewsByCourseID(
+  const { data: initialReviews, meta } = await getReviewsByCourseId(
     course.course_id,
     1,
     10,

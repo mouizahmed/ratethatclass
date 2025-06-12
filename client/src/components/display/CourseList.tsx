@@ -21,7 +21,7 @@ import { postCourse } from '@/requests/postRequests';
 import { Spinner } from '@/components/ui/Spinner';
 import { useRouter } from 'next/navigation';
 import { useDebounce } from '@/hooks/useDebounce';
-import { getCoursesByUniversityID } from '@/requests/getRequests';
+import { getCoursesByUniversityId } from '@/requests/getRequests';
 import { encodeCourseId } from '@/lib/url';
 import { AuthProvider } from '@/contexts/authContext';
 import { toastUtils } from '@/lib/toast-utils';
@@ -86,7 +86,7 @@ function CourseListContent({
     async (page: number = 1, append: boolean = false) => {
       try {
         setIsSearchLoading(true);
-        const { data, meta } = await getCoursesByUniversityID(
+        const { data, meta } = await getCoursesByUniversityId(
           universityId,
           page,
           20,
@@ -144,7 +144,7 @@ function CourseListContent({
 
     try {
       setIsLoadingMore(true);
-      const { data, meta } = await getCoursesByUniversityID(
+      const { data, meta } = await getCoursesByUniversityId(
         universityId,
         currentPage + 1,
         20,

@@ -9,7 +9,7 @@ export interface UniversityPageProps {
 export interface CoursePageProps {
   params: Promise<{
     universityTag: string;
-    courseID: string;
+    courseId: string;
   }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }

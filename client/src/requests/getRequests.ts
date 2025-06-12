@@ -62,14 +62,14 @@ export async function getUniversity(universityName: string): Promise<University>
   }
 }
 
-export async function getDepartmentsByUniversityID(
-  universityID: string,
+export async function getDepartmentsByUniversityId(
+  universityId: string,
   search?: string,
   sortBy?: string,
   sortOrder?: 'asc' | 'desc'
 ): Promise<Department[]> {
   try {
-    let url = `${process.env.NEXT_PUBLIC_URL}/department/by-university-id/${universityID}`;
+    let url = `${process.env.NEXT_PUBLIC_URL}/department/by-university-id/${universityId}`;
 
     const params = new URLSearchParams();
     if (search) {
@@ -100,23 +100,23 @@ export async function getDepartmentsByUniversityID(
   }
 }
 
-export async function getCoursesByUniversityID(
-  universityID: string,
+export async function getCoursesByUniversityId(
+  universityId: string,
   page: number,
   limit: number,
   search?: string,
-  departmentID?: string,
+  departmentId?: string,
   sortBy?: string,
   sortOrder?: 'asc' | 'desc'
 ): Promise<PaginatedResponse<Course>> {
-  let url = `${process.env.NEXT_PUBLIC_URL}/course/by-university-id/${universityID}?page=${page}&limit=${limit}`;
+  let url = `${process.env.NEXT_PUBLIC_URL}/course/by-university-id/${universityId}?page=${page}&limit=${limit}`;
 
   if (search) {
     url += `&search=${encodeURIComponent(search)}`;
   }
 
-  if (departmentID) {
-    url += `&department_id=${encodeURIComponent(departmentID)}`;
+  if (departmentId) {
+    url += `&department_id=${encodeURIComponent(departmentId)}`;
   }
 
   if (sortBy) {
@@ -157,10 +157,10 @@ export async function getCoursesByUniversityID(
   }
 }
 
-export async function getProfessorsByCourseID(courseID: string): Promise<Professor[]> {
+export async function getProfessorsByCourseId(courseId: string): Promise<Professor[]> {
   try {
     const response = await axios.get<ApiResponse<Professor[]>>(
-      `${process.env.NEXT_PUBLIC_URL}/professor/by-course-id/${courseID}`
+      `${process.env.NEXT_PUBLIC_URL}/professor/by-course-id/${courseId}`
     );
 
     if (!response.data.success) {
@@ -175,10 +175,10 @@ export async function getProfessorsByCourseID(courseID: string): Promise<Profess
   }
 }
 
-export async function getCourseByCourseTag(universityID: string, courseTag: string): Promise<Course> {
+export async function getCourseByCourseTag(universityId: string, courseTag: string): Promise<Course> {
   try {
     const response = await axios.get<ApiResponse<Course>>(
-      `${process.env.NEXT_PUBLIC_URL}/course/by-university-id/${universityID}/by-tag/${courseTag}`
+      `${process.env.NEXT_PUBLIC_URL}/course/by-university-id/${universityId}/by-tag/${courseTag}`
     );
 
     if (!response.data.success || !response.data.data.course_id) {
@@ -192,24 +192,24 @@ export async function getCourseByCourseTag(universityID: string, courseTag: stri
   }
 }
 
-export async function getReviewsByCourseID(
-  courseID: string,
+export async function getReviewsByCourseId(
+  courseId: string,
   page?: number,
   limit?: number,
-  professorID?: string,
+  professorId?: string,
   term?: string,
   deliveryMethod?: string,
   sortBy?: string,
   sortOrder?: 'asc' | 'desc'
 ): Promise<PaginatedResponse<Review>> {
   try {
-    let url = `${process.env.NEXT_PUBLIC_URL}/review/by-course-id/${courseID}`;
+    let url = `${process.env.NEXT_PUBLIC_URL}/review/by-course-id/${courseId}`;
 
     if (page !== undefined) {
       url += `?page=${page}&limit=${limit || 10}`;
 
-      if (professorID) {
-        url += `&professor_id=${encodeURIComponent(professorID)}`;
+      if (professorId) {
+        url += `&professor_id=${encodeURIComponent(professorId)}`;
       }
 
       if (term) {

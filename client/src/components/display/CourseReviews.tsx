@@ -12,7 +12,7 @@ import { Card, CardContent, CardDescription } from '@/components/ui/card';
 import { ratingItem } from '@/lib/display';
 import { deliveryOptions, sortingOptions, termOptions } from '@/lib/constants';
 import { Spinner } from '@/components/ui/Spinner';
-import { getReviewsByCourseID } from '@/requests/getRequests';
+import { getReviewsByCourseId } from '@/requests/getRequests';
 import { DialogForm, StepProps } from '@/components/forms/DialogForm';
 import { newReviewForm } from '@/components/forms/schema';
 import { ReviewRatingForm } from '@/components/forms/steps/ReviewRatingForm';
@@ -160,7 +160,7 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
     async (page: number = 1, append: boolean = false) => {
       try {
         setIsFilterLoading(true);
-        const response = await getReviewsByCourseID(
+        const response = await getReviewsByCourseId(
           courseId,
           page,
           10,
@@ -244,7 +244,7 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
     try {
       setIsLoadingMore(true);
 
-      const response = await getReviewsByCourseID(
+      const response = await getReviewsByCourseId(
         courseId,
         currentPage + 1,
         10,
