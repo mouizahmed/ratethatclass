@@ -1,24 +1,27 @@
-import { pool } from '../db/db';
-import {
-  getDepartmentsPaginated,
-  getDepartmentsCount,
-  getDepartmentByUniversityId,
-  getDepartmentById,
-  addDepartment,
-} from '../db/queries';
+import { DepartmentRepository } from '../repositories/departmentRepository';
 import { Department } from '../types';
 
 export class DepartmentService {
+  private departmentRepository: DepartmentRepository;
+
+  constructor() {
+    this.departmentRepository = new DepartmentRepository();
+  }
+
   async getDepartmentsPaginated(page: number, limit: number, search: string | null, sortBy: string, sortOrder: string) {
     const offset = (page - 1) * limit;
-    const result = await pool.query(getDepartmentsPaginated, [limit, offset, search, sortBy, sortOrder]);
-    const countResult = await pool.query(getDepartmentsCount, [search]);
-
-    const totalItems = parseInt(countResult.rows[0].count, 10);
+    const departments = await this.departmentRepository.getDepartmentsPaginated(
+      limit,
+      offset,
+      search,
+      sortBy,
+      sortOrder
+    );
+    const totalItems = await this.departmentRepository.getDepartmentsCount(search);
     const totalPages = Math.ceil(totalItems / limit);
 
     return {
-      data: result.rows as Department[],
+      data: departments,
       meta: {
         current_page: page,
         page_size: limit,
@@ -29,28 +32,33 @@ export class DepartmentService {
   }
 
   async getDepartmentsByUniversityId(universityId: string, search: string | null, sortBy: string, sortOrder: string) {
-    const result = await pool.query(getDepartmentByUniversityId, [universityId, search, sortBy, sortOrder]);
+    const departments = await this.departmentRepository.getDepartmentsByUniversityId(
+      universityId,
+      search,
+      sortBy,
+      sortOrder
+    );
     return {
-      data: result.rows as Department[],
+      data: departments,
       meta: {
-        total_items: result.rows.length,
+        total_items: departments.length,
       },
     };
   }
 
   async getDepartmentById(id: string) {
-    const result = await pool.query(getDepartmentById, [id]);
-    if (result.rows.length === 0) {
+    const department = await this.departmentRepository.getDepartmentById(id);
+    if (!department) {
       throw new Error('Department not found');
     }
     return {
-      data: result.rows[0] as Department,
+      data: department,
       meta: {},
     };
   }
 
   async addDepartment(departmentName: string, universityId: string) {
-    await pool.query(addDepartment, [departmentName.trim(), universityId]);
+    await this.departmentRepository.addDepartment(departmentName, universityId);
     return {
       data: { department_name: departmentName, university_id: universityId },
       meta: {},
