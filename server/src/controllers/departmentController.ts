@@ -30,11 +30,8 @@ export class DepartmentController {
 
   async getDepartments(req: Request, res: Response) {
     try {
-      const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
-      const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+      const { page, limit, sortBy, sortOrder } = req.pagination;
       const search = (req.query.search as string) || null;
-      const sortBy = (req.query.sort_by as string) || 'total_reviews';
-      const sortOrder = (req.query.sort_order as string) || 'desc';
 
       const result = await this.departmentService.getDepartmentsPaginated(page, limit, search, sortBy, sortOrder);
       this.sendSuccessResponse(res, result, 'Departments fetched successfully');

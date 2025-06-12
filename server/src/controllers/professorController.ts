@@ -30,11 +30,8 @@ export class ProfessorController {
 
   async getProfessors(req: Request, res: Response) {
     try {
-      const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
-      const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+      const { page, limit, sortBy, sortOrder } = req.pagination;
       const search = (req.query.search as string) || null;
-      const sortBy = (req.query.sort_by as string) || 'professor_name';
-      const sortOrder = (req.query.sort_order as string) || 'asc';
 
       const result = await this.professorService.getProfessorsPaginated(page, limit, search, sortBy, sortOrder);
       this.sendSuccessResponse(res, result, 'Professors fetched successfully');
@@ -46,11 +43,8 @@ export class ProfessorController {
   async getProfessorsByUniversityId(req: Request, res: Response) {
     try {
       const { universityId } = req.params;
-      const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
-      const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+      const { page, limit, sortBy, sortOrder } = req.pagination;
       const search = (req.query.search as string) || null;
-      const sortBy = (req.query.sort_by as string) || 'professor_name';
-      const sortOrder = (req.query.sort_order as string) || 'asc';
 
       validateUUID(universityId);
       const result = await this.professorService.getProfessorsByUniversityId(

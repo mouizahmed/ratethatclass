@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { BadgeCheck, ChevronDown, ChevronUp, EllipsisVertical } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
-import { postUpVote, postDownVote } from '@/requests/postRequests';
+import { postVote } from '@/requests/postRequests';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -65,7 +65,6 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
             setVote(Vote.up);
             setTotalVotes((prev) => prev + 1);
           }
-          await postUpVote(review);
         } else {
           if (vote === 'down') {
             setVote(Vote.noVote);
@@ -77,8 +76,8 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
             setVote(Vote.down);
             setTotalVotes((prev) => prev - 1);
           }
-          await postDownVote(review);
         }
+        await postVote(review, voteType);
       } catch {
         // Rollback optimistic updates on error
         setVote(previousVote);

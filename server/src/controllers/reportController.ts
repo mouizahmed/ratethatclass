@@ -30,10 +30,7 @@ export class ReportController {
 
   async getReports(req: AuthenticatedRequest, res: Response) {
     try {
-      const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
-      const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
-      const sortBy = (req.query.sort_by as string) || 'date_created';
-      const sortOrder = (req.query.sort_order as string) || 'desc';
+      const { page, limit, sortBy, sortOrder } = req.pagination;
       const entityType = req.query.entity_type as ValidReportEntityType;
       const status = req.query.status as ReportStatus;
 

@@ -16,7 +16,17 @@ export class InputValidator {
   }
 
   static validateUniversityRequest(name: string) {
-    this.validateTextInput(name, 'University name');
+    if (!name) {
+      throw new Error('University name is required');
+    }
+
+    if (name.length < 2) {
+      throw new Error('University name must be at least 2 characters long');
+    }
+
+    if (name.length > 100) {
+      throw new Error('University name must be less than 100 characters');
+    }
   }
 
   static validateCourseData(courseData: Course) {
@@ -90,6 +100,76 @@ export class InputValidator {
     this.validateTextInput(reviewData.professor_comments, 'Professor comments');
     this.validateTextInput(reviewData.advice_comments, 'Advice comments');
     this.validateTextInput(reviewData.professor_name, 'Professor name');
+  }
+
+  static validateReview(review: Review) {
+    if (!review) {
+      throw new Error('Review data is required');
+    }
+
+    if (!review.course_id) {
+      throw new Error('Course ID is required');
+    }
+
+    if (!review.professor_name) {
+      throw new Error('Professor name is required');
+    }
+
+    if (!review.grade) {
+      throw new Error('Grade is required');
+    }
+
+    if (!review.delivery_method) {
+      throw new Error('Delivery method is required');
+    }
+
+    if (!review.workload) {
+      throw new Error('Workload is required');
+    }
+
+    if (!review.textbook_use) {
+      throw new Error('Textbook use is required');
+    }
+
+    if (!review.evaluation_methods) {
+      throw new Error('Evaluation methods are required');
+    }
+
+    if (!review.overall_score || review.overall_score < 1 || review.overall_score > 5) {
+      throw new Error('Overall score must be between 1 and 5');
+    }
+
+    if (!review.easy_score || review.easy_score < 1 || review.easy_score > 5) {
+      throw new Error('Easy score must be between 1 and 5');
+    }
+
+    if (!review.interest_score || review.interest_score < 1 || review.interest_score > 5) {
+      throw new Error('Interest score must be between 1 and 5');
+    }
+
+    if (!review.useful_score || review.useful_score < 1 || review.useful_score > 5) {
+      throw new Error('Useful score must be between 1 and 5');
+    }
+
+    if (!review.term_taken) {
+      throw new Error('Term taken is required');
+    }
+
+    if (!review.year_taken) {
+      throw new Error('Year taken is required');
+    }
+
+    if (review.course_comments && review.course_comments.length > 1000) {
+      throw new Error('Course comments must be less than 1000 characters');
+    }
+
+    if (review.professor_comments && review.professor_comments.length > 1000) {
+      throw new Error('Professor comments must be less than 1000 characters');
+    }
+
+    if (review.advice_comments && review.advice_comments.length > 1000) {
+      throw new Error('Advice comments must be less than 1000 characters');
+    }
   }
 
   static validateCourseAndReview(courseData: Course, reviewData: Review) {

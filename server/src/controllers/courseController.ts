@@ -26,11 +26,8 @@ export class CourseController {
 
   async getCourses(req: Request, res: Response) {
     try {
-      const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
-      const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+      const { page, limit, sortBy, sortOrder } = req.pagination;
       const search = (req.query.search as string) || null;
-      const sortBy = (req.query.sort_by as string) || 'overall_score';
-      const sortOrder = (req.query.sort_order as string) || 'desc';
 
       const result = await this.courseService.getCourses(page, limit, search, sortBy, sortOrder);
       this.sendSuccessResponse(res, result, 'Courses fetched successfully');
@@ -42,11 +39,8 @@ export class CourseController {
   async getCoursesByUniversityId(req: Request, res: Response) {
     try {
       const { universityId } = req.params;
-      const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
-      const limit = Math.max(1, parseInt(req.query.limit as string, 10) || 20);
+      const { page, limit, sortBy, sortOrder } = req.pagination;
       const search = (req.query.search as string) || null;
-      const sortBy = (req.query.sort_by as string) || 'overall_score';
-      const sortOrder = (req.query.sort_order as string) || 'desc';
       const departmentId = (req.query.department_id as string) || null;
 
       const result = await this.courseService.getCoursesByUniversityId(

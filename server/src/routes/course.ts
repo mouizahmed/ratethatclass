@@ -3,6 +3,7 @@ import { CourseController } from '../controllers/courseController';
 import { CourseService } from '../services/courseService';
 import { CourseRepository } from '../repositories/courseRepository';
 import { validateToken } from '../../middleware/Auth';
+import { paginationMiddleware } from '../../middleware/pagination';
 
 const router = express.Router();
 
@@ -12,8 +13,12 @@ const courseService = new CourseService(courseRepository);
 const courseController = new CourseController(courseService);
 
 // Routes
-router.get('/', courseController.getCourses.bind(courseController));
-router.get('/by-university-id/:universityId', courseController.getCoursesByUniversityId.bind(courseController));
+router.get('/', paginationMiddleware('overall_score'), courseController.getCourses.bind(courseController));
+router.get(
+  '/by-university-id/:universityId',
+  paginationMiddleware('overall_score'),
+  courseController.getCoursesByUniversityId.bind(courseController)
+);
 router.get('/by-department-id/:departmentId', courseController.getCoursesByDepartmentId.bind(courseController));
 router.get('/by-id/:id', courseController.getCourseById.bind(courseController));
 router.get('/by-university-id/:universityId/by-tag/:courseTag', courseController.getCourseByTag.bind(courseController));

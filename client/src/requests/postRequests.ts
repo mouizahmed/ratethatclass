@@ -79,40 +79,21 @@ export async function postCourse(course: Course, review: Review): Promise<void> 
   }
 }
 
-export async function postUpVote(review: Review): Promise<void> {
+export async function postVote(review: Review, voteType: 'up' | 'down'): Promise<void> {
   const idToken = await getIdToken();
   const response = await axios
     .post<ApiResponse<Record<string, never>>>(
-      `${process.env.NEXT_PUBLIC_URL}/review/upvote`,
-      { review_id: review.review_id },
+      `${process.env.NEXT_PUBLIC_URL}/review/vote`,
+      { review_id: review.review_id, vote_type: voteType },
       { headers: { id_token: idToken } }
     )
     .catch((error) => {
       console.log(error);
-      throw new Error('Could not post upvote.');
+      throw new Error(`Could not post ${voteType}vote.`);
     });
 
   if (!response.data.success) {
-    throw new Error(response.data.message || 'Could not post upvote.');
-  }
-}
-
-export async function postDownVote(review: Review): Promise<void> {
-  const idToken = await getIdToken();
-
-  const response = await axios
-    .post<ApiResponse<Record<string, never>>>(
-      `${process.env.NEXT_PUBLIC_URL}/review/downvote`,
-      { review_id: review.review_id },
-      { headers: { id_token: idToken } }
-    )
-    .catch((error) => {
-      console.log(error);
-      throw new Error('Could not post downvote.');
-    });
-
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Could not post downvote.');
+    throw new Error(response.data.message || `Could not post ${voteType}vote.`);
   }
 }
 
