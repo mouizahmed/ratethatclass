@@ -485,7 +485,7 @@ LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.
 WHERE reviews.course_id = $2;
 `;
 
-export const getReviewsByCourseIDPaginated = `
+export const getReviewsByCourseIdPaginated = `
 SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, 
 professors.professor_name, professors.professor_id,
 departments.department_id, departments.department_name, 
@@ -500,15 +500,15 @@ LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.
 WHERE reviews.course_id = $2
 `;
 
-export const getReviewsByCourseIDWithProfessor = `
+export const getReviewsByCourseIdWithProfessor = `
 AND professors.professor_id = $PLACEHOLDER
 `;
 
-export const getReviewsByCourseIDWithTerm = `
+export const getReviewsByCourseIdWithTerm = `
 AND reviews.term_taken = $PLACEHOLDER
 `;
 
-export const getReviewsByCourseIDWithDelivery = `
+export const getReviewsByCourseIdWithDelivery = `
 AND reviews.delivery_method = $PLACEHOLDER
 `;
 

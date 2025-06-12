@@ -4,10 +4,10 @@ import { PoolClient } from 'pg';
 import {
   getReviewsPaginated,
   getReviewsCount,
-  getReviewsByCourseIDPaginated,
-  getReviewsByCourseIDWithProfessor,
-  getReviewsByCourseIDWithTerm,
-  getReviewsByCourseIDWithDelivery,
+  getReviewsByCourseIdPaginated,
+  getReviewsByCourseIdWithProfessor,
+  getReviewsByCourseIdWithTerm,
+  getReviewsByCourseIdWithDelivery,
   getExistingVote,
   addVote,
   deleteVote,
@@ -69,26 +69,26 @@ export class ReviewRepository {
     sortOrder: string
   ) {
     const offset = (page - 1) * limit;
-    let queryText = getReviewsByCourseIDPaginated;
+    let queryText = getReviewsByCourseIdPaginated;
     const queryParams = [userId, courseId];
     let paramCounter = 3;
 
     if (professorID) {
-      const professorFilter = getReviewsByCourseIDWithProfessor.replace(/\$PLACEHOLDER/g, `$${paramCounter}`);
+      const professorFilter = getReviewsByCourseIdWithProfessor.replace(/\$PLACEHOLDER/g, `$${paramCounter}`);
       queryText += professorFilter;
       queryParams.push(professorID);
       paramCounter++;
     }
 
     if (term) {
-      const termFilter = getReviewsByCourseIDWithTerm.replace(/\$PLACEHOLDER/g, `$${paramCounter}`);
+      const termFilter = getReviewsByCourseIdWithTerm.replace(/\$PLACEHOLDER/g, `$${paramCounter}`);
       queryText += termFilter;
       queryParams.push(term);
       paramCounter++;
     }
 
     if (deliveryMethod) {
-      const deliveryFilter = getReviewsByCourseIDWithDelivery.replace(/\$PLACEHOLDER/g, `$${paramCounter}`);
+      const deliveryFilter = getReviewsByCourseIdWithDelivery.replace(/\$PLACEHOLDER/g, `$${paramCounter}`);
       queryText += deliveryFilter;
       queryParams.push(deliveryMethod);
       paramCounter++;
