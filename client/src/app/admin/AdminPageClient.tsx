@@ -27,7 +27,7 @@ import { unbanUser } from '@/requests/patchRequests';
 import { BannedUser } from '@/types/bannedUser';
 
 export default function AdminPageClient() {
-  const { userLoggedIn, loading, isAdmin, isOwner } = useAuth();
+  const { userLoggedIn, loading, isAdmin, isOwner, currentUser } = useAuth();
   const [statusFilter, setStatusFilter] = useState<ReportStatus>('pending');
   const [reports, setReports] = useState<Report[]>([]);
   const [loadingReports, setLoadingReports] = useState(false);
@@ -192,7 +192,7 @@ export default function AdminPageClient() {
       <div className="w-full max-w-3xl">
         <h2 className="flex items-center justify-between gap-1 scroll-m-20 border-b pb-2 text-2xl sm:text-3xl font-semibold tracking-tight first:mt-0">
           Admin Dashboard
-          {/* <p className="text-sm text-muted-foreground">Review and manage reported content</p> */}
+          {currentUser && <p className="text-sm text-muted-foreground">{currentUser.email}</p>}
         </h2>
 
         <Tabs

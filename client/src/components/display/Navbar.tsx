@@ -47,11 +47,16 @@ function NavbarInner() {
       return (
         <div className="flex items-center gap-4">
           {isAdmin || isOwner ? (
-            <Link href="/admin">
-              <Button variant="outline" className="flex items-center gap-2">
-                Admin Dashboard
+            <div className="flex items-center gap-4">
+              <Link href="/admin">
+                <Button variant="outline" className="flex items-center gap-2">
+                  Admin Dashboard
+                </Button>
+              </Link>
+              <Button variant="outline" className="max-w-[200px] truncate">
+                {currentUser.email}
               </Button>
-            </Link>
+            </div>
           ) : (
             <>
               {currentUser.emailVerified ? (
@@ -107,13 +112,18 @@ function NavbarInner() {
       return (
         <div className="flex flex-col gap-3 w-full">
           {isAdmin || isOwner ? (
-            <SheetClose asChild>
-              <Link href="/admin">
-                <Button variant="outline" className="flex items-center justify-center gap-2 w-full">
-                  Admin Dashboard
-                </Button>
-              </Link>
-            </SheetClose>
+            <div className="flex flex-col gap-3 w-full">
+              <SheetClose asChild>
+                <Link href="/admin">
+                  <Button variant="outline" className="flex items-center justify-center gap-2 w-full">
+                    Admin Dashboard
+                  </Button>
+                </Link>
+              </SheetClose>
+              <Button variant="outline" className="w-full truncate">
+                {currentUser.email}
+              </Button>
+            </div>
           ) : (
             <>
               {currentUser.emailVerified ? (
