@@ -166,8 +166,8 @@ export async function banUser(userId: string): Promise<void> {
   const idToken = await getIdToken();
   const response = await axios
     .post<ApiResponse<Record<string, never>>>(
-      `${process.env.NEXT_PUBLIC_URL}/admin/users/ban`,
-      { user_id: userId },
+      `${process.env.NEXT_PUBLIC_URL}/admin/users/${userId}/ban`,
+      { ban_reason: 'Violation of community guidelines' },
       { headers: { id_token: idToken } }
     )
     .catch((error) => {

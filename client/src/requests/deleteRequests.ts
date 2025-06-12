@@ -29,8 +29,7 @@ export async function deleteReview(reviewID: string) {
 export async function deleteReviewReport(reportId: string): Promise<void> {
   const idToken = await getIdToken();
   const response = await axios
-    .delete<ApiResponse<Record<string, never>>>(`${process.env.NEXT_PUBLIC_URL}/admin/reports/review`, {
-      params: { report_id: reportId },
+    .delete<ApiResponse<Record<string, never>>>(`${process.env.NEXT_PUBLIC_URL}/admin/reports/${reportId}/reviews`, {
       headers: { id_token: idToken },
     })
     .catch((error) => {
@@ -46,8 +45,7 @@ export async function deleteReviewReport(reportId: string): Promise<void> {
 export async function deleteCourseReport(reportId: string): Promise<void> {
   const idToken = await getIdToken();
   const response = await axios
-    .delete<ApiResponse<Record<string, never>>>(`${process.env.NEXT_PUBLIC_URL}/admin/reports/course`, {
-      params: { report_id: reportId },
+    .delete<ApiResponse<Record<string, never>>>(`${process.env.NEXT_PUBLIC_URL}/admin/reports/${reportId}/courses`, {
       headers: { id_token: idToken },
     })
     .catch((error) => {
@@ -63,10 +61,12 @@ export async function deleteCourseReport(reportId: string): Promise<void> {
 export async function deleteDepartmentReport(reportId: string): Promise<void> {
   const idToken = await getIdToken();
   const response = await axios
-    .delete<ApiResponse<Record<string, never>>>(`${process.env.NEXT_PUBLIC_URL}/admin/reports/department`, {
-      params: { report_id: reportId },
-      headers: { id_token: idToken },
-    })
+    .delete<ApiResponse<Record<string, never>>>(
+      `${process.env.NEXT_PUBLIC_URL}/admin/reports/${reportId}/departments`,
+      {
+        headers: { id_token: idToken },
+      }
+    )
     .catch((error) => {
       console.error(error);
       throw new Error('Could not delete department.');
@@ -80,8 +80,7 @@ export async function deleteDepartmentReport(reportId: string): Promise<void> {
 export async function deleteProfessorReport(reportId: string): Promise<void> {
   const idToken = await getIdToken();
   const response = await axios
-    .delete<ApiResponse<Record<string, never>>>(`${process.env.NEXT_PUBLIC_URL}/admin/reports/professor`, {
-      params: { report_id: reportId },
+    .delete<ApiResponse<Record<string, never>>>(`${process.env.NEXT_PUBLIC_URL}/admin/reports/${reportId}/professors`, {
       headers: { id_token: idToken },
     })
     .catch((error) => {

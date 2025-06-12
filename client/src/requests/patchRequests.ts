@@ -11,10 +11,9 @@ export async function dismissReport(reportId: string): Promise<void> {
   const idToken = await getIdToken();
   const response = await axios
     .patch<ApiResponse<Record<string, never>>>(
-      `${process.env.NEXT_PUBLIC_URL}/admin/reports/dismiss`,
+      `${process.env.NEXT_PUBLIC_URL}/admin/reports/${reportId}/dismiss`,
       {},
       {
-        params: { report_id: reportId },
         headers: { id_token: idToken },
       }
     )
@@ -32,15 +31,15 @@ export async function unbanUser(userId: string): Promise<void> {
   const idToken = await getIdToken();
   const response = await axios
     .patch<ApiResponse<Record<string, never>>>(
-      `${process.env.NEXT_PUBLIC_URL}/admin/users/unban`,
-      { user_id: userId },
+      `${process.env.NEXT_PUBLIC_URL}/admin/users/${userId}/unban`,
+      {},
       {
         headers: { id_token: idToken },
       }
     )
     .catch((error) => {
       console.error(error);
-    throw new Error('Could not unban user');
+      throw new Error('Could not unban user');
     });
 
   if (!response.data.success) {
