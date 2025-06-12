@@ -1,5 +1,6 @@
 import { AdminRepository } from '../repositories/adminRepository';
 import { auth } from '../../firebase/firebase';
+import crypto from 'crypto';
 
 export class AdminService {
   private adminRepository: AdminRepository;
@@ -85,5 +86,43 @@ export class AdminService {
   async unbanUser(userId: string): Promise<void> {
     await this.adminRepository.unbanUser(userId);
     await auth.setCustomUserClaims(userId, { banned: false, ban_reason: null });
+  }
+
+  async getAllAdmins(): Promise<any[]> {
+    return await this.adminRepository.getAllAdmins();
+  }
+
+  async createAdmin(): Promise<{ email: string; password: string }> {
+    // Check current admin count
+    const admins = await this.adminRepository.getAllAdmins();
+    if (admins.length >= 5) {
+      throw new Error('Maximum number of admin accounts (5) reached.');
+    }
+
+    // Generate a random email with @ratethatclass.com
+    const randomStr = Math.random().toString(36).substring(2, 10);
+    const email = `admin_${randomStr}@ratethatclass.com`;
+
+    // Generate a secure random password
+    const password = crypto.randomBytes(16).toString('base64');
+
+    // Create user in Firebase
+    const userRecord = await auth.createUser({
+      email,
+      password,
+      emailVerified: true,
+    });
+    // Set admin custom claim
+    await auth.setCustomUserClaims(userRecord.uid, { admin: true });
+    // Store in DB
+    await this.adminRepository.createAdmin(userRecord.uid, email, new Date());
+    return { email, password };
+  }
+
+  async deleteAdmin(admin_id: string): Promise<void> {
+    // Delete from Firebase Auth
+    await auth.deleteUser(admin_id);
+    // Delete from DB
+    await this.adminRepository.deleteAdmin(admin_id);
   }
 }

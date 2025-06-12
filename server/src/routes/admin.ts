@@ -1,5 +1,5 @@
 import express from 'express';
-import { validateAdmin } from '../../middleware/Auth';
+import { validateAdmin, validateOwner } from '../../middleware/Auth';
 import { AdminController } from '../controllers/adminController';
 
 const router = express.Router();
@@ -44,5 +44,14 @@ router.patch('/reports/:reportId/dismiss', validateAdmin, adminController.dismis
 
 // Unban a user
 router.patch('/users/:userId/unban', validateAdmin, adminController.unbanUser.bind(adminController));
+
+// Get all admins (owner only)
+router.get('/admins', validateOwner, adminController.getAllAdmins.bind(adminController));
+
+// Create a new admin (owner only)
+router.post('/admins', validateOwner, adminController.createAdmin.bind(adminController));
+
+// Delete an admin (owner only)
+router.delete('/admins/:adminId', validateOwner, adminController.deleteAdmin.bind(adminController));
 
 export default router;

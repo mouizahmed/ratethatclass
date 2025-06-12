@@ -120,4 +120,21 @@ export class AdminRepository {
       throw new Error('No active ban found for this user');
     }
   }
+
+  async getAllAdmins(): Promise<any[]> {
+    const result = await pool.query('SELECT admin_id, created_at, email FROM admins ORDER BY created_at DESC');
+    return result.rows;
+  }
+
+  async createAdmin(admin_id: string, email: string, created_at: Date): Promise<void> {
+    await pool.query('INSERT INTO admins (admin_id, email, created_at) VALUES ($1, $2, $3)', [
+      admin_id,
+      email,
+      created_at,
+    ]);
+  }
+
+  async deleteAdmin(admin_id: string): Promise<void> {
+    await pool.query('DELETE FROM admins WHERE admin_id = $1', [admin_id]);
+  }
 }

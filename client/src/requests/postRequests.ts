@@ -160,3 +160,8 @@ export async function banUser(userId: string): Promise<void> {
     throw new Error(response.data.message || 'Could not ban user.');
   }
 }
+
+export async function createAdmin() {
+  const idToken = await getIdToken();
+  return axios.post(`${process.env.NEXT_PUBLIC_URL}/admin/admins`, {}, { headers: { id_token: idToken } });
+}

@@ -256,4 +256,69 @@ export class AdminController {
       });
     }
   }
+
+  async getAllAdmins(req: Request, res: Response): Promise<void> {
+    try {
+      const admins = await this.adminService.getAllAdmins();
+      res.status(200).json({
+        success: true,
+        message: 'Admins fetched successfully',
+        data: admins,
+        meta: {},
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        success: false,
+        message: error.message || 'Internal server error',
+        data: {},
+        meta: {},
+      });
+    }
+  }
+
+  async createAdmin(req: Request, res: Response): Promise<void> {
+    try {
+      const result = await this.adminService.createAdmin();
+      res.status(201).json({
+        success: true,
+        message: 'Admin created successfully',
+        data: result,
+        meta: {},
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        success: false,
+        message: error.message || 'Internal server error',
+        data: {},
+        meta: {},
+      });
+    }
+  }
+
+  async deleteAdmin(req: Request, res: Response): Promise<void> {
+    try {
+      const { adminId } = req.params;
+      if (!adminId) {
+        res.status(400).json({ success: false, message: 'Missing admin_id', data: {}, meta: {} });
+        return;
+      }
+      await this.adminService.deleteAdmin(adminId);
+      res.status(200).json({
+        success: true,
+        message: 'Admin deleted successfully',
+        data: {},
+        meta: {},
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        success: false,
+        message: error.message || 'Internal server error',
+        data: {},
+        meta: {},
+      });
+    }
+  }
 }

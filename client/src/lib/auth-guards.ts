@@ -33,3 +33,17 @@ export function checkUserActionAllowed({
   }
   return true;
 }
+
+export function checkOwnerActionAllowed({
+  userLoggedIn,
+  isOwner,
+}: {
+  userLoggedIn: boolean;
+  isOwner?: boolean;
+}): boolean {
+  if (!userLoggedIn || !isOwner) {
+    toastUtils.error('Owner access required', 'Only owners can perform this action.');
+    return false;
+  }
+  return true;
+}

@@ -11,20 +11,24 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Report, ReportStatus, ReviewReportDetails } from '@/types/report';
 import { ReviewReportCard } from '@/components/display/ReviewReportCard';
 import { CourseReportCard } from '@/components/display/CourseReportCard';
-import { getReports } from '@/requests/getRequests';
-import { banUser } from '@/requests/postRequests';
+import { getReports, getBannedUsers, getAdmins } from '@/requests/getRequests';
+import { banUser, createAdmin } from '@/requests/postRequests';
 import { dismissReport } from '@/requests/patchRequests';
 import {
   deleteReviewReport,
   deleteCourseReport,
   deleteDepartmentReport,
   deleteProfessorReport,
+  deleteAdmin,
 } from '@/requests/deleteRequests';
 import { toastUtils } from '@/lib/toast-utils';
 import { BannedUserCard } from '@/components/display/BannedUserCard';
-import { getBannedUsers } from '@/requests/getRequests';
 import { unbanUser } from '@/requests/patchRequests';
 import { BannedUser } from '@/types/bannedUser';
+import { AdminUser } from '@/types/admin';
+import { AdminCardList } from '@/components/display/AdminCardList';
+import { AdminCreateDialog } from '@/components/display/AdminCreateDialog';
+import { AdminDeleteDialog } from '@/components/display/AdminDeleteDialog';
 
 export default function AdminPageClient() {
   const { userLoggedIn, loading, isAdmin, isOwner, currentUser } = useAuth();
@@ -38,7 +42,14 @@ export default function AdminPageClient() {
   const [loadingBannedUsers, setLoadingBannedUsers] = useState(false);
   const [bannedUsersPage, setBannedUsersPage] = useState(1);
   const [bannedUsersTotalPages, setBannedUsersTotalPages] = useState(1);
-  const [activeMainTab, setActiveMainTab] = useState<'reports' | 'banned'>('reports');
+  const [activeMainTab, setActiveMainTab] = useState<'reports' | 'banned' | 'admins'>('reports');
+  const [adminUsers, setAdminUsers] = useState<AdminUser[]>([]);
+  const [loadingAdmins, setLoadingAdmins] = useState(false);
+  const [showAdminDialog, setShowAdminDialog] = useState(false);
+  const [generatedAdmin, setGeneratedAdmin] = useState<{ email: string; password: string } | null>(null);
+  const [creatingAdmin, setCreatingAdmin] = useState(false);
+  const [deletingAdminId, setDeletingAdminId] = useState<string | null>(null);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   useEffect(() => {
     if (!loading && !userLoggedIn) {
@@ -62,33 +73,6 @@ export default function AdminPageClient() {
     }
   };
 
-  useEffect(() => {
-    if (userLoggedIn) {
-      if (activeMainTab === 'reports') {
-        fetchReports();
-      } else if (activeMainTab === 'banned') {
-        fetchBannedUsers();
-      }
-    }
-  }, [userLoggedIn, activeMainTab]);
-
-  useEffect(() => {
-    if (userLoggedIn) {
-      fetchReports();
-    }
-  }, [userLoggedIn, currentPage, activeTab, statusFilter]);
-
-  const refreshReports = async () => {
-    try {
-      const response = await getReports(1, 10, activeTab, 'report_date', 'desc', statusFilter);
-      setReports(response.data);
-      setTotalPages(response.meta.total_pages);
-    } catch (error) {
-      console.log('Error refreshing reports:', error);
-      toastUtils.error('Failed to refresh reports', (error as Error).message);
-    }
-  };
-
   const fetchBannedUsers = async () => {
     setLoadingBannedUsers(true);
     try {
@@ -103,11 +87,50 @@ export default function AdminPageClient() {
     }
   };
 
+  const fetchAdmins = async () => {
+    setLoadingAdmins(true);
+    try {
+      const response = await getAdmins();
+      setAdminUsers(response.data.data);
+    } catch (error) {
+      console.log('Error fetching admin users:', error);
+      toastUtils.error('Failed to fetch admin users', (error as Error).message);
+    } finally {
+      setLoadingAdmins(false);
+    }
+  };
+
+  const handleCreateAdmin = async () => {
+    setCreatingAdmin(true);
+    try {
+      const res = await createAdmin();
+      setGeneratedAdmin(res.data.data);
+      setShowAdminDialog(true);
+      await fetchAdmins();
+    } catch (error: any) {
+      toastUtils.error('Failed to create admin', error?.response?.data?.message || error.message);
+    } finally {
+      setCreatingAdmin(false);
+    }
+  };
+
+  useEffect(() => {
+    if (userLoggedIn) {
+      if (activeMainTab === 'reports') {
+        fetchReports();
+      } else if (activeMainTab === 'banned') {
+        fetchBannedUsers();
+      } else if (activeMainTab === 'admins') {
+        fetchAdmins();
+      }
+    }
+  }, [userLoggedIn, activeMainTab]);
+
   const handleRemoveProfessor = async (reportId: string) => {
     try {
       await deleteProfessorReport(reportId);
       toastUtils.success('Professor deleted successfully');
-      await refreshReports();
+      await fetchReports();
     } catch (error) {
       console.log('Failed to delete professor:', error);
       toastUtils.error('Failed to delete professor', (error as Error).message);
@@ -118,7 +141,7 @@ export default function AdminPageClient() {
     try {
       await deleteCourseReport(reportId);
       toastUtils.success('Course deleted successfully');
-      await refreshReports();
+      await fetchReports();
     } catch (error) {
       console.log('Failed to delete course:', error);
       toastUtils.error('Failed to delete course', (error as Error).message);
@@ -129,7 +152,7 @@ export default function AdminPageClient() {
     try {
       await deleteDepartmentReport(reportId);
       toastUtils.success('Department deleted successfully');
-      await refreshReports();
+      await fetchReports();
     } catch (error) {
       console.log('Failed to delete department:', error);
       toastUtils.error('Failed to delete department', (error as Error).message);
@@ -140,7 +163,7 @@ export default function AdminPageClient() {
     try {
       await dismissReport(reportId);
       toastUtils.success('Report dismissed successfully');
-      await refreshReports();
+      await fetchReports();
     } catch (error) {
       console.log('Failed to dismiss report:', error);
       toastUtils.error('Failed to dismiss report', (error as Error).message);
@@ -151,7 +174,7 @@ export default function AdminPageClient() {
     try {
       await deleteReviewReport(reportId);
       toastUtils.success('Review deleted successfully');
-      await refreshReports();
+      await fetchReports();
     } catch (error) {
       console.log('Failed to delete review:', error);
       toastUtils.error('Failed to delete review', (error as Error).message);
@@ -161,7 +184,7 @@ export default function AdminPageClient() {
   const handleBanUser = async (userId: string) => {
     try {
       await banUser(userId);
-      await refreshReports();
+      await fetchReports();
     } catch (error) {
       console.log('Failed to ban user:', error);
       toastUtils.error('Failed to ban user', (error as Error).message);
@@ -176,6 +199,25 @@ export default function AdminPageClient() {
     } catch (error) {
       console.log('Failed to unban user:', error);
       toastUtils.error('Failed to unban user', (error as Error).message);
+    }
+  };
+
+  const handleDeleteAdmin = async (adminId: string) => {
+    setDeletingAdminId(adminId);
+    setShowDeleteDialog(true);
+  };
+
+  const confirmDeleteAdmin = async () => {
+    if (!deletingAdminId) return;
+    try {
+      await deleteAdmin(deletingAdminId);
+      toastUtils.success('Admin deleted successfully');
+      await fetchAdmins();
+    } catch (error: any) {
+      toastUtils.error('Failed to delete admin', error?.response?.data?.message || error.message);
+    } finally {
+      setShowDeleteDialog(false);
+      setDeletingAdminId(null);
     }
   };
 
@@ -198,11 +240,12 @@ export default function AdminPageClient() {
         <Tabs
           defaultValue="reports"
           className="w-full"
-          onValueChange={(value) => setActiveMainTab(value as 'reports' | 'banned')}
+          onValueChange={(value) => setActiveMainTab(value as 'reports' | 'banned' | 'admins')}
         >
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className={`grid w-full ${isOwner ? 'grid-cols-3' : 'grid-cols-2'}`}>
             <TabsTrigger value="reports">Reports</TabsTrigger>
             <TabsTrigger value="banned">Banned Users</TabsTrigger>
+            {isOwner && <TabsTrigger value="admins">Admin Management</TabsTrigger>}
           </TabsList>
 
           <TabsContent value="reports">
@@ -403,6 +446,51 @@ export default function AdminPageClient() {
               </CardContent>
             </Card>
           </TabsContent>
+
+          {isOwner && (
+            <TabsContent value="admins">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg sm:text-xl">Admin Management</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-muted-foreground text-sm">{adminUsers.length}/5 admin accounts</span>
+                    </div>
+                    <Button
+                      onClick={handleCreateAdmin}
+                      className="w-full sm:w-auto"
+                      disabled={creatingAdmin || adminUsers.length >= 5}
+                    >
+                      {creatingAdmin ? <Spinner size="small" /> : 'Generate New Admin Account'}
+                    </Button>
+                    {loadingAdmins ? (
+                      <div className="flex justify-center py-4">
+                        <Spinner />
+                      </div>
+                    ) : adminUsers.length > 0 ? (
+                      <AdminCardList adminUsers={adminUsers} onDelete={handleDeleteAdmin} />
+                    ) : (
+                      <div className="text-muted-foreground text-sm">No admin accounts to display</div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+              <AdminCreateDialog
+                open={showAdminDialog}
+                onOpenChange={setShowAdminDialog}
+                generatedAdmin={generatedAdmin}
+                onClose={() => setShowAdminDialog(false)}
+              />
+              <AdminDeleteDialog
+                open={showDeleteDialog}
+                onOpenChange={setShowDeleteDialog}
+                onConfirm={confirmDeleteAdmin}
+                onCancel={() => setShowDeleteDialog(false)}
+              />
+            </TabsContent>
+          )}
         </Tabs>
       </div>
     </div>

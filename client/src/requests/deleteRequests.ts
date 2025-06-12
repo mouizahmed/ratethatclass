@@ -92,3 +92,10 @@ export async function deleteProfessorReport(reportId: string): Promise<void> {
     throw new Error(response.data.message || 'Could not delete professor.');
   }
 }
+
+export async function deleteAdmin(adminId: string) {
+  const idToken = await getIdToken();
+  return axios.delete(`${process.env.NEXT_PUBLIC_URL}/admin/admins/${adminId}`, {
+    headers: { id_token: idToken },
+  });
+}

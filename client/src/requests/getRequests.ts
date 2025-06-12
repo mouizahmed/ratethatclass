@@ -331,3 +331,10 @@ export async function getBannedUsers(page: number = 1, limit: number = 10): Prom
     };
   }
 }
+
+export async function getAdmins() {
+  const idToken = await getIdToken();
+  return axios.get(`${process.env.NEXT_PUBLIC_URL}/admin/admins`, {
+    headers: { id_token: idToken },
+  });
+}
