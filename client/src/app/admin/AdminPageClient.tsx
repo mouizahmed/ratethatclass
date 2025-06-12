@@ -56,7 +56,7 @@ export default function AdminPageClient() {
       setReports(response.data);
       setTotalPages(response.meta.total_pages);
     } catch (error) {
-      console.error('Error fetching reports:', error);
+      console.log('Error fetching reports:', error);
     } finally {
       setLoadingReports(false);
     }
@@ -84,7 +84,7 @@ export default function AdminPageClient() {
       setReports(response.data);
       setTotalPages(response.meta.total_pages);
     } catch (error) {
-      console.error('Error refreshing reports:', error);
+      console.log('Error refreshing reports:', error);
       toastUtils.error('Failed to refresh reports', (error as Error).message);
     }
   };
@@ -96,7 +96,7 @@ export default function AdminPageClient() {
       setBannedUsers(response.data);
       setBannedUsersTotalPages(response.meta.total_pages ?? 1);
     } catch (error) {
-      console.error('Error fetching banned users:', error);
+      console.log('Error fetching banned users:', error);
       toastUtils.error('Failed to fetch banned users', (error as Error).message);
     } finally {
       setLoadingBannedUsers(false);
@@ -109,7 +109,7 @@ export default function AdminPageClient() {
       toastUtils.success('Professor deleted successfully');
       await refreshReports();
     } catch (error) {
-      console.error('Failed to delete professor:', error);
+      console.log('Failed to delete professor:', error);
       toastUtils.error('Failed to delete professor', (error as Error).message);
     }
   };
@@ -120,7 +120,7 @@ export default function AdminPageClient() {
       toastUtils.success('Course deleted successfully');
       await refreshReports();
     } catch (error) {
-      console.error('Failed to delete course:', error);
+      console.log('Failed to delete course:', error);
       toastUtils.error('Failed to delete course', (error as Error).message);
     }
   };
@@ -131,7 +131,7 @@ export default function AdminPageClient() {
       toastUtils.success('Department deleted successfully');
       await refreshReports();
     } catch (error) {
-      console.error('Failed to delete department:', error);
+      console.log('Failed to delete department:', error);
       toastUtils.error('Failed to delete department', (error as Error).message);
     }
   };
@@ -142,7 +142,7 @@ export default function AdminPageClient() {
       toastUtils.success('Report dismissed successfully');
       await refreshReports();
     } catch (error) {
-      console.error('Failed to dismiss report:', error);
+      console.log('Failed to dismiss report:', error);
       toastUtils.error('Failed to dismiss report', (error as Error).message);
     }
   };
@@ -153,7 +153,7 @@ export default function AdminPageClient() {
       toastUtils.success('Review deleted successfully');
       await refreshReports();
     } catch (error) {
-      console.error('Failed to delete review:', error);
+      console.log('Failed to delete review:', error);
       toastUtils.error('Failed to delete review', (error as Error).message);
     }
   };
@@ -163,7 +163,7 @@ export default function AdminPageClient() {
       await banUser(userId);
       await refreshReports();
     } catch (error) {
-      console.error('Failed to ban user:', error);
+      console.log('Failed to ban user:', error);
       toastUtils.error('Failed to ban user', (error as Error).message);
     }
   };
@@ -174,7 +174,7 @@ export default function AdminPageClient() {
       toastUtils.success('User unbanned successfully');
       await fetchBannedUsers();
     } catch (error) {
-      console.error('Failed to unban user:', error);
+      console.log('Failed to unban user:', error);
       toastUtils.error('Failed to unban user', (error as Error).message);
     }
   };

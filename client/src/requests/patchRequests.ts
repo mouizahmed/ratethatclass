@@ -18,7 +18,7 @@ export async function dismissReport(reportId: string): Promise<void> {
       }
     )
     .catch((error) => {
-      console.error(error);
+      console.log(error);
       throw new Error('Could not dismiss report.');
     });
 
@@ -38,7 +38,7 @@ export async function unbanUser(userId: string): Promise<void> {
       }
     )
     .catch((error) => {
-      console.error(error);
+      console.log(error);
       throw new Error('Could not unban user');
     });
 

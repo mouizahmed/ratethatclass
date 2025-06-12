@@ -33,7 +33,7 @@ export async function deleteReviewReport(reportId: string): Promise<void> {
       headers: { id_token: idToken },
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
       throw new Error('Could not delete review.');
     });
 
@@ -49,7 +49,7 @@ export async function deleteCourseReport(reportId: string): Promise<void> {
       headers: { id_token: idToken },
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
       throw new Error('Could not delete course.');
     });
 
@@ -68,7 +68,7 @@ export async function deleteDepartmentReport(reportId: string): Promise<void> {
       }
     )
     .catch((error) => {
-      console.error(error);
+      console.log(error);
       throw new Error('Could not delete department.');
     });
 
@@ -84,7 +84,7 @@ export async function deleteProfessorReport(reportId: string): Promise<void> {
       headers: { id_token: idToken },
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
       throw new Error('Could not delete professor.');
     });
 

@@ -25,7 +25,7 @@ export class AdminController {
         meta: {},
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
       if (error.message === 'Review not found' || error.message === 'Report not found') {
         res.status(404).json({ success: false, message: error.message, data: {}, meta: {} });
         return;
@@ -50,7 +50,7 @@ export class AdminController {
         meta: {},
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
       if (
         error.message === 'Review not found' ||
         error.message === 'Professor not found' ||
@@ -79,7 +79,7 @@ export class AdminController {
         meta: {},
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
       if (
         error.message === 'Review not found' ||
         error.message === 'Department not found' ||
@@ -110,7 +110,7 @@ export class AdminController {
         meta: {},
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
       if (
         error.message === 'Review not found' ||
         error.message === 'Course not found' ||
@@ -148,7 +148,7 @@ export class AdminController {
         meta: {},
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
       res.status(500).json({
         success: false,
         message: error.message || 'Internal server error',
@@ -176,7 +176,7 @@ export class AdminController {
         },
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
       res.status(500).json({
         success: false,
         message: error.message || 'Internal server error',
@@ -207,7 +207,7 @@ export class AdminController {
         meta: {},
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
       res.status(500).json({
         success: false,
         message: error.message || 'Internal server error',
@@ -238,7 +238,7 @@ export class AdminController {
         meta: {},
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
       if (error.message === 'No active ban found for this user') {
         res.status(404).json({
           success: false,

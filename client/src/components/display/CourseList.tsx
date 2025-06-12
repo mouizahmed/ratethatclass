@@ -104,7 +104,7 @@ function CourseListContent({
         setHasMore(page < meta.total_pages);
         setCurrentPage(page);
       } catch (error) {
-        console.error('Error fetching courses:', error);
+        console.log('Error fetching courses:', error);
         toastUtils.loadError('courses');
       } finally {
         setIsSearchLoading(false);

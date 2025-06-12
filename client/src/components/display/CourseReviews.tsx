@@ -179,7 +179,7 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
         setHasMore(page < response.meta.total_pages);
         setCurrentPage(page);
       } catch (error) {
-        console.error('Error fetching reviews:', error);
+        console.log('Error fetching reviews:', error);
         toastUtils.loadError('reviews');
       } finally {
         setIsFilterLoading(false);

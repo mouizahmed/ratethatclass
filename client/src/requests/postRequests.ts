@@ -152,7 +152,7 @@ export async function banUser(userId: string): Promise<void> {
       { headers: { id_token: idToken } }
     )
     .catch((error) => {
-      console.error(error);
+      console.log(error);
       throw new Error('Could not ban user.');
     });
 

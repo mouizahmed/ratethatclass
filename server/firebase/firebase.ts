@@ -29,7 +29,7 @@ const auth = getAuth(app);
 //     await auth.setCustomUserClaims(user.uid, { owner: true });
 //     console.log(`Successfully set owner claim for ${email}`);
 //   } catch (error) {
-//     console.error(`Error setting custom claim for ${email}:`, error);
+//     console.log(`Error setting custom claim for ${email}:`, error);
 //     if ((error as any).code === 'auth/user-not-found') {
 //       console.log('User does not exist. Please create the user in Firebase Authentication first.');
 //     }
