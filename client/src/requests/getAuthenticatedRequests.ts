@@ -5,7 +5,7 @@ import { Review } from '@/types/review';
 import { ApiResponse, PaginatedResponse } from '@/types/api';
 import { VoteState } from '@/types/requests';
 
-const API_TIMEOUT = 3000;
+const API_TIMEOUT = 10000;
 
 export async function getVoteStates(reviewIds: string[]): Promise<VoteState[]> {
   const currentUser = await getCurrentUser();
@@ -97,7 +97,7 @@ export async function getUserUpvotes(
   let idToken = '';
   if (currentUser) idToken = await currentUser.getIdToken(true);
 
-  let url = `${process.env.NEXT_PUBLIC_URL}/user/upvotes`;
+  let url = `${process.env.NEXT_PUBLIC_URL}/user/upvoted-reviews`;
 
   if (page !== undefined) {
     url += `?page=${page}&limit=${limit || 10}`;
@@ -151,7 +151,7 @@ export async function getUserDownvotes(
   let idToken = '';
   if (currentUser) idToken = await currentUser.getIdToken(true);
 
-  let url = `${process.env.NEXT_PUBLIC_URL}/user/downvotes`;
+  let url = `${process.env.NEXT_PUBLIC_URL}/user/downvoted-reviews`;
 
   if (page !== undefined) {
     url += `?page=${page}&limit=${limit || 10}`;
