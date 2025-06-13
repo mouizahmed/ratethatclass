@@ -49,13 +49,36 @@ export class UniversityRepository {
     return result.rows as RequestedUniversity[];
   }
 
-  async requestUniversity(name: string) {
-    const result = await pool.query(requestUniversity, [name.trim()]);
-    return result.rows[0] as RequestedUniversity;
+  async upvoteRequestedUniversity(universityId: string, token: string) {
+    const client = await pool.connect();
+    try {
+      await client.query('BEGIN');
+      await client.query(upvoteRequestedUniversity, [universityId, token]);
+      await client.query(updateTotalVotesRequestedUniversity, [universityId]);
+      await client.query('COMMIT');
+    } catch (error) {
+      await client.query('ROLLBACK');
+      throw error;
+    } finally {
+      client.release();
+    }
   }
 
-  async upvoteRequestedUniversity(universityId: string, token: string) {
-    await pool.query(upvoteRequestedUniversity, [universityId, token]);
-    await pool.query(updateTotalVotesRequestedUniversity, [universityId]);
+  async requestAndUpvoteUniversity(name: string, token: string) {
+    const client = await pool.connect();
+    try {
+      await client.query('BEGIN');
+      const result = await client.query(requestUniversity, [name.trim()]);
+      const university = result.rows[0];
+      await client.query(upvoteRequestedUniversity, [university.university_id, token]);
+      await client.query(updateTotalVotesRequestedUniversity, [university.university_id]);
+      await client.query('COMMIT');
+      return university;
+    } catch (error) {
+      await client.query('ROLLBACK');
+      throw error;
+    } finally {
+      client.release();
+    }
   }
 }

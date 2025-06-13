@@ -1,5 +1,6 @@
 import { University, RequestedUniversity } from '../types';
 import { UniversityRepository } from '../repositories/universityRepository';
+import { pool } from '../db/db';
 
 export class UniversityService {
   constructor(private universityRepository: UniversityRepository) {}
@@ -46,8 +47,9 @@ export class UniversityService {
     return this.universityRepository.getRequestedUniversities(token);
   }
 
-  async requestUniversity(name: string) {
-    return this.universityRepository.requestUniversity(name);
+  async requestUniversity(name: string, token: string) {
+    const university = await this.universityRepository.requestAndUpvoteUniversity(name, token);
+    return { university_name: university };
   }
 
   async upvoteRequestedUniversity(universityId: string, token: string) {

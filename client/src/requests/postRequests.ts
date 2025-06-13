@@ -99,7 +99,7 @@ export async function postUniversityRequest(universityName: string): Promise<voi
           name: universityName,
         },
       },
-      getRequestConfig(idToken)
+      { ...getRequestConfig(idToken), withCredentials: true }
     );
 
     if (!response.data.success) {

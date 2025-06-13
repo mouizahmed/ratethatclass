@@ -30,6 +30,7 @@ export default function UniversityRequestsClient() {
       toastUtils.success(`Successfully requested ${universityName}`);
       setRefresh((prev) => !prev);
       setRequestSent(false);
+      setUniversityName(''); // Clear the input after successful request
     } catch (error) {
       toastUtils.error('Request failed', (error as Error).message);
       console.log(error);
@@ -43,7 +44,11 @@ export default function UniversityRequestsClient() {
       setRefresh((prev) => !prev);
       toastUtils.success(`Successfully upvoted ${university.university_name}`);
     } catch (error) {
-      toastUtils.error('Vote failed', (error as Error).message);
+      if ((error as Error).message.includes('already voted')) {
+        toastUtils.error('Already voted', 'You have already voted for this university');
+      } else {
+        toastUtils.error('Vote failed', (error as Error).message);
+      }
       console.log(error);
     }
   };

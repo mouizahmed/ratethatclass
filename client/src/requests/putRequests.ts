@@ -7,7 +7,7 @@ export async function voteUniversity(universityId: string): Promise<void> {
     const response = await axios.put(
       `${process.env.NEXT_PUBLIC_URL}/university/requests/${universityId}/vote`,
       {},
-      getRequestConfig(idToken)
+      { ...getRequestConfig(idToken), withCredentials: true }
     );
     if (!response.data.success) {
       throw new Error(response.data.message || 'Could not post vote for university');

@@ -116,7 +116,18 @@ export class UniversityController {
         throw new Error('University name is required');
       }
 
-      const result = await this.universityService.requestUniversity(name);
+      InputValidator.validateUniversityRequest(name);
+
+      let token = req.cookies.token;
+      if (!token) {
+        token = crypto.randomBytes(16).toString('hex');
+        res.cookie('token', token, {
+          maxAge: 60 * 60 * 24 * 365 * 1000,
+          httpOnly: true,
+        });
+      }
+
+      const result = await this.universityService.requestUniversity(name, token);
       this.sendSuccessResponse(res, result, 'University request submitted successfully');
     } catch (error) {
       this.sendErrorResponse(res, error);
