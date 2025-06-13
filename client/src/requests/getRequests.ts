@@ -43,6 +43,7 @@ export async function getUniversity(universityName: string): Promise<University>
     }
     return response.data.data;
   } catch (error) {
+    console.log(error);
     // handleApiError(error, 'Failed to retrieve university');
     return {} as University;
   }
@@ -140,6 +141,7 @@ export async function getCourseByCourseTag(universityId: string, courseTag: stri
     return response.data.data;
   } catch (error) {
     // handleApiError(error, 'Failed to retrieve course');
+    console.log(error);
     return {} as Course;
   }
 }
