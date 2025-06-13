@@ -50,10 +50,10 @@ export class ReportController {
 
   async createReport(req: AuthenticatedRequest, res: Response) {
     try {
-      const { reportDetails } = req.body;
+      const { entity_id, report_reason, entity_type } = req.body.data;
       const { uid } = req.user;
 
-      const result = await this.reportService.createReport(uid, reportDetails);
+      const result = await this.reportService.createReport(uid, { entity_id, report_reason, entity_type });
       this.sendSuccessResponse(res, { data: result, meta: {} }, 'Report created successfully');
     } catch (error) {
       this.sendErrorResponse(res, error as { status?: number; message: string });

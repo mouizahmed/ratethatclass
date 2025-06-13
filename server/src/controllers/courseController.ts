@@ -96,10 +96,10 @@ export class CourseController {
 
   async addCourseWithReview(req: AuthenticatedRequest, res: Response) {
     try {
-      const { courseData, reviewData } = req.body;
+      const { course, review } = req.body.data;
       const userId = req.user!.user_id;
 
-      const result = await this.courseService.addCourseWithReview(courseData, reviewData, userId);
+      const result = await this.courseService.addCourseWithReview(course, review, userId);
       this.sendSuccessResponse(res, result, 'Course and review added successfully');
     } catch (error) {
       this.sendErrorResponse(res, error);

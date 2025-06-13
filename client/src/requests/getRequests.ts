@@ -39,11 +39,12 @@ export async function getUniversity(universityName: string): Promise<University>
       `${process.env.NEXT_PUBLIC_URL}/university/by-name/${universityName}`
     );
     if (!response.data.success || !response.data.data.university_id) {
-      return {} as University; // Return empty university object to trigger notFound()
+      return {} as University;
     }
     return response.data.data;
   } catch (error) {
-    handleApiError(error, 'Failed to retrieve university');
+    // handleApiError(error, 'Failed to retrieve university');
+    return {} as University;
   }
 }
 
@@ -134,11 +135,12 @@ export async function getCourseByCourseTag(universityId: string, courseTag: stri
       `${process.env.NEXT_PUBLIC_URL}/course/by-university-id/${universityId}/by-tag/${courseTag}`
     );
     if (!response.data.success || !response.data.data.course_id) {
-      return {} as Course; // Return empty course object to trigger notFound()
+      return {} as Course;
     }
     return response.data.data;
   } catch (error) {
-    handleApiError(error, 'Failed to retrieve course');
+    // handleApiError(error, 'Failed to retrieve course');
+    return {} as Course;
   }
 }
 

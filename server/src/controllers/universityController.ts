@@ -111,12 +111,13 @@ export class UniversityController {
 
   async requestUniversity(req: Request, res: Response) {
     try {
-      const { name }: { name: string } = req.body;
-
-      InputValidator.validateUniversityRequest(name);
+      const { name } = req.body.data;
+      if (!name) {
+        throw new Error('University name is required');
+      }
 
       const result = await this.universityService.requestUniversity(name);
-      this.sendSuccessResponse(res, { university_name: name }, 'University request successfully added');
+      this.sendSuccessResponse(res, result, 'University request submitted successfully');
     } catch (error) {
       this.sendErrorResponse(res, error);
     }

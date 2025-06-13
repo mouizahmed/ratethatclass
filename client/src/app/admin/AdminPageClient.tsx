@@ -28,6 +28,7 @@ import { AdminUser } from '@/types/admin';
 import { AdminCardList } from '@/components/display/AdminCardList';
 import { AdminCreateDialog } from '@/components/display/AdminCreateDialog';
 import { AdminDeleteDialog } from '@/components/display/AdminDeleteDialog';
+import { BanUserDialog } from '@/components/dialogs/BanUserDialog';
 
 export default function AdminPageClient() {
   const { userLoggedIn, loading, isAdmin, isOwner, currentUser } = useAuth();
@@ -50,6 +51,8 @@ export default function AdminPageClient() {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [hasMoreReports, setHasMoreReports] = useState(true);
   const [hasMoreBannedUsers, setHasMoreBannedUsers] = useState(true);
+  const [showBanDialog, setShowBanDialog] = useState(false);
+  const [userToBan, setUserToBan] = useState<string | null>(null);
 
   useEffect(() => {
     if (!loading && !userLoggedIn) {
@@ -217,8 +220,15 @@ export default function AdminPageClient() {
   };
 
   const handleBanUser = async (userId: string) => {
+    setUserToBan(userId);
+    setShowBanDialog(true);
+  };
+
+  const confirmBanUser = async (reason: string) => {
+    if (!userToBan) return;
     try {
-      await banUser(userId);
+      await banUser(userToBan, reason);
+      toastUtils.success('User banned successfully');
       await fetchReports();
     } catch (error) {
       console.log('Failed to ban user:', error);
@@ -501,6 +511,12 @@ export default function AdminPageClient() {
           )}
         </Tabs>
       </div>
+      <BanUserDialog
+        userId={userToBan || ''}
+        open={showBanDialog}
+        onOpenChange={setShowBanDialog}
+        onConfirm={confirmBanUser}
+      />
     </div>
   );
 }

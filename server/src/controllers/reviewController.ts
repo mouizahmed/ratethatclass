@@ -79,7 +79,7 @@ export class ReviewController {
 
   async vote(req: AuthenticatedRequest, res: Response) {
     try {
-      const { review_id, vote_type } = req.body;
+      const { review_id, vote_type } = req.body.data;
       if (!review_id || !vote_type) {
         throw new Error('review_id and vote_type must be provided');
       }
@@ -96,8 +96,8 @@ export class ReviewController {
 
   async addReview(req: AuthenticatedRequest, res: Response) {
     try {
-      const { reviewData } = req.body;
-      const result = await this.reviewService.addReview(reviewData, req.user.uid);
+      const { data: review } = req.body;
+      const result = await this.reviewService.addReview(review, req.user.uid);
       this.sendSuccessResponse(res, result, 'Review successfully added');
     } catch (error) {
       this.sendErrorResponse(res, error, error.message.includes('validation') ? 400 : 500);

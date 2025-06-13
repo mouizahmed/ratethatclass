@@ -7,9 +7,11 @@ import { getIdToken, handleApiError, getRequestConfig } from '@/lib/api-utils';
 export async function registerAccount(displayName: string, email: string, password: string): Promise<string> {
   try {
     const response = await axios.post<ApiResponse<{ token: string }>>(`${process.env.NEXT_PUBLIC_URL}/user/register`, {
-      display_name: displayName,
-      email: email,
-      password: password,
+      data: {
+        display_name: displayName,
+        email: email,
+        password: password,
+      },
     });
 
     if (!response.data.success) {
@@ -132,7 +134,7 @@ export async function postReport(entityId: string, reason: string, type: string)
   }
 }
 
-export async function banUser(userId: string): Promise<void> {
+export async function banUser(userId: string, banReason: string): Promise<void> {
   const idToken = await getIdToken();
 
   try {
@@ -140,7 +142,7 @@ export async function banUser(userId: string): Promise<void> {
       `${process.env.NEXT_PUBLIC_URL}/admin/users/${userId}/ban`,
       {
         data: {
-          ban_reason: 'Violation of community guidelines',
+          ban_reason: banReason,
         },
       },
       getRequestConfig(idToken)

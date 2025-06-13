@@ -83,6 +83,10 @@ export class AdminRepository {
     try {
       await client.query('BEGIN');
       await client.query(insertBan, [userId, banReason, adminId]);
+      await client.query(
+        'UPDATE reports SET status = $1 WHERE entity_type = $2 AND entity_id IN (SELECT review_id FROM reviews WHERE user_id = $3) AND status = $4',
+        ['resolved', 'review', userId, 'pending']
+      );
       await client.query('DELETE FROM reviews WHERE user_id = $1', [userId]);
       await client.query('COMMIT');
     } catch (error) {

@@ -127,17 +127,11 @@ export class AdminController {
   async banUser(req: AuthenticatedRequest, res: Response): Promise<void> {
     try {
       const { userId } = req.params;
-      const { ban_reason } = req.body;
+      const { ban_reason } = req.body.data;
       const adminId = req.user?.uid;
 
-      if (!userId || !ban_reason || !adminId) {
-        res.status(400).json({
-          success: false,
-          message: 'Missing user_id, ban_reason, or admin_id',
-          data: {},
-          meta: {},
-        });
-        return;
+      if (!adminId) {
+        throw new Error('Admin ID is required');
       }
 
       await this.adminService.banUser(userId, ban_reason, adminId);
@@ -149,12 +143,11 @@ export class AdminController {
       });
     } catch (error) {
       console.log(error);
-      res.status(500).json({
-        success: false,
-        message: error.message || 'Internal server error',
-        data: {},
-        meta: {},
-      });
+      if (error.message === 'User not found') {
+        res.status(404).json({ success: false, message: error.message, data: {}, meta: {} });
+        return;
+      }
+      res.status(500).json({ success: false, message: error.message || 'Internal server error', data: {}, meta: {} });
     }
   }
 
