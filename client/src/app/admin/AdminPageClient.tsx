@@ -104,7 +104,7 @@ export default function AdminPageClient() {
     setCreatingAdmin(true);
     try {
       const res = await createAdmin();
-      setGeneratedAdmin(res.data.data);
+      setGeneratedAdmin(res.data);
       setShowAdminDialog(true);
       await fetchAdmins();
     } catch (error) {

@@ -44,8 +44,7 @@ export async function postReview(review: Review): Promise<void> {
       }
     )
     .catch((error) => {
-      console.log(error);
-      throw new Error('Could not post review.');
+      throw new Error(error.response.data.message || 'Could not post review.');
     });
 
   if (!response.data.success) {
@@ -70,8 +69,7 @@ export async function postCourse(course: Course, review: Review): Promise<void> 
       }
     )
     .catch((error) => {
-      console.log(error);
-      throw new Error('Could not post course.');
+      throw new Error(error.response.data.message || 'Could not post course.');
     });
 
   if (!response.data.success) {
@@ -88,8 +86,7 @@ export async function postVote(review: Review, voteType: 'up' | 'down'): Promise
       { headers: { id_token: idToken } }
     )
     .catch((error) => {
-      console.log(error);
-      throw new Error(`Could not post ${voteType}vote.`);
+      throw new Error(error.response.data.message || `Could not post ${voteType}vote.`);
     });
 
   if (!response.data.success) {
@@ -109,8 +106,7 @@ export async function postUniversityRequest(universityName: string): Promise<voi
       }
     )
     .catch((error) => {
-      console.log(error);
-      throw new Error('Could not request university.');
+      throw new Error(error.response.data.message || 'Could not request university.');
     });
 
   if (!response.data.success) {
@@ -134,8 +130,7 @@ export async function postReport(entityId: string, reason: string, type: string)
       { headers: { id_token: idToken } }
     )
     .catch((error) => {
-      console.log(error);
-      throw new Error('Could not send report.');
+      throw new Error(error.response.data.message || 'Could not send report.');
     });
 
   if (!response.data.success) {
@@ -152,8 +147,7 @@ export async function banUser(userId: string): Promise<void> {
       { headers: { id_token: idToken } }
     )
     .catch((error) => {
-      console.log(error);
-      throw new Error('Could not ban user.');
+      throw new Error(error.response.data.message || 'Could not ban user.');
     });
 
   if (!response.data.success) {
@@ -161,7 +155,20 @@ export async function banUser(userId: string): Promise<void> {
   }
 }
 
-export async function createAdmin() {
+export async function createAdmin(): Promise<ApiResponse<{ email: string; password: string }>> {
   const idToken = await getIdToken();
-  return axios.post(`${process.env.NEXT_PUBLIC_URL}/admin/admins`, {}, { headers: { id_token: idToken } });
+  const response = await axios
+    .post<ApiResponse<{ email: string; password: string }>>(
+      `${process.env.NEXT_PUBLIC_URL}/admin/admins`,
+      {},
+      { headers: { id_token: idToken } }
+    )
+    .catch((error) => {
+      throw new Error(error.response.data.message || 'Could not create admin.');
+    });
+
+  if (!response.data.success) {
+    throw new Error(response.data.message || 'Could not create admin.');
+  }
+  return response.data;
 }

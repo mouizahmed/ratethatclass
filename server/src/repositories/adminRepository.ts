@@ -9,12 +9,21 @@ export class AdminRepository {
     return reportRes.rows[0];
   }
 
+  async resolveAllReportsForEntity(entityType: string, entityId: string): Promise<void> {
+    await pool.query('UPDATE reports SET status = $1 WHERE entity_type = $2 AND entity_id = $3 AND status = $4', [
+      'resolved',
+      entityType,
+      entityId,
+      'pending',
+    ]);
+  }
+
   async deleteReviewAndResolveReport(reportId: string, reviewId: string): Promise<void> {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
       await client.query('DELETE FROM reviews WHERE review_id = $1', [reviewId]);
-      await client.query('UPDATE reports SET status = $1 WHERE report_id = $2', ['resolved', reportId]);
+      await this.resolveAllReportsForEntity('review', reviewId);
       await client.query('COMMIT');
     } catch (error) {
       await client.query('ROLLBACK');
@@ -29,7 +38,7 @@ export class AdminRepository {
     try {
       await client.query('BEGIN');
       await client.query('DELETE FROM professors WHERE professor_id = $1', [professorId]);
-      await client.query('UPDATE reports SET status = $1 WHERE report_id = $2', ['resolved', reportId]);
+      await this.resolveAllReportsForEntity('professor', professorId);
       await client.query('COMMIT');
     } catch (error) {
       await client.query('ROLLBACK');
@@ -44,7 +53,7 @@ export class AdminRepository {
     try {
       await client.query('BEGIN');
       await client.query('DELETE FROM departments WHERE department_id = $1', [departmentId]);
-      await client.query('UPDATE reports SET status = $1 WHERE report_id = $2', ['resolved', reportId]);
+      await this.resolveAllReportsForEntity('department', departmentId);
       await client.query('COMMIT');
     } catch (error) {
       await client.query('ROLLBACK');
@@ -59,7 +68,7 @@ export class AdminRepository {
     try {
       await client.query('BEGIN');
       await client.query('DELETE FROM courses WHERE course_id = $1', [courseId]);
-      await client.query('UPDATE reports SET status = $1 WHERE report_id = $2', ['resolved', reportId]);
+      await this.resolveAllReportsForEntity('course', courseId);
       await client.query('COMMIT');
     } catch (error) {
       await client.query('ROLLBACK');

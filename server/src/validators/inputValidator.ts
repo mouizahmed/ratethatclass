@@ -97,8 +97,12 @@ export class InputValidator {
     }
 
     this.validateTextInput(reviewData.course_comments, 'Course comments');
-    this.validateTextInput(reviewData.professor_comments, 'Professor comments');
-    this.validateTextInput(reviewData.advice_comments, 'Advice comments');
+    if (reviewData.professor_comments) {
+      this.validateTextInput(reviewData.professor_comments, 'Professor comments');
+    }
+    if (reviewData.advice_comments) {
+      this.validateTextInput(reviewData.advice_comments, 'Advice comments');
+    }
     this.validateTextInput(reviewData.professor_name, 'Professor name');
   }
 
