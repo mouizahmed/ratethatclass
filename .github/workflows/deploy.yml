@@ -3,29 +3,53 @@ name: Deploy Backend then Frontend
 on:
   push:
     branches:
-      - main # or your default branch name
+      - master
 
 jobs:
   deploy-backend:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Deploy to Render
-        uses: render-actions/deploy@v1
-        with:
-          service-id: ${{ secrets.RENDER_SERVICE_ID }}
-          api-key: ${{ secrets.RENDER_API_KEY }}
-        env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+        run: |
+          echo "Triggering Render deployment..."
+          response=$(curl -s -w "%{http_code}" -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}")
+          http_code="${response: -3}"
+
+          if [ "$http_code" -eq 200 ] || [ "$http_code" -eq 201 ]; then
+            echo "✅ Render deployment triggered successfully"
+            echo "⏳ Waiting for deployment to complete..."
+            sleep 60  # Wait 60 seconds for deployment to start
+          else
+            echo "❌ Failed to trigger Render deployment. HTTP code: $http_code"
+            exit 1
+          fi
 
   deploy-frontend:
     needs: deploy-backend
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v20
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ./client
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'client/package-lock.json'
+
+      - name: Install dependencies and deploy
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          npm ci --prefix client
+
+          echo "Installing Vercel CLI..."
+          npm install -g vercel@latest
+
+          echo "Deploying to Vercel..."
+          vercel --token "${{ secrets.VERCEL_TOKEN }}" --prod
