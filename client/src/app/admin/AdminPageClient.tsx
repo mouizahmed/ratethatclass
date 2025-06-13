@@ -7,11 +7,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/Spinner';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Report, ReportStatus, ReviewReportDetails } from '@/types/report';
 import { ReviewReportCard } from '@/components/display/ReviewReportCard';
 import { CourseReportCard } from '@/components/display/CourseReportCard';
-import { getReports, getBannedUsers, getAdmins } from '@/requests/getRequests';
+import { getReports, getBannedUsers, getAdmins } from '@/requests/getAuthenticatedRequests';
 import { banUser, createAdmin } from '@/requests/postRequests';
 import { dismissReport } from '@/requests/patchRequests';
 import {
@@ -36,12 +35,10 @@ export default function AdminPageClient() {
   const [reports, setReports] = useState<Report[]>([]);
   const [loadingReports, setLoadingReports] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [activeTab, setActiveTab] = useState<'course' | 'review'>('course');
   const [bannedUsers, setBannedUsers] = useState<BannedUser[]>([]);
   const [loadingBannedUsers, setLoadingBannedUsers] = useState(false);
   const [bannedUsersPage, setBannedUsersPage] = useState(1);
-  const [bannedUsersTotalPages, setBannedUsersTotalPages] = useState(1);
   const [activeMainTab, setActiveMainTab] = useState<'reports' | 'banned' | 'admins'>('reports');
   const [adminUsers, setAdminUsers] = useState<AdminUser[]>([]);
   const [loadingAdmins, setLoadingAdmins] = useState(false);
@@ -50,6 +47,9 @@ export default function AdminPageClient() {
   const [creatingAdmin, setCreatingAdmin] = useState(false);
   const [deletingAdminId, setDeletingAdminId] = useState<string | null>(null);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [hasMoreReports, setHasMoreReports] = useState(true);
+  const [hasMoreBannedUsers, setHasMoreBannedUsers] = useState(true);
 
   useEffect(() => {
     if (!loading && !userLoggedIn) {
@@ -60,30 +60,52 @@ export default function AdminPageClient() {
     }
   }, [userLoggedIn, loading, isAdmin, isOwner]);
 
-  const fetchReports = async () => {
-    setLoadingReports(true);
+  const fetchReports = async (page: number = 1, append: boolean = false) => {
+    if (page === 1) {
+      setLoadingReports(true);
+    } else {
+      setIsLoadingMore(true);
+    }
     try {
-      const response = await getReports(currentPage, 10, activeTab, 'report_date', 'desc', statusFilter);
-      setReports(response.data);
-      setTotalPages(response.meta.total_pages);
+      const response = await getReports(page, 10, activeTab, 'report_date', 'desc', statusFilter);
+      if (append) {
+        setReports((prev) => [...prev, ...response.data]);
+      } else {
+        setReports(response.data);
+      }
+      setHasMoreReports(
+        response.meta.current_page !== undefined &&
+          response.meta.total_pages !== undefined &&
+          response.meta.current_page < response.meta.total_pages
+      );
     } catch (error) {
       console.log('Error fetching reports:', error);
     } finally {
       setLoadingReports(false);
+      setIsLoadingMore(false);
     }
   };
 
-  const fetchBannedUsers = async () => {
-    setLoadingBannedUsers(true);
+  const fetchBannedUsers = async (page: number = 1, append: boolean = false) => {
+    if (page === 1) {
+      setLoadingBannedUsers(true);
+    } else {
+      setIsLoadingMore(true);
+    }
     try {
-      const response = await getBannedUsers(bannedUsersPage, 10);
-      setBannedUsers(response.data);
-      setBannedUsersTotalPages(response.meta.total_pages ?? 1);
+      const response = await getBannedUsers(page, 10);
+      if (append) {
+        setBannedUsers((prev) => [...prev, ...response.data]);
+      } else {
+        setBannedUsers(response.data);
+      }
+      setHasMoreBannedUsers(response.meta.current_page < response.meta.total_pages);
     } catch (error) {
       console.log('Error fetching banned users:', error);
       toastUtils.error('Failed to fetch banned users', (error as Error).message);
     } finally {
       setLoadingBannedUsers(false);
+      setIsLoadingMore(false);
     }
   };
 
@@ -91,7 +113,7 @@ export default function AdminPageClient() {
     setLoadingAdmins(true);
     try {
       const response = await getAdmins();
-      setAdminUsers(response.data.data);
+      setAdminUsers(response.data);
     } catch (error) {
       console.log('Error fetching admin users:', error);
       toastUtils.error('Failed to fetch admin users', (error as Error).message);
@@ -114,17 +136,30 @@ export default function AdminPageClient() {
     }
   };
 
+  const loadMoreReports = async () => {
+    if (isLoadingMore) return;
+    if (activeMainTab === 'reports' && hasMoreReports) {
+      await fetchReports(currentPage + 1, true);
+      setCurrentPage((prev) => prev + 1);
+    } else if (activeMainTab === 'banned' && hasMoreBannedUsers) {
+      await fetchBannedUsers(bannedUsersPage + 1, true);
+      setBannedUsersPage((prev) => prev + 1);
+    }
+  };
+
   useEffect(() => {
     if (userLoggedIn) {
       if (activeMainTab === 'reports') {
-        fetchReports();
+        fetchReports(1);
+        setCurrentPage(1);
       } else if (activeMainTab === 'banned') {
-        fetchBannedUsers();
+        fetchBannedUsers(1);
+        setBannedUsersPage(1);
       } else if (activeMainTab === 'admins') {
         fetchAdmins();
       }
     }
-  }, [userLoggedIn, activeMainTab]);
+  }, [userLoggedIn, activeMainTab, activeTab, statusFilter]);
 
   const handleRemoveProfessor = async (reportId: string) => {
     try {
@@ -298,28 +333,19 @@ export default function AdminPageClient() {
                               onDismiss={() => handleDismissReport(report.report_id)}
                             />
                           ))}
-                          <div className="flex items-center justify-between mt-4">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-                              disabled={currentPage === 1}
-                            >
-                              <ChevronLeft className="h-4 w-4 mr-2" />
-                              Previous
-                            </Button>
-                            <span className="text-sm text-muted-foreground">
-                              Page {currentPage} of {totalPages}
-                            </span>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
-                              disabled={currentPage === totalPages}
-                            >
-                              Next
-                              <ChevronRight className="h-4 w-4 ml-2" />
-                            </Button>
+                          <div className="flex justify-center py-4">
+                            {hasMoreReports && (
+                              <Button onClick={loadMoreReports} disabled={isLoadingMore} className="w-40">
+                                {isLoadingMore ? (
+                                  <div className="flex items-center gap-2">
+                                    <Spinner size="small" />
+                                    <span>Loading...</span>
+                                  </div>
+                                ) : (
+                                  'Load More'
+                                )}
+                              </Button>
+                            )}
                           </div>
                         </>
                       ) : (
@@ -365,28 +391,19 @@ export default function AdminPageClient() {
                               onDismiss={() => handleDismissReport(report.report_id)}
                             />
                           ))}
-                          <div className="flex items-center justify-between mt-4">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-                              disabled={currentPage === 1}
-                            >
-                              <ChevronLeft className="h-4 w-4 mr-2" />
-                              Previous
-                            </Button>
-                            <span className="text-sm text-muted-foreground">
-                              Page {currentPage} of {totalPages}
-                            </span>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
-                              disabled={currentPage === totalPages}
-                            >
-                              Next
-                              <ChevronRight className="h-4 w-4 ml-2" />
-                            </Button>
+                          <div className="flex justify-center py-4">
+                            {hasMoreReports && (
+                              <Button onClick={loadMoreReports} disabled={isLoadingMore} className="w-40">
+                                {isLoadingMore ? (
+                                  <div className="flex items-center gap-2">
+                                    <Spinner size="small" />
+                                    <span>Loading...</span>
+                                  </div>
+                                ) : (
+                                  'Load More'
+                                )}
+                              </Button>
+                            )}
                           </div>
                         </>
                       ) : (
@@ -415,28 +432,19 @@ export default function AdminPageClient() {
                       {bannedUsers.map((user) => (
                         <BannedUserCard key={user.user_id} user={user} onUnban={() => handleUnbanUser(user.user_id)} />
                       ))}
-                      <div className="flex items-center justify-between mt-4">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setBannedUsersPage((prev) => Math.max(1, prev - 1))}
-                          disabled={bannedUsersPage === 1}
-                        >
-                          <ChevronLeft className="h-4 w-4 mr-2" />
-                          Previous
-                        </Button>
-                        <span className="text-sm text-muted-foreground">
-                          Page {bannedUsersPage} of {bannedUsersTotalPages}
-                        </span>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setBannedUsersPage((prev) => Math.min(bannedUsersTotalPages, prev + 1))}
-                          disabled={bannedUsersPage === bannedUsersTotalPages}
-                        >
-                          Next
-                          <ChevronRight className="h-4 w-4 ml-2" />
-                        </Button>
+                      <div className="flex justify-center py-4">
+                        {hasMoreBannedUsers && (
+                          <Button onClick={loadMoreReports} disabled={isLoadingMore} className="w-40">
+                            {isLoadingMore ? (
+                              <div className="flex items-center gap-2">
+                                <Spinner size="small" />
+                                <span>Loading...</span>
+                              </div>
+                            ) : (
+                              'Load More'
+                            )}
+                          </Button>
+                        )}
                       </div>
                     </>
                   ) : (

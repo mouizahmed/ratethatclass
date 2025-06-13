@@ -1,101 +1,105 @@
-import { getCurrentUser } from '@/firebase/auth';
 import { ApiResponse } from '@/types/api';
 import axios from 'axios';
+import { getIdToken, handleApiError, getRequestConfig } from '@/lib/api-utils';
 
-async function getIdToken() {
-  const currentUser = await getCurrentUser();
-  return currentUser ? await currentUser.getIdToken(true) : '';
-}
+export async function deleteReview(reviewId: string): Promise<void> {
+  const idToken = await getIdToken();
 
-export async function deleteReview(reviewId: string) {
   try {
-    const currentUser = await getCurrentUser();
-    let idToken = '';
-    if (currentUser) idToken = await currentUser.getIdToken(true);
+    const response = await axios.delete<ApiResponse<void>>(
+      `${process.env.NEXT_PUBLIC_URL}/review/${reviewId}`,
+      getRequestConfig(idToken)
+    );
 
-    const response = await axios.delete(`${process.env.NEXT_PUBLIC_URL}/review/${reviewId}`, {
-      withCredentials: true,
-      headers: {
-        id_token: idToken,
-      },
-    });
-
-    return response;
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not delete review');
+    }
   } catch (error) {
-    throw error;
+    handleApiError(error, 'Could not delete review');
   }
 }
 
 export async function deleteReviewReport(reportId: string): Promise<void> {
   const idToken = await getIdToken();
-  const response = await axios
-    .delete<ApiResponse<Record<string, never>>>(`${process.env.NEXT_PUBLIC_URL}/admin/reports/${reportId}/reviews`, {
-      headers: { id_token: idToken },
-    })
-    .catch((error) => {
-      console.log(error);
-      throw new Error('Could not delete review.');
-    });
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Could not delete review.');
+  try {
+    const response = await axios.delete<ApiResponse<void>>(
+      `${process.env.NEXT_PUBLIC_URL}/admin/reports/${reportId}/reviews`,
+      getRequestConfig(idToken)
+    );
+
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not delete review');
+    }
+  } catch (error) {
+    handleApiError(error, 'Could not delete review');
   }
 }
 
 export async function deleteCourseReport(reportId: string): Promise<void> {
   const idToken = await getIdToken();
-  const response = await axios
-    .delete<ApiResponse<Record<string, never>>>(`${process.env.NEXT_PUBLIC_URL}/admin/reports/${reportId}/courses`, {
-      headers: { id_token: idToken },
-    })
-    .catch((error) => {
-      console.log(error);
-      throw new Error('Could not delete course.');
-    });
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Could not delete course.');
+  try {
+    const response = await axios.delete<ApiResponse<void>>(
+      `${process.env.NEXT_PUBLIC_URL}/admin/reports/${reportId}/courses`,
+      getRequestConfig(idToken)
+    );
+
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not delete course');
+    }
+  } catch (error) {
+    handleApiError(error, 'Could not delete course');
   }
 }
 
 export async function deleteDepartmentReport(reportId: string): Promise<void> {
   const idToken = await getIdToken();
-  const response = await axios
-    .delete<ApiResponse<Record<string, never>>>(
-      `${process.env.NEXT_PUBLIC_URL}/admin/reports/${reportId}/departments`,
-      {
-        headers: { id_token: idToken },
-      }
-    )
-    .catch((error) => {
-      console.log(error);
-      throw new Error('Could not delete department.');
-    });
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Could not delete department.');
+  try {
+    const response = await axios.delete<ApiResponse<void>>(
+      `${process.env.NEXT_PUBLIC_URL}/admin/reports/${reportId}/departments`,
+      getRequestConfig(idToken)
+    );
+
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not delete department');
+    }
+  } catch (error) {
+    handleApiError(error, 'Could not delete department');
   }
 }
 
 export async function deleteProfessorReport(reportId: string): Promise<void> {
   const idToken = await getIdToken();
-  const response = await axios
-    .delete<ApiResponse<Record<string, never>>>(`${process.env.NEXT_PUBLIC_URL}/admin/reports/${reportId}/professors`, {
-      headers: { id_token: idToken },
-    })
-    .catch((error) => {
-      console.log(error);
-      throw new Error('Could not delete professor.');
-    });
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Could not delete professor.');
+  try {
+    const response = await axios.delete<ApiResponse<void>>(
+      `${process.env.NEXT_PUBLIC_URL}/admin/reports/${reportId}/professors`,
+      getRequestConfig(idToken)
+    );
+
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not delete professor');
+    }
+  } catch (error) {
+    handleApiError(error, 'Could not delete professor');
   }
 }
 
-export async function deleteAdmin(adminId: string) {
+export async function deleteAdmin(adminId: string): Promise<void> {
   const idToken = await getIdToken();
-  return axios.delete(`${process.env.NEXT_PUBLIC_URL}/admin/admins/${adminId}`, {
-    headers: { id_token: idToken },
-  });
+
+  try {
+    const response = await axios.delete<ApiResponse<void>>(
+      `${process.env.NEXT_PUBLIC_URL}/admin/admins/${adminId}`,
+      getRequestConfig(idToken)
+    );
+
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not delete admin');
+    }
+  } catch (error) {
+    handleApiError(error, 'Could not delete admin');
+  }
 }

@@ -1,174 +1,175 @@
 import axios from 'axios';
-import { getCurrentUser } from '../firebase/auth';
 import { Course } from '@/types/university';
 import { Review } from '@/types/review';
 import { ApiResponse } from '@/types/api';
-
-async function getIdToken() {
-  const currentUser = await getCurrentUser();
-  return currentUser ? await currentUser.getIdToken(true) : '';
-}
+import { getIdToken, handleApiError, getRequestConfig } from '@/lib/api-utils';
 
 export async function registerAccount(displayName: string, email: string, password: string): Promise<string> {
-  const response = await axios
-    .post<ApiResponse<{ token: string }>>(`${process.env.NEXT_PUBLIC_URL}/user/register`, {
+  try {
+    const response = await axios.post<ApiResponse<{ token: string }>>(`${process.env.NEXT_PUBLIC_URL}/user/register`, {
       display_name: displayName,
       email: email,
       password: password,
-    })
-    .catch((error) => {
-      console.log(error);
-      throw new Error(error.response.data.message || 'Registration failed. Please try again.');
     });
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Registration failed');
-  }
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Registration failed');
+    }
 
-  return response.data.data.token;
+    return response.data.data.token;
+  } catch (error) {
+    handleApiError(error, 'Registration failed. Please try again.');
+  }
 }
 
 export async function postReview(review: Review): Promise<void> {
   const idToken = await getIdToken();
 
-  const response = await axios
-    .post<ApiResponse<Record<string, never>>>(
+  try {
+    const response = await axios.post<ApiResponse<void>>(
       `${process.env.NEXT_PUBLIC_URL}/review`,
-      {
-        reviewData: review,
-      },
-      {
-        headers: {
-          id_token: idToken,
-        },
-      }
-    )
-    .catch((error) => {
-      throw new Error(error.response.data.message || 'Could not post review.');
-    });
+      { data: review },
+      getRequestConfig(idToken)
+    );
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Could not post review.');
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not post review');
+    }
+  } catch (error) {
+    handleApiError(error, 'Could not post review');
   }
 }
 
 export async function postCourse(course: Course, review: Review): Promise<void> {
   const idToken = await getIdToken();
 
-  const response = await axios
-    .post<ApiResponse<Record<string, never>>>(
+  try {
+    const response = await axios.post<ApiResponse<void>>(
       `${process.env.NEXT_PUBLIC_URL}/course`,
       {
-        reviewData: review,
-        courseData: course,
-      },
-      {
-        headers: {
-          id_token: idToken,
+        data: {
+          course,
+          review,
         },
-      }
-    )
-    .catch((error) => {
-      throw new Error(error.response.data.message || 'Could not post course.');
-    });
+      },
+      getRequestConfig(idToken)
+    );
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Could not post course.');
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not post course');
+    }
+  } catch (error) {
+    handleApiError(error, 'Could not post course');
   }
 }
 
 export async function postVote(review: Review, voteType: 'up' | 'down'): Promise<void> {
   const idToken = await getIdToken();
-  const response = await axios
-    .post<ApiResponse<Record<string, never>>>(
-      `${process.env.NEXT_PUBLIC_URL}/review/vote`,
-      { review_id: review.review_id, vote_type: voteType },
-      { headers: { id_token: idToken } }
-    )
-    .catch((error) => {
-      throw new Error(error.response.data.message || `Could not post ${voteType}vote.`);
-    });
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || `Could not post ${voteType}vote.`);
+  try {
+    const response = await axios.post<ApiResponse<void>>(
+      `${process.env.NEXT_PUBLIC_URL}/review/vote`,
+      {
+        data: {
+          review_id: review.review_id,
+          vote_type: voteType,
+        },
+      },
+      getRequestConfig(idToken)
+    );
+
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not post vote');
+    }
+  } catch (error) {
+    handleApiError(error, 'Could not post vote');
   }
 }
 
 export async function postUniversityRequest(universityName: string): Promise<void> {
-  const response = await axios
-    .post<ApiResponse<Record<string, never>>>(
+  const idToken = await getIdToken();
+
+  try {
+    const response = await axios.post<ApiResponse<void>>(
       `${process.env.NEXT_PUBLIC_URL}/university/requests`,
       {
-        name: universityName,
+        data: {
+          name: universityName,
+        },
       },
-      {
-        withCredentials: true,
-      }
-    )
-    .catch((error) => {
-      throw new Error(error.response.data.message || 'Could not request university.');
-    });
+      getRequestConfig(idToken)
+    );
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Could not request university.');
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not request university');
+    }
+  } catch (error) {
+    handleApiError(error, 'Could not request university');
   }
 }
 
 export async function postReport(entityId: string, reason: string, type: string): Promise<void> {
   const idToken = await getIdToken();
 
-  const response = await axios
-    .post<ApiResponse<Record<string, never>>>(
+  try {
+    const response = await axios.post<ApiResponse<void>>(
       `${process.env.NEXT_PUBLIC_URL}/report`,
       {
-        reportDetails: {
+        data: {
           entity_id: entityId,
           report_reason: reason,
           entity_type: type.toLowerCase(),
         },
       },
-      { headers: { id_token: idToken } }
-    )
-    .catch((error) => {
-      throw new Error(error.response.data.message || 'Could not send report.');
-    });
+      getRequestConfig(idToken)
+    );
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Could not send report.');
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not send report');
+    }
+  } catch (error) {
+    handleApiError(error, 'Could not send report');
   }
 }
 
 export async function banUser(userId: string): Promise<void> {
   const idToken = await getIdToken();
-  const response = await axios
-    .post<ApiResponse<Record<string, never>>>(
-      `${process.env.NEXT_PUBLIC_URL}/admin/users/${userId}/ban`,
-      { ban_reason: 'Violation of community guidelines' },
-      { headers: { id_token: idToken } }
-    )
-    .catch((error) => {
-      throw new Error(error.response.data.message || 'Could not ban user.');
-    });
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Could not ban user.');
+  try {
+    const response = await axios.post<ApiResponse<void>>(
+      `${process.env.NEXT_PUBLIC_URL}/admin/users/${userId}/ban`,
+      {
+        data: {
+          ban_reason: 'Violation of community guidelines',
+        },
+      },
+      getRequestConfig(idToken)
+    );
+
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not ban user');
+    }
+  } catch (error) {
+    handleApiError(error, 'Could not ban user');
   }
 }
 
 export async function createAdmin(): Promise<ApiResponse<{ email: string; password: string }>> {
   const idToken = await getIdToken();
-  const response = await axios
-    .post<ApiResponse<{ email: string; password: string }>>(
+
+  try {
+    const response = await axios.post<ApiResponse<{ email: string; password: string }>>(
       `${process.env.NEXT_PUBLIC_URL}/admin/admins`,
       {},
-      { headers: { id_token: idToken } }
-    )
-    .catch((error) => {
-      throw new Error(error.response.data.message || 'Could not create admin.');
-    });
+      getRequestConfig(idToken)
+    );
 
-  if (!response.data.success) {
-    throw new Error(response.data.message || 'Could not create admin.');
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not create admin');
+    }
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'Could not create admin');
   }
-  return response.data;
 }

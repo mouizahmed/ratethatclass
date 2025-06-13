@@ -1,16 +1,18 @@
 import axios from 'axios';
+import { getIdToken, handleApiError, getRequestConfig } from '@/lib/api-utils';
 
-export async function voteUniversity(universityId: string) {
+export async function voteUniversity(universityId: string): Promise<void> {
+  const idToken = await getIdToken();
   try {
-    await axios.put(
+    const response = await axios.put(
       `${process.env.NEXT_PUBLIC_URL}/university/requests/${universityId}/vote`,
       {},
-      {
-        withCredentials: true,
-      }
+      getRequestConfig(idToken)
     );
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Could not post vote for university');
+    }
   } catch (error) {
-    console.log(error);
-    throw new Error('Could not post vote for university.');
+    handleApiError(error, 'Could not post vote for university');
   }
 }
