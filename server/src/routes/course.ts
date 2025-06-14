@@ -2,8 +2,8 @@ import express from 'express';
 import { CourseController } from '../controllers/courseController';
 import { CourseService } from '../services/courseService';
 import { CourseRepository } from '../repositories/courseRepository';
-import { validateToken } from '../../middleware/Auth';
-import { paginationMiddleware } from '../../middleware/pagination';
+import { validateToken } from '../middleware/Auth';
+import { paginationMiddleware } from '../middleware/pagination';
 
 const router = express.Router();
 

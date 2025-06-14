@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import { auth } from '../firebase/firebase';
 import { AuthenticatedRequest } from 'types';
-import { extractBearerToken } from '../src/helpers';
+import { extractBearerToken } from '../helpers';
 
 export const validateToken = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
   const idToken = extractBearerToken(req);

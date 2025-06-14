@@ -1,6 +1,6 @@
 import express from 'express';
 import { DepartmentController } from '../controllers/departmentController';
-import { paginationMiddleware } from '../../middleware/pagination';
+import { paginationMiddleware } from '../middleware/pagination';
 
 const router = express.Router();
 const departmentController = new DepartmentController();

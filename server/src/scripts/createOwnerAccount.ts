@@ -1,5 +1,5 @@
-import { auth } from './firebase/firebase';
-import { pool } from './src/db/db';
+import { pool } from '../db/db';
+import { auth } from '../firebase/firebase';
 
 const email = process.env.OWNER_EMAIL || 'owner@ratethatclass.com';
 const password = process.env.OWNER_PASSWORD || 'ownerpassword';

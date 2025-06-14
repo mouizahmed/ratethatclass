@@ -1,8 +1,8 @@
 import express from 'express';
 import { ReviewController } from '../controllers/reviewController';
 import { ReviewService } from '../services/reviewService';
-import { validateToken, validateTokenGet, validateTokenOptional } from '../../middleware/Auth';
-import { paginationMiddleware } from '../../middleware/pagination';
+import { validateToken, validateTokenGet, validateTokenOptional } from '../middleware/Auth';
+import { paginationMiddleware } from '../middleware/pagination';
 
 const router = express.Router();
 

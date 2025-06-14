@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import { ReportController } from '../controllers/reportController';
-import { validateToken } from '../../middleware/Auth';
-import { paginationMiddleware } from '../../middleware/pagination';
+import { validateToken } from '../middleware/Auth';
+import { paginationMiddleware } from '../middleware/pagination';
 
 const router: Router = express.Router();
 const reportController = new ReportController();

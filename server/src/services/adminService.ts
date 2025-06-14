@@ -1,5 +1,5 @@
 import { AdminRepository } from '../repositories/adminRepository';
-import { auth } from '../../firebase/firebase';
+import { auth } from '../firebase/firebase';
 import crypto from 'crypto';
 
 export class AdminService {

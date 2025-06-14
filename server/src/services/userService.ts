@@ -1,5 +1,5 @@
 import { UserRepository } from '../repositories/userRepository';
-import { auth } from '../../firebase/firebase';
+import { auth } from '../firebase/firebase';
 import { Review } from '../types';
 
 export class UserService {
