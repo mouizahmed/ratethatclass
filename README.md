@@ -11,11 +11,6 @@ Try it now: [https://ratethatclass.com/](https://ratethatclass.com/)
 
 # Current Development
 
-- Cron job to run scraper on cloud every 4 months.
-- Create management account functionality
-  - Handle reports.
-  - Adding universities + file upload.
-  - View logs of last cron job / execute cron job (manage schedules + clusters)
 - Develop backend server test cases.
 
 # Overview
@@ -64,8 +59,10 @@ rate-that-class/
 │   ├── src/
 │   │   ├── app/           # Next.js app router pages
 │   │   ├── components/    # Reusable UI components
+│   │   │   ├── adsense/   # Google AdSense components
 │   │   │   ├── auth/      # Authentication forms
 │   │   │   ├── common/    # Shared components
+│   │   │   ├── dialogs/   # Modal and dialog components
 │   │   │   ├── display/   # Data display components
 │   │   │   ├── forms/     # Form components and steps
 │   │   │   └── ui/        # Base UI components (shadcn/ui)
@@ -74,22 +71,26 @@ rate-that-class/
 │   │   ├── hooks/         # Custom React hooks
 │   │   ├── lib/           # Utility functions and constants
 │   │   ├── requests/      # API request functions
-│   │   └── types/
-│   ├── public/
+│   │   └── types/         # TypeScript type definitions
+│   ├── public/            # Static assets
+│   ├── .next/             # Next.js build output
+│   ├── next.config.ts
+│   ├── tailwind.config.ts
+│   ├── postcss.config.mjs
+│   ├── tsconfig.json
+│   ├── components.json    # shadcn/ui components configuration
 │   └── package.json
 ├── server/                # Express.js backend API server
 │   ├── src/
-│   │   ├── routes/        # API endpoint handlers
-│   │   │   ├── course.ts
-│   │   │   ├── review.ts
-│   │   │   ├── user.ts
-│   │   │   ├── university.ts
-│   │   │   ├── department.ts
-│   │   │   ├── professor.ts
-│   │   │   └── report.ts
-│   │   ├── db/            # Database queries and connection
+│   │   ├── routes/        # API endpoint route definitions
+│   │   ├── controllers/   # Request handlers and business logic
+│   │   ├── services/      # Business logic and data processing
+│   │   ├── repositories/  # Database access layer
+│   │   ├── validators/    # Request validation schemas
+│   │   ├── db/           # Database connection and configuration
+│   │   ├── helpers.ts    # Utility functions
 │   │   ├── types.ts
-│   │   └── index.ts       # Express server entry point
+│   │   └── index.ts      # Express server entry point
 │   ├── middleware/        # Authentication middleware
 │   ├── firebase/          # Firebase admin configuration
 │   └── package.json
