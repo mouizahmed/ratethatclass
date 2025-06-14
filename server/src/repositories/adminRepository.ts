@@ -135,19 +135,22 @@ export class AdminRepository {
   }
 
   async getAllAdmins(): Promise<any[]> {
-    const result = await pool.query('SELECT admin_id, created_at, email FROM admins ORDER BY created_at DESC');
+    const result = await pool.query(
+      'SELECT user_id, email, registration_date FROM users WHERE account_type = $1 ORDER BY registration_date DESC',
+      ['admin']
+    );
     return result.rows;
   }
 
-  async createAdmin(admin_id: string, email: string, created_at: Date): Promise<void> {
-    await pool.query('INSERT INTO admins (admin_id, email, created_at) VALUES ($1, $2, $3)', [
-      admin_id,
+  async createAdmin(user_id: string, email: string): Promise<void> {
+    await pool.query('INSERT INTO users (user_id, email, account_type, registration_date) VALUES ($1, $2, $3, NOW())', [
+      user_id,
       email,
-      created_at,
+      'admin',
     ]);
   }
 
-  async deleteAdmin(admin_id: string): Promise<void> {
-    await pool.query('DELETE FROM admins WHERE admin_id = $1', [admin_id]);
+  async deleteAdmin(user_id: string): Promise<void> {
+    await pool.query('UPDATE users SET account_type = $1 WHERE user_id = $2', ['user', user_id]);
   }
 }

@@ -112,17 +112,19 @@ export class AdminService {
       password,
       emailVerified: true,
     });
+
     // Set admin custom claim
     await auth.setCustomUserClaims(userRecord.uid, { admin: true });
-    // Store in DB
-    await this.adminRepository.createAdmin(userRecord.uid, email, new Date());
+
+    // Update user's account type in DB
+    await this.adminRepository.createAdmin(userRecord.uid, email);
     return { email, password };
   }
 
-  async deleteAdmin(admin_id: string): Promise<void> {
-    // Delete from Firebase Auth
-    await auth.deleteUser(admin_id);
-    // Delete from DB
-    await this.adminRepository.deleteAdmin(admin_id);
+  async deleteAdmin(user_id: string): Promise<void> {
+    // Remove admin custom claim
+    await auth.setCustomUserClaims(user_id, { admin: false });
+    // Update user's account type in DB
+    await this.adminRepository.deleteAdmin(user_id);
   }
 }

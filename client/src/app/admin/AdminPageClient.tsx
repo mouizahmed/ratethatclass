@@ -247,8 +247,8 @@ export default function AdminPageClient() {
     }
   };
 
-  const handleDeleteAdmin = async (adminId: string) => {
-    setDeletingAdminId(adminId);
+  const handleDeleteAdmin = async (userId: string) => {
+    setDeletingAdminId(userId);
     setShowDeleteDialog(true);
   };
 
@@ -348,7 +348,7 @@ export default function AdminPageClient() {
                               <Button onClick={loadMoreReports} disabled={isLoadingMore} className="w-40">
                                 {isLoadingMore ? (
                                   <div className="flex items-center gap-2">
-                                    <Spinner size="small" />
+                                    <Spinner size="small" className="text-white" />
                                     <span>Loading...</span>
                                   </div>
                                 ) : (
@@ -406,7 +406,7 @@ export default function AdminPageClient() {
                               <Button onClick={loadMoreReports} disabled={isLoadingMore} className="w-40">
                                 {isLoadingMore ? (
                                   <div className="flex items-center gap-2">
-                                    <Spinner size="small" />
+                                    <Spinner size="small" className="text-white" />
                                     <span>Loading...</span>
                                   </div>
                                 ) : (
@@ -447,7 +447,7 @@ export default function AdminPageClient() {
                           <Button onClick={loadMoreReports} disabled={isLoadingMore} className="w-40">
                             {isLoadingMore ? (
                               <div className="flex items-center gap-2">
-                                <Spinner size="small" />
+                                <Spinner size="small" className="text-white" />
                                 <span>Loading...</span>
                               </div>
                             ) : (
@@ -481,7 +481,14 @@ export default function AdminPageClient() {
                       className="w-full sm:w-auto"
                       disabled={creatingAdmin || adminUsers.length >= 5}
                     >
-                      {creatingAdmin ? <Spinner size="small" /> : 'Generate New Admin Account'}
+                      {creatingAdmin ? (
+                        <div className="flex items-center gap-2">
+                          <Spinner size="small" className="text-white" />
+                          <span>Creating Admin...</span>
+                        </div>
+                      ) : (
+                        'Generate New Admin Account'
+                      )}
                     </Button>
                     {loadingAdmins ? (
                       <div className="flex justify-center py-4">

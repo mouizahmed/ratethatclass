@@ -1,6 +1,6 @@
 export interface AdminUser {
-  admin_id: string;
+  user_id: string;
   email: string;
-  created_at: Date;
+  registration_date: Date;
   password?: string; // Optional password field, only present during creation or first login
 }

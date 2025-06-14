@@ -12,16 +12,16 @@ export const AdminCardList: React.FC<AdminCardListProps> = ({ adminUsers, onDele
   return (
     <div className="space-y-4">
       {adminUsers.map((admin) => (
-        <Card key={admin.admin_id}>
+        <Card key={admin.user_id}>
           <CardContent className="p-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <p className="font-medium">{admin.email}</p>
                 <p className="text-sm text-muted-foreground">
-                  Created: {new Date(admin.created_at).toLocaleDateString()}
+                  Created: {new Date(admin.registration_date).toLocaleDateString()}
                 </p>
               </div>
-              <Button variant="destructive" size="sm" onClick={() => onDelete(admin.admin_id)}>
+              <Button variant="destructive" size="sm" onClick={() => onDelete(admin.user_id)}>
                 Delete
               </Button>
             </div>
