@@ -151,6 +151,6 @@ export class AdminRepository {
   }
 
   async deleteAdmin(user_id: string): Promise<void> {
-    await pool.query('UPDATE users SET account_type = $1 WHERE user_id = $2', ['user', user_id]);
+    await pool.query('DELETE FROM users WHERE user_id = $1', [user_id]);
   }
 }

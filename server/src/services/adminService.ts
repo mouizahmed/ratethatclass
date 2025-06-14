@@ -122,9 +122,9 @@ export class AdminService {
   }
 
   async deleteAdmin(user_id: string): Promise<void> {
-    // Remove admin custom claim
-    await auth.setCustomUserClaims(user_id, { admin: false });
-    // Update user's account type in DB
+    // Delete from Firebase Auth
+    await auth.deleteUser(user_id);
+    // Delete from DB
     await this.adminRepository.deleteAdmin(user_id);
   }
 }

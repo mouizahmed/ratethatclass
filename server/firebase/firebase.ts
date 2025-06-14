@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import admin, { ServiceAccount } from 'firebase-admin';
 import { getAuth } from 'firebase-admin/auth';
 
