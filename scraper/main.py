@@ -80,7 +80,7 @@ def main():
     args = parser.parse_args()
     success = True
     
-    # Execute requested operations
+# Execute requested operations
     if args.command in ['scrape-and-store', 'scrape-only']:
         logger.info("Starting scraping process")
         results = run_scraping()

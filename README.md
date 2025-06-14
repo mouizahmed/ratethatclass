@@ -195,6 +195,68 @@ This application is designed to run with Firebase and cannot be run locally due 
    docker-compose up -d
    ```
 
+## Scraper Usage
+
+The scraper can be built and run using Docker. Here are the available commands:
+
+### Required Environment Variables
+
+The scraper requires the following environment variables to be set in a `.env` file:
+
+```
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
+DB_HOST=
+DB_PORT=
+```
+
+These variables must be set with your database connection details for the scraper to function corrraper as part of the full application stack using `docker-compose` (i.e., alongside the database and other services), ensure that the environment variable values for the scraper match those defined in the `database` service configuration in your `docker-compose.yml`. This ensures the scraper can connect to the correct database instance within the Docker network.
+
+For example, if your `docker-compose.yml` database service is configured as follows:
+
+```yaml
+db:
+  image: postgres:15
+  environment:
+    POSTGRES_DB: ratethatclass
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+  ports:
+    - '5432:5432'
+```
+
+Then your scraper environment variables should be:
+
+```
+DB_NAME=ratethatclass
+DB_USER=postgres
+DB_PASS=postgres
+DB_HOST=postgres
+DB_PORT=5432
+```
+
+1. Build the scraper:
+
+   ```bash
+   docker build -t course-reviews-scraper ./scraper
+   ```
+
+2. Run the scraper with different commands:
+
+   ```bash
+   # Scrape and store data in database
+   docker run -v ${PWD}/scraped_data:/app/scraped_data -v ${PWD}/logs:/app/logs --env-file .env course-reviews-scraper scrape-and-store
+
+   # Scrape only (saves to JSON files)
+   docker run -v ${PWD}/scraped_data:/app/scraped_data -v ${PWD}/logs:/app/logs --env-file .env course-reviews-scraper scrape-only
+
+   # Import existing JSON files into database
+   docker run -v ${PWD}/scraped_data:/app/scraped_data -v ${PWD}/logs:/app/logs --env-file .env course-reviews-scraper store-json
+   ```
+
+   Note: Make sure you have a `.env` file in your scraper directory with the necessary database credentials.
+
 # License
 
 [AGPL](https://github.com/mouizahmed/ratethatclass/blob/master/LICENSE)
