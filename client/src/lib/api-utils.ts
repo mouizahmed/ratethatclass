@@ -14,9 +14,9 @@ export function handleApiError(error: unknown, defaultMessage: string): never {
 }
 
 export function getRequestConfig(idToken?: string) {
-  const config: { headers?: { id_token: string } } = {};
+  const config: { headers?: { Authorization: string } } = {};
   if (idToken) {
-    config.headers = { id_token: idToken };
+    config.headers = { Authorization: `Bearer ${idToken}` };
   }
   return config;
 }

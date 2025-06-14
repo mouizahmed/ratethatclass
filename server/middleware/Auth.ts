@@ -1,11 +1,12 @@
 import { Response, NextFunction } from 'express';
 import { auth } from '../firebase/firebase';
 import { AuthenticatedRequest } from 'types';
+import { extractBearerToken } from '../src/helpers';
 
 export const validateToken = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
-  const idToken = req.headers['id_token'];
+  const idToken = extractBearerToken(req);
 
-  if (!idToken || typeof idToken !== 'string' || idToken.trim() === '') {
+  if (!idToken) {
     res.status(401).json({
       success: false,
       message: 'User not logged in',
@@ -63,9 +64,9 @@ export const validateToken = async (req: AuthenticatedRequest, res: Response, ne
 };
 
 export const validateTokenGet = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
-  const idToken = req.headers['id_token'];
+  const idToken = extractBearerToken(req);
 
-  if (!idToken || typeof idToken !== 'string' || idToken.trim() === '') {
+  if (!idToken) {
     res.status(401).json({
       success: false,
       message: 'User not logged in',
@@ -95,9 +96,9 @@ export const validateTokenOptional = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const idToken = req.headers['id_token'];
+  const idToken = extractBearerToken(req);
 
-  if (!idToken || typeof idToken !== 'string' || idToken.trim() === '') {
+  if (!idToken) {
     return next();
   }
 
@@ -112,12 +113,12 @@ export const validateTokenOptional = async (
 };
 
 export const validateAdmin = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
-  const idToken = req.headers['id_token'];
+  const idToken = extractBearerToken(req);
 
-  if (!idToken || typeof idToken !== 'string' || idToken.trim() === '') {
+  if (!idToken) {
     res.status(401).json({
       success: false,
-      message: 'Missing or invalid ID token',
+      message: 'Missing or invalid Authorization token',
       data: {},
       meta: {},
     });
@@ -126,8 +127,6 @@ export const validateAdmin = async (req: AuthenticatedRequest, res: Response, ne
 
   try {
     const user = await auth.verifyIdToken(idToken);
-    // await auth.setCustomUserClaims(user.uid, { owner: true });
-    // console.log(user);
     if (user.admin !== true && user.owner !== true) {
       console.log('Admin or owner privileges required.');
       res.status(403).json({
@@ -153,12 +152,12 @@ export const validateAdmin = async (req: AuthenticatedRequest, res: Response, ne
 };
 
 export const validateOwner = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
-  const idToken = req.headers['id_token'];
+  const idToken = extractBearerToken(req);
 
-  if (!idToken || typeof idToken !== 'string' || idToken.trim() === '') {
+  if (!idToken) {
     res.status(401).json({
       success: false,
-      message: 'Missing or invalid ID token',
+      message: 'Missing or invalid Authorization token',
       data: {},
       meta: {},
     });
