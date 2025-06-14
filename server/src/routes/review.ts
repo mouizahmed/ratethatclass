@@ -1,7 +1,7 @@
 import express from 'express';
 import { ReviewController } from '../controllers/reviewController';
 import { ReviewService } from '../services/reviewService';
-import { validateToken, validateTokenOptional } from '../../middleware/Auth';
+import { validateToken, validateTokenGet, validateTokenOptional } from '../../middleware/Auth';
 import { paginationMiddleware } from '../../middleware/pagination';
 
 const router = express.Router();
@@ -12,7 +12,7 @@ const reviewController = new ReviewController(reviewService);
 
 // Routes
 router.get('/', paginationMiddleware(), reviewController.getReviews.bind(reviewController));
-router.get('/votes', validateToken, reviewController.getVotes.bind(reviewController));
+router.get('/votes', validateTokenGet, reviewController.getVotes.bind(reviewController));
 router.get(
   '/by-course-id/:courseId',
   validateTokenOptional,

@@ -62,6 +62,34 @@ export const validateToken = async (req: AuthenticatedRequest, res: Response, ne
   }
 };
 
+export const validateTokenGet = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
+  const idToken = req.headers['id_token'];
+
+  if (!idToken || typeof idToken !== 'string' || idToken.trim() === '') {
+    res.status(401).json({
+      success: false,
+      message: 'User not logged in',
+      data: {},
+      meta: {},
+    });
+    return;
+  }
+
+  try {
+    const decodedToken = await auth.verifyIdToken(idToken);
+    req.user = decodedToken;
+    next();
+  } catch (error) {
+    console.log('Token verification error:', error);
+    res.status(401).json({
+      success: false,
+      message: 'Unauthorized. Invalid or expired token.',
+      data: {},
+      meta: {},
+    });
+  }
+};
+
 export const validateTokenOptional = async (
   req: AuthenticatedRequest,
   res: Response,
