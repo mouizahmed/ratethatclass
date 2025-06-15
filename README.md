@@ -27,14 +27,15 @@ This web application only allows validated post-secondary students to register w
 
 - 🎓 **Anonymous Course Reviews**: Create detailed, anonymous reviews for courses at your post-secondary institution
 - 📊 **4-Point Rating System**: Rate courses on Overall Quality, Easiness, Interest Level, and Usefulness (1-5 scale)
+- 💬 **Detailed Reviews**: Share insights about course content, professors, and advice for future students, plus include grade, workload, textbook usage, and evaluation methods
 - 🏫 **University-Organized & Smart Filtering**: Browse reviews by university, department, course, and professor with filtering by term, delivery method, and sorting options
+- 🔄 **Automated Course Data**: Comprehensive course catalog with automatically scraped and updated course information from major Canadian universities
+- 👮 **Admin Dashboard**: Robust moderation system with report management, user banning, and admin account management
 - 🔐 **Verified Students Only**: Email domain verification ensures only legitimate post-secondary students can join
 - 🗳️ **Community Voting**: Upvote and downvote reviews to highlight the most helpful content
 - 📱 **Mobile-Friendly**: Works seamlessly on desktop and mobile devices
-- 💬 **Detailed Reviews**: Share insights about course content, professors, and advice for future students, plus include grade, workload, textbook usage, and evaluation methods
 - 👤 **Review Management**: View and manage your own reviews from your profile
 - 🚨 **Report System**: Report inappropriate content to maintain community standards
-- 📈 **Live Statistics**: Real-time course ratings and review counts
 - 🔍 **SEO Optimized**: Google SEO optimized with Server-Side Rendering (SSR) and dynamic sitemap generation
 
 # Usage Flow
@@ -211,7 +212,9 @@ DB_HOST=
 DB_PORT=
 ```
 
-These variables must be set with your database connection details for the scraper to function corrraper as part of the full application stack using `docker-compose` (i.e., alongside the database and other services), ensure that the environment variable values for the scraper match those defined in the `database` service configuration in your `docker-compose.yml`. This ensures the scraper can connect to the correct database instance within the Docker network.
+These variables must be set with your database connection details for the scraper to function correctly.
+
+**Note:** If you are running the scraper as part of the full application stack using `docker-compose` (i.e., alongside the database and other services), ensure that the environment variable values for the scraper match those defined in the `database` service configuration in your `docker-compose.yml`. This ensures the scraper can connect to the correct database instance within the Docker network.
 
 For example, if your `docker-compose.yml` database service is configured as follows:
 
