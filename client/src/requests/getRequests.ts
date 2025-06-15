@@ -3,6 +3,7 @@ import { Review } from '@/types/review';
 import { ApiResponse, PaginatedResponse, PaginationMeta } from '@/types/api';
 import axios from 'axios';
 import { handleApiError } from '@/lib/api-utils';
+import { encodeCourseId } from '@/lib/url';
 
 // const API_TIMEOUT = 3000;
 
@@ -133,7 +134,7 @@ export async function getProfessorsByCourseId(courseId: string): Promise<Profess
 export async function getCourseByCourseTag(universityId: string, courseTag: string): Promise<Course> {
   try {
     const response = await axios.get<ApiResponse<Course>>(
-      `${process.env.NEXT_PUBLIC_URL}/course/by-university-id/${universityId}/by-tag/${courseTag}`
+      `${process.env.NEXT_PUBLIC_URL}/course/by-university-id/${universityId}/by-tag/${encodeCourseId(courseTag)}`
     );
     if (!response.data.success || !response.data.data.course_id) {
       return {} as Course;

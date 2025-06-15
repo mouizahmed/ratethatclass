@@ -87,7 +87,9 @@ export class CourseController {
       const { universityId, courseTag } = req.params;
       validateUUID(universityId);
 
-      const course = await this.courseService.getCourseByTag(courseTag, universityId);
+      const decodedCourseTag = courseTag.replace(/(?<=\w)-(?=\w)/g, '/').replace(/_/g, ' ');
+
+      const course = await this.courseService.getCourseByTag(decodedCourseTag, universityId);
       this.sendSuccessResponse(res, course, 'Course fetched successfully');
     } catch (error) {
       this.sendErrorResponse(res, error, error.message === 'Course not found' ? 404 : 500);
