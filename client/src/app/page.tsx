@@ -5,12 +5,19 @@ import Link from 'next/link';
 import UniversityCarousel from '@/components/display/UniversityCarousel';
 import { Metadata } from 'next';
 import { generateMetadata, generateViewport, SEO_CONFIGS } from '@/lib/seo';
+import { University } from '@/types/university';
 
 export const metadata: Metadata = generateMetadata(SEO_CONFIGS.home);
 export const viewport = generateViewport();
 
 export default async function Home() {
-  const universities = await getUniversities();
+  let universities: University[] = [];
+  try {
+    universities = await getUniversities();
+  } catch (error) {
+    console.log('Failed to fetch universities during build:', error);
+    // Continue with empty universities array
+  }
 
   return (
     <div className="flex flex-col items-center gap-10 p-8 sm:p-20">
