@@ -1,3 +1,4 @@
+import { ToastAction } from '@/components/ui/toast';
 import { toast } from '@/hooks/use-toast';
 
 export const toastUtils = {
@@ -24,6 +25,11 @@ export const toastUtils = {
       toast({
         title: 'Authentication required',
         description: 'Please log in to perform this action.',
+        action: (
+          <ToastAction altText="Log in" onClick={() => (window.location.href = '/login')}>
+            Log in
+          </ToastAction>
+        ),
       });
     },
 
