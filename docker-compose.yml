@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres:15
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -19,7 +19,7 @@ services:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - "3001:3001"
+      - '3001:3001'
     environment:
       - NODE_ENV=development
       - TYPE=service_account
@@ -39,7 +39,13 @@ services:
       - PRIVATE_KEY=your_private_key
       - PRIVATE_KEY_ID=your_private_key_id
       - PROJECT_ID=your_project_id
-    
+      # Owner account credentials
+      - OWNER_EMAIL=owner@ratethatclass.com
+      - OWNER_PASSWORD=ownerpassword
+    command: >
+      sh -c "npm run start & 
+             sleep 10 && 
+             npx ts-node src/scripts/createOwnerAccount.ts"
     restart: unless-stopped
     depends_on:
       - postgres
@@ -49,7 +55,7 @@ services:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       - NODE_ENV=development
       - NEXT_PUBLIC_URL=http://localhost:3001

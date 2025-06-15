@@ -192,7 +192,12 @@ This application is designed to run with Firebase and cannot be run locally due 
      - `PROJECT_ID` (from `project_id`)
 
 4. Start the application:
+
    ```bash
+   # Build the containers first
+   docker-compose build
+
+   # Start the application
    docker-compose up -d
    ```
 
