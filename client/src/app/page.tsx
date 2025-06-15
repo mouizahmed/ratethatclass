@@ -10,6 +10,9 @@ import { University } from '@/types/university';
 export const metadata: Metadata = generateMetadata(SEO_CONFIGS.home);
 export const viewport = generateViewport();
 
+// Disable caching completely
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   let universities: University[] = [];
   try {
