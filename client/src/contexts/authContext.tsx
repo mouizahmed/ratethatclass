@@ -51,35 +51,86 @@ export function AuthProvider({ children }: ReactChildren) {
   const [accountType, setAccountType] = useState<AccountType>('anonymous');
 
   useEffect(() => {
+    let mounted = true;
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        // If no user is logged in, sign in anonymously
-        try {
-          await signInAnonymously(auth);
-        } catch (error) {
-          console.error('Error signing in anonymously:', error);
+      try {
+        if (!user) {
+          // If no user is logged in, sign in anonymously
+          try {
+            const anonymousUser = await signInAnonymously(auth);
+            if (mounted) {
+              await initializeUser(anonymousUser.user);
+            }
+          } catch (error) {
+            console.error('Error signing in anonymously:', error);
+            if (mounted) {
+              setLoading(false);
+              // Reset all states to initial values
+              setCurrentUser(null);
+              setUserLoggedIn(false);
+              setIsEmailUser(false);
+              setBanned(false);
+              setBanReason(undefined);
+              setIsAdmin(false);
+              setIsOwner(false);
+              setAccountType('anonymous');
+            }
+          }
+        } else {
+          if (mounted) {
+            await initializeUser(user);
+          }
         }
-      } else {
-        await initializeUser(user);
+      } catch (error) {
+        console.error('Error in auth state change:', error);
+        if (mounted) {
+          setLoading(false);
+          // Reset all states to initial values
+          setCurrentUser(null);
+          setUserLoggedIn(false);
+          setIsEmailUser(false);
+          setBanned(false);
+          setBanReason(undefined);
+          setIsAdmin(false);
+          setIsOwner(false);
+          setAccountType('anonymous');
+        }
       }
     });
-    return unsubscribe;
+
+    return () => {
+      mounted = false;
+      unsubscribe();
+    };
   }, []);
 
   async function initializeUser(user: User | null) {
-    if (user) {
-      setCurrentUser(user);
-      const isEmail = user.providerData.some((provider) => provider.providerId === 'password');
-      setIsEmailUser(isEmail);
-      setUserLoggedIn(true);
+    try {
+      if (user) {
+        setCurrentUser(user);
+        const isEmail = user.providerData.some((provider) => provider.providerId === 'password');
+        setIsEmailUser(isEmail);
+        setUserLoggedIn(true);
 
-      const idTokenResult = await user.getIdTokenResult();
-      setBanned(!!idTokenResult.claims.banned);
-      setBanReason((idTokenResult.claims as { ban_reason?: string }).ban_reason || undefined);
-      setIsAdmin(!!idTokenResult.claims.admin);
-      setIsOwner(!!idTokenResult.claims.owner);
-      setAccountType((idTokenResult.claims as { account_type: AccountType }).account_type || 'anonymous');
-    } else {
+        const idTokenResult = await user.getIdTokenResult();
+        setBanned(!!idTokenResult.claims.banned);
+        setBanReason((idTokenResult.claims as { ban_reason?: string }).ban_reason || undefined);
+        setIsAdmin(!!idTokenResult.claims.admin);
+        setIsOwner(!!idTokenResult.claims.owner);
+        setAccountType((idTokenResult.claims as { account_type: AccountType }).account_type || 'anonymous');
+      } else {
+        setCurrentUser(null);
+        setUserLoggedIn(false);
+        setIsEmailUser(false);
+        setBanned(false);
+        setBanReason(undefined);
+        setIsAdmin(false);
+        setIsOwner(false);
+        setAccountType('anonymous');
+      }
+    } catch (error) {
+      console.error('Error initializing user:', error);
+      // Reset all states to initial values
       setCurrentUser(null);
       setUserLoggedIn(false);
       setIsEmailUser(false);
@@ -88,8 +139,9 @@ export function AuthProvider({ children }: ReactChildren) {
       setIsAdmin(false);
       setIsOwner(false);
       setAccountType('anonymous');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   const value: AuthenticationContext = {
