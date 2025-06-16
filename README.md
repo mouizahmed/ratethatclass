@@ -26,12 +26,13 @@ This web application only allows validated post-secondary students to register w
 # Features
 
 - 🎓 **Anonymous Course Reviews**: Create detailed, anonymous reviews for courses at your post-secondary institution
+- 👤 **Flexible Account Options**: Create an account with any email or remain anonymous
+- ✅ **Student Verification**: Optional verification for students to get a verified student badge on their reviews
 - 📊 **4-Point Rating System**: Rate courses on Overall Quality, Easiness, Interest Level, and Usefulness (1-5 scale)
 - 💬 **Detailed Reviews**: Share insights about course content, professors, and advice for future students, plus include grade, workload, textbook usage, and evaluation methods
 - 🏫 **University-Organized & Smart Filtering**: Browse reviews by university, department, course, and professor with filtering by term, delivery method, and sorting options
 - 🔄 **Automated Course Data**: Comprehensive course catalog with automatically scraped and updated course information from major Canadian universities
 - 👮 **Admin Dashboard**: Robust moderation system with report management, user banning, and admin account management
-- 🔐 **Verified Students Only**: Email domain verification ensures only legitimate post-secondary students can join
 - 🗳️ **Community Voting**: Upvote and downvote reviews to highlight the most helpful content
 - 📱 **Mobile-Friendly**: Works seamlessly on desktop and mobile devices
 - 👤 **Review Management**: View and manage your own reviews from your profile
@@ -40,7 +41,7 @@ This web application only allows validated post-secondary students to register w
 
 # Usage Flow
 
-1. **Register & Verify**: Sign up with your university email and verify your account
+1. **Create Account**: Sign up with any email or remain anonymous
 2. **Browse Universities**: Select your post-secondary institution from the list
 3. **Explore Departments**: Navigate to your department and find your course
 4. **Read Reviews**: View existing reviews with ratings, comments, and filtering options
@@ -59,7 +60,6 @@ rate-that-class/
 ├── client/                 # Next.js frontend application
 │   ├── src/
 │   │   ├── app/           # Next.js app router pages
-│   │   ├── components/    # Reusable UI components
 │   │   │   ├── adsense/   # Google AdSense components
 │   │   │   ├── auth/      # Authentication forms
 │   │   │   ├── common/    # Shared components
