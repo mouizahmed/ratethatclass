@@ -1,4 +1,5 @@
 import { User } from 'firebase/auth';
+import { AccountType } from './user';
 
 export interface AuthenticationContext {
   userLoggedIn: boolean;
@@ -10,4 +11,5 @@ export interface AuthenticationContext {
   banReason?: string;
   isAdmin?: boolean;
   isOwner?: boolean;
+  accountType?: AccountType;
 }

@@ -425,13 +425,15 @@ SELECT
     professors.professor_name, professors.professor_id,
     courses.course_id, courses.course_name, courses.course_tag,
     departments.department_id, departments.department_name,
-    universities.university_id, universities.university_name
+    universities.university_id, universities.university_name,
+    COALESCE(users.account_type, 'anonymous') as account_type
 FROM 
     reviews
 JOIN professors ON professors.professor_id = reviews.professor_id
 JOIN courses ON courses.course_id = reviews.course_id
 JOIN departments ON departments.department_id = courses.department_id
 JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN users ON users.user_id = reviews.user_id
 WHERE
     ($3::text IS NULL OR 
      professors.professor_name ILIKE '%' || $3 || '%' OR
@@ -490,12 +492,17 @@ SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_method
 professors.professor_name, professors.professor_id,
 departments.department_id, departments.department_name, 
 universities.university_id, universities.university_name, 
-user_votes.vote
+user_votes.vote,
+CASE 
+  WHEN reviews.user_id IS NULL THEN NULL
+  ELSE users.account_type
+END as account_type
 FROM reviews
 JOIN professors ON professors.professor_id = reviews.professor_id
 JOIN courses ON courses.course_id = reviews.course_id
 JOIN departments ON departments.department_id = courses.department_id
 JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN users ON users.user_id = reviews.user_id
 LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.user_id = $1
 WHERE reviews.course_id = $2
 `;
@@ -639,7 +646,7 @@ WHERE
 `;
 
 export const addUser = `
-INSERT INTO users (user_id, display_name, email) VALUES ($1, $2, $3)
+INSERT INTO users (user_id, email, account_type) VALUES ($1, $2, $3)
 `;
 
 export const getDepartmentID = `SELECT * from departments WHERE department_name = $1 AND university_id = $2`;
@@ -783,4 +790,11 @@ WHERE b.unbanned_at IS NULL
 
 export const unbanUser = `
 UPDATE bans SET unbanned_at = NOW() WHERE user_id = $1 AND unbanned_at IS NULL RETURNING *;
+`;
+
+export const checkUniversityDomain = `
+SELECT EXISTS (
+    SELECT 1 FROM universities 
+    WHERE $1 LIKE CONCAT('%@%', domain, '%')
+) as domain_exists;
 `;

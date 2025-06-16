@@ -1,29 +1,55 @@
 import { UserRepository } from '../repositories/userRepository';
 import { auth } from '../firebase/firebase';
-import { Review } from '../types';
+import { UniversityRepository } from '../repositories/universityRepository';
+import { AccountType } from '../types';
 
 export class UserService {
   private userRepository: UserRepository;
+  private universityRepository: UniversityRepository;
 
   constructor() {
     this.userRepository = new UserRepository();
+    this.universityRepository = new UniversityRepository();
   }
 
-  async registerUser(displayName: string, email: string, password: string) {
-    const newUser = await auth.createUser({
-      email: email.trim(),
-      emailVerified: false,
-      password: password,
-      displayName: displayName.trim(),
-    });
+  async registerUser(email: string, password: string) {
+    let newUser;
+    try {
+      newUser = await auth.createUser({
+        email: email.trim(),
+        emailVerified: false,
+        password: password,
+      });
 
-    await this.userRepository.addUser(newUser.uid, displayName.trim(), email.trim());
-    const token = await auth.createCustomToken(newUser.uid);
+      let accountType: AccountType = 'user';
 
-    return {
-      data: { token },
-      meta: {},
-    };
+      // check domain then set user type
+      const domainExists = await this.universityRepository.checkDomainExists(email);
+      if (domainExists) {
+        await auth.setCustomUserClaims(newUser.uid, { account_type: 'student' });
+        accountType = 'student';
+      } else {
+        await auth.setCustomUserClaims(newUser.uid, { account_type: 'user' });
+      }
+
+      await this.userRepository.addUser(newUser.uid, email.trim(), accountType);
+      const token = await auth.createCustomToken(newUser.uid);
+
+      return {
+        data: { token },
+        meta: {},
+      };
+    } catch (error) {
+      // If we created a Firebase user but database operation failed, clean up the Firebase account
+      if (newUser?.uid) {
+        try {
+          await auth.deleteUser(newUser.uid);
+        } catch (deleteError) {
+          console.error('Failed to delete Firebase user after database error:', deleteError);
+        }
+      }
+      throw error; // Re-throw the original error
+    }
   }
 
   async getUserReviews(userId: string, page: number, limit: number, sortBy: string, sortOrder: string) {

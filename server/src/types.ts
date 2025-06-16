@@ -92,7 +92,8 @@ export interface Review {
   department_name: string;
   university_id?: string;
   university_name: string;
-  user_id: string;
+  user_id: string | null;
+  account_type: AccountType;
   grade?: Grade;
   delivery_method?: Delivery;
   workload?: Workload;
@@ -190,3 +191,5 @@ export interface VoteItem {
 
 export const VALID_REPORT_ENTITY_TYPES = ['course', 'review'] as const;
 export type ValidReportEntityType = (typeof VALID_REPORT_ENTITY_TYPES)[number];
+
+export type AccountType = 'student' | 'user' | 'owner' | 'admin';

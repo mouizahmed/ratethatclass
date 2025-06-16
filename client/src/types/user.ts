@@ -6,3 +6,5 @@ export interface BannedUser {
   banned_at: string;
   banned_by: string;
 }
+
+export type AccountType = 'student' | 'user' | 'owner' | 'admin';

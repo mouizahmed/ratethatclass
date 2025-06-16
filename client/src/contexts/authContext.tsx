@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { AuthenticationContext } from '@/types/auth';
 import { ReactChildren } from '@/types';
 import { User } from 'firebase/auth';
+import { AccountType } from '@/types/user';
 
 const initialState: AuthenticationContext = {
   userLoggedIn: false,
@@ -16,6 +17,7 @@ const initialState: AuthenticationContext = {
   banReason: undefined,
   isAdmin: false,
   isOwner: false,
+  accountType: undefined,
 };
 
 const AuthContext = createContext<AuthenticationContext>(initialState);
@@ -33,6 +35,7 @@ export function AuthProvider({ children }: ReactChildren) {
   const [banReason, setBanReason] = useState<string | undefined>(undefined);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [isOwner, setIsOwner] = useState<boolean>(false);
+  const [accountType, setAccountType] = useState<AccountType | undefined>(undefined);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, initializeUser);
@@ -51,6 +54,7 @@ export function AuthProvider({ children }: ReactChildren) {
       setBanReason((idTokenResult.claims as { ban_reason?: string }).ban_reason || undefined);
       setIsAdmin(!!idTokenResult.claims.admin);
       setIsOwner(!!idTokenResult.claims.owner);
+      setAccountType((idTokenResult.claims as { account_type?: AccountType }).account_type || undefined);
     } else {
       setCurrentUser(null);
       setUserLoggedIn(false);
@@ -59,6 +63,7 @@ export function AuthProvider({ children }: ReactChildren) {
       setBanReason(undefined);
       setIsAdmin(false);
       setIsOwner(false);
+      setAccountType(undefined);
     }
     setLoading(false);
   }
@@ -73,6 +78,7 @@ export function AuthProvider({ children }: ReactChildren) {
     banReason,
     isAdmin,
     isOwner,
+    accountType,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

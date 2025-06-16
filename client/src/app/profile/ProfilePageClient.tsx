@@ -11,9 +11,10 @@ import { ReviewCard } from '@/components/display/ReviewCard';
 import { sendEmailVerification } from 'firebase/auth';
 import { Spinner } from '@/components/ui/Spinner';
 import { toastUtils } from '@/lib/toast-utils';
+import { AccountTypeTag } from '@/components/display/AccountTypeTag';
 
 export default function ProfilePageClient() {
-  const { userLoggedIn, currentUser, loading, isAdmin, isOwner } = useAuth();
+  const { userLoggedIn, currentUser, loading, isAdmin, isOwner, accountType } = useAuth();
 
   const [userReviews, setUserReviews] = useState<Review[]>([]);
   const [upvotes, setUpvotes] = useState<Review[]>([]);
@@ -137,9 +138,9 @@ export default function ProfilePageClient() {
         {userLoggedIn && currentUser ? (
           <>
             <h2 className="flex items-center justify-between gap-1 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-              <div>
-                {currentUser?.displayName}
-                <p className="text-sm text-muted-foreground">{currentUser?.email}</p>
+              <div className="flex items-center gap-2">
+                {currentUser?.email}
+                <AccountTypeTag accountType={accountType || undefined} />
               </div>
               {currentUser?.emailVerified ? (
                 <BadgeCheck className="text-blue-500" />

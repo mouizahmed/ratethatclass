@@ -1,4 +1,5 @@
 import { SQLDate } from './common';
+import { AccountType } from './user';
 
 export interface Review {
   review_id?: string;
@@ -9,7 +10,8 @@ export interface Review {
   department_name?: string;
   university_id?: string;
   university_name?: string;
-  user_id?: string;
+  user_id?: string | null;
+  account_type?: AccountType;
   grade: Grade | null;
   delivery_method?: Delivery;
   workload?: Workload;

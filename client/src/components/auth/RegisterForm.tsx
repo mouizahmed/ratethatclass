@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -7,43 +7,17 @@ import { Label } from '@/components/ui/label';
 import { doRegistrationWithEmailPassword } from '@/firebase/auth';
 import { Spinner } from '../ui/Spinner';
 import Link from 'next/link';
-import { Dropdown } from '../common/Dropdown';
-import { University } from '@/types/university';
-import { getUniversities } from '@/requests/getRequests';
-import { toastUtils } from '@/lib/toast-utils';
+import { AccountTypeTag } from '@/components/display/AccountTypeTag';
 
 export function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
-  const [axiosError, setAxiosError] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [universityList, setUniversityList] = useState<Record<string, string>>({});
-  const [selectedUniversity, setSelectedUniversity] = useState<string>('');
   const [formData, setFormData] = useState({
-    displayName: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const universities: Record<string, string> = await getUniversities().then((response: University[]) =>
-          response.reduce((acc: Record<string, string>, obj: University) => {
-            acc[obj.domain] = obj.university_name;
-            return acc;
-          }, {} as Record<string, string>)
-        );
-
-        setUniversityList(universities);
-      } catch (error) {
-        setAxiosError(true);
-        toastUtils.error('Failed to load universities', (error as Error).message);
-      }
-    };
-    fetchData();
-  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,20 +26,9 @@ export function RegisterForm() {
       setError('Passwords do not match');
       return;
     }
-    console.log(selectedUniversity);
-
-    if (!selectedUniversity) {
-      setError('Please select a university');
-      return;
-    }
-
-    if (!formData.email.toLowerCase().split('@')[1].includes(selectedUniversity)) {
-      setError('Email domain does not match selected university');
-      return;
-    }
 
     setLoading(true);
-    doRegistrationWithEmailPassword(formData.displayName, formData.email, formData.password)
+    doRegistrationWithEmailPassword(formData.email, formData.password)
       .then(() => {
         setSuccess(true);
         setLoading(false);
@@ -93,13 +56,7 @@ export function RegisterForm() {
   return (
     <div className={'flex flex-col gap-6'}>
       <Card>
-        {axiosError ? (
-          <div className="p-4">
-            <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
-              Registration is not available at this moment.
-            </h3>
-          </div>
-        ) : !success ? (
+        {!success ? (
           <>
             <CardHeader>
               <CardTitle className="text-2xl">Register</CardTitle>
@@ -109,21 +66,6 @@ export function RegisterForm() {
               <form onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-6">
                   {error && <div className="text-red-500 text-sm">{error}</div>}
-                  <div className="grid gap-2">
-                    <Label htmlFor="university">School</Label>
-                    <Dropdown
-                      data={universityList}
-                      value={selectedUniversity}
-                      setValue={setSelectedUniversity}
-                      placeholder="Select your University"
-                      initialValue=""
-                      returnType={'key'}
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="email">Display Name</Label>
-                    <Input id="displayName" required value={formData.displayName} onChange={handleChange} />
-                  </div>
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
                     <Input
@@ -162,6 +104,41 @@ export function RegisterForm() {
                   <Link href="/login" className="underline underline-offset-4">
                     Log In
                   </Link>
+                </div>
+                <div className="mt-6 flex items-start gap-2 rounded-lg border p-4 text-sm">
+                  <div className="mt-0.5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-5 w-5 text-blue-500"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 16v-4" />
+                      <path d="M12 8h.01" />
+                    </svg>
+                  </div>
+                  <div className="flex flex-col gap-2 w-full">
+                    <p className="font-medium mb-1">Verification Tags</p>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-3">
+                        <AccountTypeTag accountType="student" />
+                        <span className="text-gray-600">- Verified student emails</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <AccountTypeTag accountType="user" />
+                        <span className="text-gray-600">- Verified regular emails</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <AccountTypeTag accountType={undefined} />
+                        <span className="text-gray-600">- Users with no accounts</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </form>
             </CardContent>

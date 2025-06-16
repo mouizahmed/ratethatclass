@@ -27,9 +27,9 @@ export const doSignInWithEmailPassword = async (email: string, password: string)
   await signInWithEmailAndPassword(auth, email, password);
 };
 
-export const doRegistrationWithEmailPassword = async (displayName: string, email: string, password: string) => {
+export const doRegistrationWithEmailPassword = async (email: string, password: string) => {
   try {
-    const token = await registerAccount(displayName, email, password);
+    const token = await registerAccount(email, password);
 
     const { user } = await signInWithCustomToken(auth, token);
 

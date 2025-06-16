@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/
 import { Vote } from '@/types/review';
 import { ReviewCardProps } from '@/types/components';
 import { Label } from '@/components/ui/label';
-import { BadgeCheck, ChevronDown, ChevronUp, EllipsisVertical } from 'lucide-react';
+import { ChevronDown, ChevronUp, EllipsisVertical } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { postVote } from '@/requests/postRequests';
@@ -22,6 +22,7 @@ import { DeleteReviewConfirmationDialog } from '../dialogs/DeleteReviewConfirmat
 import { ReportDialog } from '../dialogs/ReportDialog';
 import { toastUtils } from '@/lib/toast-utils';
 import { checkUserActionAllowed } from '@/lib/auth-guards';
+import { AccountTypeTag } from '@/components/display/AccountTypeTag';
 
 export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
   const [vote, setVote] = useState<Vote>(review.vote || Vote.noVote);
@@ -209,9 +210,7 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
               </Label>
             </div>
             <div className="flex">
-              <div className="flex items-center gap-2 border p-2 rounded-lg z-5 shadow-sm">
-                Verified Student <BadgeCheck className="text-blue-500" />
-              </div>
+              <AccountTypeTag accountType={review.account_type} />
             </div>
           </CardDescription>
         </CardHeader>

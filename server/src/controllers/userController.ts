@@ -30,9 +30,9 @@ export class UserController {
 
   async registerUser(req: AuthenticatedRequest, res: Response) {
     try {
-      const { display_name, email, password } = req.body.data;
+      const { email, password } = req.body.data;
 
-      const result = await this.userService.registerUser(display_name, email, password);
+      const result = await this.userService.registerUser(email, password);
       this.sendSuccessResponse(res, result, 'User registered successfully');
     } catch (error) {
       this.sendErrorResponse(res, error);

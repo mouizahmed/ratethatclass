@@ -6,11 +6,11 @@ import {
   getUserVotedReviewsPaginated,
   getUserVotedReviewsCount,
 } from '../db/queries';
-import { Review } from '../types';
+import { Review, AccountType } from '../types';
 
 export class UserRepository {
-  async addUser(userId: string, displayName: string, email: string) {
-    await pool.query(addUser, [userId, displayName, email]);
+  async addUser(userId: string, email: string, accountType: AccountType) {
+    await pool.query(addUser, [userId, email, accountType]);
   }
 
   async getUserReviews(userId: string, sortBy: string, sortOrder: string, limit: number, offset: number) {

@@ -10,6 +10,7 @@ import {
   getRequestedUniversities,
   upvoteRequestedUniversity,
   updateTotalVotesRequestedUniversity,
+  checkUniversityDomain,
 } from '../db/queries';
 
 export class UniversityRepository {
@@ -80,5 +81,10 @@ export class UniversityRepository {
     } finally {
       client.release();
     }
+  }
+
+  async checkDomainExists(email: string): Promise<boolean> {
+    const result = await pool.query(checkUniversityDomain, [email]);
+    return result.rows[0].domain_exists;
   }
 }

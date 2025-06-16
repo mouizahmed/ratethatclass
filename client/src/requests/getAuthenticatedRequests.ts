@@ -5,7 +5,7 @@ import { ApiResponse, PaginatedResponse } from '@/types/api';
 import { VoteState } from '@/types/requests';
 import { getIdToken, handleApiError, getRequestConfig } from '@/lib/api-utils';
 import { Report, ReportStatus } from '@/types/report';
-import { BannedUser } from '@/types/bannedUser';
+import { BannedUser } from '@/types/user';
 import { AdminUser } from '@/types/admin';
 import { PaginationMeta } from '@/types/api';
 

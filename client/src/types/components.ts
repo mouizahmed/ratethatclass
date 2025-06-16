@@ -1,6 +1,6 @@
 import { Review } from './review';
 import { Course, University } from './university';
-import { BannedUser } from './bannedUser';
+import { BannedUser } from './user';
 
 // Display Component Props
 export interface PreviewReviewCardProps {

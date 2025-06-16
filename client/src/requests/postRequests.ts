@@ -4,11 +4,10 @@ import { Review } from '@/types/review';
 import { ApiResponse } from '@/types/api';
 import { getIdToken, handleApiError, getRequestConfig } from '@/lib/api-utils';
 
-export async function registerAccount(displayName: string, email: string, password: string): Promise<string> {
+export async function registerAccount(email: string, password: string): Promise<string> {
   try {
     const response = await axios.post<ApiResponse<{ token: string }>>(`${process.env.NEXT_PUBLIC_URL}/user/register`, {
       data: {
-        display_name: displayName,
         email: email,
         password: password,
       },
