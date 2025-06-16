@@ -11,5 +11,5 @@ export interface AuthenticationContext {
   banReason?: string;
   isAdmin?: boolean;
   isOwner?: boolean;
-  accountType?: AccountType;
+  accountType: AccountType;
 }

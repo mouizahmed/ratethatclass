@@ -264,7 +264,6 @@ function CourseListContent({
       professor_comments: data.reviewCommentsStep.professorComments,
       advice_comments: data.reviewCommentsStep.adviceComments,
       vote: Vote.up,
-      account_type: 'student', // change
     };
 
     await postCourse(courseData, reviewData);

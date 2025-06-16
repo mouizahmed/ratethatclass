@@ -4,9 +4,11 @@ import { ReviewCard } from '../../display/ReviewCard';
 import { useFormContext } from 'react-hook-form';
 import { Review, Vote } from '@/types/review';
 import { getCurrentSQLDate } from '@/lib/utils';
+import { useAuth } from '@/contexts/authContext';
 
 export default function ReviewConfirmationForm() {
   const form = useFormContext();
+  const { accountType } = useAuth();
   const formValues = form.getValues();
 
   const review: Review = {
@@ -27,6 +29,7 @@ export default function ReviewConfirmationForm() {
     advice_comments: formValues.reviewCommentsStep.adviceComments,
     date_uploaded: getCurrentSQLDate(),
     vote: Vote.up,
+    account_type: accountType,
   };
   return (
     <div className="max-h-[80vh] overflow-y-auto">

@@ -14,6 +14,7 @@ import {
   addUpvote,
   getCoursesByUniversityIdCount,
   getCoursesCount,
+  addAnonymousUser,
 } from '../db/queries';
 import { PoolClient } from 'pg';
 
@@ -73,6 +74,9 @@ export class CourseRepository {
     const client: PoolClient = await pool.connect();
     try {
       await client.query('BEGIN');
+
+      // First ensure the user exists in the users table
+      await client.query(addAnonymousUser, [userId]);
 
       // Get or create department
       let departmentId = '';

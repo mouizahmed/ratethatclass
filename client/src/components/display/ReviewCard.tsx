@@ -210,7 +210,7 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
               </Label>
             </div>
             <div className="flex">
-              <AccountTypeTag accountType={review.account_type} />
+              <AccountTypeTag accountType={review.account_type || 'anonymous'} />
             </div>
           </CardDescription>
         </CardHeader>

@@ -89,7 +89,9 @@ CREATE TYPE workload AS ENUM (
 
 -- Account type permissions
 CREATE TYPE accounttype AS ENUM (
+    'anonymous',
     'user',
+    'student',
     'admin',
     'owner'
 );
@@ -100,7 +102,7 @@ CREATE TABLE public.users (
   display_name text,
   email text UNIQUE,
   registration_date date DEFAULT CURRENT_DATE,
-  account_type accounttype NOT NULL DEFAULT 'user'::accounttype,
+  account_type accounttype NOT NULL DEFAULT 'anonymous'::accounttype,
   CONSTRAINT users_pkey PRIMARY KEY (user_id)
 );
 

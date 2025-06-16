@@ -134,7 +134,7 @@ export function RegisterForm() {
                         <span className="text-gray-600">- Verified regular emails</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <AccountTypeTag accountType={undefined} />
+                        <AccountTypeTag accountType="anonymous" />
                         <span className="text-gray-600">- Users with no accounts</span>
                       </div>
                     </div>

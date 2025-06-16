@@ -10,7 +10,7 @@ import {
   SheetTrigger,
   SheetClose,
 } from '@/components/ui/sheet';
-import { BadgeCheck } from 'lucide-react';
+import { BadgeCheck, User } from 'lucide-react';
 import { AuthProvider, useAuth } from '@/contexts/authContext';
 import { doSignOut } from '@/firebase/auth';
 import { JSX, SVGProps } from 'react';
@@ -44,6 +44,23 @@ function NavbarInner() {
     }
 
     if (userLoggedIn && currentUser) {
+      if (currentUser.isAnonymous) {
+        return (
+          <div className="flex items-center gap-4">
+            <Button variant="outline" className="flex items-center gap-2">
+              <User className="h-4 w-4" />
+              <span className="hidden sm:inline">Anonymous User</span>
+            </Button>
+            <Link href="/login">
+              <Button>Login</Button>
+            </Link>
+            <Link href="/register">
+              <Button variant="outline">Register</Button>
+            </Link>
+          </div>
+        );
+      }
+
       return (
         <div className="flex items-center gap-4">
           {isAdmin || isOwner ? (
@@ -109,6 +126,29 @@ function NavbarInner() {
     }
 
     if (userLoggedIn && currentUser) {
+      if (currentUser.isAnonymous) {
+        return (
+          <div className="flex flex-col gap-3 w-full">
+            <Button variant="outline" className="flex items-center justify-center gap-2 w-full">
+              <User className="h-4 w-4" />
+              <span>Anonymous User</span>
+            </Button>
+            <SheetClose asChild>
+              <Link href="/login">
+                <Button className="w-full">Login</Button>
+              </Link>
+            </SheetClose>
+            <SheetClose asChild>
+              <Link href="/register">
+                <Button variant="outline" className="w-full">
+                  Register
+                </Button>
+              </Link>
+            </SheetClose>
+          </div>
+        );
+      }
+
       return (
         <div className="flex flex-col gap-3 w-full">
           {isAdmin || isOwner ? (

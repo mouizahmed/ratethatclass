@@ -1,5 +1,5 @@
 import { pool } from '../db/db';
-import { createReport, getReportsPaginated, getReportsCount } from '../db/queries';
+import { createReport, getReportsPaginated, getReportsCount, addAnonymousUser } from '../db/queries';
 import { Report, ReportStatus, ValidReportEntityType } from '../types';
 
 export class ReportRepository {
@@ -9,8 +9,22 @@ export class ReportRepository {
     entityId: string,
     reportReason: string
   ): Promise<{ report_id: string }> {
-    const result = await pool.query(createReport, [userId, entityType, entityId, reportReason.trim()]);
-    return result.rows[0];
+    const client = await pool.connect();
+    try {
+      await client.query('BEGIN');
+
+      // First ensure the user exists in the users table
+      await client.query(addAnonymousUser, [userId]);
+
+      const result = await client.query(createReport, [userId, entityType, entityId, reportReason.trim()]);
+      await client.query('COMMIT');
+      return result.rows[0];
+    } catch (error) {
+      await client.query('ROLLBACK');
+      throw error;
+    } finally {
+      client.release();
+    }
   }
 
   async getReports(

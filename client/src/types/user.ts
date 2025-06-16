@@ -7,4 +7,4 @@ export interface BannedUser {
   banned_by: string;
 }
 
-export type AccountType = 'student' | 'user' | 'owner' | 'admin';
+export type AccountType = 'student' | 'user' | 'owner' | 'admin' | 'anonymous';

@@ -395,9 +395,19 @@ AND ($2::text IS NULL OR professors.professor_name ILIKE '%' || $2 || '%')
 `;
 
 export const getProfessorsByUniversityID = `
-SELECT * FROM professors
-WHERE
-    professors.university_id = $1
+SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods,
+    professors.professor_name, professors.professor_id,
+    courses.course_id, courses.course_name, courses.course_tag,
+    departments.department_id, departments.department_name,
+    universities.university_id, universities.university_name,
+    COALESCE(users.account_type, 'anonymous') as account_type
+FROM reviews
+JOIN courses on courses.course_id = reviews.course_id
+JOIN departments on departments.department_id = courses.department_id
+JOIN universities on universities.university_id = departments.university_id
+JOIN professors ON professors.professor_id = reviews.professor_id
+LEFT JOIN users ON users.user_id = reviews.user_id
+WHERE universities.university_id = $1
 `;
 
 export const getProfessorsByCourseID = `
@@ -407,16 +417,6 @@ FROM
     professors
 WHERE 
     course_id = $1;
-`;
-
-export const getReviews = `
-SELECT 
-    reviews.*, professors.professor_name
-FROM 
-    reviews
-JOIN professors ON professors.professor_id = reviews.professor_id
-GROUP BY
-    reviews.review_id
 `;
 
 export const getReviewsPaginated = `
@@ -455,36 +455,52 @@ WHERE
 `;
 
 export const getReviewsByUniversityID = `
-SELECT * FROM reviews
-JOIN 
-    courses on courses.course_id = reviews.course_id
-JOIN
-    departments on departments.department_id = courses.department_id
-JOIN
-    universities on universities.course_id = departments.university_id
-WHERE
-    universities.university_id = $1
+SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods,
+    professors.professor_name, professors.professor_id,
+    courses.course_id, courses.course_name, courses.course_tag,
+    departments.department_id, departments.department_name,
+    universities.university_id, universities.university_name,
+    COALESCE(users.account_type, 'anonymous') as account_type
+FROM reviews
+JOIN courses on courses.course_id = reviews.course_id
+JOIN departments on departments.department_id = courses.department_id
+JOIN universities on universities.university_id = departments.university_id
+JOIN professors ON professors.professor_id = reviews.professor_id
+LEFT JOIN users ON users.user_id = reviews.user_id
+WHERE universities.university_id = $1
 `;
 
 export const getReviewsByDepartmentID = `
-SELECT * FROM reviews
-JOIN
-    courses on courses.course_id = reviews.course_id
-JOIN
-    departments on departments.department_id = courses.department_id
-WHERE
-    departments.department_id = $1
+SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods,
+    professors.professor_name, professors.professor_id,
+    courses.course_id, courses.course_name, courses.course_tag,
+    departments.department_id, departments.department_name,
+    universities.university_id, universities.university_name,
+    COALESCE(users.account_type, 'anonymous') as account_type
+FROM reviews
+JOIN courses on courses.course_id = reviews.course_id
+JOIN departments on departments.department_id = courses.department_id
+JOIN universities on universities.university_id = departments.university_id
+JOIN professors ON professors.professor_id = reviews.professor_id
+LEFT JOIN users ON users.user_id = reviews.user_id
+WHERE departments.department_id = $1
 `;
 
 export const getReviewsByCourseID = `
-SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, professors.professor_name, departments.department_id, departments.department_name, universities.university_id, universities.university_name, user_votes.vote
+SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, 
+    professors.professor_name, 
+    departments.department_id, departments.department_name, 
+    universities.university_id, universities.university_name, 
+    user_votes.vote,
+    COALESCE(users.account_type, 'anonymous') as account_type
 FROM reviews
 JOIN professors ON professors.professor_id = reviews.professor_id
 JOIN courses ON courses.course_id = reviews.course_id
 JOIN departments ON departments.department_id = courses.department_id
 JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN users ON users.user_id = reviews.user_id
 LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.user_id = $1
-WHERE reviews.course_id = $2;
+WHERE reviews.course_id = $2
 `;
 
 export const getReviewsByCourseIdPaginated = `
@@ -551,25 +567,35 @@ WHERE review_id = $2
 `;
 
 export const getUserReviews = `
-SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, professors.professor_name, departments.department_id, departments.department_name, universities.university_id, universities.university_name, user_votes.vote FROM reviews
-JOIN professors ON professors.professor_id = reviews.professor_id
-JOIN courses ON courses.course_id = reviews.course_id
-JOIN departments ON departments.department_id = courses.department_id
-JOIN universities ON universities.university_id = departments.university_id
-LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.user_id = $1
-WHERE
-    reviews.user_id = $1
-`;
-
-export const getUserReviewsPaginated = `
 SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, 
-professors.professor_name, departments.department_id, departments.department_name, 
-universities.university_id, universities.university_name, user_votes.vote 
+    professors.professor_name, 
+    departments.department_id, departments.department_name, 
+    universities.university_id, universities.university_name, 
+    user_votes.vote,
+    COALESCE(users.account_type, 'anonymous') as account_type 
 FROM reviews
 JOIN professors ON professors.professor_id = reviews.professor_id
 JOIN courses ON courses.course_id = reviews.course_id
 JOIN departments ON departments.department_id = courses.department_id
 JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN users ON users.user_id = reviews.user_id
+LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.user_id = $1
+WHERE reviews.user_id = $1
+`;
+
+export const getUserReviewsPaginated = `
+SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, 
+    professors.professor_name, 
+    departments.department_id, departments.department_name, 
+    universities.university_id, universities.university_name, 
+    user_votes.vote,
+    COALESCE(users.account_type, 'anonymous') as account_type 
+FROM reviews
+JOIN professors ON professors.professor_id = reviews.professor_id
+JOIN courses ON courses.course_id = reviews.course_id
+JOIN departments ON departments.department_id = courses.department_id
+JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN users ON users.user_id = reviews.user_id
 LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.user_id = $1
 WHERE reviews.user_id = $1
 ORDER BY
@@ -594,24 +620,35 @@ WHERE reviews.user_id = $1
 `;
 
 export const getUserVotedReviews = `
-SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, professors.professor_name, departments.department_id, departments.department_name, universities.university_id, universities.university_name, user_votes.vote FROM reviews
+SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, 
+    professors.professor_name, 
+    departments.department_id, departments.department_name, 
+    universities.university_id, universities.university_name, 
+    user_votes.vote,
+    COALESCE(users.account_type, 'anonymous') as account_type 
+FROM reviews
 JOIN professors ON professors.professor_id = reviews.professor_id
 JOIN courses ON courses.course_id = reviews.course_id
 JOIN departments ON departments.department_id = courses.department_id
 JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN users ON users.user_id = reviews.user_id
 LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.user_id = $1
 WHERE user_votes.vote = $2
 `;
 
 export const getUserVotedReviewsPaginated = `
 SELECT reviews.*, array_to_json(reviews.evaluation_methods) AS evaluation_methods, 
-professors.professor_name, departments.department_id, departments.department_name, 
-universities.university_id, universities.university_name, user_votes.vote 
+    professors.professor_name, 
+    departments.department_id, departments.department_name, 
+    universities.university_id, universities.university_name, 
+    user_votes.vote,
+    COALESCE(users.account_type, 'anonymous') as account_type 
 FROM reviews
 JOIN professors ON professors.professor_id = reviews.professor_id
 JOIN courses ON courses.course_id = reviews.course_id
 JOIN departments ON departments.department_id = courses.department_id
 JOIN universities ON universities.university_id = departments.university_id
+LEFT JOIN users ON users.user_id = reviews.user_id
 LEFT JOIN user_votes ON user_votes.review_id = reviews.review_id AND user_votes.user_id = $1
 WHERE user_votes.vote = $2
 ORDER BY
@@ -797,4 +834,10 @@ SELECT EXISTS (
     SELECT 1 FROM universities 
     WHERE $1 LIKE CONCAT('%@%', domain, '%')
 ) as domain_exists;
+`;
+
+export const addAnonymousUser = `
+INSERT INTO users (user_id, account_type)
+VALUES ($1, 'anonymous')
+ON CONFLICT (user_id) DO NOTHING
 `;

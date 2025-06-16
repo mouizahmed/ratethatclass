@@ -101,16 +101,18 @@ export default function ProfilePageClient() {
   }, [activeTab, currentPage, getPosts, hasMorePosts, hasMoreUpvotes, hasMoreDownvotes, isLoadingMore]);
 
   useEffect(() => {
-    if (!loading && !userLoggedIn) {
-      redirect('/login');
+    if (!loading) {
+      if (!userLoggedIn || (currentUser && currentUser.isAnonymous)) {
+        redirect('/login');
+      }
+      if (userLoggedIn && (isAdmin || isOwner)) {
+        redirect('/admin');
+      }
+      if (userLoggedIn && !isAdmin && !isOwner) {
+        getPosts('all');
+      }
     }
-    if (!loading && userLoggedIn && (isAdmin || isOwner)) {
-      redirect('/admin');
-    }
-    if (!loading && userLoggedIn && !isAdmin && !isOwner) {
-      getPosts('all');
-    }
-  }, [userLoggedIn, loading, isAdmin, isOwner, getPosts]);
+  }, [userLoggedIn, loading, isAdmin, isOwner, getPosts, currentUser]);
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);
@@ -140,7 +142,7 @@ export default function ProfilePageClient() {
             <h2 className="flex items-center justify-between gap-1 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
               <div className="flex items-center gap-2">
                 {currentUser?.email}
-                <AccountTypeTag accountType={accountType || undefined} />
+                <AccountTypeTag accountType={accountType || 'anonymous'} />
               </div>
               {currentUser?.emailVerified ? (
                 <BadgeCheck className="text-blue-500" />

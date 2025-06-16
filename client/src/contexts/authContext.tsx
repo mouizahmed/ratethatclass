@@ -1,23 +1,36 @@
 'use client';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { auth } from '@/firebase/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signInAnonymously } from 'firebase/auth';
 import { AuthenticationContext } from '@/types/auth';
 import { ReactChildren } from '@/types';
 import { User } from 'firebase/auth';
 import { AccountType } from '@/types/user';
 
-const initialState: AuthenticationContext = {
+interface AuthState {
+  userLoggedIn: boolean;
+  currentUser: User | null;
+  loading: boolean;
+  isAdmin: boolean;
+  isOwner: boolean;
+  accountType: AccountType;
+  isEmailUser: boolean;
+  setCurrentUser: (user: User | null) => void;
+  banned: boolean;
+  banReason?: string;
+}
+
+const initialState: AuthState = {
   userLoggedIn: false,
-  isEmailUser: false,
   currentUser: null,
-  setCurrentUser: () => {},
   loading: true,
-  banned: false,
-  banReason: undefined,
   isAdmin: false,
   isOwner: false,
-  accountType: undefined,
+  accountType: 'anonymous',
+  isEmailUser: false,
+  setCurrentUser: () => {},
+  banned: false,
+  banReason: undefined,
 };
 
 const AuthContext = createContext<AuthenticationContext>(initialState);
@@ -35,26 +48,37 @@ export function AuthProvider({ children }: ReactChildren) {
   const [banReason, setBanReason] = useState<string | undefined>(undefined);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [isOwner, setIsOwner] = useState<boolean>(false);
-  const [accountType, setAccountType] = useState<AccountType | undefined>(undefined);
+  const [accountType, setAccountType] = useState<AccountType>('anonymous');
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, initializeUser);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        // If no user is logged in, sign in anonymously
+        try {
+          await signInAnonymously(auth);
+        } catch (error) {
+          console.error('Error signing in anonymously:', error);
+        }
+      } else {
+        await initializeUser(user);
+      }
+    });
     return unsubscribe;
   }, []);
 
   async function initializeUser(user: User | null) {
-    if (user && user.isAnonymous == false) {
+    if (user) {
       setCurrentUser(user);
       const isEmail = user.providerData.some((provider) => provider.providerId === 'password');
       setIsEmailUser(isEmail);
       setUserLoggedIn(true);
-      // Check for banned, admin, and owner claims
+
       const idTokenResult = await user.getIdTokenResult();
       setBanned(!!idTokenResult.claims.banned);
       setBanReason((idTokenResult.claims as { ban_reason?: string }).ban_reason || undefined);
       setIsAdmin(!!idTokenResult.claims.admin);
       setIsOwner(!!idTokenResult.claims.owner);
-      setAccountType((idTokenResult.claims as { account_type?: AccountType }).account_type || undefined);
+      setAccountType((idTokenResult.claims as { account_type: AccountType }).account_type || 'anonymous');
     } else {
       setCurrentUser(null);
       setUserLoggedIn(false);
@@ -63,7 +87,7 @@ export function AuthProvider({ children }: ReactChildren) {
       setBanReason(undefined);
       setIsAdmin(false);
       setIsOwner(false);
-      setAccountType(undefined);
+      setAccountType('anonymous');
     }
     setLoading(false);
   }

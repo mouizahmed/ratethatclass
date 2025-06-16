@@ -18,6 +18,7 @@ import {
   addProfessor,
   addUpvote,
   deleteUserReview,
+  addAnonymousUser,
 } from '../db/queries';
 
 export class ReviewRepository {
@@ -122,6 +123,10 @@ export class ReviewRepository {
     try {
       client = await pool.connect();
       await client.query('BEGIN');
+
+      // First ensure the user exists in the users table
+      await client.query(addAnonymousUser, [userId]);
+
       const existingVote = await client.query(getExistingVote, [userId, reviewId]);
 
       if (!existingVote.rows.length) {
@@ -155,6 +160,9 @@ export class ReviewRepository {
     try {
       client = await pool.connect();
       await client.query('BEGIN');
+
+      // First ensure the user exists in the users table
+      await client.query(addAnonymousUser, [userId]);
 
       let professorID = '';
       const professor = await client.query(getProfessorID, [
@@ -209,10 +217,31 @@ export class ReviewRepository {
   }
 
   async removeReview(reviewId: string, userId: string) {
-    const result = await pool.query(deleteUserReview, [reviewId, userId]);
-    if (result.rows.length === 0) {
-      throw new Error('Review not found');
+    let client: PoolClient;
+
+    try {
+      client = await pool.connect();
+      await client.query('BEGIN');
+
+      // First ensure the user exists in the users table
+      await client.query(addAnonymousUser, [userId]);
+
+      const result = await client.query(deleteUserReview, [reviewId, userId]);
+      if (result.rowCount === 0) {
+        throw new Error('Review not found or you do not have permission to delete it');
+      }
+
+      await client.query('COMMIT');
+      return { review_id: reviewId };
+    } catch (error) {
+      if (client) {
+        await client.query('ROLLBACK');
+      }
+      throw error;
+    } finally {
+      if (client) {
+        client.release();
+      }
     }
-    return { reviews_deleted: result.rows.length };
   }
 }

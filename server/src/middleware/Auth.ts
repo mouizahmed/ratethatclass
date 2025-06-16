@@ -20,7 +20,7 @@ export const validateToken = async (req: AuthenticatedRequest, res: Response, ne
     const decodedToken = await auth.verifyIdToken(idToken);
     const user = await auth.getUser(decodedToken.uid);
 
-    if (!user.emailVerified) {
+    if (!user.emailVerified && decodedToken.provider_id !== 'anonymous') {
       res.status(401).json({
         success: false,
         message: 'Email not verified',

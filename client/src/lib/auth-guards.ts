@@ -20,7 +20,7 @@ export function checkUserActionAllowed({
   if (!userLoggedIn) {
     toastUtils.auth.notLoggedIn();
     return false;
-  } else if (currentUser?.emailVerified === false) {
+  } else if (currentUser?.emailVerified === false && !currentUser?.isAnonymous) {
     toastUtils.auth.notVerified();
     return false;
   } else if (banned) {
