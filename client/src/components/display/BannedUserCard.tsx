@@ -8,7 +8,7 @@ export function BannedUserCard({ user, onUnban }: BannedUserCardProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">{user.display_name || 'Anonymous User'}</CardTitle>
+        <CardTitle className="text-lg">{user.email || 'Anonymous User'}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
         <div className="text-sm">

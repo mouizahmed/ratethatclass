@@ -25,7 +25,7 @@ export function CourseReportCard({ report, onRemoveCourse, onRemoveDepartment, o
       <CardHeader>
         <div className="flex items-start justify-between">
           <div>
-            <CardTitle className="text-lg">Report by {report.display_name}</CardTitle>
+            <CardTitle className="text-lg">Report by {report.user_id}</CardTitle>
             <p className="text-sm text-muted-foreground">
               Reported on {new Date(report.report_date).toLocaleDateString()}
             </p>

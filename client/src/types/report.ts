@@ -3,7 +3,6 @@ export type ReportStatus = 'pending' | 'resolved' | 'dismissed';
 export interface Report {
   report_id: string;
   user_id: string;
-  display_name: string;
   entity_type: 'course' | 'review';
   entity_id: string;
   report_reason: string;
@@ -30,7 +29,6 @@ export interface ReviewReportDetails {
   course_comments: string;
   professor_comments: string;
   advice_comments: string;
-  reviewer_display_name: string;
   reviewer_email: string;
   reviewer_id: string;
 }

@@ -756,7 +756,6 @@ INSERT INTO reports (user_id, entity_type, entity_id, report_reason) VALUES ($1,
 export const getReportsPaginated = `
 SELECT 
   reports.*,
-  users.display_name,
   CASE 
     WHEN reports.entity_type = 'course' THEN (
       SELECT json_build_object(
@@ -782,7 +781,6 @@ SELECT
         'course_comments', reviews.course_comments,
         'professor_comments', reviews.professor_comments,
         'advice_comments', reviews.advice_comments,
-        'reviewer_display_name', review_users.display_name,
         'reviewer_email', review_users.email,
         'reviewer_id', reviews.user_id
       )
@@ -819,7 +817,7 @@ RETURNING *;
 `;
 
 export const getBannedUsers = `
-SELECT u.user_id, u.email, u.display_name, b.ban_reason, b.banned_at, b.banned_by
+SELECT u.user_id, u.email, b.ban_reason, b.banned_at, b.banned_by
 FROM users u
 JOIN bans b ON u.user_id = b.user_id
 WHERE b.unbanned_at IS NULL

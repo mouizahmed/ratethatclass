@@ -35,7 +35,7 @@ export function ReviewReportCard({
       <CardHeader>
         <div className="flex items-start justify-between">
           <div>
-            <CardTitle className="text-lg">Report by {report.display_name}</CardTitle>
+            <CardTitle className="text-lg">Report by {report.user_id}</CardTitle>
             <p className="text-sm text-muted-foreground">
               Reported on {new Date(report.report_date).toLocaleDateString()}
             </p>
@@ -94,8 +94,7 @@ export function ReviewReportCard({
             <div className="space-y-2">
               <h4 className="font-medium">Reviewer Information:</h4>
               <div className="text-sm">
-                <p>Name: {reviewDetails.reviewer_display_name}</p>
-                <p>Email: {reviewDetails.reviewer_email}</p>
+                <p>Email: {reviewDetails.reviewer_email || 'Anonymous User'}</p>
                 <p>ID: {reviewDetails.reviewer_id}</p>
               </div>
             </div>

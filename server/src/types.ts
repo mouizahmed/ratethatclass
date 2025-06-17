@@ -58,7 +58,6 @@ interface ReviewReportDetails {
   course_comments: string;
   professor_comments: string;
   advice_comments: string;
-  reviewer_display_name: string;
   reviewer_email: string;
   reviewer_id: string;
 }
@@ -72,7 +71,6 @@ export interface Report {
   entity_id: string;
   report_reason: string;
   report_date: Date;
-  display_name: string;
   status: ReportStatus;
   entity_details: CourseReportDetails | ReviewReportDetails | null;
 }
