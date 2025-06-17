@@ -62,7 +62,7 @@ export function AuthProvider({ children }: ReactChildren) {
               await initializeUser(anonymousUser.user);
             }
           } catch (error) {
-            console.error('Error signing in anonymously:', error);
+            console.log('Error signing in anonymously:', error);
             if (mounted) {
               setLoading(false);
               // Reset all states to initial values
@@ -82,7 +82,7 @@ export function AuthProvider({ children }: ReactChildren) {
           }
         }
       } catch (error) {
-        console.error('Error in auth state change:', error);
+        console.log('Error in auth state change:', error);
         if (mounted) {
           setLoading(false);
           // Reset all states to initial values
@@ -129,7 +129,7 @@ export function AuthProvider({ children }: ReactChildren) {
         setAccountType('anonymous');
       }
     } catch (error) {
-      console.error('Error initializing user:', error);
+      console.log('Error initializing user:', error);
       // Reset all states to initial values
       setCurrentUser(null);
       setUserLoggedIn(false);

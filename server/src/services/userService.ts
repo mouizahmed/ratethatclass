@@ -45,7 +45,7 @@ export class UserService {
         try {
           await auth.deleteUser(newUser.uid);
         } catch (deleteError) {
-          console.error('Failed to delete Firebase user after database error:', deleteError);
+          console.log('Failed to delete Firebase user after database error:', deleteError);
         }
       }
       throw error; // Re-throw the original error

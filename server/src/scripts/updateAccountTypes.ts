@@ -21,7 +21,7 @@ async function updateAccountTypes() {
 
       console.log(`Updated ${email} to account_type: ${account_type}`);
     } catch (err: any) {
-      console.error(`Failed to update ${email}:`, err.message);
+      console.log(`Failed to update ${email}:`, err.message);
     }
   }
   process.exit(0);

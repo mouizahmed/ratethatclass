@@ -20,7 +20,7 @@ async function createOwner() {
       userRecord = await auth.getUserByEmail(email);
       console.log('Firebase user already exists, fetched user.');
     } else {
-      console.error('Error creating/fetching Firebase user:', err);
+      console.log('Error creating/fetching Firebase user:', err);
       process.exit(1);
     }
   }
@@ -51,7 +51,7 @@ async function createOwner() {
     console.log(`Owner account ready: ${email}`);
     process.exit(0);
   } catch (err) {
-    console.error('Error updating/inserting owner in users table:', err);
+    console.log('Error updating/inserting owner in users table:', err);
     process.exit(1);
   }
 }

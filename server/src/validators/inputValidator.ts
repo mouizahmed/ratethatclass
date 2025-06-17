@@ -16,7 +16,6 @@ export class InputValidator {
   }
 
   static validateUniversityRequest(name: string) {
-    console.log('VALIDATE' + name);
     if (!name) {
       throw new Error('University name is required');
     }
