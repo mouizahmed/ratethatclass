@@ -1,11 +1,11 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/display/Navbar';
 import { Toaster } from '@/components/ui/toaster';
 import Footer from '@/components/display/Footer';
 import AdSense from '@/components/adsense/AdSense';
-import { generateMetadata, generateViewport, SEO_CONFIGS } from '@/lib/seo';
+import { OG_IMAGES, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/seo';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -17,8 +17,25 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = generateMetadata(SEO_CONFIGS.home);
-export const viewport = generateViewport();
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} - University Course Reviews`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    images: OG_IMAGES,
+  },
+  twitter: { card: 'summary' },
+  manifest: '/manifest.json',
+};
+
+export const viewport: Viewport = {
+  themeColor: '#000000',
+};
 
 export default function RootLayout({
   children,
@@ -30,7 +47,6 @@ export default function RootLayout({
       <head>
         <AdSense pId={'1038054889464988'} />
         <meta name="google-adsense-account" content="ca-pub-1038054889464988"></meta>
-        <meta name="google-site-verification" content="your-google-site-verification-code" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>

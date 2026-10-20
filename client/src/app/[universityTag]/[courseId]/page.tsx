@@ -1,5 +1,6 @@
 import React from 'react';
-import { getUniversity, getCourseByCourseTag, getProfessorsByCourseId } from '@/requests/getRequests';
+import { getProfessorsByCourseId } from '@/requests/getRequests';
+import { getUniversityCached, getCourseByCourseTagCached } from '@/requests/cachedRequests';
 import { getReviewsByCourseId } from '@/requests/getRequests';
 import { UniversityHeader } from '@/components/display/UniversityHeader';
 import { BreadCrumb } from '@/components/display/BreadCrumb';
@@ -8,23 +9,23 @@ import { sortingOptions } from '@/lib/constants';
 import { CourseReviews } from '@/components/display/CourseReviews';
 import { decodeCourseId } from '@/lib/url';
 import { notFound } from 'next/navigation';
-import { generateCourseMetadata, generateViewport } from '@/lib/seo';
+import { courseMetadata, noIndex, universityTagFromName } from '@/lib/seo';
 import { CoursePageProps } from '@/types/pages';
 
 export async function generateMetadata({ params }: CoursePageProps): Promise<Metadata> {
   const resolvedParams = await params;
-  const university = await getUniversity(resolvedParams.universityTag);
-  const course = await getCourseByCourseTag(university.university_id, decodeCourseId(resolvedParams.courseId));
+  const university = await getUniversityCached(resolvedParams.universityTag);
+  const course = await getCourseByCourseTagCached(university.university_id, decodeCourseId(resolvedParams.courseId));
 
   if (!course.course_id) {
     return {
       title: 'Course Not Found',
       description: 'The course you are looking for could not be found.',
-      robots: 'noindex, nofollow',
+      robots: noIndex,
     };
   }
 
-  return generateCourseMetadata(
+  return courseMetadata(
     course.course_tag,
     course.course_name || '',
     university.university_name,
@@ -33,12 +34,10 @@ export async function generateMetadata({ params }: CoursePageProps): Promise<Met
   );
 }
 
-export const viewport = generateViewport();
-
 export default async function Page({ params }: CoursePageProps) {
   const resolvedParams = await params;
-  const university = await getUniversity(resolvedParams.universityTag);
-  const course = await getCourseByCourseTag(university.university_id, decodeCourseId(resolvedParams.courseId));
+  const university = await getUniversityCached(resolvedParams.universityTag);
+  const course = await getCourseByCourseTagCached(university.university_id, decodeCourseId(resolvedParams.courseId));
 
   if (!course.course_id) {
     notFound();
@@ -72,7 +71,7 @@ export default async function Page({ params }: CoursePageProps) {
     },
     {
       label: university?.university_name || '',
-      link: `/${(university?.university_name || '').replaceAll(' ', '_').toLowerCase()}`,
+      link: `/${universityTagFromName(university.university_name)}`,
     },
     {
       label: course?.course_tag || '',

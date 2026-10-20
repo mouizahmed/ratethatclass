@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { generateMetadata, generateViewport, SEO_CONFIGS } from '@/lib/seo';
+import { noIndex } from '@/lib/seo';
 
-export const metadata: Metadata = generateMetadata(SEO_CONFIGS.notFound);
-export const viewport = generateViewport();
+export const metadata: Metadata = {
+  title: 'Page Not Found',
+  robots: noIndex,
+};
 
 export default function NotFound() {
   return (

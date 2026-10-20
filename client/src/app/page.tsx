@@ -3,12 +3,12 @@ import ClientSearch from '@/components/common/ClientSearch';
 import { getUniversities } from '@/requests/getRequests';
 import Link from 'next/link';
 import UniversityCarousel from '@/components/display/UniversityCarousel';
-import { Metadata } from 'next';
-import { generateMetadata, generateViewport, SEO_CONFIGS } from '@/lib/seo';
 import { University } from '@/types/university';
+import { Metadata } from 'next';
 
-export const metadata: Metadata = generateMetadata(SEO_CONFIGS.home);
-export const viewport = generateViewport();
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 // Disable caching completely
 export const dynamic = 'force-dynamic';

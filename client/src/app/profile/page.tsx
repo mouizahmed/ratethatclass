@@ -1,11 +1,14 @@
 import React from 'react';
 import { AuthProvider } from '@/contexts/authContext';
 import { Metadata } from 'next';
-import { generateMetadata, generateViewport, SEO_CONFIGS } from '@/lib/seo';
+import { noIndex } from '@/lib/seo';
 import ProfilePageClient from './ProfilePageClient';
 
-export const metadata: Metadata = generateMetadata(SEO_CONFIGS.profile);
-export const viewport = generateViewport();
+export const metadata: Metadata = {
+  title: 'My Profile',
+  description: 'Manage your Rate That Class profile and view your course reviews.',
+  robots: noIndex,
+};
 
 export default function ProfilePage() {
   return (

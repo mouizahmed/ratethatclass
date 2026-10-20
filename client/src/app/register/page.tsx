@@ -1,11 +1,14 @@
 import React from 'react';
 import { AuthProvider } from '@/contexts/authContext';
 import { Metadata } from 'next';
-import { generateMetadata, generateViewport, SEO_CONFIGS } from '@/lib/seo';
+import { noIndex } from '@/lib/seo';
 import RegisterPageClient from './RegisterPageClient';
 
-export const metadata: Metadata = generateMetadata(SEO_CONFIGS.register);
-export const viewport = generateViewport();
+export const metadata: Metadata = {
+  title: 'Create Account',
+  description: 'Join Rate That Class to write anonymous course reviews and help other students make better decisions.',
+  robots: noIndex,
+};
 
 export default function Page() {
   return (

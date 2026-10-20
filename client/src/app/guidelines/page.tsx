@@ -1,9 +1,11 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { generateMetadata, generateViewport, SEO_CONFIGS } from '@/lib/seo';
 
-export const metadata: Metadata = generateMetadata(SEO_CONFIGS.guidelines);
-export const viewport = generateViewport();
+export const metadata: Metadata = {
+  title: 'Community Guidelines',
+  description: 'Learn about our community guidelines for writing helpful and respectful course reviews.',
+  alternates: { canonical: '/guidelines' },
+};
 
 export default function Guidelines() {
   return (

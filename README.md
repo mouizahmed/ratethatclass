@@ -11,43 +11,22 @@ Try it now: [https://ratethatclass.com/](https://ratethatclass.com/)
 
 # Overview
 
-This is a web application that students can use to evaluate courses and find courses that meet their expectations. Each review is categorized by its school, department, course, and professor. If any of these categories are not listed, the user can add them to the database in order to complete their course review.
-
-Each course review is anonymous and can be deleted at any time if the user made the review while signed in. Users can also upvote or downvote other reviews anonymously.
-
-This web application only allows validated post-secondary students to register which is done through verifying emails from a set of whitelisted domains and a confirmation email.
+Students can read and write anonymous reviews of courses at their post-secondary schools. Reviews are organized by school, department, course, and professor, and users can add any that are missing. Anyone can post without an account, or sign up with any email. Reviews from verified student emails get a student badge.
 
 ![Home Page](docs/home_page.png)
 
 # Features
 
-- 🎓 **Anonymous Course Reviews**: Create detailed, anonymous reviews for courses at your post-secondary institution
-- 👤 **Flexible Account Options**: Create an account with any email or remain anonymous
-- ✅ **Student Verification**: Optional verification for students to get a verified student badge on their reviews
-- 📊 **4-Point Rating System**: Rate courses on Overall Quality, Easiness, Interest Level, and Usefulness (1-5 scale)
-- 💬 **Detailed Reviews**: Share insights about course content, professors, and advice for future students, plus include grade, workload, textbook usage, and evaluation methods
-- 🏫 **University-Organized & Smart Filtering**: Browse reviews by university, department, course, and professor with filtering by term, delivery method, and sorting options
-- 🔄 **Automated Course Data**: Comprehensive course catalog with automatically scraped and updated course information from major Canadian universities
-- 👮 **Admin Dashboard**: Robust moderation system with report management, user banning, and admin account management
-- 🗳️ **Community Voting**: Upvote and downvote reviews to highlight the most helpful content
-- 📱 **Mobile-Friendly**: Works seamlessly on desktop and mobile devices
-- 👤 **Review Management**: View and manage your own reviews from your profile
-- 🚨 **Report System**: Report inappropriate content to maintain community standards
-- 🔍 **SEO Optimized**: Google SEO optimized with Server-Side Rendering (SSR) and dynamic sitemap generation
-
-# Usage Flow
-
-1. **Create Account**: Sign up with any email or remain anonymous
-2. **Browse Universities**: Select your post-secondary institution from the list
-3. **Explore Departments**: Navigate to your department and find your course
-4. **Read Reviews**: View existing reviews with ratings, comments, and filtering options
-5. **Create Review**: Add your own anonymous review with ratings and detailed feedback
-   - Rate the course on 4 dimensions (Overall, Easiness, Interest, Usefulness)
-   - Enter course details (professor, grade, delivery method, workload, textbook usage)
-   - Write comments about course content, professor, and advice for future students
-   - Review and confirm your submission
-6. **Engage Community**: Vote on helpful reviews and manage your contributions
-7. **Discover Courses**: Use insights to make informed decisions about future course selections
+- **Anonymous Course Reviews**: Rate a course and share insights about its content, the professor, and advice for future students, plus grade, workload, textbook usage, and evaluation methods
+- **Four Rating Categories**: Overall Quality, Easiness, Interest Level, and Usefulness, each on a 1-5 scale
+- **Flexible Accounts**: Post anonymously or sign up with any email; verified student emails get a student badge
+- **Browsing and Filtering**: Browse by university, department, course, and professor, then filter by term and delivery method and sort the results
+- **Automated Course Data**: Course catalogs scraped and kept up to date for major Canadian universities
+- **Community Voting**: Upvote and downvote reviews to surface the most helpful ones
+- **Review Management**: View and delete your own reviews from your profile
+- **Reporting and Moderation**: Report inappropriate content; admins handle reports, ban users, and manage admin accounts from a dashboard
+- **Mobile-Friendly**: Works on desktop and mobile
+- **SEO**: Server-side rendering and a dynamically generated sitemap
 
 # Project Structure
 

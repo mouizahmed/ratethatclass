@@ -1,5 +1,6 @@
 import React from 'react';
-import { getUniversity, getCoursesByUniversityId, getDepartmentsByUniversityId } from '@/requests/getRequests';
+import { getCoursesByUniversityId } from '@/requests/getRequests';
+import { getUniversityCached, getDepartmentsCached } from '@/requests/cachedRequests';
 import { UniversityHeader } from '@/components/display/UniversityHeader';
 import { BreadCrumb } from '@/components/display/BreadCrumb';
 import { CourseList } from '@/components/display/CourseList';
@@ -7,7 +8,7 @@ import { Metadata } from 'next';
 import { courseSortingOptions } from '@/lib/constants';
 import { notFound } from 'next/navigation';
 import { createDepartmentSlug } from '@/lib/url';
-import { generateDepartmentMetadata, generateViewport } from '@/lib/seo';
+import { departmentMetadata, noIndex } from '@/lib/seo';
 
 type PageProps = {
   params: Promise<{
@@ -19,17 +20,17 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
-  const university = await getUniversity(resolvedParams.universityTag);
+  const university = await getUniversityCached(resolvedParams.universityTag);
 
   if (!university.university_id) {
     return {
       title: 'University Not Found',
       description: 'The university you are looking for could not be found.',
-      robots: 'noindex, nofollow',
+      robots: noIndex,
     };
   }
 
-  const departments = await getDepartmentsByUniversityId(university.university_id);
+  const departments = await getDepartmentsCached(university.university_id);
   const department = departments.find(
     (d) => createDepartmentSlug(d.department_name).toLowerCase() === resolvedParams.departmentName.toLowerCase()
   );
@@ -38,11 +39,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: 'Department Not Found',
       description: 'The department you are looking for could not be found.',
-      robots: 'noindex, nofollow',
+      robots: noIndex,
     };
   }
 
-  return generateDepartmentMetadata(
+  return departmentMetadata(
     department.department_name,
     university.university_name,
     resolvedParams.universityTag,
@@ -50,17 +51,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   );
 }
 
-export const viewport = generateViewport();
-
 export default async function Page({ params }: PageProps) {
   const resolvedParams = await params;
-  const university = await getUniversity(resolvedParams.universityTag);
+  const university = await getUniversityCached(resolvedParams.universityTag);
 
   if (!university.university_id) {
     notFound();
   }
 
-  const departments = await getDepartmentsByUniversityId(university.university_id);
+  const departments = await getDepartmentsCached(university.university_id);
   const department = departments.find(
     (d) => createDepartmentSlug(d.department_name).toLowerCase() === resolvedParams.departmentName.toLowerCase()
   );

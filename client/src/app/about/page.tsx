@@ -2,10 +2,12 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import React from 'react';
 import { Metadata } from 'next';
-import { generateMetadata, generateViewport, SEO_CONFIGS } from '@/lib/seo';
 
-export const metadata: Metadata = generateMetadata(SEO_CONFIGS.about);
-export const viewport = generateViewport();
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'Learn about Rate That Class - the platform helping students make informed course selection decisions through anonymous reviews.',
+  alternates: { canonical: '/about' },
+};
 
 export default function About() {
   return (
