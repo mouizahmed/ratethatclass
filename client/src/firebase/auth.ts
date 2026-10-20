@@ -6,7 +6,6 @@ import {
   signInWithCustomToken,
   User,
 } from 'firebase/auth';
-import axios from 'axios';
 import { registerAccount } from '@/requests/postRequests';
 
 export const isUserAdmin = async (user: User) => {
@@ -44,11 +43,6 @@ export const doRegistrationWithEmailPassword = async (email: string, password: s
 
 export const doForgotPassword = async (email: string) => {
   try {
-    await axios.get(`${process.env.NEXT_PUBLIC_URL}/user/email/${email}`).then((response) => {
-      if (response.data.length == 0) {
-        throw new Error('Account does not exist.');
-      }
-    });
     await sendPasswordResetEmail(auth, email);
   } catch (error) {
     console.log(error);

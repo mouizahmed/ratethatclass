@@ -142,8 +142,8 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
         ) : (
           <>
             <CardHeader>
-              <CardTitle className="text-2xl">Password Reset Email Link Sent!</CardTitle>
-              <CardDescription>Please check your email to reset your account.</CardDescription>
+              <CardTitle className="text-2xl">Check Your Email</CardTitle>
+              <CardDescription>If an account exists for that email, we&apos;ve sent a link to reset your password.</CardDescription>
             </CardHeader>
           </>
         )}
