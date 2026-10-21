@@ -2,6 +2,7 @@ import express from 'express';
 import { UniversityController } from '../controllers/universityController';
 import { UniversityService } from '../services/universityService';
 import { UniversityRepository } from '../repositories/universityRepository';
+import { universityRequestLimiter } from '../middleware/rateLimit';
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.get('/by-name/:name', universityController.getUniversityByName.bind(unive
 router.get('/by-id/:id', universityController.getUniversityById.bind(universityController));
 router.get('/domains', universityController.getUniversityDomains.bind(universityController));
 router.get('/requests', universityController.getRequestedUniversities.bind(universityController));
-router.put('/requests/:id/vote', universityController.upvoteRequestedUniversity.bind(universityController));
-router.post('/requests', universityController.requestUniversity.bind(universityController));
+router.put('/requests/:id/vote', universityRequestLimiter, universityController.upvoteRequestedUniversity.bind(universityController));
+router.post('/requests', universityRequestLimiter, universityController.requestUniversity.bind(universityController));
 
 export default router;

@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser';
 require('dotenv').config();
 
 const app: Application = express();
+// Render terminates requests at its proxy; trust it so req.ip (used by rate limiting) is the client's IP
+app.set('trust proxy', Number(process.env.TRUST_PROXY ?? 1));
 app.use(express.json());
 app.use(cookieParser());
 app.use(

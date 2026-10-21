@@ -2,6 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "start": "ts-node ./src/index.ts",
     "dev": "nodemon"
@@ -26,7 +29,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "firebase-admin": "^13.0.2",
+    "express-rate-limit": "^8.7.1",
+    "firebase-admin": "^14.5.0",
     "pg": "^8.13.1",
     "ts-dotenv": "^0.9.1",
     "uuid": "^11.0.5"

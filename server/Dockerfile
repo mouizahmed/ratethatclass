@@ -1,5 +1,5 @@
-# Use Node.js 20 as the base image
-FROM node:20
+# firebase-admin 14 requires Node.js 22+
+FROM node:24
 
 # Set working directory
 WORKDIR /app

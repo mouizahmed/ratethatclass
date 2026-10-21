@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import admin, { ServiceAccount } from 'firebase-admin';
+import { cert, initializeApp, ServiceAccount } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 
 const serviceAccount = {
@@ -16,8 +16,8 @@ const serviceAccount = {
   universe_domain: process.env.UNIVERSE_DOMAIN,
 };
 
-const app = admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount as ServiceAccount),
+const app = initializeApp({
+  credential: cert(serviceAccount as ServiceAccount),
   databaseURL: 'https://course-reviews-58532-default-rtdb.firebaseio.com',
 });
 const auth = getAuth(app);

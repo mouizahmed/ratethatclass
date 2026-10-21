@@ -3,6 +3,7 @@ import { ReviewController } from '../controllers/reviewController';
 import { ReviewService } from '../services/reviewService';
 import { validateToken, validateTokenGet, validateTokenOptional } from '../middleware/Auth';
 import { paginationMiddleware } from '../middleware/pagination';
+import { contentLimiter, ipWriteLimiter, voteLimiter } from '../middleware/rateLimit';
 
 const router = express.Router();
 
@@ -20,8 +21,8 @@ router.get(
   paginationMiddleware(),
   reviewController.getReviewsByCourseId.bind(reviewController)
 );
-router.post('/vote', validateToken, reviewController.vote.bind(reviewController));
-router.post('/', validateToken, reviewController.addReview.bind(reviewController));
+router.post('/vote', ipWriteLimiter, validateToken, voteLimiter, reviewController.vote.bind(reviewController));
+router.post('/', ipWriteLimiter, validateToken, contentLimiter, reviewController.addReview.bind(reviewController));
 router.delete('/:reviewId', validateToken, reviewController.deleteReview.bind(reviewController));
 
 export default router;

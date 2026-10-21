@@ -4,6 +4,7 @@ import { CourseService } from '../services/courseService';
 import { CourseRepository } from '../repositories/courseRepository';
 import { validateToken } from '../middleware/Auth';
 import { paginationMiddleware } from '../middleware/pagination';
+import { contentLimiter, ipWriteLimiter } from '../middleware/rateLimit';
 
 const router = express.Router();
 
@@ -22,6 +23,12 @@ router.get(
 router.get('/by-department-id/:departmentId', courseController.getCoursesByDepartmentId.bind(courseController));
 router.get('/by-id/:id', courseController.getCourseById.bind(courseController));
 router.get('/by-university-id/:universityId/by-tag/:courseTag', courseController.getCourseByTag.bind(courseController));
-router.post('/', validateToken, courseController.addCourseWithReview.bind(courseController));
+router.post(
+  '/',
+  ipWriteLimiter,
+  validateToken,
+  contentLimiter,
+  courseController.addCourseWithReview.bind(courseController)
+);
 
 export default router;
