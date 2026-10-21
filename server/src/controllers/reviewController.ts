@@ -50,6 +50,20 @@ export class ReviewController {
     }
   }
 
+  async getOwnedReviewIds(req: AuthenticatedRequest, res: Response) {
+    try {
+      const review_ids = req.query.review_ids as string;
+      if (!review_ids) {
+        throw new Error('review_ids must be provided');
+      }
+
+      const result = await this.reviewService.getOwnedReviewIds(req.user.uid, review_ids.split(','));
+      this.sendSuccessResponse(res, result, 'Owned reviews fetched successfully');
+    } catch (error) {
+      this.sendErrorResponse(res, error, error.message === 'review_ids must be provided' ? 400 : 500);
+    }
+  }
+
   async getReviewsByCourseId(req: AuthenticatedRequest, res: Response) {
     try {
       const { courseId } = req.params;

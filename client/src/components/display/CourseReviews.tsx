@@ -31,7 +31,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ReportDialog } from '@/components/dialogs/ReportDialog';
-import { getVoteStates } from '@/requests/getAuthenticatedRequests';
+import { getOwnedReviewIds, getVoteStates } from '@/requests/getAuthenticatedRequests';
 import { useDebounce } from '@/hooks/useDebounce';
 import { toastUtils } from '@/lib/toast-utils';
 
@@ -76,6 +76,8 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
   const [hasMore, setHasMore] = useState<boolean>(initialHasMore);
   const [showReportDialog, setShowReportDialog] = useState<boolean>(false);
   const [voteStates, setVoteStates] = useState<Record<string, 'up' | 'down' | undefined>>({});
+  // Reviews are fetched without auth, so which ones the viewer wrote comes from a separate authenticated call
+  const [ownedReviewIds, setOwnedReviewIds] = useState<Set<string>>(new Set());
 
   // Debounced filter states
   const debouncedProfessor = useDebounce(selectedProfessor, 300);
@@ -221,12 +223,13 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
       const reviewIds = reviewList.map((r) => r.review_id).filter((id): id is string => typeof id === 'string');
       if (reviewIds.length === 0) return;
       try {
-        const voteStatesArr = await getVoteStates(reviewIds);
+        const [voteStatesArr, ownedIds] = await Promise.all([getVoteStates(reviewIds), getOwnedReviewIds(reviewIds)]);
         const voteMap: Record<string, 'up' | 'down'> = {};
         voteStatesArr.forEach((v) => {
           voteMap[v.review_id] = v.vote;
         });
         setVoteStates(voteMap);
+        setOwnedReviewIds(new Set(ownedIds));
       } catch (e) {
         // Optionally handle error
         console.log(e);
@@ -425,6 +428,7 @@ function CourseReviewsContent({ course, initialReviews, initialHasMore, professo
                 key={review.review_id}
                 review={{
                   ...review,
+                  is_owner: review.is_owner || (!!review.review_id && ownedReviewIds.has(review.review_id)),
                   vote:
                     review.review_id && voteStates && voteStates[review.review_id]
                       ? (voteStates[review.review_id] as Vote)

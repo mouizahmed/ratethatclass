@@ -19,6 +19,8 @@ import {
   addUpvote,
   deleteUserReview,
   addAnonymousUser,
+  lockUserCourse,
+  findDuplicateReview,
 } from '../db/queries';
 import { toPublicReview } from '../helpers';
 
@@ -28,6 +30,64 @@ const REVIEW_SORT_COLUMNS = ['date_uploaded', 'votes', 'overall_score', 'easy_sc
 function orderBy(sortBy: string, sortOrder: string) {
   const column = REVIEW_SORT_COLUMNS.includes(sortBy) ? sortBy : 'date_uploaded';
   return ` ORDER BY reviews.${column} ${sortOrder === 'asc' ? 'ASC' : 'DESC'}`;
+}
+
+/**
+ * Adds a review (and its professor, if new) to a course inside the caller's transaction and returns its id.
+ * The same submission sometimes arrives twice at once, so this locks on user + course and returns the
+ * existing review when an identical one from the same user was already posted today.
+ */
+export async function insertReview(client: PoolClient, courseId: string, reviewData: Review, userId: string) {
+  await client.query(lockUserCourse, [userId, courseId]);
+
+  const professorName = reviewData.professor_name.trim();
+  const professor = await client.query(getProfessorID, [professorName, courseId]);
+  const professorId = professor.rows.length
+    ? professor.rows[0].professor_id
+    : (await client.query(addProfessor, [professorName, courseId])).rows[0].professor_id;
+
+  const courseComments = reviewData.course_comments?.trim() || '';
+  const professorComments = reviewData.professor_comments?.trim() || '';
+  const adviceComments = reviewData.advice_comments?.trim() || '';
+
+  const duplicate = await client.query(findDuplicateReview, [
+    userId,
+    courseId,
+    professorId,
+    reviewData.overall_score,
+    reviewData.easy_score,
+    reviewData.interest_score,
+    reviewData.useful_score,
+    courseComments,
+    professorComments,
+    adviceComments,
+  ]);
+  if (duplicate.rows.length) {
+    return duplicate.rows[0].review_id as string;
+  }
+
+  const review = await client.query(addReview, [
+    courseId,
+    professorId,
+    userId,
+    reviewData.grade,
+    reviewData.delivery_method,
+    reviewData.workload,
+    reviewData.textbook_use,
+    reviewData.evaluation_methods,
+    reviewData.overall_score,
+    reviewData.easy_score,
+    reviewData.interest_score,
+    reviewData.useful_score,
+    reviewData.term_taken,
+    reviewData.year_taken,
+    courseComments,
+    professorComments,
+    adviceComments,
+  ]);
+  const reviewId = review.rows[0].review_id as string;
+  await client.query(addUpvote, [userId, reviewId]);
+  return reviewId;
 }
 
 export class ReviewRepository {
@@ -63,6 +123,14 @@ export class ReviewRepository {
     );
 
     return result.rows;
+  }
+
+  async getOwnedReviewIds(userId: string, reviewIds: string[]): Promise<string[]> {
+    const result = await pool.query('SELECT review_id FROM reviews WHERE user_id = $1 AND review_id = ANY($2::uuid[])', [
+      userId,
+      reviewIds,
+    ]);
+    return result.rows.map((row) => row.review_id);
   }
 
   async getReviewsByCourseId(
@@ -171,46 +239,10 @@ export class ReviewRepository {
       // First ensure the user exists in the users table
       await client.query(addAnonymousUser, [userId]);
 
-      let professorID = '';
-      const professor = await client.query(getProfessorID, [
-        reviewData.professor_name.trim(),
-        reviewData.course_id.trim(),
-      ]);
-
-      if (!professor.rows.length) {
-        const newProfessor = await client.query(addProfessor, [
-          reviewData.professor_name.trim(),
-          reviewData.course_id.trim(),
-        ]);
-        professorID = newProfessor.rows[0].professor_id;
-      } else {
-        professorID = professor.rows[0].professor_id;
-      }
-
-      const review = await client.query(addReview, [
-        reviewData.course_id,
-        professorID,
-        userId,
-        reviewData.grade,
-        reviewData.delivery_method,
-        reviewData.workload,
-        reviewData.textbook_use,
-        reviewData.evaluation_methods,
-        reviewData.overall_score,
-        reviewData.easy_score,
-        reviewData.interest_score,
-        reviewData.useful_score,
-        reviewData.term_taken,
-        reviewData.year_taken,
-        reviewData.course_comments?.trim() || '',
-        reviewData.professor_comments?.trim() || '',
-        reviewData.advice_comments?.trim() || '',
-      ]);
-
-      await client.query(addUpvote, [userId, review.rows[0].review_id]);
+      const reviewId = await insertReview(client, reviewData.course_id, reviewData, userId);
       await client.query('COMMIT');
 
-      return { review_id: review.rows[0].review_id };
+      return { review_id: reviewId };
     } catch (error) {
       if (client) {
         await client.query('ROLLBACK');

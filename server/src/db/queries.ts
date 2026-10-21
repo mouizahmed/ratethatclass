@@ -701,6 +701,28 @@ VALUES
     ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, 1) RETURNING *
 `;
 
+// Serializes course creation per university + course tag for the rest of the transaction
+export const lockUniversityCourseTag = `SELECT pg_advisory_xact_lock(hashtext($1), hashtext(LOWER($2)))`;
+
+export const findCourseInUniversity = `
+SELECT courses.* FROM courses
+JOIN departments ON departments.department_id = courses.department_id
+WHERE departments.university_id = $1 AND LOWER(courses.course_tag) = LOWER($2)
+LIMIT 1
+`;
+
+// Serializes review creation per user + course for the rest of the transaction
+export const lockUserCourse = `SELECT pg_advisory_xact_lock(hashtext($1), hashtext($2))`;
+
+// An identical review from the same user posted today, i.e. a repeated submission
+export const findDuplicateReview = `
+SELECT review_id FROM reviews
+WHERE user_id = $1 AND course_id = $2 AND professor_id = $3 AND date_uploaded = CURRENT_DATE
+  AND overall_score = $4 AND easy_score = $5 AND interest_score = $6 AND useful_score = $7
+  AND course_comments = $8 AND professor_comments = $9 AND advice_comments = $10
+LIMIT 1
+`;
+
 export const addUpvote = `
 INSERT INTO
     user_votes (user_id, review_id, vote)

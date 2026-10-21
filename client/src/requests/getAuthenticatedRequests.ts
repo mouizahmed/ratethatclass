@@ -31,6 +31,22 @@ export async function getVoteStates(reviewIds: string[]): Promise<VoteState[]> {
   }
 }
 
+export async function getOwnedReviewIds(reviewIds: string[]): Promise<string[]> {
+  const idToken = await getIdToken();
+  try {
+    const response = await axios.get<ApiResponse<string[]>>(
+      `${process.env.NEXT_PUBLIC_URL}/review/owned?review_ids=${reviewIds.join(',')}`,
+      { ...getRequestConfig(idToken), timeout: API_TIMEOUT }
+    );
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Failed to retrieve owned reviews');
+    }
+    return response.data.data;
+  } catch (error) {
+    handleApiError(error, 'Failed to retrieve owned reviews');
+  }
+}
+
 export async function getUserPosts(
   setListOfReviews: React.Dispatch<React.SetStateAction<Review[]>>,
   page?: number,

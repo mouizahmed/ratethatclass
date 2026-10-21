@@ -245,7 +245,7 @@ export function ReviewCard({ review, preview, onDelete }: ReviewCardProps) {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuGroup>
-                  {review.is_owner ?? (!!currentUser && currentUser.uid === review.user_id) ? (
+                  {review.is_owner || (!!currentUser && currentUser.uid === review.user_id) ? (
                     <DropdownMenuItem onClick={() => setShowDeleteDialog(true)}>Delete</DropdownMenuItem>
                   ) : (
                     <DropdownMenuItem onClick={() => setShowReportDialog(true)}>Report</DropdownMenuItem>

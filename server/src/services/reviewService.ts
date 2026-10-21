@@ -17,6 +17,10 @@ export class ReviewService {
     return this.reviewRepository.getUserVotes(userId, reviewIds);
   }
 
+  async getOwnedReviewIds(userId: string, reviewIds: string[]) {
+    return this.reviewRepository.getOwnedReviewIds(userId, reviewIds);
+  }
+
   async getReviewsByCourseId(
     courseId: string,
     userId: string,

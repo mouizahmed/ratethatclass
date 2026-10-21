@@ -13,6 +13,7 @@ const reviewController = new ReviewController(reviewService);
 // Routes
 router.get('/', paginationMiddleware(), reviewController.getReviews.bind(reviewController));
 router.get('/votes', validateTokenGet, reviewController.getVotes.bind(reviewController));
+router.get('/owned', validateTokenGet, reviewController.getOwnedReviewIds.bind(reviewController));
 router.get(
   '/by-course-id/:courseId',
   validateTokenOptional,

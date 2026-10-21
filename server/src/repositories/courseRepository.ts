@@ -9,13 +9,13 @@ import {
   getCoursesByCourseTag,
   getDepartmentID,
   addDepartment,
-  addProfessor,
-  addReview,
-  addUpvote,
   getCoursesByUniversityIdCount,
   getCoursesCount,
   addAnonymousUser,
+  lockUniversityCourseTag,
+  findCourseInUniversity,
 } from '../db/queries';
+import { insertReview } from './reviewRepository';
 import { PoolClient } from 'pg';
 
 export class CourseRepository {
@@ -78,57 +78,27 @@ export class CourseRepository {
       // First ensure the user exists in the users table
       await client.query(addAnonymousUser, [userId]);
 
-      // Get or create department
-      let departmentId = '';
-      const department = await client.query(getDepartmentID, [courseData.department_name, courseData.university_id]);
+      const universityId = courseData.university_id.trim();
+      const courseTag = courseData.course_tag.trim();
 
-      if (!department.rows.length) {
-        const newDepartment = await client.query(addDepartment, [
-          courseData.department_name.trim(),
-          courseData.university_id.trim(),
-        ]);
-        departmentId = newDepartment.rows[0].department_id;
-      } else {
-        departmentId = department.rows[0].department_id;
+      // Two requests adding the same course at once (or a course that already exists) must not create a second copy
+      await client.query(lockUniversityCourseTag, [universityId, courseTag]);
+      let course = (await client.query(findCourseInUniversity, [universityId, courseTag])).rows[0] as Course | undefined;
+
+      if (!course) {
+        const departmentName = courseData.department_name.trim();
+        const department = await client.query(getDepartmentID, [departmentName, universityId]);
+        const departmentId = department.rows.length
+          ? department.rows[0].department_id
+          : (await client.query(addDepartment, [departmentName, universityId])).rows[0].department_id;
+
+        course = (await client.query(addCourse, [departmentId, courseTag, courseData.course_name])).rows[0] as Course;
       }
 
-      // Add course
-      const courseResult = await client.query(addCourse, [departmentId, courseData.course_tag, courseData.course_name]);
-      const course = courseResult.rows[0] as Course;
-
-      // Add professor if provided
-      let professorId = null;
-      if (reviewData.professor_name) {
-        const professorResult = await client.query(addProfessor, [reviewData.professor_name, course.course_id]);
-        professorId = professorResult.rows[0].professor_id;
-      }
-
-      // Add review
-      const reviewResult = await client.query(addReview, [
-        course.course_id,
-        professorId,
-        userId,
-        reviewData.grade,
-        reviewData.delivery_method,
-        reviewData.workload,
-        reviewData.textbook_use,
-        reviewData.evaluation_methods,
-        reviewData.overall_score,
-        reviewData.easy_score,
-        reviewData.interest_score,
-        reviewData.useful_score,
-        reviewData.term_taken,
-        reviewData.year_taken,
-        reviewData.course_comments,
-        reviewData.professor_comments,
-        reviewData.advice_comments,
-      ]);
-
-      // Add upvote
-      await client.query(addUpvote, [userId, reviewResult.rows[0].review_id]);
+      const reviewId = await insertReview(client, course.course_id as string, reviewData, userId);
 
       await client.query('COMMIT');
-      return { course, review: reviewResult.rows[0] };
+      return { course, review: { review_id: reviewId } };
     } catch (error) {
       await client.query('ROLLBACK');
       throw error;

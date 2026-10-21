@@ -35,6 +35,7 @@ export function DialogForm<T extends ZodObject<any>>({
   const { userLoggedIn, currentUser, banned, banReason, isAdmin, isOwner } = useAuth();
   const [open, setOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
 
   const methods = useForm({
     resolver: zodResolver(schema),
@@ -49,6 +50,9 @@ export function DialogForm<T extends ZodObject<any>>({
       if (currentStep < steps.length - 1) {
         setCurrentStep(currentStep + 1);
       } else {
+        // Ignore repeat clicks while the request is in flight so a review can't be posted twice
+        if (submitting) return;
+        setSubmitting(true);
         try {
           await methods.handleSubmit(onSubmit)();
           setOpen(false);
@@ -57,6 +61,8 @@ export function DialogForm<T extends ZodObject<any>>({
         } catch (error) {
           console.log(error);
           toastUtils.error('Submission failed', (error as Error).message);
+        } finally {
+          setSubmitting(false);
         }
       }
     }
@@ -85,7 +91,8 @@ export function DialogForm<T extends ZodObject<any>>({
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
       <DialogContent className="max-w-2xl w-full">
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
+          {/* Submission only goes through handleNext; pressing Enter in a field must not post the form */}
+          <form onSubmit={(e) => e.preventDefault()}>
             <DialogFormStep
               key={currentStep}
               title={steps[currentStep].title}
@@ -102,7 +109,9 @@ export function DialogForm<T extends ZodObject<any>>({
             <Button variant="outline" onClick={handlePrevious} disabled={currentStep === 0}>
               Previous
             </Button>
-            <Button onClick={handleNext}>{currentStep === steps.length - 1 ? 'Submit' : 'Next'}</Button>
+            <Button onClick={handleNext} disabled={submitting}>
+              {currentStep === steps.length - 1 ? (submitting ? 'Submitting...' : 'Submit') : 'Next'}
+            </Button>
           </div>
         </DialogFooter>
       </DialogContent>
