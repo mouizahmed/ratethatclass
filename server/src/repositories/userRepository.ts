@@ -7,6 +7,7 @@ import {
   getUserVotedReviewsCount,
 } from '../db/queries';
 import { Review, AccountType } from '../types';
+import { toPublicReview } from '../helpers';
 
 export class UserRepository {
   async addUser(userId: string, email: string, accountType: AccountType) {
@@ -15,7 +16,7 @@ export class UserRepository {
 
   async getUserReviews(userId: string, sortBy: string, sortOrder: string, limit: number, offset: number) {
     const result = await pool.query(getUserReviewsPaginated, [userId, sortBy, sortOrder.toUpperCase(), limit, offset]);
-    return result.rows as Review[];
+    return (result.rows as Review[]).map((review) => toPublicReview(review, userId));
   }
 
   async getUserReviewsCount(userId: string) {
@@ -39,7 +40,7 @@ export class UserRepository {
       limit,
       offset,
     ]);
-    return result.rows as Review[];
+    return (result.rows as Review[]).map((review) => toPublicReview(review, userId));
   }
 
   async getUserVotedReviewsCount(userId: string, voteType: 'up' | 'down') {

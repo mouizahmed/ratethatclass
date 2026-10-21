@@ -23,7 +23,6 @@ import { useRouter } from 'next/navigation';
 import { useDebounce } from '@/hooks/useDebounce';
 import { getCoursesByUniversityId } from '@/requests/getRequests';
 import { encodeCourseId } from '@/lib/url';
-import { AuthProvider } from '@/contexts/authContext';
 import { toastUtils } from '@/lib/toast-utils';
 
 interface CourseListProps {
@@ -36,28 +35,6 @@ interface CourseListProps {
 }
 
 export function CourseList({
-  initialCourses,
-  initialHasMore,
-  universityId,
-  universityName,
-  departmentList,
-  initialDepartment,
-}: CourseListProps) {
-  return (
-    <AuthProvider>
-      <CourseListContent
-        initialCourses={initialCourses}
-        initialHasMore={initialHasMore}
-        universityId={universityId}
-        universityName={universityName}
-        departmentList={departmentList}
-        initialDepartment={initialDepartment}
-      />
-    </AuthProvider>
-  );
-}
-
-function CourseListContent({
   initialCourses,
   initialHasMore,
   universityId,

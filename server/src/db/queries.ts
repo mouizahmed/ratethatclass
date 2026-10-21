@@ -830,7 +830,8 @@ UPDATE bans SET unbanned_at = NOW() WHERE user_id = $1 AND unbanned_at IS NULL R
 export const checkUniversityDomain = `
 SELECT EXISTS (
     SELECT 1 FROM universities 
-    WHERE $1 LIKE CONCAT('%@%', domain, '%')
+    WHERE LOWER(SPLIT_PART($1, '@', 2)) = LOWER(LTRIM(domain, '@'))
+       OR LOWER(SPLIT_PART($1, '@', 2)) LIKE '%.' || LOWER(LTRIM(domain, '@'))
 ) as domain_exists;
 `;
 

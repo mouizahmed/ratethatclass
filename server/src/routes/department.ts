@@ -11,6 +11,5 @@ router.get(
   departmentController.getDepartmentsByUniversityId.bind(departmentController)
 );
 router.get('/by-id/:id', departmentController.getDepartmentById.bind(departmentController));
-router.post('/', departmentController.addDepartment.bind(departmentController));
 
 export default router;

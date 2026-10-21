@@ -1,3 +1,7 @@
+# ARCHIVED (2026-10-20): Western's Academic Calendar (westerncalendar.uwo.ca) now serves a CAPTCHA to automated
+# browsers, so this scraper only gets partial data (8 departments on the last run) before being blocked. The site asks
+# anyone scanning the calendar programmatically to contact the Office of the Registrar. Don't work around the CAPTCHA;
+# get permission or an official data source from Western before reviving this.
 from typing import Dict, List
 import re
 from .base_scraper import BaseScraper, logger

@@ -90,7 +90,8 @@ export interface Review {
   department_name: string;
   university_id?: string;
   university_name: string;
-  user_id: string | null;
+  user_id?: string | null;
+  is_owner?: boolean;
   account_type?: AccountType;
   grade?: Grade;
   delivery_method?: Delivery;

@@ -32,7 +32,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ReportDialog } from '@/components/dialogs/ReportDialog';
 import { getVoteStates } from '@/requests/getAuthenticatedRequests';
-import { AuthProvider } from '@/contexts/authContext';
 import { useDebounce } from '@/hooks/useDebounce';
 import { toastUtils } from '@/lib/toast-utils';
 
@@ -49,14 +48,12 @@ export function CourseReviews({ course, initialReviews, initialHasMore, professo
   }
 
   return (
-    <AuthProvider>
-      <CourseReviewsContent
-        course={course}
-        initialReviews={initialReviews}
-        initialHasMore={initialHasMore}
-        professorList={professorList}
-      />
-    </AuthProvider>
+    <CourseReviewsContent
+      course={course}
+      initialReviews={initialReviews}
+      initialHasMore={initialHasMore}
+      professorList={professorList}
+    />
   );
 }
 

@@ -5,6 +5,7 @@ import Navbar from '@/components/display/Navbar';
 import { Toaster } from '@/components/ui/toaster';
 import Footer from '@/components/display/Footer';
 import AdSense from '@/components/adsense/AdSense';
+import { AuthProvider } from '@/contexts/authContext';
 import { OG_IMAGES, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/seo';
 
 const geistSans = Geist({
@@ -51,10 +52,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning={true}>
-        <Navbar />
-        <div className="min-h-screen">{children}</div>
-        <Toaster />
-        <Footer />
+        <AuthProvider>
+          <Navbar />
+          <div className="min-h-screen">{children}</div>
+          <Toaster />
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

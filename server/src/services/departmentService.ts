@@ -56,12 +56,4 @@ export class DepartmentService {
       meta: {},
     };
   }
-
-  async addDepartment(departmentName: string, universityId: string) {
-    await this.departmentRepository.addDepartment(departmentName, universityId);
-    return {
-      data: { department_name: departmentName, university_id: universityId },
-      meta: {},
-    };
-  }
 }

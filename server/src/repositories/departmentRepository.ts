@@ -4,7 +4,6 @@ import {
   getDepartmentsCount,
   getDepartmentByUniversityId,
   getDepartmentById,
-  addDepartment,
 } from '../db/queries';
 import { Department } from '../types';
 
@@ -33,9 +32,5 @@ export class DepartmentRepository {
   async getDepartmentById(id: string) {
     const result = await pool.query(getDepartmentById, [id]);
     return result.rows[0] as Department;
-  }
-
-  async addDepartment(departmentName: string, universityId: string) {
-    await pool.query(addDepartment, [departmentName.trim(), universityId]);
   }
 }

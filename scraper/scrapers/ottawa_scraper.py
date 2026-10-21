@@ -65,7 +65,7 @@ class OttawaScraper(BaseScraper):
                 
                 for block in course_blocks:
                     try:
-                        title_element = block.find('p', class_='courseblocktitle')
+                        title_element = block.find(class_='courseblocktitle')
                         
                         if title_element:
                             full_text = title_element.text.strip()

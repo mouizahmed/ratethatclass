@@ -66,19 +66,4 @@ export class DepartmentController {
       this.sendErrorResponse(res, error);
     }
   }
-
-  async addDepartment(req: Request, res: Response) {
-    try {
-      const { department_name, university_id } = req.body;
-
-      if (!department_name || !university_id) {
-        throw new Error('Please enter a department name and the university ID it belongs to.');
-      }
-
-      const result = await this.departmentService.addDepartment(department_name, university_id);
-      this.sendSuccessResponse(res, result, `Department '${department_name}' successfully added`);
-    } catch (error) {
-      this.sendErrorResponse(res, error);
-    }
-  }
 }

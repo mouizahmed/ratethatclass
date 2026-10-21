@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import psycopg2
 from scrapers import (
     CarletonUScraper,
     OttawaScraper,
@@ -20,7 +21,7 @@ from database import DatabaseManager
 
 logger = setup_logger(__name__)
 
-def run_scraping():
+def run_scraping(headless: bool):
     scrapers = [
         WaterlooScraper,
         CarletonUScraper,
@@ -42,7 +43,7 @@ def run_scraping():
     
     for i, scraper in enumerate(scrapers, 1):
         logger.info(f"Running scraper {i}/{len(scrapers)}: {scraper.__name__}")
-        university_name, result = run_scraper(scraper, headless=False)
+        university_name, result = run_scraper(scraper, headless=headless)
         if university_name:
             results[university_name] = result
             logger.info(f"[SUCCESS] Completed {scraper.__name__} - Data saved to JSON")
@@ -65,8 +66,8 @@ def run_database_import():
             else:
                 logger.error("Database import failed")
             return success
-    except ValueError as e:
-        logger.error(str(e))
+    except (ValueError, psycopg2.OperationalError) as e:
+        logger.error(f"Database import failed: {e}")
         return False
 
 def main():
@@ -76,6 +77,8 @@ def main():
                            'scrape-and-store: Run scrapers and store data in database\n'
                            'scrape-only: Run scrapers and save to JSON files\n'
                            'store-json: Import existing JSON files into database')
+    parser.add_argument('--headed', action='store_true',
+                      help='Show the Chrome window instead of running headless (needs a display)')
     
     args = parser.parse_args()
     success = True
@@ -83,7 +86,7 @@ def main():
 # Execute requested operations
     if args.command in ['scrape-and-store', 'scrape-only']:
         logger.info("Starting scraping process")
-        results = run_scraping()
+        results = run_scraping(headless=not args.headed)
         success = success and bool(results)
     
     if args.command in ['scrape-and-store', 'store-json']:

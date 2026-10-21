@@ -11,21 +11,13 @@ import {
   SheetClose,
 } from '@/components/ui/sheet';
 import { BadgeCheck, User } from 'lucide-react';
-import { AuthProvider, useAuth } from '@/contexts/authContext';
+import { useAuth } from '@/contexts/authContext';
 import { doSignOut } from '@/firebase/auth';
 import { JSX, SVGProps } from 'react';
 import { BadgeX } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function Navbar() {
-  return (
-    <AuthProvider>
-      <NavbarInner />
-    </AuthProvider>
-  );
-}
-
-function NavbarInner() {
   const { currentUser, userLoggedIn, loading, isAdmin, isOwner } = useAuth();
 
   const signOut = async () => {

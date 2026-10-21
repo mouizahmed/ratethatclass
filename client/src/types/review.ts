@@ -11,6 +11,7 @@ export interface Review {
   university_id?: string;
   university_name?: string;
   user_id?: string | null;
+  is_owner?: boolean;
   account_type?: AccountType;
   grade: Grade | null;
   delivery_method?: Delivery;

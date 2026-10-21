@@ -70,7 +70,8 @@ export class AdminService {
 
   async banUser(userId: string, banReason: string, adminId: string): Promise<void> {
     await this.adminRepository.banUser(userId, banReason, adminId);
-    await auth.setCustomUserClaims(userId, { banned: true, ban_reason: banReason });
+    const { customClaims } = await auth.getUser(userId);
+    await auth.setCustomUserClaims(userId, { ...customClaims, banned: true, ban_reason: banReason });
   }
 
   async getBannedUsers(page: number, limit: number): Promise<{ users: any[]; total: number; totalPages: number }> {
@@ -85,7 +86,8 @@ export class AdminService {
 
   async unbanUser(userId: string): Promise<void> {
     await this.adminRepository.unbanUser(userId);
-    await auth.setCustomUserClaims(userId, { banned: false, ban_reason: null });
+    const { customClaims } = await auth.getUser(userId);
+    await auth.setCustomUserClaims(userId, { ...customClaims, banned: false, ban_reason: null });
   }
 
   async getAllAdmins(): Promise<any[]> {

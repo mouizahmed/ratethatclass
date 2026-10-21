@@ -109,10 +109,8 @@ rate-that-class/
 
 - **Language**: Python
 - **Web Scraping**: Selenium WebDriver + BeautifulSoup4
-- **Data Storage**: JSON + PostgreSQL with ThreadedConnectionPool
-- **Logging**: Thread-safe Python Logger with context-managed locks
-- **Browser Automation**: Chrome WebDriver
-- **Concurrency**: Multi-threading with ThreadPoolExecutor + Lock-based synchronization
+- **Data Storage**: JSON files, imported into PostgreSQL (psycopg2) in one transaction per university
+- **Browser Automation**: Headless Chrome WebDriver
 
 ## Infrastructure
 
@@ -192,53 +190,40 @@ DB_HOST=
 DB_PORT=
 ```
 
-These variables must be set with your database connection details for the scraper to function correctly.
-
-**Note:** If you are running the scraper as part of the full application stack using `docker-compose` (i.e., alongside the database and other services), ensure that the environment variable values for the scraper match those defined in the `database` service configuration in your `docker-compose.yml`. This ensures the scraper can connect to the correct database instance within the Docker network.
-
-For example, if your `docker-compose.yml` database service is configured as follows:
-
-```yaml
-db:
-  image: postgres:15
-  environment:
-    POSTGRES_DB: ratethatclass
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: postgres
-  ports:
-    - '5432:5432'
-```
-
-Then your scraper environment variables should be:
+To use the database from `docker-compose.yml`, use the values from its `postgres` service. `DB_HOST` is the service name, which works because the commands below join the compose network:
 
 ```
 DB_NAME=ratethatclass
 DB_USER=postgres
-DB_PASS=postgres
+DB_PASSWORD=postgres
 DB_HOST=postgres
 DB_PORT=5432
 ```
 
+For a hosted database (e.g. Supabase), use its connection details instead and drop the `--network` flag below.
+
+Run these commands from the `scraper/` directory, with the `.env` file there too:
+
 1. Build the scraper:
 
    ```bash
-   docker build -t course-reviews-scraper ./scraper
+   docker build -t course-reviews-scraper .
    ```
 
-2. Run the scraper with different commands:
+2. Start the database if it isn't already running (`docker-compose up -d postgres` from the repo root), then run one of:
 
    ```bash
    # Scrape and store data in database
-   docker run -v ${PWD}/scraped_data:/app/scraped_data -v ${PWD}/logs:/app/logs --env-file .env course-reviews-scraper scrape-and-store
+   docker run --network ratethatclass_default -v ${PWD}/scraped_data:/app/scraped_data -v ${PWD}/logs:/app/logs --env-file .env course-reviews-scraper scrape-and-store
 
    # Scrape only (saves to JSON files)
    docker run -v ${PWD}/scraped_data:/app/scraped_data -v ${PWD}/logs:/app/logs --env-file .env course-reviews-scraper scrape-only
 
    # Import existing JSON files into database
-   docker run -v ${PWD}/scraped_data:/app/scraped_data -v ${PWD}/logs:/app/logs --env-file .env course-reviews-scraper store-json
+   docker run --network ratethatclass_default -v ${PWD}/scraped_data:/app/scraped_data -v ${PWD}/logs:/app/logs --env-file .env course-reviews-scraper store-json
    ```
 
-   Note: Make sure you have a `.env` file in your scraper directory with the necessary database credentials.
+   Chrome runs headless by default. When running outside Docker, add `--headed` to watch the browser (e.g. `python main.py scrape-only --headed`).
 
 # License
 

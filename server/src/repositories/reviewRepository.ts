@@ -20,14 +20,21 @@ import {
   deleteUserReview,
   addAnonymousUser,
 } from '../db/queries';
+import { toPublicReview } from '../helpers';
+
+// Only these columns may be interpolated into ORDER BY; anything else falls back to the default
+const REVIEW_SORT_COLUMNS = ['date_uploaded', 'votes', 'overall_score', 'easy_score', 'useful_score'];
+
+function orderBy(sortBy: string, sortOrder: string) {
+  const column = REVIEW_SORT_COLUMNS.includes(sortBy) ? sortBy : 'date_uploaded';
+  return ` ORDER BY reviews.${column} ${sortOrder === 'asc' ? 'ASC' : 'DESC'}`;
+}
 
 export class ReviewRepository {
   async getReviewsPaginated(page: number, limit: number, search: string | null, sortBy: string, sortOrder: string) {
     const offset = (page - 1) * limit;
 
-    const queryText = `${getReviewsPaginated} ORDER BY reviews.${sortBy} ${
-      sortOrder === 'asc' ? 'ASC' : 'DESC'
-    } LIMIT $1 OFFSET $2`;
+    const queryText = `${getReviewsPaginated}${orderBy(sortBy, sortOrder)} LIMIT $1 OFFSET $2`;
     const result = await pool.query(queryText, [limit, offset, search]);
 
     const countResult = await pool.query(getReviewsCount, [search]);
@@ -35,7 +42,7 @@ export class ReviewRepository {
     const totalPages = Math.ceil(totalItems / limit);
 
     return {
-      data: result.rows as Review[],
+      data: (result.rows as Review[]).map((review) => toPublicReview(review)),
       meta: {
         current_page: page,
         page_size: limit,
@@ -100,14 +107,14 @@ export class ReviewRepository {
     const totalItems = parseInt(countResult.rows[0].count, 10);
     const totalPages = Math.ceil(totalItems / limit);
 
-    queryText += ` ORDER BY reviews.${sortBy} ${sortOrder === 'asc' ? 'ASC' : 'DESC'}`;
+    queryText += orderBy(sortBy, sortOrder);
     queryText += ` LIMIT $${paramCounter} OFFSET $${paramCounter + 1}`;
     queryParams.push(limit.toString(), offset.toString());
 
     const result = await pool.query(queryText, queryParams);
 
     return {
-      data: result.rows as Review[],
+      data: (result.rows as Review[]).map((review) => toPublicReview(review, userId)),
       meta: {
         current_page: page,
         page_size: limit,

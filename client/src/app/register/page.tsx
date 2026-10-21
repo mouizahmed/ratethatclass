@@ -1,5 +1,4 @@
 import React from 'react';
-import { AuthProvider } from '@/contexts/authContext';
 import { Metadata } from 'next';
 import { noIndex } from '@/lib/seo';
 import RegisterPageClient from './RegisterPageClient';
@@ -11,9 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <AuthProvider>
-      <RegisterPageClient />
-    </AuthProvider>
-  );
+  return <RegisterPageClient />;
 }
