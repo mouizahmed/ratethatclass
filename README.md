@@ -4,6 +4,9 @@
 <h1 align="center">
     Rate That Class
 </h1>
+<p align="center">
+    <a href="https://github.com/mouizahmed/ratethatclass/actions/workflows/server-tests.yml"><img alt="Server tests" src="https://github.com/mouizahmed/ratethatclass/actions/workflows/server-tests.yml/badge.svg" /></a>
+</p>
 
 A web application that allows users to anonymously create course reviews for their respective post-secondary schools and ease their struggles within the course selection process.
 
@@ -92,7 +95,7 @@ rate-that-class/
 
 ## Frontend
 
-- **Framework**: Next.js 15.1.3 (React)
+- **Framework**: Next.js 15.5.28 (React)
 - **Styling**: Tailwind CSS + shadcn/ui components
 - **Authentication**: Firebase Auth
 - **Language**: TypeScript
@@ -173,6 +176,21 @@ This application is designed to run with Firebase and cannot be run locally due 
    # Start the application
    docker-compose up -d
    ```
+
+## Running Tests
+
+The server has integration tests (Vitest + Supertest) for authentication, admin-only routes, reviewer anonymity, SQL injection in sorting, rate limits, and duplicate submissions. They run against a real PostgreSQL database built from `init-db/init-db.sql`, with Firebase Auth replaced by a fake, and run on every push in GitHub Actions.
+
+```bash
+# Start a throwaway PostgreSQL
+docker run -d --name ratethatclass-test-db -e POSTGRES_PASSWORD=postgres -p 55432:5432 postgres:15
+
+# Run the tests (creates and resets the ratethatclass_test database)
+cd server
+npm test
+```
+
+The database settings can be overridden with `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASS` and `DB_NAME`. The tests refuse to run unless the database name ends in `_test`, because they delete everything in it.
 
 ## Scraper Usage
 

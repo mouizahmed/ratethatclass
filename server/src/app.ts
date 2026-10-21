@@ -1,0 +1,52 @@
+import express, { Request, Response, Application } from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+require('dotenv').config();
+
+const app: Application = express();
+// Render terminates requests at its proxy; trust it so req.ip (used by rate limiting) is the client's IP
+app.set('trust proxy', Number(process.env.TRUST_PROXY ?? 1));
+app.use(express.json());
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: ['https://www.ratethatclass.com', 'https://ratethatclass.com', 'http://localhost:3000'],
+    credentials: true,
+    // optionSuccessStatus: 200,
+  })
+);
+
+app.get('/health', (req: Request, res: Response) => {
+  res.json({
+    success: true,
+    message: 'Server is healthy',
+    data: {},
+    meta: {},
+  });
+});
+
+import universityRouter from './routes/university';
+app.use('/university', universityRouter);
+
+import departmentRouter from './routes/department';
+app.use('/department', departmentRouter);
+
+import courseRouter from './routes/course';
+app.use('/course', courseRouter);
+
+import reviewRouter from './routes/review';
+app.use('/review', reviewRouter);
+
+import professorRouter from './routes/professor';
+app.use('/professor', professorRouter);
+
+import userRouter from './routes/user';
+app.use('/user', userRouter);
+
+import reportRouter from './routes/report';
+app.use('/report', reportRouter);
+
+import adminRouter from './routes/admin';
+app.use('/admin', adminRouter);
+
+export default app;

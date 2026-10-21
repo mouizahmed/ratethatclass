@@ -99,7 +99,6 @@ CREATE TYPE accounttype AS ENUM (
 -- Base tables with no dependencies
 CREATE TABLE public.users (
   user_id character varying NOT NULL DEFAULT ''::character varying,
-  display_name text,
   email text UNIQUE,
   registration_date date DEFAULT CURRENT_DATE,
   account_type accounttype NOT NULL DEFAULT 'anonymous'::accounttype,
@@ -127,7 +126,8 @@ CREATE TABLE public.departments (
   department_name text NOT NULL,
   university_id uuid NOT NULL,
   CONSTRAINT departments_pkey PRIMARY KEY (department_id),
-  CONSTRAINT departments_university_id_fkey FOREIGN KEY (university_id) REFERENCES public.universities(university_id)
+  CONSTRAINT departments_department_name_university_id_key UNIQUE (department_name, university_id),
+  CONSTRAINT departments_university_id_fkey FOREIGN KEY (university_id) REFERENCES public.universities(university_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE public.user_university_requests (
@@ -145,8 +145,8 @@ CREATE TABLE public.bans (
   ban_reason text,
   banned_by character varying NOT NULL,
   CONSTRAINT bans_pkey PRIMARY KEY (ban_id),
-  CONSTRAINT bans_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id),
-  CONSTRAINT bans_banned_by_fkey FOREIGN KEY (banned_by) REFERENCES public.users(user_id)
+  CONSTRAINT bans_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT bans_banned_by_fkey FOREIGN KEY (banned_by) REFERENCES public.users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE public.reports (
@@ -158,7 +158,7 @@ CREATE TABLE public.reports (
   report_date date DEFAULT CURRENT_DATE,
   status reportstatus DEFAULT 'pending'::reportstatus,
   CONSTRAINT reports_pkey PRIMARY KEY (report_id),
-  CONSTRAINT reports_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id)
+  CONSTRAINT reports_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- Tables with multi-level dependencies
@@ -168,7 +168,8 @@ CREATE TABLE public.courses (
   course_tag text NOT NULL,
   course_name text NOT NULL,
   CONSTRAINT courses_pkey PRIMARY KEY (course_id),
-  CONSTRAINT courses_department_id_fkey FOREIGN KEY (department_id) REFERENCES public.departments(department_id)
+  CONSTRAINT courses_course_tag_department_id_key UNIQUE (course_tag, department_id),
+  CONSTRAINT courses_department_id_fkey FOREIGN KEY (department_id) REFERENCES public.departments(department_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE public.professors (
@@ -176,7 +177,8 @@ CREATE TABLE public.professors (
   course_id uuid NOT NULL,
   professor_name text NOT NULL,
   CONSTRAINT professors_pkey PRIMARY KEY (professor_id),
-  CONSTRAINT professors_course_id_fkey FOREIGN KEY (course_id) REFERENCES public.courses(course_id)
+  CONSTRAINT professors_professor_id_course_id_key UNIQUE (professor_id, course_id),
+  CONSTRAINT professors_course_id_fkey FOREIGN KEY (course_id) REFERENCES public.courses(course_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- Tables with the most dependencies (created last)
@@ -184,7 +186,7 @@ CREATE TABLE public.reviews (
   review_id uuid NOT NULL DEFAULT uuid_generate_v4(),
   course_id uuid NOT NULL,
   professor_id uuid NOT NULL,
-  user_id character varying NOT NULL,
+  user_id character varying,
   grade grade,
   delivery_method deliverymethod,
   workload workload,
@@ -202,9 +204,9 @@ CREATE TABLE public.reviews (
   professor_comments text,
   advice_comments text,
   CONSTRAINT reviews_pkey PRIMARY KEY (review_id),
-  CONSTRAINT reviews_course_id_fkey FOREIGN KEY (course_id) REFERENCES public.courses(course_id),
-  CONSTRAINT reviews_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id),
-  CONSTRAINT reviews_professor_id_fkey FOREIGN KEY (professor_id) REFERENCES public.professors(professor_id)
+  CONSTRAINT reviews_course_id_fkey FOREIGN KEY (course_id) REFERENCES public.courses(course_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT reviews_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT reviews_professor_id_fkey FOREIGN KEY (professor_id) REFERENCES public.professors(professor_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE public.user_votes (
@@ -213,6 +215,7 @@ CREATE TABLE public.user_votes (
   review_id uuid NOT NULL,
   vote vote,
   CONSTRAINT user_votes_pkey PRIMARY KEY (vote_id),
-  CONSTRAINT user_votes_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id),
-  CONSTRAINT user_votes_review_id_fkey FOREIGN KEY (review_id) REFERENCES public.reviews(review_id)
+  CONSTRAINT user_votes_user_id_review_id_key UNIQUE (user_id, review_id),
+  CONSTRAINT user_votes_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT user_votes_review_id_fkey FOREIGN KEY (review_id) REFERENCES public.reviews(review_id) ON UPDATE CASCADE ON DELETE CASCADE
 );

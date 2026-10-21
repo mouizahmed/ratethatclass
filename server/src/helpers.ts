@@ -1,4 +1,4 @@
-import { AuthenticatedRequest, Review } from 'types';
+import type { AuthenticatedRequest, Review } from './types';
 import { validate } from 'uuid';
 
 export const validateUUID = (input: string): void => {
