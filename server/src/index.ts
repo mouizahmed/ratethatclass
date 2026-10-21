@@ -1,6 +1,5 @@
 import express, { Request, Response, Application } from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 require('dotenv').config();
 
@@ -16,7 +15,6 @@ app.use(
     // optionSuccessStatus: 200,
   })
 );
-app.use(bodyParser.json());
 
 app.get('/health', (req: Request, res: Response) => {
   res.json({
